@@ -8,16 +8,24 @@ Repository lưu trữ toàn bộ tài liệu học tập, đề cương ôn thi 
 
 Hệ thống tài liệu được biên soạn và phân chia thành các chuyên đề chi tiết trong thư mục [`doc/`](./doc/):
 
-| Chuyên Đề | File Tài Liệu | Tóm Tắt Nội Dung |
-| :--- | :--- | :--- |
-| **Tổng quan** | [`De_Muc_On_Tap_Chuong_2.md`](./De_Muc_On_Tap_Chuong_2.md) | Đề cương toàn diện tổng hợp từ 5 bài giảng PDF Chương 2. |
-| **Mục lục** | [`doc/README.md`](./doc/README.md) | Bản đồ lộ trình học tập và hướng dẫn ôn tập. |
-| **Chuyên đề 01** | [`doc/01_HTML_Co_Ban.md`](./doc/01_HTML_Co_Ban.md) | HTML cấu trúc trang, thẻ định dạng văn bản, danh sách, liên kết, bảng biểu, Form & Controls. |
-| **Chuyên đề 02** | [`doc/02_HTML5_Nang_Cao.md`](./doc/02_HTML5_Nang_Cao.md) | Thẻ ngữ nghĩa Semantic Tags, Form HTML5 validation, Canvas 2D vs SVG, Audio/Video, Web Storage. |
-| **Chuyên đề 03** | [`doc/03_CSS_Co_Ban_Box_Model.md`](./doc/03_CSS_Co_Ban_Box_Model.md) | Cú pháp CSS, Độ ưu tiên Specificity, Bộ chọn, Pseudo-classes/elements, CSS Box Model, Positioning. |
-| **Chuyên đề 04** | [`doc/04_CSS3_Nang_Cao_Effects_Animation.md`](./doc/04_CSS3_Nang_Cao_Effects_Animation.md) | Màu RGBA/HSLA, Bo góc, Đổ bóng, Gradient, Transform 2D/3D, Transition, Animation `@keyframes`, Box-sizing. |
-| **Chuyên đề 05** | [`doc/05_Bootstrap_Responsive_Design.md`](./doc/05_Bootstrap_Responsive_Design.md) | Framework Bootstrap, So sánh Bootstrap 4 vs 5, Breakpoints, Grid 12 cột, Components, Navbar responsive. |
-| **Chuyên đề 06** | [`doc/06_Tong_Hop_Cau_Hoi_On_Thi.md`](./doc/06_Tong_Hop_Cau_Hoi_On_Thi.md) | Ngân hàng câu hỏi trắc nghiệm có giải thích, bài tập tự luận code mẫu và mẹo tránh bẫy khi làm bài thi. |
+### 🌐 Phần I: Công Nghệ Web Phía Client (Chương 2)
+- [`De_Muc_On_Tap_Chuong_2.md`](./De_Muc_On_Tap_Chuong_2.md): Đề cương tổng hợp toàn diện Chương 2.
+- [`doc/01_HTML_Co_Ban.md`](./doc/01_HTML_Co_Ban.md): HTML cấu trúc trang, thẻ định dạng văn bản, danh sách, liên kết, bảng biểu, Form & Controls.
+- [`doc/02_HTML5_Nang_Cao.md`](./doc/02_HTML5_Nang_Cao.md): Thẻ ngữ nghĩa Semantic Tags, Form HTML5 validation, Canvas 2D vs SVG, Audio/Video, Web Storage.
+- [`doc/03_CSS_Co_Ban_Box_Model.md`](./doc/03_CSS_Co_Ban_Box_Model.md): Cú pháp CSS, Độ ưu tiên Specificity, Bộ chọn, Pseudo-classes/elements, CSS Box Model, Positioning.
+- [`doc/04_CSS3_Nang_Cao_Effects_Animation.md`](./doc/04_CSS3_Nang_Cao_Effects_Animation.md): Màu RGBA/HSLA, Bo góc, Đổ bóng, Gradient, Transform 2D/3D, Transition, Animation `@keyframes`, Box-sizing.
+- [`doc/05_Bootstrap_Responsive_Design.md`](./doc/05_Bootstrap_Responsive_Design.md): Framework Bootstrap, So sánh Bootstrap 4 vs 5, Breakpoints, Grid 12 cột, Components, Navbar responsive.
+- [`doc/06_Tong_Hop_Cau_Hoi_On_Thi.md`](./doc/06_Tong_Hop_Cau_Hoi_On_Thi.md): Ngân hàng câu hỏi trắc nghiệm có giải thích, bài tập tự luận code mẫu và mẹo tránh bẫy Chương 2.
+
+### ⚡ Phần II: Lập Trình Phía Client - JavaScript & jQuery (Chương 3)
+- [`De_Muc_On_Tap_Chuong_3.md`](./De_Muc_On_Tap_Chuong_3.md): Đề cương tổng hợp toàn diện Chương 3.
+- [`doc/07_JavaScript_Co_Ban_Cu_Phap_Kieu_Du_Lieu.md`](./doc/07_JavaScript_Co_Ban_Cu_Phap_Kieu_Du_Lieu.md): Java vs JS, `var`/`let`/`const`, Hoisting, Dynamic typing, Type coercion, `null`/`undefined`/`NaN`, `??`, `??=`, `eval()`.
+- [`doc/08_JavaScript_DOM_Event_Handling.md`](./doc/08_JavaScript_DOM_Event_Handling.md): BOM & Cây DOM, truy xuất phần tử, `innerHTML` vs `textContent`, Dynamic Table, Event Bubbling & Capturing, `preventDefault()`.
+- [`doc/09_JavaScript_Bat_Dong_Bo_ES6_Regex.md`](./doc/09_JavaScript_Bat_Dong_Bo_ES6_Regex.md): Event Loop, Callback Hell, Promise, `async`/`await`, ES6+ (Arrow functions, Destructuring, Spread/Rest), Biểu thức chính quy (Regex) kiểm tra Form.
+- [`doc/10_jQuery_Co_Ban_Selector_DOM_Effects.md`](./doc/10_jQuery_Co_Ban_Selector_DOM_Effects.md): Thư viện jQuery, `$(document).ready()` vs `window.onload`, Selectors (`:even`, `:odd`, `:eq`), Thao tác DOM, Event Delegation `.on()`, Hiệu ứng Fade & Slide, Chaining.
+- [`doc/11_Tong_Hop_Cau_Hoi_On_Thi_Chuong_3.md`](./doc/11_Tong_Hop_Cau_Hoi_On_Thi_Chuong_3.md): Bảng so sánh tổng hợp, ngân hàng câu hỏi trắc nghiệm chọn lọc, bài tập Dynamic Table & Tab menu jQuery, mẹo tránh bẫy Chương 3.
+
+👉 Xem chi tiết bản đồ lộ trình học tại: **[`doc/README.md`](./doc/README.md)**
 
 ---
 
@@ -25,3 +33,5 @@ Hệ thống tài liệu được biên soạn và phân chia thành các chuyê
 - **HTML / HTML5**: Cấu trúc chuẩn W3C, thẻ ngữ nghĩa Semantic, Web Storage API.
 - **CSS / CSS3**: Flexbox, Box Model, Responsive, CSS Animations.
 - **Bootstrap 5**: Mobile-first framework, Grid system 12 cột, Vanilla JavaScript.
+- **JavaScript (ES6+)**: Xử lý DOM, Bất đồng bộ Promise/Async-Await, Regular Expressions (Regex).
+- **jQuery 3.x**: Tương tác DOM nhanh, xử lý sự kiện ủy quyền, hiệu ứng Animation.
