@@ -4,6 +4,13 @@
 
 ---
 
+## 🎯 DÀNH RIÊNG CHO ÔN THI GIỮA KỲ (VIẾT CODE THỰC CHIẾN)
+👉 **Xem cẩm nang luyện thi code giữa kỳ đặc biệt tại:**  
+### 🌟 [`doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md`](./Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md)
+*(Bao gồm: Khung sườn template HTML+CSS+JS+jQuery chuẩn phòng thi, 4 dạng bài tập code thực hành kinh điển có giải mẫu chi tiết: Form Regex, Thực đơn tính tiền đêm +10%, Giỏ hàng động tự tính tiền khi đổi số lượng & xóa dòng, Đồng hồ hệ thống & Bàn ăn).*
+
+---
+
 ## 📌 Danh Sách Các Chuyên Đề Ôn Tập
 
 Hệ thống tài liệu được biên soạn và phân chia thành các chuyên đề chi tiết từ cơ bản đến nâng cao, bám sát toàn bộ slide bài giảng của khoa, kèm bảng so sánh, ví dụ minh họa và đề thi mẫu:
@@ -54,11 +61,17 @@ flowchart TD
         J --> K["11. Luyện đề thi Chương 3"]
     end
 
-    F --> G
+    subgraph Midterm ["🎯 ÔN THI GIỮA KỲ THỰC CHIẾN"]
+        MID["Cẩm Nang Ôn Thi Giữa Kỳ: HTML + CSS + JS + jQuery"]
+    end
+
+    F --> MID
+    K --> MID
 ```
 
 ---
 
 ## 💡 Tài Liệu Tóm Tắt Nhanh Tại Thư Mục Gốc
+- [`De_Cuong_On_Thi_Giua_Ky.md`](../De_Cuong_On_Thi_Giua_Ky.md): **Đề cương & Cẩm nang ôn thi giữa kỳ viết code thực chiến**.
 - [`De_Muc_On_Tap_Chuong_2.md`](../De_Muc_On_Tap_Chuong_2.md): Tóm tắt đề mục Chương 2 (HTML/CSS/Bootstrap).
 - [`De_Muc_On_Tap_Chuong_3.md`](../De_Muc_On_Tap_Chuong_3.md): Tóm tắt đề mục Chương 3 (JavaScript & jQuery).

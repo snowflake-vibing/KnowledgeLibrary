@@ -4,7 +4,18 @@ Repository lưu trữ toàn bộ tài liệu học tập, đề cương ôn thi 
 
 ---
 
-## 📚 Cấu Trúc Tài Liệu Ôn Tập
+## 🎯 ĐỀ CƯƠNG & CẨM NANG ÔN THI GIỮA KỲ (THỰC CHIẾN)
+> Dành riêng cho kỳ thi **Ghi code trực tiếp trang web sử dụng HTML + CSS + JavaScript + jQuery**:
+
+👉 **Xem ngay:** **[`De_Cuong_On_Thi_Giua_Ky.md`](./De_Cuong_On_Thi_Giua_Ky.md)** và **[`doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md`](./doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md)**  
+Bao gồm:
+- **Khung template code mẫu** sẵn sàng vào phòng thi.
+- **4 Dạng bài tập code kinh điển nhất tại UIT** (Form Validation Regex, Thực đơn tính tiền đêm +10%, Giỏ hàng động tự tính tiền khi đổi số lượng & xóa dòng, Đồng hồ hệ thống & Chọn món theo bàn).
+- **Checklist 5 sai lầm phổ biến** khiến sinh viên mất điểm đáng tiếc (quên `e.preventDefault()`, lỗi cộng chuỗi thay vì số, DOM chưa load xong, nút xóa sinh động không nhận click).
+
+---
+
+## 📚 Cấu Trúc Toàn Bộ Chuyên Đề Ôn Tập
 
 Hệ thống tài liệu được biên soạn và phân chia thành các chuyên đề chi tiết trong thư mục [`doc/`](./doc/):
 
