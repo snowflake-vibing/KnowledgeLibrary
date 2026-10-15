@@ -60,7 +60,7 @@ $$\hat{y} = \arg\max_{k \in \{1,\dots,K\}} f_k(x), \qquad f_k(x) = \sigma(\beta_
 ### Công thức
 Giả sử có $K$ lớp với vector logit $z = [z_1, z_2, \dots, z_K]$, trong đó $z_k = \beta_k^T x$ là logit của lớp $k$. Xác suất của lớp $k$:
 
-$$p(class = k \mid X; \beta) = \mathrm{softmax}(z_k) = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}} \tag{25}$$
+$$p(class = k \mid X; \beta) = \mathrm{softmax}(z_k) = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}} \qquad (25)$$
 
 - $z_k = \beta_k^T x$: logit của lớp thứ $k$
 - $e^{z_k}$: hàm mũ của logit, luôn dương

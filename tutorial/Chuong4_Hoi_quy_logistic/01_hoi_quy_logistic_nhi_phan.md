@@ -50,15 +50,15 @@ Hồi quy logistic tiếp nối ý tưởng của hồi quy tuyến tính cho b�
 
 **Hàm Sigmoid:**
 
-$$\sigma(z) = \frac{1}{1 + e^{-z}} \tag{1}$$
+$$\sigma(z) = \frac{1}{1 + e^{-z}} \qquad (1)$$
 
 **Hồi quy Logistic:**
 
-$$p(class = 1 \mid X; \beta) = \sigma(\beta^T X) = h_\beta(X) = \frac{1}{1 + e^{-\beta^T X}}, \quad p \in [0, 1] \tag{2}$$
+$$p(class = 1 \mid X; \beta) = \sigma(\beta^T X) = h_\beta(X) = \frac{1}{1 + e^{-\beta^T X}}, \quad p \in [0, 1] \qquad (2)$$
 
 **Hồi quy tuyến tính** (phần bên trong sigmoid):
 
-$$\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_m x_m = \beta^T X \tag{3}$$
+$$\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_m x_m = \beta^T X \qquad (3)$$
 
 **Quy tắc phân lớp** (ngưỡng 0.5):
 
@@ -79,7 +79,7 @@ $$
 - Logit dùng để liên kết đầu ra của mô hình tuyến tính, nằm trong $(-\infty, +\infty)$, với xác suất trong khoảng $[0, 1]$.
 - Trong hồi quy logistic, **Logit là logarit của tỷ lệ cược (odds)**:
 
-$$Logit = \log\left(\frac{p}{1 - p}\right) \tag{4}$$
+$$Logit = \log\left(\frac{p}{1 - p}\right) \qquad (4)$$
 
 | Đại lượng | Miền giá trị | Ý nghĩa |
 |-----------|--------------|---------|
@@ -89,11 +89,11 @@ $$Logit = \log\left(\frac{p}{1 - p}\right) \tag{4}$$
 
 Hồi quy logistic dùng mô hình tuyến tính để dự đoán **logit (log-odds)**:
 
-$$Logit = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_m x_m = \beta^T X \tag{5}$$
+$$Logit = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_m x_m = \beta^T X \qquad (5)$$
 
 Sau đó chuyển logit trở lại thành xác suất bằng **hàm sigmoid (hàm logistic)**:
 
-$$p(class = 1 \mid X; \beta) = h_\beta(X) = \frac{1}{1 + e^{-Logit}}, \quad p \in [0, 1] \tag{6}$$
+$$p(class = 1 \mid X; \beta) = h_\beta(X) = \frac{1}{1 + e^{-Logit}}, \quad p \in [0, 1] \qquad (6)$$
 
 > 💡 **Diễn giải hệ số**: khi $x_j$ tăng 1 đơn vị (các biến khác giữ nguyên), log-odds tăng $\beta_j$, tức **odds được nhân lên $e^{\beta_j}$ lần** (odds ratio).
 
@@ -109,12 +109,12 @@ p(y = k) =
 \begin{cases}
 p & \text{nếu } k = 1 \\
 1 - p & \text{nếu } k = 0
-\end{cases} \tag{7}
+\end{cases} \qquad (7)
 $$
 
 Gộp cả hai trường hợp {0, 1} vào một công thức:
 
-$$p(y = k) = p^k (1 - p)^{1 - k} \tag{8}$$
+$$p(y = k) = p^k (1 - p)^{1 - k} \qquad (8)$$
 
 ### Áp dụng cho hồi quy logistic
 Xác suất của điểm dữ liệu $x^{(i)}$ theo hàm sigmoid:
@@ -123,17 +123,17 @@ $$
 \begin{cases}
 p(y^{(i)} = 1 \mid x^{(i)}; \beta) = \sigma(\beta^T x^{(i)}) \\
 p(y^{(i)} = 0 \mid x^{(i)}; \beta) = 1 - \sigma(\beta^T x^{(i)})
-\end{cases} \tag{9}
+\end{cases} \qquad (9)
 $$
 
 Gộp cả hai trường hợp:
 
-$$p(y^{(i)} \mid x^{(i)}; \beta) = \left[\sigma(\beta^T x^{(i)})\right]^{y^{(i)}} \times \left[1 - \sigma(\beta^T x^{(i)})\right]^{1 - y^{(i)}} \tag{10}$$
+$$p(y^{(i)} \mid x^{(i)}; \beta) = \left[\sigma(\beta^T x^{(i)})\right]^{y^{(i)}} \times \left[1 - \sigma(\beta^T x^{(i)})\right]^{1 - y^{(i)}} \qquad (10)$$
 
 ### Hàm hợp lý (Likelihood)
 Giả sử các quan sát độc lập, xác suất của toàn bộ $n$ quan sát là:
 
-$$L(\beta) = P(y \mid X; \beta) = \prod_{i=1}^{n} \left[\sigma(\beta^T x^{(i)})\right]^{y^{(i)}} \left[1 - \sigma(\beta^T x^{(i)})\right]^{1 - y^{(i)}} \tag{11}$$
+$$L(\beta) = P(y \mid X; \beta) = \prod_{i=1}^{n} \left[\sigma(\beta^T x^{(i)})\right]^{y^{(i)}} \left[1 - \sigma(\beta^T x^{(i)})\right]^{1 - y^{(i)}} \qquad (11)$$
 
 - $L(\beta)$ đo **mức độ hợp lý (goodness of fit)** của mô hình đối với dữ liệu.
 - $L(\beta)$ càng lớn càng tốt: mẫu có class = 1 thì xác suất dự đoán gần 1, mẫu có class = 0 thì xác suất gần 0.

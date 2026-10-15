@@ -13,12 +13,12 @@ $$
 \begin{aligned}
 \ell(\beta) = \log L(\beta) &= \log \prod_{i=1}^{n} p(y^{(i)} \mid x^{(i)}; \beta) \\
 &= \sum_{i=1}^{n} \Big[ y^{(i)} \log \sigma(\beta^T x^{(i)}) + (1 - y^{(i)}) \log\big(1 - \sigma(\beta^T x^{(i)})\big) \Big]
-\end{aligned} \tag{12}
+\end{aligned} \qquad (12)
 $$
 
 **Mục tiêu:** tìm tham số $\beta$ để tối đa hóa log-likelihood:
 
-$$\hat{\beta} = \arg\max_\beta \ \ell(\beta) = \arg\max_\beta \sum_{i=1}^{n} \Big[ y^{(i)} \log \sigma(\beta^T x^{(i)}) + (1 - y^{(i)}) \log\big(1 - \sigma(\beta^T x^{(i)})\big) \Big] \tag{13}$$
+$$\hat{\beta} = \arg\max_\beta \ \ell(\beta) = \arg\max_\beta \sum_{i=1}^{n} \Big[ y^{(i)} \log \sigma(\beta^T x^{(i)}) + (1 - y^{(i)}) \log\big(1 - \sigma(\beta^T x^{(i)})\big) \Big] \qquad (13)$$
 
 Hai phương pháp phổ biến:
 1. **Newton-Raphson**: dùng đạo hàm bậc 1 (gradient) và bậc 2 (Hessian).
@@ -45,15 +45,15 @@ Trong đó:
 ### Gradient
 Đạo hàm theo từng tham số $\beta_j$ $(j = 1, \dots, m)$:
 
-$$\frac{\partial \ell(\beta)}{\partial \beta_j} = \sum_{i=1}^{n} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big)\, x_j^{(i)} \tag{15}$$
+$$\frac{\partial \ell(\beta)}{\partial \beta_j} = \sum_{i=1}^{n} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big)\, x_j^{(i)} \qquad (15)$$
 
 Ví dụ mô hình đơn biến $\beta^T x = \beta_1 x + \beta_0$:
 
-$$\nabla \ell(\beta) = \begin{bmatrix} \dfrac{\partial \ell}{\partial \beta_1} \\[2mm] \dfrac{\partial \ell}{\partial \beta_0} \end{bmatrix} = \begin{bmatrix} \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) x^{(i)} \\ \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) \end{bmatrix} \tag{16}$$
+$$\nabla \ell(\beta) = \begin{bmatrix} \dfrac{\partial \ell}{\partial \beta_1} \\[2mm] \dfrac{\partial \ell}{\partial \beta_0} \end{bmatrix} = \begin{bmatrix} \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) x^{(i)} \\ \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) \end{bmatrix} \qquad (16)$$
 
 Dạng ma trận tổng quát (theo slide):
 
-$$\nabla \ell(\beta) = X^T (h - y) \tag{17}$$
+$$\nabla \ell(\beta) = X^T (h - y) \qquad (17)$$
 
 - $X^T$: ma trận chuyển vị của $X$ (đã thêm cột 1 cho hệ số chặn)
 - $h - y$: vector chênh lệch giữa xác suất dự đoán $h = \sigma(X\beta)$ và nhãn thực tế $y$
@@ -63,15 +63,15 @@ $$\nabla \ell(\beta) = X^T (h - y) \tag{17}$$
 ### Ma trận Hessian
 Ma trận Hessian là ma trận vuông $m \times m$ gồm các đạo hàm bậc 2:
 
-$$H_{jk} = \frac{\partial^2 \ell(\beta)}{\partial \beta_j \partial \beta_k} = \sum_{i=1}^{n} \sigma(\beta^T x^{(i)})\big(1 - \sigma(\beta^T x^{(i)})\big)\, x_j^{(i)} x_k^{(i)} \tag{18}$$
+$$H_{jk} = \frac{\partial^2 \ell(\beta)}{\partial \beta_j \partial \beta_k} = \sum_{i=1}^{n} \sigma(\beta^T x^{(i)})\big(1 - \sigma(\beta^T x^{(i)})\big)\, x_j^{(i)} x_k^{(i)} \qquad (18)$$
 
 với $x_j^{(i)}$ là giá trị đặc trưng thứ $j$ của mẫu thứ $i$. Ví dụ đơn biến:
 
-$$H = \begin{bmatrix} \sum_i \sigma_i(1-\sigma_i)\,(x^{(i)})^2 & \sum_i \sigma_i(1-\sigma_i)\,x^{(i)} \\ \sum_i \sigma_i(1-\sigma_i)\,x^{(i)} & \sum_i \sigma_i(1-\sigma_i) \end{bmatrix} \tag{19}$$
+$$H = \begin{bmatrix} \sum_i \sigma_i(1-\sigma_i)\,(x^{(i)})^2 & \sum_i \sigma_i(1-\sigma_i)\,x^{(i)} \\ \sum_i \sigma_i(1-\sigma_i)\,x^{(i)} & \sum_i \sigma_i(1-\sigma_i) \end{bmatrix} \qquad (19)$$
 
 Dạng ma trận tổng quát:
 
-$$H_{\ell}(\beta^{(t)}) = X^T W^{(t)} X \tag{20}$$
+$$H_{\ell}(\beta^{(t)}) = X^T W^{(t)} X \qquad (20)$$
 
 với $W^{(t)}$ là **ma trận đường chéo** có phần tử $\sigma(\beta^T x^{(i)})\big(1 - \sigma(\beta^T x^{(i)})\big)$. *(Trên slide ma trận này cũng được ký hiệu là $\beta^{(t)}$.)*
 
@@ -136,7 +136,7 @@ $$\arg\max_\beta \ell(\beta) = \arg\min_\beta \sum_{i=1}^{n} -\Big[ y^{(i)} \log
 
 Chia cho $n$ ta được **hàm mất mát Cross-Entropy (Log Loss)**:
 
-$$\mathcal{L}(\beta) = -\frac{1}{n} \sum_{i=1}^{n} \Big[ y^{(i)} \log \sigma(\beta^T x^{(i)}) + (1 - y^{(i)}) \log\big(1 - \sigma(\beta^T x^{(i)})\big) \Big] \tag{21}$$
+$$\mathcal{L}(\beta) = -\frac{1}{n} \sum_{i=1}^{n} \Big[ y^{(i)} \log \sigma(\beta^T x^{(i)}) + (1 - y^{(i)}) \log\big(1 - \sigma(\beta^T x^{(i)})\big) \Big] \qquad (21)$$
 
 🎯 **Mục tiêu:** cực tiểu hàm Cross-Entropy để tìm $\beta$.
 
@@ -153,9 +153,9 @@ với $\eta$ là **learning rate** (tốc độ học).
 
 ### Gradient của Cross-Entropy
 
-$$\frac{\partial \mathcal{L}(\beta)}{\partial \beta_j} = \frac{1}{n} \sum_{i=1}^{n} \big(\sigma(\beta^T x^{(i)}) - y^{(i)}\big)\, x_j^{(i)} \tag{23}$$
+$$\frac{\partial \mathcal{L}(\beta)}{\partial \beta_j} = \frac{1}{n} \sum_{i=1}^{n} \big(\sigma(\beta^T x^{(i)}) - y^{(i)}\big)\, x_j^{(i)} \qquad (23)$$
 
-$$\nabla \mathcal{L}(\beta) = \frac{1}{n} X^T (h - y) \tag{24}$$
+$$\nabla \mathcal{L}(\beta) = \frac{1}{n} X^T (h - y) \qquad (24)$$
 
 ### 📝 VD2: Một vòng lặp Gradient Descent ($\eta = 0.1$)
 
