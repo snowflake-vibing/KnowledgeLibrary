@@ -45,11 +45,11 @@ Trong đó:
 ### Gradient
 Đạo hàm theo từng tham số $\beta_j$ $(j = 1, \dots, m)$:
 
-$$\frac{\partial \ell(\beta)}{\partial \beta_j} = \sum_{i=1}^{n} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big)\, x_j^{(i)} \qquad (15)$$
+$$\frac{\partial \ell(\beta)}{\partial \beta_j} = \sum_{i=1}^{n} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) x_j^{(i)} \qquad (15)$$
 
 Ví dụ mô hình đơn biến $\beta^T x = \beta_1 x + \beta_0$:
 
-$$\nabla \ell(\beta) = \begin{bmatrix} \dfrac{\partial \ell}{\partial \beta_1} \\[2mm] \dfrac{\partial \ell}{\partial \beta_0} \end{bmatrix} = \begin{bmatrix} \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) x^{(i)} \\ \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) \end{bmatrix} \qquad (16)$$
+$$\nabla \ell(\beta) = \begin{bmatrix} \dfrac{\partial \ell}{\partial \beta_1} \\ \dfrac{\partial \ell}{\partial \beta_0} \end{bmatrix} = \begin{bmatrix} \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) x^{(i)} \\ \sum_{i} \big(y^{(i)} - \sigma(\beta^T x^{(i)})\big) \end{bmatrix} \qquad (16)$$
 
 Dạng ma trận tổng quát (theo slide):
 
