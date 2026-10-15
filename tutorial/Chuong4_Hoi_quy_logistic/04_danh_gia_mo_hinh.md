@@ -77,10 +77,24 @@ Với $m$ lớp, $CM_{i,j}$ là số bộ thuộc **lớp thực tế $i$** đư
 |-------|-----------|---------|
 | **Accuracy** | $\dfrac{TP + TN}{All}$ | Tỷ lệ bộ được phân lớp đúng |
 | **Error rate** | $1 - Accuracy = \dfrac{FP + FN}{All}$ | Tỷ lệ phân lớp sai |
-| **Sensitivity** (True Positive Rate) | $\dfrac{TP}{P}$ | Tỷ lệ phân lớp **positive** đúng |
+| **Sensitivity** (True Positive Rate) | $\dfrac{TP}{P}$ | Tỷ lệ phân lớp **positive** đúng (= Recall) |
 | **Specificity** (True Negative Rate) | $\dfrac{TN}{N}$ | Tỷ lệ phân lớp **negative** đúng |
 
-> ⚠️ **Mất cân bằng lớp**: khi một lớp rất hiếm (ví dụ gian lận chiếm 1%), mô hình luôn đoán "không gian lận" vẫn đạt Accuracy 99%. Khi đó cần xem thêm Sensitivity, Specificity, Precision, Recall và F1.
+> 🎭 **Ẩn dụ đời thường:**
+> - **Accuracy (Bài thi trắc nghiệm 100 câu):** Bạn làm đúng bao nhiêu câu trên tổng số câu hỏi. Đơn giản và trực quan nhất.
+> - **Error rate (Tỷ lệ hỏng việc):** Cứ 100 lần giao việc thì làm hỏng bao nhiêu lần (hoặc đoán nhầm, hoặc bỏ sót).
+> - **Sensitivity (Chiếc lưới bắt cá):** Trong hồ có tất cả 10 con cá ($P = 10$). Mẻ lưới của bạn vớt lên được 8 con ($TP = 8$), để lọt 2 con ($FN = 2$). Sensitivity = 80%. Nó trả lời câu hỏi: *"Có bao nhiêu đối tượng ngoài kia, bạn tóm được bao nhiêu phần trăm? Có để lọt con cá nào không?"*
+> - **Specificity (Sự tỉnh táo khi kiểm tra người tốt):** Có 100 người lương thiện không dùng ma túy ($N = 100$). Máy test xác nhận đúng 98 người âm tính ($TN = 98$), nghi oan 2 người ($FP = 2$). Specificity = 98%. Nó trả lời: *"Gặp người vô tội, hệ thống có đủ tỉnh táo để nhận ra họ trong sạch không, hay suốt ngày nghi oan?"*
+
+> ⚠️ **"Cú lừa" của Accuracy (Mất cân bằng lớp):**
+> Hãy tưởng tượng một căn bệnh hiểm nghèo cực hiếm: trong 1.000 người chỉ có đúng 1 người mắc bệnh (tỷ lệ 0.1%).
+> Một "bác sĩ lười biếng" không cần khám xét gì, cứ gặp ai cũng phán thẳng thừng: *"Anh không có bệnh!"*.
+> - Bác sĩ đoán đúng 999 người khỏe mạnh ($TN = 999$), đoán sai đúng 1 người có bệnh ($FN = 1$).
+> - **Accuracy của bác sĩ lười:** $\dfrac{999}{1000} = \mathbf{99.9\%}$!
+> 
+> Nhìn con số 99.9% ngỡ như bác sĩ thiên tài, nhưng thực chất ông ta **hoàn toàn vô dụng** vì bệnh nhân duy nhất cần cứu thì lại bị bỏ qua (Sensitivity = 0%). Đó là lý do khi dữ liệu mất cân bằng, ta bắt buộc phải dùng thêm **Precision, Recall và F1-score**.
+
+---
 
 ### 4.2.3. Precision, Recall và F-measures (Binary Classification)
 
@@ -91,8 +105,31 @@ Với $m$ lớp, $CM_{i,j}$ là số bộ thuộc **lớp thực tế $i$** đư
 | **F1-score** | $\dfrac{2 \times Precision \times Recall}{Precision + Recall}$ | Trung bình điều hòa của Precision và Recall |
 | **$F_\beta$** | $\dfrac{(1 + \beta^2) \times Precision \times Recall}{\beta^2 \times Precision + Recall}$ | Trung bình có trọng số giữa Precision và Recall |
 
-- F1 càng cao, bộ phân lớp càng tốt.
-- $\beta > 1$: ưu tiên Recall (ví dụ chẩn đoán bệnh). $\beta < 1$: ưu tiên Precision (ví dụ lọc spam).
+> 🎭 **Ẩn dụ phân biệt Precision vs Recall (Cực kỳ quan trọng!):**
+> 
+> * **Precision (Phát ngôn của xạ thủ):** Bạn giương súng bắn 5 phát (bạn hô: *"Chỗ kia có giặc!"*), trong đó 4 phát trúng giặc thật ($TP = 4$), 1 phát bắn nhầm dân thường ($FP = 1$). Precision của bạn là $4/5 = 80\%$.
+>   - 👉 Trả lời câu hỏi: *"Mỗi khi bạn mở miệng tuyên bố 'CÓ', lời nói của bạn đáng tin bao nhiêu phần trăm?"*
+> 
+> * **Recall (Lực lượng lùng sục):** Trong khu rừng thực tế có 10 tên giặc đang ẩn nấp ($P = TP + FN = 10$). Sau cuộc càn quét, bạn tóm được 8 tên ($TP = 8$), 2 tên trốn thoát ($FN = 2$). Recall của bạn là $8/10 = 80\%$.
+>   - 👉 Trả lời câu hỏi: *"Thực tế ngoài kia có bao nhiêu đối tượng, bạn gom về được bao nhiêu phần trăm?"*
+>
+> ⚖️ **Sự đánh đổi muôn thuở (Trade-off):**
+> - Muốn **Recall = 100%** cực kỳ dễ: Bắt giam... toàn bộ dân làng! Chắc chắn không tên giặc nào thoát, nhưng Precision sẽ tụt dốc thê thảm vì bắt oan vô số người vô tội.
+> - Muốn **Precision = 100%** cũng rất dễ: Chỉ bắn đúng 1 phát duy nhất khi giặc đứng ngay trước mũi súng. Lời nói chắc như đinh đóng cột (Precision = 100%), nhưng 9 tên giặc còn lại trong rừng sẽ trốn thoát sạch (Recall cực thấp).
+
+> 🎭 **Ẩn dụ về F1-score (Nguyên lý chiếc thùng gỗ):**
+> Tại sao lại dùng **trung bình điều hòa** (Harmonic Mean) thay vì trung bình cộng thông thường?
+> - Giả sử một mô hình "bắt bừa" gom sạch mọi người vào tù: đạt **Recall = 100% (1.0)**, nhưng **Precision chỉ 1% (0.01)**.
+>   - Nếu tính *Trung bình cộng*: $\dfrac{1.0 + 0.01}{2} = \mathbf{50.5\%}$ (con số này lừa dối, tạo cảm giác mô hình "dùng tạm được").
+>   - Nhưng tính *F1-score (Trung bình điều hòa)*: $2 \times \dfrac{1.0 \times 0.01}{1.0 + 0.01} \approx \mathbf{1.98\%}$!
+> - **Ẩn dụ chiếc thùng gỗ:** Lượng nước mà thùng chứa được quyết định bởi **thanh gỗ ngắn nhất**. F1-score hoạt động y như vậy: nó trừng phạt rất nặng nếu một trong hai chỉ số (Precision hoặc Recall) bị quá tệ. Muốn F1 cao, mô hình phải "công thủ toàn diện".
+
+> 🎭 **Ẩn dụ về $F_\beta$ (Chiếc bập bênh dịch chuyển trọng tâm):**
+> - $\beta = 1$: Chiếc bập bênh nằm ngang cân bằng ($F_1$).
+> - **$\beta > 1$ (ví dụ $F_2$ – Nghiêng về Recall):** Ẩn dụ *"Rà phá bom mìn"* hoặc *"Tầm soát ung thư"*. Thà bấm chuông báo động nhầm 100 lần (chấp nhận Precision thấp) còn hơn để sót 1 quả mìn chưa nổ (Recall bắt buộc phải chạm nóc).
+> - **$\beta < 1$ (ví dụ $F_{0.5}$ – Nghiêng về Precision):** Ẩn dụ *"Robot tự động bấm lệnh mua chứng khoán"* hoặc *"Gửi mail chào hàng cho khách VIP"*. Thà bỏ lỡ 10 cơ hội kiếm tiền (chấp nhận Recall thấp) còn hơn ấn nhầm nút mua một cổ phiếu rác phá sản (Precision phải chắc chắn tuyệt đối).
+
+---
 
 ### 4.2.4. Multi-class Classification
 
@@ -107,6 +144,12 @@ $$MacroPrecision = \frac{1}{n}\sum_{i=1}^{n} Precision_{C_i}, \quad MacroRecall 
 $$WeightedPrecision = \frac{\sum_{i=1}^{n} Precision_{C_i} \times Sample_{C_i}}{\sum_{i=1}^{n} Sample_{C_i}}$$
 
 $$WeightedRecall = \frac{\sum_{i=1}^{n} Recall_{C_i} \times Sample_{C_i}}{\sum_{i=1}^{n} Sample_{C_i}}, \quad WeightedF1 = \frac{\sum_{i=1}^{n} F1_{C_i} \times Sample_{C_i}}{\sum_{i=1}^{n} Sample_{C_i}}$$
+
+> 🎭 **Ẩn dụ Macro vs Weighted Average:**
+> - **Macro Average (Chủ nghĩa bình đẳng / Điểm thi không nhân hệ số):** Coi mọi lớp đều quan trọng như nhau. Ví dụ: Dù lớp A có 10.000 khách hàng, lớp B chỉ có 10 khách hàng, tiếng nói của lớp B vẫn chiếm 50% trọng số.
+>   - 👉 Rất hữu ích khi bạn muốn xem mô hình có đối xử tệ với các **nhóm thiểu số (minority class)** hay không.
+> - **Weighted Average (Tính điểm theo số tín chỉ):** Môn 4 tín chỉ (lớp nhiều mẫu) sẽ gánh điểm nhiều hơn môn 1 tín chỉ (lớp ít mẫu).
+>   - 👉 Phản ánh trung thực hiệu năng thực tế trên toàn bộ tập dữ liệu (nhưng cẩn thận: lớp chiếm đa số có thể che lấp sự yếu kém của mô hình ở các lớp ít mẫu).
 
 ---
 
