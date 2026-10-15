@@ -37,6 +37,40 @@ Với $m$ lớp, $CM_{i,j}$ là số bộ thuộc **lớp thực tế $i$** đư
 | $\neg C_1$ | **FP** (False Positive) | **TN** (True Negative) | N |
 | **Tổng** | P' | N' | All |
 
+> 🧩 **Mẹo đọc tên "3 giây không bao giờ nhầm":**
+> Tách tên gọi thành 2 từ và đọc từ **phải qua trái**:
+> 1. **Từ thứ 2 (`Positive` / `Negative`)**: Mô hình **đoán** là gì? (`Positive` = Có / Dương tính; `Negative` = Không / Âm tính).
+> 2. **Từ thứ 1 (`True` / `False`)**: Lời đoán đó **đúng hay sai** so với thực tế?
+>
+> - **TP (True Positive)**: Đoán là *Positive*, và thực tế đoán **ĐÚNG** → Thật sự là Positive.
+> - **TN (True Negative)**: Đoán là *Negative*, và thực tế đoán **ĐÚNG** → Thật sự là Negative.
+> - **FP (False Positive)**: Đoán là *Positive*, nhưng đoán **SAI** → Thực tế là Negative (báo có nhưng không có).
+> - **FN (False Negative)**: Đoán là *Negative*, nhưng đoán **SAI** → Thực tế là Positive (báo không nhưng có thật).
+
+#### 🎭 Ẩn dụ đời thường để "nhìn một lần là nhớ"
+
+Để không bao giờ bị rối giữa 4 khái niệm này, hãy nhớ 2 câu chuyện kinh điển sau:
+
+##### 1. Câu chuyện "Chiếc chuông báo cháy tòa nhà" 🚨
+*Mô hình là chiếc chuông báo cháy. Positive = Chuông reo (Báo cháy); Negative = Chuông im lặng (Bình thường).*
+
+* **TP (Bắt đúng giặc):** Tòa nhà có cháy thật → Chuông reo ing ỏi → Cả tòa nhà sơ tán kịp thời.
+* **TN (Bình yên):** Không có cháy → Chuông im ắng → Mọi người ngủ ngon giấc.
+* **FP (Báo động giả – False Alarm):** Không hề có cháy (chỉ là khói nấu ăn hoặc ai thắp nhang) → Chuông rú ầm ĩ → Cả tòa nhà hoảng loạn chạy xuống sân lúc nửa đêm. *Hậu quả: Phiền toái, tốn công sức, mất niềm tin vào chuông.*
+* **FN (Bỏ sót thảm họa):** Tòa nhà **đang bốc cháy dữ dội** → Chuông **im re** → Mọi người không hề hay biết để thoát thân. *Hậu quả: Thảm họa chết người!*
+
+##### 2. Câu chuyện "Bác sĩ chẩn đoán bệnh / mang thai" 👨‍⚕️
+*Positive = Có bệnh (hoặc Mang thai); Negative = Bình thường (Không bệnh).*
+
+* **TP**: Bạn thật sự có bệnh → Bác sĩ phát hiện ra bệnh → Kịp thời chữa trị.
+* **TN**: Bạn hoàn toàn khỏe mạnh → Bác sĩ kết luận bình thường → Vui vẻ về nhà.
+* **FP (Sai lầm loại I – Type I Error):** Bác sĩ nhìn vào một... người đàn ông và phán: *"Chúc mừng, anh đã có thai!"* → Báo động nhầm. Bạn đi xét nghiệm lại tốn tiền, nhưng sức khỏe không sao.
+* **FN (Sai lầm loại II – Type II Error):** Bệnh nhân đang có khối u nguy hiểm → Bác sĩ phán: *"Anh khỏe re, về ăn ngủ bình thường đi!"* → Bỏ sót bệnh, bệnh nhân mất đi giai đoạn vàng điều trị.
+
+> 💡 **Bài học rút ra (Cầu nối sang Precision & Recall):**
+> - Trong bài toán an toàn / y tế: **FN nguy hiểm hơn FP rất nhiều** (thà đi sơ tán nhầm vì FP, còn hơn thiệt mạng vì FN). Khi muốn **triệt tiêu FN (không bỏ sót)** → Cần tối ưu **Recall** (Sensitivity).
+> - Trong bài toán lọc email spam / phê duyệt vay: **FP khó chịu hơn** (không ai muốn thư đối tác quan trọng bị ném vào hòm rác). Khi muốn **triệt tiêu FP (đoán cái nào chắc cái đó)** → Cần tối ưu **Precision**.
+
 ### 4.2.2. Accuracy, Error Rate, Sensitivity, Specificity
 
 | Độ đo | Công thức | Ý nghĩa |
