@@ -107,7 +107,7 @@ $$X = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 4 \\ 1 & 5 \\ 1 & 6 \end{bmatrix}, \
 | 0.953 | 0.047 | 0.045 |
 | 0.971 | 0.029 | 0.028 |
 
-$$W = \mathrm{diag}(0.149,\ 0.105,\ 0.070,\ 0.045,\ 0.028)$$
+$$W = \mathrm{diag}(0.149;\ 0.105;\ 0.070;\ 0.045;\ 0.028)$$
 
 $$H = X^T W X = \begin{bmatrix} 0.398 & 1.290 \\ 1.290 & 4.817 \end{bmatrix}, \qquad H^{-1} = \begin{bmatrix} 19.13953191 & -5.1268409 \\ -5.1268409 & 1.58091117 \end{bmatrix}$$
 
@@ -165,9 +165,9 @@ Dùng cùng dữ liệu với VD1; khởi tạo $\beta_0 = 0.5,\ \beta_1 = 0.5$.
 
 $$
 \begin{aligned}
-\mathcal{L}(\beta) = -\frac{1}{5}\Big[ & 1\cdot\log 0.818 + 1\cdot\log 0.881 + 1\cdot\log(1-0.924) \\
-& + 1\cdot\log(1-0.953) + 1\cdot\log(1-0.971) \Big] \\
-= -\frac{1}{5}\big[ & -0.087 - 0.055 - 1.120 - 1.327 - 1.539 \big] = -\frac{1}{5}(-4.128) = \mathbf{0.8254}
+\mathcal{L}(\beta) &= -\frac{1}{5}\Big[ 1\cdot\log 0.818 + 1\cdot\log 0.881 + 1\cdot\log(1-0.924) \\
+&\quad + 1\cdot\log(1-0.953) + 1\cdot\log(1-0.971) \Big] \\
+&= -\frac{1}{5}\big[ -0.087 - 0.055 - 1.120 - 1.327 - 1.539 \big] = -\frac{1}{5}(-4.128) = \mathbf{0.8254}
 \end{aligned}
 $$
 
