@@ -41,9 +41,9 @@ So sánh theo thang đo:
 ### Định nghĩa
 **Hồi quy Logistic** là mô hình thống kê dùng để **phân loại nhị phân**, tức dự đoán một đối tượng thuộc một trong hai lớp (class, label).
 
-- **Đầu vào**: các biến độc lập $x = \{x_1, x_2, \dots, x_m\}$
-- **Đầu ra**: nhãn dự đoán $\hat{y} \in \{0, 1\}$
-- **Multiclass Logistic Regression**: $\hat{y} \in C$, với $C = \{c_1, c_2, \dots, c_j\}$
+- **Đầu vào**: các biến độc lập $x = \lbrace x_1, x_2, \dots, x_m \rbrace$
+- **Đầu ra**: nhãn dự đoán $\hat{y} \in \lbrace 0, 1 \rbrace$
+- **Multiclass Logistic Regression**: $\hat{y} \in C$, với $C = \lbrace c_1, c_2, \dots, c_j \rbrace$
 
 ### Ý tưởng
 Hồi quy logistic tiếp nối ý tưởng của hồi quy tuyến tính cho bài toán phân loại: **đầu ra của hàm tuyến tính được đưa vào hàm Sigmoid** để thu được xác suất. Hàm Sigmoid chỉ dùng cho phân loại nhị phân (1, 0).

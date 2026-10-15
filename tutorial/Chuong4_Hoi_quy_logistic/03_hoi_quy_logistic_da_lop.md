@@ -35,7 +35,7 @@ flowchart LR
 
 Với $K$ lớp, nhãn dự đoán là:
 
-$$\hat{y} = \arg\max_{k \in \{1,\dots,K\}} f_k(x), \qquad f_k(x) = \sigma(\beta_k^T x)$$
+$$\hat{y} = \arg\max_{k \in \lbrace 1,\dots,K \rbrace} f_k(x), \qquad f_k(x) = \sigma(\beta_k^T x)$$
 
 > ⚠️ Các mô hình được huấn luyện **độc lập** nên tổng $\sum_k f_k(x)$ **có thể lớn hơn 1**. Các giá trị này không tạo thành một phân phối xác suất thực sự.
 
@@ -88,7 +88,7 @@ flowchart LR
 
 **Hàm mất mát** (Categorical Cross-Entropy), mở rộng từ công thức (21):
 
-$$\mathcal{L}(\beta) = -\frac{1}{n}\sum_{i=1}^{n}\sum_{k=1}^{K} \mathbb{1}\{y^{(i)} = k\} \log p(class = k \mid x^{(i)}; \beta)$$
+$$\mathcal{L}(\beta) = -\frac{1}{n}\sum_{i=1}^{n}\sum_{k=1}^{K} \mathbb{1}\lbrace y^{(i)} = k \rbrace \log p(class = k \mid x^{(i)}; \beta)$$
 
 > 💡 Khi $K = 2$, Softmax Regression **tương đương** với hồi quy logistic nhị phân.
 
