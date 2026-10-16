@@ -17,7 +17,7 @@ Kho lưu trữ hệ thống kiến thức, chiến thuật ôn luyện IELTS hư
 
 ---
 
-## 📂 Cấu trúc thư mục dự kiến (Folder Structure)
+## 📂 Cấu trúc thư mục (Folder Structure)
 
 ```text
 IELTS/
@@ -29,6 +29,15 @@ IELTS/
 ├── 06_Mock_Tests_Tracker/ # Nhật ký giải đề (Cambridge, Road to IELTS), phân tích lỗi sai (Error Log)
 └── 07_YouTube_Studio/     # Ý tưởng video, kịch bản (Scripts), dàn ý bài giảng, tài liệu quay dựng
 ```
+
+### 🔗 Truy cập nhanh các thư mục:
+1. [🎧 01_Listening](01_Listening/README.md)
+2. [📖 02_Reading](02_Reading/README.md)
+3. [✍️ 03_Writing](03_Writing/README.md)
+4. [🗣️ 04_Speaking](04_Speaking/README.md)
+5. [📚 05_Vocab_Grammar](05_Vocab_Grammar/README.md)
+6. [📊 06_Mock_Tests_Tracker](06_Mock_Tests_Tracker/README.md)
+7. [🎬 07_YouTube_Studio (Quy trình & Kịch bản Canva)](07_YouTube_Studio/README.md)
 
 ---
 
@@ -64,6 +73,8 @@ Mỗi ghi chú trong thư mục này được thiết kế theo mô hình **"H�
 | **1. Input** | Nghiên cứu lý thuyết, giải đề, đọc bài mẫu | Chọn lọc góc nhìn thú vị / lỗi sai phổ biến của người học |
 | **2. Process** | Ghi chú theo cấu trúc rõ ràng, rút ra công thức | Chuyển thành kịch bản ngắn gọn (Hook - Body - Takeaway) |
 | **3. Output** | Áp dụng viết bài / luyện nói & tự chấm chữa | Quay video chia sẻ trải nghiệm thực tế, phân tích Before vs. After |
+
+👉 **Truy cập trực tiếp**: [07_YouTube_Studio – Quy trình sản xuất & Kho kịch bản](07_YouTube_Studio/README.md) | [Mẫu Script + Slide Canva](07_YouTube_Studio/00_Template_Script_Canva.md)
 
 ---
 
