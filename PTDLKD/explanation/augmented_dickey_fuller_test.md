@@ -42,22 +42,34 @@ mindmap
 
 ### 1.1. Tính dừng yếu (Weak Stationarity) là gì?
 Một chuỗi thời gian $y_t$ được gọi là **dừng yếu (Covariance / Weakly Stationary)** nếu thỏa mãn 3 điều kiện toán học bất biến theo thời gian:
+
 1. **Kỳ vọng không đổi:**
+   
    $$\mathbb{E}[y_t] = \mu \quad \forall t$$
+   
    *(Chuỗi dao động quanh một mức trung bình cố định, không có xu hướng tăng/giảm dài hạn).*
+
 2. **Phương sai hữu hạn và không đổi:**
+   
    $$\text{Var}(y_t) = \mathbb{E}[(y_t - \mu)^2] = \sigma^2 < \infty \quad \forall t$$
+   
    *(Biên độ dao động không bị bung rộng ra vô cực theo thời gian).*
+
 3. **Hiệp phương sai chỉ phụ thuộc vào độ trễ $k$ (Lag):**
+   
    $$\text{Cov}(y_t, y_{t-k}) = \gamma_k \quad \forall t$$
+   
    *(Mối tương quan giữa hôm nay và $k$ ngày trước chỉ phụ thuộc vào khoảng cách $k$, không phụ thuộc vào mốc thời gian $t$).*
 
 ---
 
 ### 1.2. Thảm họa Hồi quy Giả mạo (Spurious Regression)
 Năm 1974, hai nhà kinh tế lượng đoạt giải Nobel **Clive Granger và Paul Newbold** đã công bố bài báo chấn động: Nếu bạn lấy hai chuỗi thời gian **hoàn toàn không liên quan gì đến nhau** nhưng cả hai đều **không dừng (Non-stationary)** (ví dụ: *Số lượng người dùng Facebook tại Việt Nam* và *Sản lượng cá ngừ đánh bắt tại Nam Cực*):
+
 * Chạy hồi quy tuyến tính OLS thông thường sẽ cho kết quả:
+  
   $$R^2 > 0.95, \quad t\text{-statistic} > 20, \quad p\text{-value} < 0.0001$$
+
 * **Ảo giác nguy hiểm:** Hệ số hồi quy có ý nghĩa thống kê cực kỳ cao, nhưng thực chất mối quan hệ này là **vô nghĩa 100% (Spurious)**. Nguyên nhân là do cả hai chuỗi đều có một xu hướng đi lên theo thời gian (Trend), đánh lừa thuật toán OLS.
 
 > ⚠️ **Quy tắc sống còn:** Trước khi đưa chuỗi thời gian vào mô hình hồi quy, ARIMA, hay VAR, bước đầu tiên bắt buộc phải là **kiểm tra tính dừng**.
@@ -68,31 +80,44 @@ Năm 1974, hai nhà kinh tế lượng đoạt giải Nobel **Clive Granger và 
 
 ### 2.1. Bản chất toán học của Nghiệm đơn vị (Unit Root)
 Xét một mô hình tự hồi quy bậc nhất **AR(1)**:
+
 $$y_t = \rho y_{t-1} + \epsilon_t \quad (\epsilon_t \sim \text{White Noise})$$
 
 Tùy thuộc vào giá trị của hệ số $\rho$:
 * **$|\rho| < 1$ (Chuỗi dừng):** Ảnh hưởng của một cú sốc $\epsilon_t$ sẽ suy giảm dần theo hàm mũ $\rho^k \to 0$ khi $k \to \infty$. Chuỗi luôn quay về mức cân bằng (Mean-reverting).
 * **$|\rho| > 1$ (Chuỗi bùng nổ):** Chuỗi phát nổ tiến tới vô cùng.
 * **$\rho = 1$ (Nghiệm đơn vị - Unit Root):** Phương trình trở thành **Random Walk (Bước đi ngẫu nhiên)**:
+  
   $$y_t = y_{t-1} + \epsilon_t \implies y_t = y_0 + \sum_{i=1}^t \epsilon_i$$
-  * Phương sai của chuỗi là $\text{Var}(y_t) = t \sigma^2 \to \infty$ khi $t \to \infty$.
+  
+  * Phương sai của chuỗi là:
+    
+    $$\text{Var}(y_t) = t \sigma^2 \to \infty \quad \text{khi } t \to \infty$$
+  
   * Cú sốc $\epsilon_t$ sẽ **tồn tại vĩnh viễn** trong chuỗi và không bao giờ biến mất (trí nhớ vô hạn). Chuỗi **hoàn toàn không dừng**.
 
 ---
 
 ### 2.2. Biến đổi phương trình Dickey-Fuller (DF)
 Để kiểm tra giả thuyết $\rho = 1$, David Dickey và Wayne Fuller (1979) trừ cả hai vế của phương trình AR(1) cho $y_{t-1}$:
+
 $$y_t - y_{t-1} = \rho y_{t-1} - y_{t-1} + \epsilon_t$$
+
 $$\Delta y_t = (\rho - 1)y_{t-1} + \epsilon_t$$
 
 Đặt $\gamma = \rho - 1$, bài toán kiểm định trở thành:
+
 $$\Delta y_t = \gamma y_{t-1} + \epsilon_t$$
 
-* **Giả thuyết Không ($H_0$):** $\gamma = 0$ (tương đương $\rho = 1 \implies$ **Chuỗi có nghiệm đơn vị, KHÔNG DỪNG**).
+* **Giả thuyết Không ($H_0$):** $\gamma = 0$ (tương đương $\rho = 1$, chuỗi có nghiệm đơn vị $\implies$ **Chuỗi KHÔNG DỪNG**).
 * **Giả thuyết Đối ($H_1$):** $\gamma < 0$ (tương đương $\rho < 1 \implies$ **Chuỗi DỪNG**).
 
 > ⚠️ **Vì sao không dùng kiểm định Student t-distribution thông thường?**
-> Dưới giả thuyết $H_0$ ($\rho = 1$), thống kê $t = \frac{\hat{\gamma}}{\text{SE}(\hat{\gamma})}$ **không tuân theo phân phối $t$-Student chuẩn**, mà tuân theo phân phối phi chuẩn **Dickey-Fuller (DF distribution)** bị lệch sang bên trái. Do đó, các giá trị tới hạn (Critical Values) của Dickey-Fuller âm sâu hơn nhiều so với phân phối $t$ thông thường (ví dụ: $-2.86$ thay vì $-1.96$ ở mức $5\%$).
+> Dưới giả thuyết $H_0$ ($\rho = 1$), thống kê kiểm định:
+> 
+> $$t = \frac{\hat{\gamma}}{\text{SE}(\hat{\gamma})}$$
+> 
+> **không tuân theo phân phối $t$-Student chuẩn**, mà tuân theo phân phối phi chuẩn **Dickey-Fuller (DF distribution)** bị lệch sang bên trái. Do đó, các giá trị tới hạn (Critical Values) của Dickey-Fuller âm sâu hơn nhiều so với phân phối $t$ thông thường (ví dụ: $-2.86$ thay vì $-1.96$ ở mức 5%).
 
 ---
 
@@ -100,6 +125,7 @@ $$\Delta y_t = \gamma y_{t-1} + \epsilon_t$$
 Kiểm định DF cổ điển chỉ đúng khi phần dư $\epsilon_t$ là nhiễu trắng thuần túy (White noise). Nhưng trong thực tế, chuỗi thời gian thường có tự tương quan bậc cao $p$ (quá khứ 2, 3 ngày trước vẫn tác động).
 
 Để khử sạch hiện tượng tự tương quan trong phần dư, mô hình **Augmented Dickey-Fuller (ADF)** bổ sung thêm các số hạng trễ của sai phân $\Delta y_{t-i}$:
+
 $$\Delta y_t = \alpha + \beta t + \gamma y_{t-1} + \sum_{i=1}^p \delta_i \Delta y_{t-i} + \epsilon_t$$
 
 Các số hạng $\sum_{i=1}^p \delta_i \Delta y_{t-i}$ đóng vai trò "hút sạch" mọi tương quan bậc cao, đảm bảo phần dư $\epsilon_t$ trở về trạng thái White Noise chuẩn mực.
@@ -116,26 +142,26 @@ flowchart TD
     
     Q1 -->|Có, dao động quanh 0| Case1["Dạng 1: No Constant, No Trend ('nc')<br>Δy_t = γ y_{t-1} + Σ δ_i Δy_{t-i} + ε_t"]
     
-    Q1 -->|Không, dao động quanh mức μ ≠ 0| Q2{"Chuỗi có dốc lên hoặc dốc xuống rõ rệt không?"}
+    Q1 -->|Không, dao động quanh mức trung bình khác 0| Q2{"Chuỗi có dốc lên hoặc dốc xuống rõ rệt không?"}
     
     Q2 -->|Không có xu hướng dốc| Case2["Dạng 2: Constant, No Trend ('c') - PHỔ BIẾN NHẤT<br>Δy_t = α + γ y_{t-1} + Σ δ_i Δy_{t-i} + ε_t"]
     
     Q2 -->|Có xu hướng tuyến tính rõ rệt| Case3["Dạng 3: Constant & Linear Trend ('ct')<br>Δy_t = α + βt + γ y_{t-1} + Σ δ_i Δy_{t-i} + ε_t"]
 ```
 
-| Dạng kiểm định | Cấu hình trong Python (`regression=`) | Phương trình toán học | Ngữ cảnh ứng dụng |
+| Dạng kiểm định | Cấu hình Python (`regression=`) | Phương trình toán học | Ngữ cảnh ứng dụng |
 |---|---|---|---|
-| **1. Không hằng số, không xu hướng** | `'n'` hoặc `'nc'` | $\Delta y_t = \gamma y_{t-1} + \sum_{i=1}^p \delta_i \Delta y_{t-i} + \epsilon_t$ | Chuỗi dao động chặt chẽ quanh mức 0 (ví dụ: chuỗi sai phân lợi suất tài chính) |
-| **2. Có hằng số, không xu hướng** | `'c'` *(Mặc định)* | $\Delta y_t = \alpha + \gamma y_{t-1} + \sum_{i=1}^p \delta_i \Delta y_{t-i} + \epsilon_t$ | Chuỗi dao động quanh một mức trung bình khác 0 (ví dụ: nhiệt độ, tỷ lệ thất nghiệp) |
-| **3. Có hằng số và xu hướng tuyến tính** | `'ct'` | $\Delta y_t = \alpha + \beta t + \gamma y_{t-1} + \sum_{i=1}^p \delta_i \Delta y_{t-i} + \epsilon_t$ | Chuỗi có xu hướng tăng/giảm dài hạn theo thời gian (ví dụ: GDP, doanh thu bán hàng) |
+| **1. Không hằng số, không xu hướng** | `'n'` hoặc `'nc'` | `\Delta y_t = \gamma y_{t-1} + \sum \delta_i \Delta y_{t-i} + \epsilon_t` | Chuỗi dao động chặt chẽ quanh mức 0 (ví dụ: chuỗi sai phân lợi suất tài chính) |
+| **2. Có hằng số, không xu hướng** | `'c'` *(Mặc định)* | `\Delta y_t = \alpha + \gamma y_{t-1} + \sum \delta_i \Delta y_{t-i} + \epsilon_t` | Chuỗi dao động quanh một mức trung bình khác 0 (ví dụ: nhiệt độ, tỷ lệ thất nghiệp) |
+| **3. Có hằng số và xu hướng tuyến tính** | `'ct'` | `\Delta y_t = \alpha + \beta t + \gamma y_{t-1} + \sum \delta_i \Delta y_{t-i} + \epsilon_t` | Chuỗi có xu hướng tăng/giảm dài hạn theo thời gian (ví dụ: GDP, doanh thu bán hàng) |
 
 ---
 
 # 4. QUY TRÌNH ĐỌC KẾT QUẢ & RA QUYẾT ĐỊNH
 
 ### 4.1. Cặp giả thuyết kiểm định
-* **$H_0$ (Null Hypothesis):** $\gamma = 0 \iff$ Chuỗi có nghiệm đơn vị (Unit Root) $\implies$ **Chuỗi KHÔNG DỪNG (Non-Stationary)**.
-* **$H_1$ (Alternative Hypothesis):** $\gamma < 0 \iff$ Chuỗi không có nghiệm đơn vị $\implies$ **Chuỗi DỪNG (Stationary)**.
+* **$H_0$ (Null Hypothesis):** $\gamma = 0$ (Chuỗi có nghiệm đơn vị $\implies$ **Chuỗi KHÔNG DỪNG**).
+* **$H_1$ (Alternative Hypothesis):** $\gamma < 0$ (Chuỗi không có nghiệm đơn vị $\implies$ **Chuỗi DỪNG**).
 
 ---
 
@@ -159,17 +185,17 @@ flowchart LR
 
 #### Ví dụ minh họa trực quan:
 Giả sử kết quả kiểm định trả về:
-* **ADF Statistic:** $-3.45$
+* **ADF Statistic:** -3.45
 * **Critical Values:**
-  * $1\%$: $-3.43$
-  * $5\%$: $-2.86$
-  * $10\%$: $-2.57$
-* **p-value:** $0.009$
+  * Mức 1%: -3.43
+  * Mức 5%: -2.86
+  * Mức 10%: -2.57
+* **p-value:** 0.009
 
 **Đánh giá:**
-1. Theo ADF Statistic: Giá trị $-3.45$ nhỏ hơn (âm hơn) mức $-2.86$ (tại $5\%$) và thậm chí nhỏ hơn cả $-3.43$ (tại $1\%$).
+1. Theo ADF Statistic: Giá trị `-3.45` nhỏ hơn (âm hơn) mức `-2.86` (tại 5%) và nhỏ hơn cả `-3.43` (tại 1%).
 2. Theo p-value: $p = 0.009 < 0.05$.
-$\implies$ **Bác bỏ giả thuyết $H_0$ ở mức ý nghĩa $1\%$**. Kết luận: Chuỗi là **Dừng (Stationary)** với độ tin cậy $99\%$.
+3. $\implies$ **Bác bỏ giả thuyết $H_0$ ở mức ý nghĩa 1%**. Kết luận: Chuỗi là **Dừng (Stationary)** với độ tin cậy 99%.
 
 ---
 

@@ -38,11 +38,19 @@ mindmap
 
 ### 1.1. Sự sụp đổ của Giả định I.I.D
 Trong học máy truyền thống (Tabular ML), hầu hết các thuật toán dựa trên giả định **I.I.D (Independent and Identically Distributed - Độc lập và Cùng phân phối)**:
-$$\mathbb{P}(X_1, X_2, \dots, X_N) = \prod_{i=1}^N \mathbb{P}(X_i)$$
+
+$$
+\mathbb{P}(X_1, X_2, \dots, X_N) = \prod_{i=1}^N \mathbb{P}(X_i)
+$$
+
 Nếu dữ liệu là I.I.D, việc tráo đổi vị trí giữa dòng 1 và dòng 100 hoàn toàn không làm mất đi thông tin thống kê. Kỹ thuật chia ngẫu nhiên **Random K-Fold Cross-Validation** hoạt động hoàn hảo.
 
 Tuy nhiên, trong chuỗi thời gian:
-$$X = \{x_1, x_2, \dots, x_T\}$$
+
+$$
+X = \{x_1, x_2, \dots, x_T\}
+$$
+
 * **Tính phụ thuộc thời gian (Temporal Dependence / Autocorrelation):** Điểm $x_t$ phụ thuộc trực tiếp vào các điểm quá khứ $x_{t-1}, x_{t-2}, \dots$.
 * **Tính không dừng (Non-stationarity) & Trôi dạt khái niệm (Concept Drift):** Phân phối xác suất của dữ liệu $\mathbb{P}(X_t)$ liên tục dịch chuyển theo thời gian (Trend, Seasonality, biến động kinh tế vĩ mô).
 
@@ -102,8 +110,18 @@ flowchart TD
 
 #### Công thức toán học:
 Tại vòng lặp thứ $k \in \{1, \dots, K\}$:
-* **Tập huấn luyện (Train):** $\mathcal{D}_{\text{train}}^{(k)} = \{x_1, x_2, \dots, x_{T_0 + (k-1)\Delta t}\}$
-* **Tập kiểm tra (Test):** $\mathcal{D}_{\text{test}}^{(k)} = \{x_{T_0 + (k-1)\Delta t + 1}, \dots, x_{T_0 + (k-1)\Delta t + H}\}$
+
+* **Tập huấn luyện (Train):**
+  
+  $$
+  \mathcal{D}_{\mathrm{train}}^{(k)} = \{x_1, x_2, \dots, x_{T_0 + (k-1)\Delta t}\}
+  $$
+
+* **Tập kiểm tra (Test):**
+  
+  $$
+  \mathcal{D}_{\mathrm{test}}^{(k)} = \{x_{T_0 + (k-1)\Delta t + 1}, \dots, x_{T_0 + (k-1)\Delta t + H}\}
+  $$
 
 #### Khi nào nên áp dụng Expanding Window?
 1. **Dữ liệu khan hiếm hoặc mô hình cần lượng dữ liệu lớn:** Ví dụ các mô hình Deep Learning (PatchTST, LSTM) cần tối đa hóa dữ liệu lịch sử để học các trọng số phức tạp.
@@ -129,8 +147,18 @@ flowchart TD
 
 #### Công thức toán học:
 Tại vòng lặp thứ $k$:
-* **Tập huấn luyện (Train):** $\mathcal{D}_{\text{train}}^{(k)} = \{x_{1 + (k-1)\Delta t}, \dots, x_{W + (k-1)\Delta t}\}$
-* **Tập kiểm tra (Test):** $\mathcal{D}_{\text{test}}^{(k)} = \{x_{W + (k-1)\Delta t + 1}, \dots, x_{W + (k-1)\Delta t + H}\}$
+
+* **Tập huấn luyện (Train):**
+  
+  $$
+  \mathcal{D}_{\mathrm{train}}^{(k)} = \{x_{1 + (k-1)\Delta t}, \dots, x_{W + (k-1)\Delta t}\}
+  $$
+
+* **Tập kiểm tra (Test):**
+  
+  $$
+  \mathcal{D}_{\mathrm{test}}^{(k)} = \{x_{W + (k-1)\Delta t + 1}, \dots, x_{W + (k-1)\Delta t + H}\}
+  $$
 
 #### Khi nào nên áp dụng Sliding Window?
 1. **Hệ thống có Trôi dạt Khái niệm mạnh (Strong Concept Drift):** Trong các thị trường biến động nhanh (tiền mã hóa Crypto, hành vi mạng xã hội TikTok, thương mại điện tử sau đại dịch), quy luật vận động của 2 năm trước đã hoàn toàn lỗi thời. Việc cố chấp giữ lại dữ liệu cũ chỉ làm mô hình bị "nhiễm độc".
@@ -177,12 +205,16 @@ Nếu bạn chuẩn hóa dữ liệu hoặc tính toán đặc trưng thống k�
 Đây là phát hiện đột phá của **TS. Marcos López de Prado** (tác giả cuốn sách kinh điển *Advances in Financial Machine Learning*):
 * Giả sử bạn xây dựng mô hình dự báo xác suất giá cổ phiếu tăng sau 5 ngày nắm giữ (Holding Period $H = 5$ ngày).
 * Nhãn của điểm thời gian $t$ là:
-  $$y_t = f(P_t, P_{t+1}, P_{t+2}, P_{t+3}, P_{t+4}, P_{t+5})$$
+  
+  $$
+  y_t = f(P_t, P_{t+1}, P_{t+2}, P_{t+3}, P_{t+4}, P_{t+5})
+  $$
+
 * Nếu ranh giới phân chia Train/Test nằm tại thời điểm $t_0$:
   * Điểm dữ liệu $t_0 - 2$ thuộc về **Tập Train**.
   * Nhưng nhãn của nó $y_{t_0 - 2}$ lại cần thông tin giá của $P_{(t_0 - 2) + 5} = P_{t_0 + 3}$.
   * Điểm $P_{t_0 + 3}$ **nằm sâu bên trong Tập Test**!
-* **Kết quả:** Mô hình Train đã gián tiếp học được nhãn của tập Test $\implies$ Kết quả kiểm định hoàn toàn vô giá trị.
+* **Kết quả:** Mô hình Train đã gián tiếp học được nhãn của tập Test $\rightarrow$ Kết quả kiểm định hoàn toàn vô giá trị.
 
 ---
 
@@ -205,17 +237,24 @@ flowchart LR
 
 ### 4.1. Cơ chế 1: Purging (Thanh lọc nhãn chồng lấn)
 * **Khái niệm:** **Purging (Thanh lọc)** là hành động chủ động loại bỏ khỏi tập huấn luyện bất kỳ mẫu dữ liệu nào mà khoảng thời gian quan sát của nhãn bị vắt ngang qua mốc bắt đầu của tập kiểm tra.
-* **Quy tắc toán học:** Cho một mẫu $i$ trong tập Train có khoảng thời gian xác định nhãn là $[t_{i, \text{start}}, t_{i, \text{end}}]$. Mẫu $i$ sẽ bị **xóa bỏ (Purged)** nếu:
-  $$t_{i, \text{end}} \ge t_{\text{test, start}}$$
+* **Quy tắc toán học:** Cho một mẫu $i$ trong tập Train có khoảng thời gian xác định nhãn là $[t_{i, \mathrm{start}}, t_{i, \mathrm{end}}]$. Mẫu $i$ sẽ bị **xóa bỏ (Purged)** nếu:
+  
+  $$
+  t_{i, \mathrm{end}} \ge t_{\mathrm{test, start}}
+  $$
 
 ---
 
 ### 4.2. Cơ chế 2: Purging Buffer (Khoảng đệm Gap)
 * Trong các bài toán dự báo thông thường có sử dụng biến trễ (Lag features):
-  * Giả sử mô hình sử dụng biến trễ lớn nhất là $\text{Max\_Lag} = 14$ ngày.
+  * Giả sử mô hình sử dụng biến trễ lớn nhất là $\text{Max-Lag} = 14$ ngày.
   * Dự báo trước tương lai $H = 7$ ngày.
 * **Khoảng đệm Gap:** Chúng ta chèn một khoảng trống rỗng (Buffer) có độ dài:
-  $$\text{Gap} \ge \max(\text{Max\_Lag}, H)$$
+  
+  $$
+  \text{Gap} \ge \max(\text{Max-Lag}, H)
+  $$
+  
   ngay giữa tập Train và tập Test.
 * **Tác dụng:** Đảm bảo rằng tập Test không lấy bất kỳ giá trị nào của những ngày sát sườn tập Train, triệt tiêu mọi hiệu ứng ghi nhớ ngắn hạn của các thuật toán phức tạp.
 
@@ -224,7 +263,7 @@ flowchart LR
 ### 4.3. Cơ chế 3: Embargo (Vùng cấm sau tập kiểm tra)
 * **Khái niệm:** Do các biến tài chính hoặc phụ tải điện có tính tự tương quan kéo dài (Long-memory Autocorrelation), các điểm dữ liệu ngay sau khi kết thúc tập Test vẫn còn lưu giữ "tiếng vang" (echoes) của tập Test.
 * Nếu fold tiếp theo sử dụng ngay các điểm này làm tập Train, hiện tượng rò rỉ ngược (Post-test leakage) có thể xảy ra.
-* **Kỹ thuật Embargo:** Áp dụng một vùng cấm (thường là $1\% - 5\%$ độ dài chuỗi hoặc một khoảng thời gian cố định $h_{\text{embargo}}$) ngay sau khi tập Test kết thúc. Trong vùng Embargo này, không có bất kỳ mẫu dữ liệu nào được phép đưa vào tập Train của các vòng lặp tiếp theo.
+* **Kỹ thuật Embargo:** Áp dụng một vùng cấm (thường là 1% - 5% độ dài chuỗi hoặc một khoảng thời gian cố định $h_{\mathrm{embargo}}$) ngay sau khi tập Test kết thúc. Trong vùng Embargo này, không có bất kỳ mẫu dữ liệu nào được phép đưa vào tập Train của các vòng lặp tiếp theo.
 
 ---
 

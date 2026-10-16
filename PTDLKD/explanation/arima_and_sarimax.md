@@ -36,7 +36,7 @@ mindmap
 
 # 1. BẢN CHẤT & CẤU TRÚC TOÁN HỌC CỦA HỌ MÔ HÌNH ARIMA
 
-Mô hình $\text{ARIMA}(p, d, q)$ được cấu thành từ 3 viên gạch độc lập:
+Mô hình ARIMA($p, d, q$) được cấu thành từ 3 viên gạch độc lập:
 
 ```mermaid
 flowchart LR
@@ -50,11 +50,18 @@ flowchart LR
 
 ### 1.1. Thành phần AR(p) – Autoregressive (Tự hồi quy)
 Giả định rằng giá trị hiện tại $y_t$ là một tổ hợp tuyến tính của $p$ giá trị quan sát trong quá khứ cộng thêm một cú sốc ngẫu nhiên $\epsilon_t$:
-$$y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_p y_{t-p} + \epsilon_t = c + \sum_{i=1}^p \phi_i y_{t-i} + \epsilon_t$$
+
+$$
+y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_p y_{t-p} + \epsilon_t = c + \sum_{i=1}^p \phi_i y_{t-i} + \epsilon_t
+$$
 
 * **Toán tử trễ (Lag Operator $L$):** Định nghĩa $L^k y_t = y_{t-k}$. Ta viết lại thành dạng đa thức:
-  $$\Phi(L) y_t = c + \epsilon_t \quad \text{với } \Phi(L) = 1 - \sum_{i=1}^p \phi_i L^i$$
-* **Điều kiện dừng của AR(p):** Mọi nghiệm của phương trình đặc trưng $\Phi(z) = 0$ bắt buộc phải **nằm ngoài đường tròn đơn vị** trong mặt phẳng phức ($|z| > 1$). Với mô hình đơn giản AR(1), điều kiện này tương đương $|\phi_1| < 1$.
+  
+  $$
+  \Phi(L) y_t = c + \epsilon_t \quad \text{với} \quad \Phi(L) = 1 - \sum_{i=1}^p \phi_i L^i
+  $$
+
+* **Điều kiện dừng của AR(p):** Mọi nghiệm của phương trình đặc trưng $\Phi(z) = 0$ bắt buộc phải nằm ngoài đường tròn đơn vị trong mặt phẳng phức ($|z| > 1$). Với mô hình đơn giản AR(1), điều kiện này tương đương $|\phi_1| < 1$.
 
 ---
 
@@ -67,19 +74,29 @@ Nếu chuỗi $y_t$ không dừng (có Trend hoặc Unit Root), ta không thể 
 ---
 
 ### 1.3. Thành phần MA(q) – Moving Average (Trung bình trượt)
-Khác với AR(p) nhìn vào giá trị quá khứ, $\text{MA}(q)$ mô hình hóa giá trị hiện tại theo **các cú sốc sai số (White Noise Shocks) trong quá khứ**:
-$$y_t = \mu + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_q \epsilon_{t-q} = \mu + \epsilon_t + \sum_{j=1}^q \theta_j \epsilon_{t-j}$$
+Khác với AR(p) nhìn vào giá trị quá khứ, MA($q$) mô hình hóa giá trị hiện tại theo **các cú sốc sai số (White Noise Shocks) trong quá khứ**:
+
+$$
+y_t = \mu + \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_q \epsilon_{t-q} = \mu + \epsilon_t + \sum_{j=1}^q \theta_j \epsilon_{t-j}
+$$
 
 * Dạng đa thức trễ:
-  $$y_t = \mu + \Theta(L) \epsilon_t \quad \text{với } \Theta(L) = 1 + \sum_{j=1}^q \theta_j L^j$$
-* **Trí nhớ hữu hạn:** Trong mô hình MA(q), một cú sốc xảy ra tại thời điểm $t$ sẽ ảnh hưởng đến $y_t, y_{t+1}, \dots, y_{t+q}$. Nhưng từ bước $t+q+1$ trở đi, cú sốc này **hoàn toàn biến mất**.
+  
+  $$
+  y_t = \mu + \Theta(L) \epsilon_t \quad \text{với} \quad \Theta(L) = 1 + \sum_{j=1}^q \theta_j L^j
+  $$
+
+* **Trí nhớ hữu hạn:** Trong mô hình MA(q), một cú sốc xảy ra tại thời điểm $t$ sẽ ảnh hưởng đến $y_t, y_{t+1}, \dots, y_{t+q}$. Nhưng từ bước $t+q+1$ trở đi, cú sốc này hoàn toàn biến mất.
 * **Điều kiện khả nghịch (Invertibility):** Mọi nghiệm của đa thức $\Theta(z) = 0$ phải nằm ngoài đường tròn đơn vị. Tính khả nghịch đảm bảo mô hình MA có thể biểu diễn ngược lại thành một mô hình AR vô hạn bước.
 
 ---
 
-### 1.4. Phương trình toán học tổng quát $\text{ARIMA}(p, d, q)$
-Kết hợp cả 3 thành phần, phương trình hoàn chỉnh của $\text{ARIMA}(p, d, q)$ là:
-$$\left(1 - \sum_{i=1}^p \phi_i L^i\right) (1 - L)^d y_t = c + \left(1 + \sum_{j=1}^q \theta_j L^j\right) \epsilon_t$$
+### 1.4. Phương trình toán học tổng quát ARIMA($p, d, q$)
+Kết hợp cả 3 thành phần, phương trình hoàn chỉnh của ARIMA($p, d, q$) là:
+
+$$
+\left(1 - \sum_{i=1}^p \phi_i L^i\right) (1 - L)^d y_t = c + \left(1 + \sum_{j=1}^q \theta_j L^j\right) \epsilon_t
+$$
 
 ---
 
@@ -110,9 +127,9 @@ Sau khi chuỗi đã được lấy sai phân $d$ để đạt tính dừng, vi�
 
 | Mô hình | Hình thái biểu đồ ACF | Hình thái biểu đồ PACF |
 |---|---|---|
-| **$\text{AR}(p)$** | Suy giảm dần theo hàm mũ hoặc dao động tắt dần hình sin | **Cắt phụt đột ngột về 0 (Cut-off)** ngay sau độ trễ bậc $p$ |
-| **$\text{MA}(q)$** | **Cắt phụt đột ngột về 0 (Cut-off)** ngay sau độ trễ bậc $q$ | Suy giảm dần theo hàm mũ hoặc dao động tắt dần hình sin |
-| **$\text{ARMA}(p, q)$** | Suy giảm dần bắt đầu sau độ trễ $q$ | Suy giảm dần bắt đầu sau độ trễ $p$ |
+| **AR($p$)** | Suy giảm dần theo hàm mũ hoặc dao động tắt dần hình sin | **Cắt phụt đột ngột về 0 (Cut-off)** ngay sau độ trễ bậc $p$ |
+| **MA($q$)** | **Cắt phụt đột ngột về 0 (Cut-off)** ngay sau độ trễ bậc $q$ | Suy giảm dần theo hàm mũ hoặc dao động tắt dần hình sin |
+| **ARMA($p, q$)** | Suy giảm dần bắt đầu sau độ trễ $q$ | Suy giảm dần bắt đầu sau độ trễ $p$ |
 
 ---
 
@@ -120,26 +137,35 @@ Sau khi chuỗi đã được lấy sai phân $d$ để đạt tính dừng, vi�
 
 Nhiều chuỗi thời gian thực tế có tính chu kỳ lặp lại cố định (**Seasonality $s$**): ví dụ chu kỳ ngày trong tuần ($s=7$), chu kỳ tháng trong năm ($s=12$), chu kỳ 15 phút trong ngày ($s=96$). Mô hình ARIMA thông thường không thể bắt được tương quan ở các khoảng cách xa như vậy.
 
-Mô hình **$\text{SARIMA}(p, d, q)(P, D, Q)_s$** giải quyết bằng cách áp dụng thêm bộ toán tử trễ mùa vụ:
+Mô hình SARIMA($p, d, q$)($P, D, Q$)$_s$ giải quyết bằng cách áp dụng thêm bộ toán tử trễ mùa vụ:
 * **$P$ (Seasonal AR):** Tự hồi quy mùa vụ (ví dụ: tháng này phụ thuộc vào cùng tháng này năm ngoái $y_{t-s}$).
 * **$D$ (Seasonal Differencing):** Sai phân mùa vụ: $\Delta_s y_t = y_t - y_{t-s} = (1 - L^s) y_t$.
 * **$Q$ (Seasonal MA):** Trung bình trượt mùa vụ (cú sốc cùng kỳ mùa trước $\epsilon_{t-s}$).
 
 ### Phương trình toán học của SARIMA:
-$$\Phi_p(L) \tilde{\Phi}_P(L^s) (1 - L)^d (1 - L^s)^D y_t = c + \Theta_q(L) \tilde{\Theta}_Q(L^s) \epsilon_t$$
+
+$$
+\Phi_p(L) \tilde{\Phi}_P(L^s) (1 - L)^d (1 - L^s)^D y_t = c + \Theta_q(L) \tilde{\Theta}_Q(L^s) \epsilon_t
+$$
 
 Trong đó:
-* $\tilde{\Phi}_P(L^s) = 1 - \Phi_1 L^s - \Phi_2 L^{2s} - \dots - \Phi_P L^{Ps}$
-* $\tilde{\Theta}_Q(L^s) = 1 + \Theta_1 L^s + \Theta_2 L^{2s} + \dots + \Theta_Q L^{Qs}$
+
+$$
+\tilde{\Phi}_P(L^s) = 1 - \Phi_1 L^s - \Phi_2 L^{2s} - \dots - \Phi_P L^{Ps}
+$$
+
+$$
+\tilde{\Theta}_Q(L^s) = 1 + \Theta_1 L^s + \Theta_2 L^{2s} + \dots + \Theta_Q L^{Qs}
+$$
 
 ---
 
 # 4. ĐỈNH CAO: MÔ HÌNH SARIMAX (TÍCH HỢP BIẾN NGOẠI SINH)
 
 Trong thực tế kinh doanh, chuỗi thời gian không vận động đơn độc; nó chịu ảnh hưởng mạnh mẽ từ các yếu tố bên ngoài (**Exogenous Variables $X$**):
-* Dự báo lượng điện tiêu thụ $\implies$ Cần biến ngoại sinh là **Nhiệt độ môi trường, Độ ẩm**.
-* Dự báo doanh thu bán hàng $\implies$ Cần biến ngoại sinh là **Chiến dịch khuyến mãi, Giảm giá, Ngày lễ Tết**.
-* Dự báo tỷ giá tiền tệ $\implies$ Cần biến ngoại sinh là **Chênh lệch lãi suất ngân hàng trung ương**.
+* Dự báo lượng điện tiêu thụ $\rightarrow$ Cần biến ngoại sinh là **Nhiệt độ môi trường, Độ ẩm**.
+* Dự báo doanh thu bán hàng $\rightarrow$ Cần biến ngoại sinh là **Chiến dịch khuyến mãi, Giảm giá, Ngày lễ Tết**.
+* Dự báo tỷ giá tiền tệ $\rightarrow$ Cần biến ngoại sinh là **Chênh lệch lãi suất ngân hàng trung ương**.
 
 ```mermaid
 flowchart TD
@@ -157,9 +183,16 @@ flowchart TD
 ```
 
 ### Phương trình toán học của SARIMAX:
-$$y_t = \sum_{k=1}^K \beta_k X_{k, t} + \eta_t$$
+
+$$
+y_t = \sum_{k=1}^K \beta_k X_{k, t} + \eta_t
+$$
+
 trong đó phần dư $\eta_t$ tuân theo cấu trúc SARIMA:
-$$\Phi_p(L) \tilde{\Phi}_P(L^s) (1 - L)^d (1 - L^s)^D \eta_t = \Theta_q(L) \tilde{\Theta}_Q(L^s) \epsilon_t$$
+
+$$
+\Phi_p(L) \tilde{\Phi}_P(L^s) (1 - L)^d (1 - L^s)^D \eta_t = \Theta_q(L) \tilde{\Theta}_Q(L^s) \epsilon_t
+$$
 
 > 💡 **Khác biệt sống còn:** SARIMAX tách biệt bài toán thành 2 phần:
 > 1. Hiệu ứng tác động tức thì từ các biến vĩ mô bên ngoài ($\beta X_t$).
