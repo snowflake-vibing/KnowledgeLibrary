@@ -6,7 +6,8 @@ Thư mục hệ thống hóa công thức viết câu, dàn ý tư duy và các 
 - **Writing Task 1**:
   - Biểu đồ có xu hướng (*Dynamic Charts*: Line, Bar, Pie, Table theo thời gian).
   - Biểu đồ so sánh (*Static Charts*).
-  - Bản đồ (*Maps*) & Quy trình (*Process / Diagram*).
+  - Bản đồ (*Maps*) & Quy trình (*Process / Diagram*):
+    - 📄 [Bài 01: Chinh phục dạng bài MAP (Cấu trúc 4 đoạn, Từ vựng & Bài mẫu Band 7.5+)](01_Task1_Map_Mastery.md)
 - **Writing Task 2**:
   - 5 dạng câu hỏi chính: *Opinion, Discussion, Advantages & Disadvantages, Problem & Solution, Two-part Question*.
   - Khung phát triển đoạn văn chuẩn **PEEL** (*Point – Explanation – Example – Link*).

@@ -40,3 +40,4 @@ Dù ít edit, video vẫn sẽ cuốn hút nếu đảm bảo 4 yếu tố sau:
 ## 📁 Danh mục Kịch bản & Video
 
 - [00_Template_Script_Canva.md](00_Template_Script_Canva.md) – Mẫu chuẩn kết hợp **Nội dung Slide Canva + Lời thoại (Script)** cho mỗi video.
+- [01_Video_Writing_Task1_Map.md](01_Video_Writing_Task1_Map.md) – **[Video #01]** Cách viết IELTS Writing Task 1 MAP đạt 7.5+ (8 Slides Canva + Script đọc hoàn chỉnh).
