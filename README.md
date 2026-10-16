@@ -19,3 +19,8 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 ### 2. [PTDLKD – Phân Tích Dữ Liệu Kinh Doanh (IS403)](PTDLKD/tutorial/)
 - **[Chương 3: Phân tích hồi quy](PTDLKD/tutorial/Chuong3_Phan_tich_hoi_quy/README.md)**
 - **[Chương 4: Hồi quy Logistic](PTDLKD/tutorial/Chuong4_Hoi_quy_logistic/README.md)**
+
+---
+
+### 3. [IELTS – Chinh phục Band 7.5+ & YouTube Content Hub](IELTS/README.md)
+- Hệ thống hóa kiến thức 4 kỹ năng (Listening, Reading, Writing, Speaking), từ vựng – ngữ pháp nâng cao và kho ý tưởng/kịch bản xây dựng kênh YouTube.
