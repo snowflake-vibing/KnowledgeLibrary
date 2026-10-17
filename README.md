@@ -24,3 +24,10 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 
 ### 3. [IELTS – Chinh phục Band 7.5+ & YouTube Content Hub](IELTS/README.md)
 - Hệ thống hóa kiến thức 4 kỹ năng (Listening, Reading, Writing, Speaking), từ vựng – ngữ pháp nâng cao và kho ý tưởng/kịch bản xây dựng kênh YouTube.
+
+---
+
+### 4. [Web – Phát triển ứng dụng Web (IS207)](web/README.md)
+- **[Đề cương & Cẩm nang ôn thi giữa kỳ thực chiến](web/De_Cuong_On_Thi_Giua_Ky.md)** ([Hướng dẫn thực chiến](web/doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md))
+- **[Chương 2: Công nghệ Web phía Client (HTML5, CSS3, Bootstrap)](web/De_Muc_On_Tap_Chuong_2.md)**
+- **[Chương 3: Lập trình phía Client (JavaScript ES6+, DOM, jQuery)](web/De_Muc_On_Tap_Chuong_3.md)**
