@@ -1,18 +1,19 @@
 # 🎬 [VIDEO #01 – ALL-IN-ONE] Toàn tập IELTS Writing Task 1 MAP & FLOOR PLAN (Aim 7.5+)
 
-> **Tài liệu gốc**: [01_Task1_Map_Mastery.md](../03_Writing/01_Task1_Map_Mastery.md)
-> **Thư mục ảnh gắn vào Slide Canva**: [`assets/map_video/`](assets/map_video/) *(Tất cả ảnh đã được xuất sẵn chuẩn tỷ lệ 16:9 Full HD, bạn có thể tải về kéo thả trực tiếp vào Canva)*
-> **Phong cách**: Đi thẳng vào kiến thức trọng tâm ngay từ câu đầu tiên, bao quát **100% mọi ngóc ngách của dạng bài Map** (cả Bản đồ Ngoài trời lẫn Sơ đồ Trong nhà).
+> **Tài liệu gốc**: [01_Task1_Map_Mastery.md](../03_Writing/01_Task1_Map_Mastery.md)  
+> **Bộ đề thi gốc Cambridge**: Tất cả ảnh minh họa trong video đều được trích xuất trực tiếp từ đề thi thật Cambridge IELTS & Wikimedia Commons, lưu sẵn trong thư mục local: [`assets/map_video/`](assets/map_video/) để bạn kéo thả trực tiếp vào Canva hoặc chiếu màn hình.  
+> **Phong cách**: Đi thẳng vào trọng tâm từ giây đầu tiên, không dạo đầu dài dòng.
 
 ---
 
-## 📁 Danh sách 5 File Ảnh có sẵn để gắn vào Slide Canva
+## 🖼️ Danh mục Đề thi thật & Ảnh minh họa (Kèm Link tải & Link web gốc)
 
-1. [`01_compass_and_prepositions.png`](assets/map_video/01_compass_and_prepositions.png) $\rightarrow$ Gắn vào **Slide 5** (8 hướng la bàn & phân biệt `IN` vs `TO`).
-2. [`02_indoor_floor_plan_positions.png`](assets/map_video/02_indoor_floor_plan_positions.png) $\rightarrow$ Gắn vào **Slide 6** (Sơ đồ định vị bản đồ trong nhà – không có la bàn).
-3. [`03_grouping_strategies.png`](assets/map_video/03_grouping_strategies.png) $\rightarrow$ Gắn vào **Slide 3** (3 Chiến thuật chia đoạn Body 1 & Body 2).
-4. [`04_example1_stokeford_1930_2010.png`](assets/map_video/04_example1_stokeford_1930_2010.png) $\rightarrow$ Gắn vào **Slide 9 & Slide 10** (Đề thực hành #1: Bản đồ ngoài trời Làng Stokeford 1930 – 2010).
-5. [`05_example2_library_floorplan_past_now.png`](assets/map_video/05_example2_library_floorplan_past_now.png) $\rightarrow$ Gắn vào **Slide 11** (Đề thực hành #2: Sơ đồ trong nhà Thư viện 20 năm trước – Hiện tại).
+| STT | Tên file trong repo | Đề bài / Nội dung minh họa | Link trực tiếp trên web | Slide gắn vào |
+| :---: | :--- | :--- | :--- | :---: |
+| **1** | [`cambridge_static_map_s1_s2.png`](assets/map_video/cambridge_static_map_s1_s2.png) | **Cambridge IELTS 5** – Garlsdon Town (Static Map: so sánh vị trí $S_1$ vs $S_2$) | [Xem trên IELTSMaterial](https://ieltsmaterial.com/wp-content/uploads/2021/04/Screenshot_98-1.png) | **Slide 1** |
+| **2** | [`wikimedia_compass_rose.png`](assets/map_video/wikimedia_compass_rose.png) | **La bàn hàng hải chuẩn 16 hướng** (Wikimedia Commons) | [Xem trên Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/e/e9/Compass_rose.png) | **Slide 5** |
+| **3** | [`cambridge_stokeford_1930_2010.jpg`](assets/map_video/cambridge_stokeford_1930_2010.jpg) | **Cambridge IELTS Official** – Village of Stokeford (1930 vs. 2010) | [Xem trên ZIM Academy](https://media-app.zim.vn/Avatar/map24-9_2023-09-24-21-34-53-4881.jpg) | **Slide 9 & 10** |
+| **4** | [`cambridge_18_library_floorplan.png`](assets/map_video/cambridge_18_library_floorplan.png) | **Cambridge IELTS 18 Test 3** – Central Library Floor Plan (20 years ago vs. Today) | [Xem trên Pombeebee](https://blubberbee.s3.ap-southeast-1.amazonaws.com/public/library/1688532721_W7FJqsbfUtArwQTJKaHr50VSxZ8Xg7.png) | **Slide 6 & 11** |
 
 ---
 
@@ -21,6 +22,10 @@
 ---
 
 ### 🔹 SLIDE 1: Phần 1 – Phân loại toàn diện các dạng bài Map (0:00 – 1:25)
+
+#### 🖼️ Ảnh gắn vào Slide Canva (Đề minh họa Static Map):
+![Cambridge IELTS 5 Garlsdon Static Map](assets/map_video/cambridge_static_map_s1_s2.png)  
+*(Link web gốc: [IELTSMaterial](https://ieltsmaterial.com/wp-content/uploads/2021/04/Screenshot_98-1.png))*
 
 #### 🖥️ Nội dung copy vào Slide Canva:
 - **Tiêu đề**: **1. PHÂN LOẠI TẤT CẢ CÁC DẠNG BÀI MAP TRONG IELTS**
@@ -34,7 +39,7 @@
   4. **Static Map (1 bản đồ so sánh S1 vs. S2)**: **Hiện tại đơn** (`is located`, `lies`).
 
 #### 🎙️ Lời đọc (Script):
-> "Chào các bạn, đây là video tổng hợp toàn bộ kiến thức từ A đến Z về dạng bài **Map trong IELTS Writing Task 1**, bao gồm: Phân loại dạng bài, 4 tiêu chí chấm điểm, cấu trúc & cách chia đoạn, bộ từ vựng – ngữ pháp cho từng phần, và giải chi tiết 2 đề thực tế. `[nghỉ 1s]`
+> "Chào các bạn, đây là video tổng hợp toàn bộ kiến thức từ A đến Z về dạng bài **Map trong IELTS Writing Task 1**, bao gồm: Phân loại dạng bài, 4 tiêu chí chấm điểm, cấu trúc & cách chia đoạn, bộ từ vựng – ngữ pháp cho từng phần, và giải chi tiết 2 đề thi thật Cambridge. `[nghỉ 1s]`
 > Đầu tiên là **Phân loại các dạng bài Map**. Khi nhận đề, bạn cần nhìn ngay 2 yếu tố: **Không gian** và **Thời gian**.
 > - Về **Không gian**, có 2 loại:
 >   - Một là **Outdoor Map – Bản đồ ngoài trời** như ngôi làng, thị trấn, hòn đảo: Luôn có mũi tên la bàn, nên ta dùng 8 hướng Đông – Tây – Nam – Bắc.
@@ -43,7 +48,7 @@
 >   - Một: Cả 2 mốc đều ở quá khứ (như 1930 và 2010) $\rightarrow$ chia **Quá khứ đơn** (*was/were V3*).
 >   - Hai: Từ quá khứ đến *Now* hoặc *Today* $\rightarrow$ bắt buộc chia **Hiện tại hoàn thành** (*has/have been V3*).
 >   - Ba: Bản đồ thứ hai có chữ *Future, Plan* hoặc *Proposed* $\rightarrow$ dùng cấu trúc dự phóng như **is planned/projected to be V3**.
->   - Bốn: Dạng 1 bản đồ duy nhất so sánh 2 vị trí S1 và S2 $\rightarrow$ dùng **Hiện tại đơn**."
+>   - Bốn: Dạng 1 bản đồ duy nhất như đề thi thật thị trấn Garlsdon trên màn hình, so sánh 2 vị trí S1 và S2 để xây siêu thị $\rightarrow$ dùng **Hiện tại đơn**."
 
 ---
 
@@ -72,16 +77,21 @@
 
 ### 🔹 SLIDE 3: Phần 3 – Cấu trúc 4 Đoạn & 3 Cách chia Body (2:35 – 3:45)
 
-#### 🖼️ Ảnh gắn vào Slide Canva:
-![3 Cách chia đoạn Body 1 & Body 2](assets/map_video/03_grouping_strategies.png)
-
-#### 🖥️ Nội dung chữ trên Slide Canva (Nếu bạn muốn thêm ghi chú):
-- **Khung 4 đoạn (9–11 câu | 160–190 từ)**: `Intro (1 câu)` $\rightarrow$ `Overview (2 câu)` $\rightarrow$ `Body 1 (3–4 câu)` $\rightarrow$ `Body 2 (3–4 câu)`.
-- **3 Chiến thuật chia đoạn Body 1 & Body 2**: (Hiển thị trực tiếp trên hình `03_grouping_strategies.png`).
+#### 🖥️ Nội dung copy vào Slide Canva:
+- **Tiêu đề**: **3. CẤU TRÚC 4 ĐOẠN & 3 CHIẾN THUẬT CHIA ĐOẠN BODY**
+- **Khung 4 đoạn chuẩn (9–11 câu | 160–190 từ)**:
+  - `Intro (1 câu)` $\rightarrow$ `Overview (2 câu)` $\rightarrow$ `Body 1 (3–4 câu)` $\rightarrow$ `Body 2 (3–4 câu)`.
+- **3 Chiến thuật chia nhóm Body 1 & Body 2**:
+  1. **Cách 1 – Chia đôi Không gian (Bắc – Nam / Đông – Tây)**:
+     - Kẻ 1 đường phân cách dọc theo sông hoặc đường chính. Body 1 tả nửa trên (Bắc), Body 2 tả nửa dưới (Nam).
+  2. **Cách 2 – Trung tâm & Vùng ven (Hoặc theo chiều kim đồng hồ)**:
+     - Áp dụng cho Sơ đồ trong nhà (Floor Plan) hoặc Hòn đảo: Body 1 tả Lối vào & Trung tâm; Body 2 tả các phòng xung quanh.
+  3. **Cách 3 – Chia theo Nhóm Chức năng**:
+     - Body 1 tả Hạ tầng giao thông & Nhà ở; Body 2 tả Tiện ích, Trường học & Cảnh quan.
 
 #### 🎙️ Lời đọc (Script):
 > `[chuyển slide]` "Sang phần 3: **Cấu trúc bài viết 4 đoạn và 3 chiến thuật chia đoạn Body cho mọi đề Map**. `[nghỉ 1s]`
-> Bài viết của chúng ta luôn cố định 4 đoạn: **Introduction** (1 câu), **Overview** (2 câu), **Body 1** (3–4 câu) và **Body 2** (3–4 câu). Câu hỏi lớn nhất khi vào phòng thi là: *Làm sao chia đôi bản đồ cho Body 1 và Body 2?* Các bạn nhìn vào 3 cách trên màn hình: `[nghỉ 1s]`
+> Bài viết của chúng ta luôn cố định 4 đoạn: **Introduction** (1 câu), **Overview** (2 câu), **Body 1** (3–4 câu) và **Body 2** (3–4 câu). Câu hỏi lớn nhất khi vào phòng thi là: *Làm sao chia đôi bản đồ cho Body 1 và Body 2?* Các bạn áp dụng 1 trong 3 cách sau: `[nghỉ 1s]`
 > - **Cách 1 – Chia đôi Không gian (Bắc – Nam hoặc Trái – Phải)**: Nếu bản đồ là ngôi làng, thị trấn có con sông hoặc đường lớn cắt ngang, bạn chỉ cần kẻ 1 đường chia đôi. Body 1 tả nửa phía Bắc, Body 2 tả nửa phía Nam.
 > - **Cách 2 – Chia Trung tâm và Vùng ven (Hoặc theo chiều kim đồng hồ)**: Cực kỳ hiệu quả cho **Sơ đồ phòng (Floor Plan)** hoặc **Hòn đảo**. Body 1 bạn tả từ Lối vào chính (*Main Entrance*) đi thẳng vào khu Trung tâm (*Center*); còn Body 2 bạn quét một vòng các phòng ở 2 cánh và phía cuối phòng. `[nghỉ 1s]`
 > - **Cách 3 – Chia theo Nhóm chức năng**: Khi các chi tiết nằm đan xen nhau, bạn gom Hạ tầng giao thông & Nhà ở vào Body 1; còn Tiện ích giải trí, Trường học & Tự nhiên vào Body 2."
@@ -110,34 +120,59 @@
 
 ---
 
-### 🔹 SLIDE 5: Phần 4B – Từ vựng Định vị Bản đồ Ngoài trời (4:50 – 5:50)
+### 🔹 SLIDE 5: Phần 4B – Từ vựng Định vị Ngoài trời & Phân biệt IN vs TO (4:50 – 5:50)
 
 #### 🖼️ Ảnh gắn vào Slide Canva:
-![8 Hướng la bàn & Giới từ IN vs TO](assets/map_video/01_compass_and_prepositions.png)
+![La bàn hàng hải chuẩn Wikimedia](assets/map_video/wikimedia_compass_rose.png)  
+*(Link web gốc: [Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/e/e9/Compass_rose.png))*
+
+#### 🖥️ Nội dung copy vào Slide Canva:
+- **Tiêu đề**: **4B. 8 HƯỚNG LA BÀN & PHÂN BIỆT "IN" vs "TO"**
+- **8 Hướng la bàn**:
+  - `North (N), South (S), East (E), West (W)`
+  - `North-East (NE), North-West (NW), South-East (SE), South-West (SW)`
+  - *Đổi sang tính từ*: `in the northern / south-eastern part of...`
+- **Quy tắc phân biệt `IN` vs `TO` (Lỗi sai kinh điển Band 6.0)**:
+  - 📍 **`IN` the north of the town**: Nằm **BÊN TRONG** ranh giới thị trấn *(Ví dụ: A hospital was built in the north of the town)*.
+  - 📍 **`TO` the north of the town**: Nằm **TÁCH BIỆT BÊN NGOÀI** thị trấn *(Ví dụ: A forest lies to the north of the town)*.
+  - 📍 **`Adjacent to`**: Nằm sát cạnh *(thay cho next to)* | **`Opposite`**: Đối diện.
 
 #### 🎙️ Lời đọc (Script):
-> `[chuyển slide]` "Tiếp theo là từ vựng định vị cho **Bản đồ ngoài trời (Outdoor Map)** trên màn hình. `[nghỉ 1s]`
-> - Nhìn vào khung bên trái: Ngoài 4 hướng chính Bắc – Nam – Đông – Tây, bạn cần nhớ 4 hướng góc là **North-East (Đông Bắc), North-West (Tây Bắc), South-East (Đông Nam) và South-West (Tây Nam)**. Khi muốn đổi gió không lặp lại danh từ *in the north of*, bạn hãy đổi sang tính từ thêm đuôi *-ern*: **in the northern / south-eastern part of...** `[nghỉ 1s]`
-> - Nhìn sang khung bên phải là lỗi sai kinh điển nhất ở Band 6.0: Phân biệt **IN** và **TO**.
->   - Bạn dùng **IN** (*in the north of the town*) khi bệnh viện đó nằm **bên trong ranh giới** của thị trấn.
+> `[chuyển slide]` "Tiếp theo là từ vựng định vị cho **Bản đồ ngoài trời (Outdoor Map)**. `[nghỉ 1s]`
+> - Ngoài 4 hướng chính Bắc – Nam – Đông – Tây, bạn cần nhớ 4 hướng góc là **North-East (Đông Bắc), North-West (Tây Bắc), South-East (Đông Nam) và South-West (Tây Nam)**. Khi muốn đổi gió không lặp lại danh từ *in the north of*, bạn hãy đổi sang tính từ thêm đuôi *-ern*: **in the northern / south-eastern part of...** `[nghỉ 1s]`
+> - Điểm ngữ pháp ăn điểm then chốt là phân biệt **IN** và **TO**:
+>   - Bạn dùng **IN** (*in the north of the town*) khi công trình đó nằm **bên trong lòng ranh giới** của thị trấn.
 >   - Còn bạn dùng **TO** (*to the north of the town*) khi khu rừng hoặc tòa nhà đó nằm **tách biệt hẳn ra bên ngoài** ranh giới.
 >   - Ngoài ra, nếu 2 công trình nằm sát vách nhau, hãy dùng **adjacent to** thay cho *next to*."
 
 ---
 
-### 🔹 SLIDE 6: Phần 4C – Từ vựng Định vị Bản đồ Trong nhà (Floor Plan) (5:50 – 6:50)
+### 🔹 SLIDE 6: Phần 4C – Từ vựng Định vị Sơ đồ Trong nhà (Floor Plan) (5:50 – 6:50)
 
-#### 🖼️ Ảnh gắn vào Slide Canva:
-![Sơ đồ định vị bản đồ trong nhà](assets/map_video/02_indoor_floor_plan_positions.png)
+#### 🖼️ Ảnh gắn vào Slide Canva (Đề Thư viện Cambridge 18 Test 3):
+![Cambridge IELTS 18 Floor Plan](assets/map_video/cambridge_18_library_floorplan.png)  
+*(Link web gốc: [Pombeebee](https://blubberbee.s3.ap-southeast-1.amazonaws.com/public/library/1688532721_W7FJqsbfUtArwQTJKaHr50VSxZ8Xg7.png))*
+
+#### 🖥️ Nội dung copy vào Slide Canva:
+- **Tiêu đề**: **4C. TỪ VỰNG ĐỊNH VỊ BẢN ĐỒ TRONG NHÀ (KHÔNG CÓ LA BÀN)**
+- **Lấy Lối vào chính (Entrance) làm gốc**:
+  - `To the immediate left / right of the entrance`: Ngay bên trái / phải cửa vào.
+  - `In the bottom-left / bottom-right corner`: Ở góc dưới bên trái / phải.
+- **Khu vực Trung tâm & Hai bên tường**:
+  - `In the center / middle / heart of the room`: Ở chính giữa phòng.
+  - `Along the left-hand / right-hand wall`: Dọc tường bên trái / phải.
+- **Phía cuối phòng (Đối diện lối vào)**:
+  - `At the back / far end of the room (opposite the entrance)`.
+  - `In the top-left corner` | `In the top-right corner`.
 
 #### 🎙️ Lời đọc (Script):
-> `[chuyển slide]` "Vậy nếu đề thi ra **Sơ đồ mặt bằng trong nhà (Floor Plan)** không có mũi tên Đông – Tây – Nam – Bắc thì tả vị trí bằng từ gì? Bạn chỉ cần lưu lại đúng tấm sơ đồ trên màn hình: `[nghỉ 1s]`
-> - Quy tắc vàng là luôn lấy **Cửa chính (Main Entrance)** làm mốc gốc:
+> `[chuyển slide]` "Vậy nếu đề thi ra **Sơ đồ mặt bằng trong nhà (Floor Plan)** như đề Thư viện Cambridge 18 trên màn hình, không có mũi tên la bàn thì tả vị trí bằng từ gì? `[nghỉ 1s]`
+> - Quy tắc vàng là luôn lấy **Cửa chính (Entrance)** ở cạnh dưới làm mốc gốc:
 >   - Ngay bên trái/phải lối vào là: **To the immediate left / right of the entrance** (hoặc **in the bottom-left / bottom-right corner**).
 >   - Đi thẳng vào chính giữa căn phòng là: **In the center / middle / heart of the room**.
 >   - Dọc hai bức tường hai bên là: **Along the left-hand / right-hand wall**.
 >   - Phía cuối phòng, đối diện cửa vào là: **At the back / far end of the room (opposite the entrance)**.
->   - Và 2 góc trên cùng là: **In the top-left corner** và **In the top-right corner**. Có tấm bản đồ vị trí này, bất kỳ đề thư viện, bảo tàng hay sân bay nào bạn cũng định vị chính xác 100%!"
+>   - Và 2 góc trên cùng là: **In the top-left corner** và **In the top-right corner**. Nhớ hệ quy chiếu này thì bất kỳ đề thư viện, bảo tàng hay sân bay nào bạn cũng định vị chính xác 100%!"
 
 ---
 
@@ -187,10 +222,11 @@
 
 ---
 
-### 🔹 SLIDE 9: Phần 5A – Ứng dụng Đề #1 (Outdoor Map): Intro & Overview (9:10 – 10:20)
+### 🔹 SLIDE 9: Phần 5A – Ứng dụng Đề thi thật #1 (Outdoor Map): Intro & Overview (9:10 – 10:20)
 
-#### 🖼️ Ảnh gắn vào Slide Canva:
-![Đề thực hành 1 - Làng Stokeford](assets/map_video/04_example1_stokeford_1930_2010.png)
+#### 🖼️ Ảnh gắn vào Slide Canva (Đề thi thật Cambridge: Stokeford Village):
+![Cambridge IELTS Stokeford Village 1930 vs 2010](assets/map_video/cambridge_stokeford_1930_2010.jpg)  
+*(Link web gốc: [ZIM Academy](https://media-app.zim.vn/Avatar/map24-9_2023-09-24-21-34-53-4881.jpg))*
 
 #### 🖥️ Nội dung chữ trên Slide Canva:
 - **✍️ Introduction**:
@@ -199,37 +235,39 @@
   > *Overall, the village underwent a dramatic transformation from a rural agricultural community into a densely populated residential area. The most notable changes include the complete clearance of farmland to construct new housing and the expansion of educational and care facilities.*
 
 #### 🎙️ Lời đọc (Script):
-> `[chuyển slide]` "Bây giờ chúng ta bước sang phần 5: **Ứng dụng giải chi tiết 2 đề thực chiến** – gồm 1 đề Bản đồ ngoài trời và 1 đề Sơ đồ trong nhà. `[nghỉ 1s]`
+> `[chuyển slide]` "Bây giờ chúng ta bước sang phần 5: **Ứng dụng giải chi tiết 2 đề thi thật Cambridge** – gồm 1 đề Bản đồ ngoài trời và 1 đề Sơ đồ trong nhà. `[nghỉ 1s]`
 > Nhìn vào hình ảnh **Đề số 1 trên màn hình: Ngôi làng Stokeford năm 1930 và năm 2010**.
-> Vì cả 2 mốc năm đều ở quá khứ, ta dùng **Quá khứ đơn**. Mình đã kẻ sẵn một đường đứt nét màu đỏ chia đôi bản đồ: Phần phía trên vạch đỏ là **Body 1**, phần phía dưới vạch đỏ là **Body 2**. `[nghỉ 1s]`
+> Vì cả 2 mốc năm đều ở quá khứ, ta dùng **Quá khứ đơn**. Chúng ta chia đôi bản đồ theo con đường chính và dòng sông: Nửa phía Bắc và trung tâm là **Body 1**, nửa phía Nam là **Body 2**. `[nghỉ 1s]`
 > Áp dụng viết ngay **Introduction và Overview**:
 > - **Intro**: *The two maps illustrate how the village of Stokeford developed over an 80-year period from 1930 to 2010.*
 > - **Overview**: Câu 1 nêu sự lột xác từ làng nông nghiệp thành khu dân cư đông đúc: *Overall, the village underwent a dramatic transformation from a rural agricultural community into a densely populated residential area.* Câu 2 dùng danh từ hóa điểm tên 2 thay đổi lớn nhất: *The most notable changes include the complete clearance of farmland to construct new housing and the expansion of educational and care facilities.*"
 
 ---
 
-### 🔹 SLIDE 10: Phần 5B – Ứng dụng Đề #1 (Outdoor Map): Body 1 & Body 2 (10:20 – 11:40)
+### 🔹 SLIDE 10: Phần 5B – Ứng dụng Đề thi thật #1: Body 1 & Body 2 (10:20 – 11:40)
 
-#### 🖼️ Ảnh gắn vào Slide Canva (Để góc nhỏ hoặc chia đôi màn hình):
-![Đề thực hành 1 - Làng Stokeford](assets/map_video/04_example1_stokeford_1930_2010.png)
+#### 🖼️ Ảnh gắn vào Slide Canva (Đặt ở góc hoặc nửa slide):
+![Cambridge IELTS Stokeford Village 1930 vs 2010](assets/map_video/cambridge_stokeford_1930_2010.jpg)  
+*(Link web gốc: [ZIM Academy](https://media-app.zim.vn/Avatar/map24-9_2023-09-24-21-34-53-4881.jpg))*
 
 #### 🖥️ Nội dung chữ trên Slide Canva:
-- **✍️ Body 1 (Phía trên vạch đỏ – Bắc & Trung tâm)**:
+- **✍️ Body 1 (Nửa phía Bắc & Trung tâm)**:
   > *Looking first at the northern and central sections, the River Stoke running from north to south and the bridge at the northern end **remained unchanged** throughout the period. However, the vast farmland **in the north-east** **was completely cleared to make way for** new roads lined with residential houses. Along the main road, while the post office **stayed intact**, the two shops **adjacent to** it **were demolished and replaced by** additional housing units.*
-- **✍️ Body 2 (Phía dưới vạch đỏ – Phía Nam)**:
+- **✍️ Body 2 (Nửa phía Nam)**:
   > *Turning to the southern half of the village, **located to the east of** the main road, the primary school **was significantly extended** with two new building wings. Further south, the large house **was converted into** a retirement home and expanded **at the expense of** the surrounding gardens, which **were reduced in size** to construct more houses. Furthermore, the farmland **in the south-west** also **gave way to** new residential developments.*
 
 #### 🎙️ Lời đọc (Script):
-> `[chuyển slide]` "Tiếp tục nhìn vào bản đồ Stokeford để viết **Body 1 và Body 2**: `[nghỉ 1s]`
-> - **Body 1 (Tả nửa trên vạch đỏ)**: Đầu tiên nhắc ngay sông Stoke và cây cầu giữ nguyên bằng **remained unchanged**. Tiếp theo, khu đất nông nghiệp ở góc Đông Bắc bị giải tỏa hoàn toàn để nhường chỗ cho đường mới và nhà dân: *the vast farmland in the north-east **was completely cleared to make way for** new roads lined with residential houses*. Dọc trục đường chính, trong khi bưu điện giữ nguyên (**stayed intact**), thì 2 cửa hàng sát cạnh nó (**adjacent to it**) bị phá bỏ và thay bằng nhà ở (**were demolished and replaced by additional housing units**). `[nghỉ 1s]`
-> - **Body 2 (Tả nửa dưới vạch đỏ)**: Mở đầu bằng mệnh đề phân từ: ***Located to the east of the main road**, the primary school **was significantly extended*** (trường tiểu học được mở rộng gấp đôi). Đi xuống phía Nam, căn biệt thự lớn được chuyển thành viện dưỡng lão và mở rộng lấn vào diện tích khu vườn: *the large house **was converted into** a retirement home and expanded **at the expense of** the surrounding gardens*. Cuối cùng, mảnh đất nông nghiệp ở góc Tây Nam cũng nhường chỗ cho nhà mới (**gave way to new residential developments**)."
+> `[chuyển slide]` "Tiếp tục nhìn vào đề Stokeford để viết **Body 1 và Body 2**: `[nghỉ 1s]`
+> - **Body 1 (Tả nửa phía Bắc và Trung tâm)**: Đầu tiên nhắc ngay sông Stoke và cây cầu giữ nguyên bằng **remained unchanged**. Tiếp theo, khu đất nông nghiệp ở góc Đông Bắc bị giải tỏa hoàn toàn để nhường chỗ cho đường mới và nhà dân: *the vast farmland in the north-east **was completely cleared to make way for** new roads lined with residential houses*. Dọc trục đường chính, trong khi bưu điện giữ nguyên (**stayed intact**), thì 2 cửa hàng sát cạnh nó (**adjacent to it**) bị phá bỏ và thay bằng nhà ở (**were demolished and replaced by additional housing units**). `[nghỉ 1s]`
+> - **Body 2 (Tả nửa phía Nam)**: Mở đầu bằng mệnh đề phân từ: ***Located to the east of the main road**, the primary school **was significantly extended*** (trường tiểu học được mở rộng). Đi xuống phía Nam, căn biệt thự lớn được chuyển thành viện dưỡng lão và mở rộng lấn vào diện tích khu vườn: *the large house **was converted into** a retirement home and expanded **at the expense of** the surrounding gardens*. Cuối cùng, mảnh đất nông nghiệp ở góc Tây Nam cũng nhường chỗ cho nhà mới (**gave way to new residential developments**)."
 
 ---
 
-### 🔹 SLIDE 11: Phần 5C – Ứng dụng Đề #2 (Indoor Floor Plan – Hiện tại hoàn thành) (11:40 – Kết thúc)
+### 🔹 SLIDE 11: Phần 5C – Ứng dụng Đề thi thật #2 (Indoor Floor Plan): Cambridge 18 Test 3 (11:40 – Kết thúc)
 
-#### 🖼️ Ảnh gắn vào Slide Canva:
-![Đề thực hành 2 - Thư viện trung tâm](assets/map_video/05_example2_library_floorplan_past_now.png)
+#### 🖼️ Ảnh gắn vào Slide Canva (Đề thi thật Cambridge 18 Test 3):
+![Cambridge IELTS 18 Floor Plan](assets/map_video/cambridge_18_library_floorplan.png)  
+*(Link web gốc: [Pombeebee](https://blubberbee.s3.ap-southeast-1.amazonaws.com/public/library/1688532721_W7FJqsbfUtArwQTJKaHr50VSxZ8Xg7.png))*
 
 #### 🖥️ Nội dung chữ trên Slide Canva:
 - **✍️ Intro & Overview**:
@@ -240,9 +278,9 @@
   > *Turning to the back of the library, the room **in the top-left corner** **has been enlarged and converted into** a space for storytelling events equipped with sofas. Finally, **in the top-right corner now stands** a dedicated lecture room in place of the former children's book section.*
 
 #### 🎙️ Lời đọc (Script):
-> `[chuyển slide]` "Và để các bạn tự tin 100% với cả dạng bản đồ trong nhà, chúng ta xem nhanh **Đề thực hành số 2 trên màn hình: Sơ đồ Thư viện trung tâm cách đây 20 năm và Hiện tại (Today)**. `[nghỉ 1s]`
-> Lưu ý hai điểm khác biệt lớn nhất ở đề này: Thứ nhất, vì mốc thứ 2 là *Today*, toàn bộ động từ phải chia ở **Hiện tại hoàn thành (`has/have been + V3`)**. Thứ hai, vì không có la bàn, ta áp dụng đúng sơ đồ định vị trong nhà và **Cách chia nhóm số 2 (Trung tâm & Vùng ven)**: `[nghỉ 1s]`
+> `[chuyển slide]` "Và để các bạn tự tin 100% với cả dạng bản đồ trong nhà, chúng ta giải **Đề thi thật Cambridge 18 Test 3: Sơ đồ Thư viện trung tâm cách đây 20 năm và Hiện tại (Today)** trên màn hình. `[nghỉ 1s]`
+> Lưu ý hai điểm khác biệt lớn nhất ở đề này: Thứ nhất, vì mốc thứ 2 là *Today*, toàn bộ động từ phải chia ở **Hiện tại hoàn thành (`has/have been + V3`)**. Thứ hai, vì không có la bàn, ta áp dụng sơ đồ định vị trong nhà: `[nghỉ 1s]`
 > - **Overview**: Thư viện đã được hiện đại hóa đáng kể (**has been significantly modernized**) để thêm tiện ích công nghệ và quán cà phê, trong khi khu vực trung tâm được giải phóng không gian bằng cách dọn bỏ bàn ghế.
 > - **Body 1 (Tả Lối vào, Trung tâm và 2 bên tường giữa)**: Lối vào ở cạnh dưới giữ nguyên, trong khi bàn ghế ở chính giữa phòng đã được dọn sạch (**have been completely removed**). Ngay bên trái lối vào (**To the immediate left of the entrance**), phòng đọc báo được thay bằng phòng máy tính; còn góc dưới bên phải, quầy lễ tân nhường chỗ cho quán cà phê và máy tự phục vụ (**has given way to a café and self-service machines**). Dọc hai bức tường giữa, kệ sách tiểu thuyết người lớn được dời từ bên trái sang bên phải (**have been relocated**), nhường bên trái cho sách tham khảo. `[nghỉ 1s]`
 > - **Body 2 (Tả 2 góc cuối thư viện)**: Ở góc trên bên trái (**in the top-left corner**), phòng đĩa CD cũ được mở rộng và chuyển đổi thành khu kể chuyện có ghế sofa. Cuối cùng, áp dụng cấu trúc đảo ngữ cho góc trên bên phải: ***in the top-right corner now stands** a dedicated lecture room* thay thế cho khu sách thiếu nhi cũ. `[nghỉ 1s]`
-> Toàn bộ 5 tấm hình sơ đồ chất lượng cao, bảng từ vựng và 2 bài mẫu Band 7.5+ này mình đã để sẵn trong link GitHub dưới phần mô tả. Chúc các bạn ôn tập thật tốt và hẹn gặp lại ở video tiếp theo!"
+> Toàn bộ ảnh đề thi gốc, link bài học và bài mẫu chuẩn Band 7.5+ này mình đã để sẵn trong link GitHub dưới phần mô tả. Chúc các bạn ôn tập thật tốt và hẹn gặp lại ở video tiếp theo!"
