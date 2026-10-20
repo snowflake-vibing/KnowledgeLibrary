@@ -1,66 +1,63 @@
 # 🎨 RULE FOR SLIDES (QUY ƯỚC THIẾT KẾ SLIDE MINIMAL CHUẨN THỰC CHIẾN)
 
-> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế và chuẩn xác về bố cục cho video giáo dục IELTS. Giải quyết triệt để lỗi tràn khung (overflow), chữ đè lên nhau, đảm bảo độ thoáng cao (high line-spacing), thanh quote kéo dài trọn vẹn và hiệu ứng Fade xuất hiện theo nhịp click chuột đồng bộ với kịch bản.
+> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế, chuẩn xác về mặt thị giác cho video giáo dục IELTS chất lượng cao.  
+> **Nguyên tắc bất biến**: Không dùng card đóng khung, không dồn nén chữ, 100% trắng sáng, thanh quote dọc ôm trọn nội dung, độ thoáng cao (high line-spacing), tuyệt đối không tràn viền và tích hợp sẵn animation xuất hiện theo nhịp kịch bản.
 
 ---
 
 ## ⚪ 1. NỀN & MÀU SẮC CHỦ ĐẠO (BACKGROUND & ACCENT COLOR)
 
-- **Màu nền**: **100% Màu trắng thuần (`#FFFFFF`)**. Không dùng gradient hay nền tối.
-- **Màu văn bản nội dung (Body text)**: **100% Đen / Xám đen đậm (`#0F172A`)**.
-- **QUY TẮC MÀU HEADING ĐỀ MỤC & THANH DỌC (ONE ACCENT COLOR PER SLIDE)**:
-  - Heading đề mục và thanh dọc quote trên mỗi slide **sử dụng cùng 1 màu nhấn**.
-  - Chỉ được chọn **1 trong 4 màu** sau:
-    1. 🔴 **Đỏ**: `#DC2626`
-    2. 🟣 **Tím**: `#7C3AED`
-    3. 🟠 **Cam**: `#EA580C`
-    4. 🌸 **Hồng**: `#DB2777`
-  - **LƯU Ý BẮT BUỘC**: **Mỗi slide chỉ được dùng đúng 1 màu duy nhất cho heading và thanh dọc quote** (không trộn 2-3 màu khác nhau trên cùng một trang slide). Nội dung bên dưới vẫn giữ nguyên màu đen/xám đen để đảm bảo tính tối giản.
+- **Màu nền Slide**: **100% Trắng thuần (`#FFFFFF`)**. Tuyệt đối không dùng gradient, texture hay nền tối.
+- **Màu chữ nội dung (Body text)**: **Xám đen học thuật đậm (`#0F172A`)**. Không dùng màu xám quá nhạt gây mỏi mắt.
+- **Quy tắc 1 màu Accent / Slide (One Accent Color Per Slide)**:
+  - Heading đề mục và thanh dọc Quote Bar trên mỗi slide **bắt buộc dùng chung 1 màu nhấn duy nhất**.
+  - Luân phiên chọn **1 trong 4 màu chuẩn thương hiệu**:
+    1. 🔴 **Đỏ (Red)**: `#DC2626`
+    2. 🟣 **Tím (Purple)**: `#7C3AED`
+    3. 🟠 **Cam (Orange)**: `#EA580C`
+    4. 🌸 **Hồng (Pink)**: `#DB2777`
+  - 🚫 **Cấm**: Không phối 2-3 màu khác nhau trên cùng một trang slide. Giữ cho mắt người xem luôn cảm thấy ngăn nắp, tinh tế.
 
 ---
 
 ## ▎ 2. QUY TẮC THANH DỌC QUOTE (BLOCKQUOTE ACCENT BAR)
 
-- **Không vẽ khung viền hộp / Card** (để giữ tinh thần minimal thoáng đãng).
+- **Không dùng Box Card**: Không đóng khung viền chữ nhật xung quanh các khối nội dung.
 - **Mỗi khối nội dung / luận điểm bắt buộc có 1 thanh dọc bên trái (Quote Bar)**:
-  - **Độ dày thanh dọc**: 4px – 5px (khoảng 0.05 – 0.06 inch).
-  - **Chiều cao thanh dọc**: **BẮT BUỘC kéo dài từ đỉnh của tiêu đề khối xuống trọn vẹn đến hết dòng cuối cùng của nội dung** (không được cụt lửng hay ngắn hơn khối chữ).
+  - **Độ dày thanh dọc**: 4.0 – 4.5 pt (khoảng 0.05 – 0.06 inch).
+  - **Chiều cao thanh dọc (Bắt buộc)**: **Kéo dài từ đỉnh của tiêu đề khối xuống trọn vẹn đến hết dòng cuối cùng của nội dung (+ 2-4pt đệm)**. Tuyệt đối không để thanh dọc bị cụt lửng ở giữa chừng khi văn bản có nhiều dòng.
   - **Màu sắc thanh dọc**: Trùng 100% với màu nhấn của Heading trên slide đó.
-  - **Khoảng cách đệm (Padding left)**: Chữ cách thanh dọc 12px – 18px để tạo độ thụt lề chuẩn phong cách Blockquote.
+  - **Khoảng cách đệm (Padding left)**: Thụt lề chữ cách thanh dọc 16px – 18px để tạo độ phân cấp rõ rệt.
 
 ---
 
 ## 🔤 3. TYPOGRAPHY & KHOẢNG CÁCH DÒNG (HIGH LINE-SPACING)
 
-- **Font chữ quy định**: **Montserrat** duy nhất cho toàn bộ slide.
-- **Độ lớn font chữ (Font Size)**:
-  - **Tối thiểu: 24pt** (để người xem trên điện thoại nhìn rõ 100%).
-  - Tiêu đề chính (Slide Heading): 28pt – 32pt.
-  - Tên khối nội dung / Đầu mục con: 24pt (In đậm - Bold).
-  - Nội dung chi tiết / Câu ví dụ: 20pt – 22pt (*In nghiêng - Italic*).
+- **Font chữ quy định**: **Montserrat** xuyên suốt 100% bài giảng.
+- **Kích thước font chữ (Font Size)**:
+  - Tiêu đề slide (Slide Heading): **28pt – 32pt** (In đậm - Bold).
+  - Tiêu đề khối (Block Title): **24pt** (In đậm - Bold).
+  - Nội dung / Ví dụ / Giải thích: **20pt – 22pt** (*In nghiêng - Italic*).
 - **Khoảng cách dòng cao (Generous Line-spacing)**:
-  - Line-spacing: **1.3x dòng** (tuyệt đối không để chữ dính sát nhau).
-  - Khoảng cách giữa tiêu đề khối và câu nội dung: 8pt – 10pt.
-  - Khoảng cách giữa các khối nội dung: 30pt – 40pt (đảm bảo chữ không bao giờ đè lên nhau).
-- **Định dạng cho phép**:
-  - **Bold (In đậm)**: Dùng cho heading, từ khóa quan trọng, cụm Collocation ăn điểm.
-  - *Italic (In nghiêng)*: Dùng cho các câu ví dụ tiếng Anh hoặc trích dẫn đề bài.
+  - Line-spacing: **1.3x dòng** (độ thoáng mắt tối ưu cho video giảng dạy).
+  - Khoảng cách giữa tiêu đề khối và nội dung: **8pt – 10pt**.
+  - Khoảng cách giữa các khối (Block Gap): **30pt – 40pt** (không bao giờ để các khối chạm hoặc đè lên nhau).
 
 ---
 
-## 🚫 4. NGUYÊN TẮC CHIA SLIDE & CHỐNG TRÀN CHỮ (ZERO-OVERFLOW & SPLIT RULE)
+## 🚫 4. NGUYÊN TẮC CHIA SLIDE & CHỐNG TRÀN CHỮ (ZERO-OVERFLOW FORMULA)
 
 > [!CRITICAL]
-> **Quy tắc sống còn: Nếu nhiều nội dung không nhét nổi thì BẮT BUỘC TÁCH THÊM SLIDE, tuyệt đối không dồn ép.**
-> Đáy của khối chữ cuối cùng **BẮT BUỘC CÁCH MÉP ĐÁY MÀN HÌNH TỐI THIỂU 1.0 INCH (70pt)**.
+> **Quy tắc vàng: Nếu có nhiều ý hoặc nội dung dài, BẮT BUỘC TÁCH THÊM SLIDE. Tuyệt đối không dồn ép.**
+> Đáy của mọi thành phần (ảnh hoặc chữ) **BẮT BUỘC CÁCH MÉP ĐÁY SLIDE TỐI THIỂU 50pt – 70pt** (khoảng 0.7 – 1.0 inch). Trên slide chuẩn 16:9 cao 540pt, tọa độ đáy không bao giờ vượt quá 470pt – 485pt.
 
 ### 📐 Định mức số lượng khối trên mỗi Slide:
 1. **Slide có ảnh (Split-screen 50/50)**:
-   - **Tối đa 1 khối trọng tâm** (hoặc tối đa 2 khối cực ngắn chỉ 1 dòng).
-   - Nếu có nhiều ý (ví dụ: Intro, Overview, Body 1, Body 2 hoặc từng cặp giới từ IN vs TO), **bắt buộc tách mỗi ý thành 1 slide riêng biệt**.
-   - Ảnh phải được tự động co tỉ lệ (`max_height <= 370pt`) để không tràn mép đáy.
+   - **Tối đa 1 khối trọng tâm** (hoặc 2 khối cực ngắn chỉ 1 dòng).
+   - Nếu có nhiều ý (ví dụ: Intro, Overview, Body 1, Body 2 hoặc từng cặp cấu trúc), **bắt buộc tách mỗi ý thành 1 slide riêng biệt có cùng ảnh bên trái**.
+   - **Quy tắc co tỉ lệ ảnh**: Ảnh phải tự động co theo cả chiều ngang (`max_w <= 340pt`) và chiều dọc (`max_h <= 370pt`), đặt ở giữa vùng hiển thị, không được để ảnh tràn đáy.
 2. **Slide toàn chữ (Full width)**:
-   - Tối đa **2 khối nội dung** được giãn dòng 1.3x.
+   - **Tối đa 2 khối nội dung** được giãn dòng 1.3x.
    - Nếu có 4 tiêu chí hoặc 4 cấu trúc ngữ pháp, chia đôi thành 2 slide (mỗi slide 2 khối) hoặc 4 slide riêng biệt.
 
 ---
@@ -68,27 +65,36 @@
 ## ✨ 5. HIỆU ỨNG TRÌNH CHIẾU (TRANSITIONS & ANIMATIONS - ONE-TAKE SYNC)
 
 - **Hiệu ứng chuyển Slide (Slide Transition)**:
-  - Dùng hiệu ứng **Fade mượt mà** (`Fade Smoothly`, thời lượng 0.5s).
-- **Hiệu ứng xuất hiện nội dung (Shape Entrance Animation)**:
+  - Dùng hiệu ứng **Fade Smoothly** (thời lượng 0.5s).
+- **Hiệu ứng xuất hiện nội dung (On-Click Animation)**:
   - Khi mở slide: Tiêu đề và hình ảnh xuất hiện ngay lập tức.
-  - **On Click (Bấm chuột)**: Từng khối nội dung (thanh quote dọc + văn bản đi kèm đã nhóm lại) sẽ **Fade nhẹ nhàng xuất hiện theo từng cú click chuột**.
-  - **Đồng bộ với Script**: Giúp người thuyết trình bấm slide đến đâu chữ hiện đến đó, người học tập trung hoàn toàn vào đúng điểm kiến thức đang giảng mà không bị phân tán mắt bởi các ý tiếp theo.
+  - **On Click (Bấm chuột)**: Từng khối nội dung (thanh quote dọc + văn bản đi kèm) sẽ **Fade nhẹ nhàng xuất hiện theo từng cú click chuột**.
+  - **Đồng bộ với Script đọc**: Trong file kịch bản voiceover, chèn mốc `[Click chuột: Hiện khối X]` để người thuyết trình chỉ cần bấm chuột là slide hiện đúng nội dung đang đọc.
 
 ---
 
 ## 🐸 6. QUY TẮC EMOJI & ICON
 
 - **1 Emoji duy nhất trước mỗi Heading đề mục**:
-  - Mỗi tiêu đề chính của slide **bắt buộc có 1 emoji phù hợp đứng trước** (Ví dụ: `🗺️ 01. DẠNG BÀI 1`, `🎯 02. TIÊU CHÍ CHẤM ĐIỂM`, `📐 03. CẤU TRÚC BÀI VIẾT`...).
+  - Mỗi tiêu đề chính của slide **bắt buộc có đúng 1 emoji phù hợp đứng trước** (Ví dụ: `🗺️ 01. DẠNG BÀI 1`, `🎯 02. TIÊU CHÍ CHẤM ĐIỂM`, `📐 03. CẤU TRÚC BÀI VIẾT`...).
 - **Cấm lạm dụng**: Không dùng emoji bừa bãi làm bullet point đầu dòng cho từng câu giải thích.
 
 ---
 
-## 📋 CHECKLIST KIỂM DUYỆT TRƯỚC KHI XUẤT FILE SLIDE / PPTX:
+## 🤖 7. QUY TRÌNH TẠO SLIDE TỰ ĐỘNG BẰNG PYTHON (AUTOMATION STANDARD)
 
+Khi sinh slide bằng code Python (`win32com.client` trên Windows):
+1. **Tính toán chiều cao tự động**: Sử dụng `actual_height = max(tb.Height, r.BoundHeight) + 4.0` để gán chính xác `bar.Height = actual_height`.
+2. **Nhóm và gán Animation**: Nhóm `bar` và `tb` lại thành 1 Group Shape (`Group()`), sau đó gán `TimeLine.MainSequence.AddEffect(grp, 10, 0, 1)` (Fade on-click).
+3. **Vòng lặp kiểm tra tự động (Self-Check Loop)**: Trước khi lưu file, chạy vòng lặp kiểm tra tọa độ đáy `slide_height - (shape.Top + shape.Height) >= 50.0pt`. Nếu phát hiện bất kỳ slide nào có đáy $< 50pt$, tự động tách slide đó ra làm 2 slide riêng biệt.
+
+---
+
+## 📋 CHECKLIST KIỂM DUYỆT TRƯỚC KHI BÀN GIAO PPTX:
+
+- [ ] Đã kiểm tra Fullscreen: Mọi chữ và ảnh đều cách mép đáy màn hình $> 50pt$, không bị cắt chữ?
 - [ ] Tiêu đề slide đã có đúng 1 emoji phía trước chưa?
 - [ ] Heading slide và các thanh dọc Quote có dùng chung 1 màu duy nhất trong 4 màu (Đỏ, Tím, Cam, Hồng) không?
 - [ ] Thanh dọc Quote có kéo dài trọn vẹn từ đầu tiêu đề đến tận đáy dòng chữ cuối cùng không?
 - [ ] Chữ có bị đè lên nhau không? Khoảng cách dòng (line spacing) có đạt chuẩn 1.3x không?
-- [ ] Slide có ảnh có đảm bảo chỉ chứa 1 khối nội dung trọng tâm và đáy cách mép dưới > 70pt không?
-- [ ] Đã cài đặt hiệu ứng Fade chuyển slide và Fade on-click cho từng khối nội dung chưa?
+- [ ] Đã có hiệu ứng Fade chuyển slide và Fade on-click cho từng khối nội dung chưa?
