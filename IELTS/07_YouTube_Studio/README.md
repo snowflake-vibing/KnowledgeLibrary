@@ -53,6 +53,7 @@ Tất cả hình ảnh minh họa đều được trích xuất từ đề thi t
 
 ---
 
-## 📌 File Mẫu & Quy chuẩn (Templates)
+## 📌 File Mẫu & Quy chuẩn (Templates & System Rules)
 
+- 📜 [**YOUTUBE_RULES.md**](YOUTUBE_RULES.md) – **Bộ quy tắc chuẩn hóa (System Rules)** bắt buộc AI phải tuân thủ khi viết script và làm slide.
 - [00_Template_Script_Canva.md](00_Template_Script_Canva.md) – Mẫu chuẩn để lên ý tưởng kịch bản cho các video bài học tiếp theo.
