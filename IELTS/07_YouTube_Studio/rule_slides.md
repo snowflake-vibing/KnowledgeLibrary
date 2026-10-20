@@ -1,6 +1,6 @@
 # 🎨 RULE FOR SLIDES (QUY ƯỚC THIẾT KẾ SLIDE MINIMAL CHUẨN THỰC CHIẾN)
 
-> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế và chuẩn xác về bố cục cho video giáo dục IELTS. Giải quyết triệt để vấn đề tràn khung (overflow), giữ nhịp đọc thoáng mắt và tạo điểm nhấn thị giác bằng màu sắc có kiểm soát.
+> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế và chuẩn xác về bố cục cho video giáo dục IELTS. Giải quyết triệt để lỗi tràn khung (overflow), chữ đè lên nhau, đảm bảo độ thoáng cao (high line-spacing), thanh quote kéo dài trọn vẹn và hiệu ứng Fade xuất hiện theo nhịp click chuột đồng bộ với kịch bản.
 
 ---
 
@@ -19,57 +19,67 @@
 
 ---
 
-## ▎ 2. QUY TẮC THANH DỌC PHÂN BIỆT NỘI DUNG (BLOCKQUOTE ACCENT BAR)
+## ▎ 2. QUY TẮC THANH DỌC QUOTE (BLOCKQUOTE ACCENT BAR)
 
 - **Không vẽ khung viền hộp / Card** (để giữ tinh thần minimal thoáng đãng).
 - **Mỗi khối nội dung / luận điểm bắt buộc có 1 thanh dọc bên trái (Quote Bar)**:
   - **Độ dày thanh dọc**: 4px – 5px (khoảng 0.05 – 0.06 inch).
-  - **Chiều cao thanh dọc**: Bằng chính xác chiều cao của khối nội dung đó.
+  - **Chiều cao thanh dọc**: **BẮT BUỘC kéo dài từ đỉnh của tiêu đề khối xuống trọn vẹn đến hết dòng cuối cùng của nội dung** (không được cụt lửng hay ngắn hơn khối chữ).
   - **Màu sắc thanh dọc**: Trùng 100% với màu nhấn của Heading trên slide đó.
-  - **Khoảng cách đệm (Padding left)**: Chữ cách thanh dọc 12px – 16px (khoảng 0.15 – 0.2 inch) để tạo độ thụt lề chuẩn phong cách Blockquote.
+  - **Khoảng cách đệm (Padding left)**: Chữ cách thanh dọc 12px – 18px để tạo độ thụt lề chuẩn phong cách Blockquote.
 
 ---
 
-## 🔤 3. TYPOGRAPHY (FONT CHỮ, KÍCH THƯỚC & ĐỊNH DẠNG)
+## 🔤 3. TYPOGRAPHY & KHOẢNG CÁCH DÒNG (HIGH LINE-SPACING)
 
 - **Font chữ quy định**: **Montserrat** duy nhất cho toàn bộ slide.
 - **Độ lớn font chữ (Font Size)**:
   - **Tối thiểu: 24pt** (để người xem trên điện thoại nhìn rõ 100%).
-  - Tiêu đề chính (Slide Heading): 32pt – 36pt.
-  - Tên khối nội dung / Đầu mục con: 24pt – 26pt (In đậm - Bold).
-  - Nội dung chi tiết / Câu ví dụ: 24pt (*In nghiêng - Italic*).
+  - Tiêu đề chính (Slide Heading): 28pt – 32pt.
+  - Tên khối nội dung / Đầu mục con: 24pt (In đậm - Bold).
+  - Nội dung chi tiết / Câu ví dụ: 20pt – 22pt (*In nghiêng - Italic*).
+- **Khoảng cách dòng cao (Generous Line-spacing)**:
+  - Line-spacing: **1.3x dòng** (tuyệt đối không để chữ dính sát nhau).
+  - Khoảng cách giữa tiêu đề khối và câu nội dung: 8pt – 10pt.
+  - Khoảng cách giữa các khối nội dung: 30pt – 40pt (đảm bảo chữ không bao giờ đè lên nhau).
 - **Định dạng cho phép**:
   - **Bold (In đậm)**: Dùng cho heading, từ khóa quan trọng, cụm Collocation ăn điểm.
   - *Italic (In nghiêng)*: Dùng cho các câu ví dụ tiếng Anh hoặc trích dẫn đề bài.
 
 ---
 
-## 🚫 4. QUY TẮC CHỐNG TRÀN SLIDE TUYỆT ĐỐI (ZERO-OVERFLOW FORMULA)
+## 🚫 4. NGUYÊN TẮC CHIA SLIDE & CHỐNG TRÀN CHỮ (ZERO-OVERFLOW & SPLIT RULE)
 
 > [!CRITICAL]
-> **Khắc phục triệt để lỗi chữ bị che khuất ở mép dưới màn hình:**
-> Chiều cao màn hình là 7.5 inches. Đáy của khối chữ cuối cùng **BẮT BUỘC KHÔNG VƯỢT QUÁ 6.7 INCHES** (cách mép đáy màn hình an toàn ít nhất 0.8 inch / 60px).
+> **Quy tắc sống còn: Nếu nhiều nội dung không nhét nổi thì BẮT BUỘC TÁCH THÊM SLIDE, tuyệt đối không dồn ép.**
+> Đáy của khối chữ cuối cùng **BẮT BUỘC CÁCH MÉP ĐÁY MÀN HÌNH TỐI THIỂU 1.0 INCH (70pt)**.
 
-### 📐 Công thức khống chế dung lượng trên mỗi Slide:
-1. **Slide có ảnh chia đôi (Split-screen 50/50)**:
-   - **Tối đa 2 khối nội dung (Block)**, hoặc tối đa **4 đến 5 dòng chữ ngắn**.
-   - Nếu đề bài có 3 ý (ví dụ: Overview, Body 1, Body 2), **BẮT BUỘC TÁCH LÀM 2 SLIDE**:
-     - *Slide A*: Đề bài + Overview & Body 1.
-     - *Slide B*: Đề bài + Body 2 & Cấu trúc đặc biệt.
-2. **Slide toàn chữ (Full text)**:
-   - Tối đa **3 khối nội dung** ngắn hoặc **6 đến 7 dòng chữ**.
-3. **Line-height & Spacing chuẩn xác**:
-   - Line-spacing: **1.15 – 1.25** (không để giãn dòng quá rộng).
-   - Khoảng cách giữa 2 khối nội dung (Space After giữa các Block): **14pt – 18pt**.
+### 📐 Định mức số lượng khối trên mỗi Slide:
+1. **Slide có ảnh (Split-screen 50/50)**:
+   - **Tối đa 1 khối trọng tâm** (hoặc tối đa 2 khối cực ngắn chỉ 1 dòng).
+   - Nếu có nhiều ý (ví dụ: Intro, Overview, Body 1, Body 2 hoặc từng cặp giới từ IN vs TO), **bắt buộc tách mỗi ý thành 1 slide riêng biệt**.
+   - Ảnh phải được tự động co tỉ lệ (`max_height <= 370pt`) để không tràn mép đáy.
+2. **Slide toàn chữ (Full width)**:
+   - Tối đa **2 khối nội dung** được giãn dòng 1.3x.
+   - Nếu có 4 tiêu chí hoặc 4 cấu trúc ngữ pháp, chia đôi thành 2 slide (mỗi slide 2 khối) hoặc 4 slide riêng biệt.
 
 ---
 
-## 🐸 5. QUY TẮC EMOJI & ICON
+## ✨ 5. HIỆU ỨNG TRÌNH CHIẾU (TRANSITIONS & ANIMATIONS - ONE-TAKE SYNC)
+
+- **Hiệu ứng chuyển Slide (Slide Transition)**:
+  - Dùng hiệu ứng **Fade mượt mà** (`Fade Smoothly`, thời lượng 0.5s).
+- **Hiệu ứng xuất hiện nội dung (Shape Entrance Animation)**:
+  - Khi mở slide: Tiêu đề và hình ảnh xuất hiện ngay lập tức.
+  - **On Click (Bấm chuột)**: Từng khối nội dung (thanh quote dọc + văn bản đi kèm đã nhóm lại) sẽ **Fade nhẹ nhàng xuất hiện theo từng cú click chuột**.
+  - **Đồng bộ với Script**: Giúp người thuyết trình bấm slide đến đâu chữ hiện đến đó, người học tập trung hoàn toàn vào đúng điểm kiến thức đang giảng mà không bị phân tán mắt bởi các ý tiếp theo.
+
+---
+
+## 🐸 6. QUY TẮC EMOJI & ICON
 
 - **1 Emoji duy nhất trước mỗi Heading đề mục**:
-  - Mỗi tiêu đề chính của slide **bắt buộc có 1 emoji phù hợp đứng trước** (Ví dụ: `🗺️ PHÂN LOẠI CÁC DẠNG BÀI MAP`, `🎯 4 TIÊU CHÍ CHẤM ĐIỂM`, `📐 CẤU TRÚC BÀI VIẾT 4 ĐOẠN`...).
-- **Emoji trong chuỗi quy trình**:
-  - Vẫn được dùng trong các chuỗi nối nhau bằng mũi tên: `🌾 Nông trại ➔ 🚜 Giải tỏa ➔ 🏘️ Khu dân cư` hoặc `🥚 Trứng ➔ 🐟 Nòng nọc ➔ 🐸 Ếch trưởng thành`.
+  - Mỗi tiêu đề chính của slide **bắt buộc có 1 emoji phù hợp đứng trước** (Ví dụ: `🗺️ 01. DẠNG BÀI 1`, `🎯 02. TIÊU CHÍ CHẤM ĐIỂM`, `📐 03. CẤU TRÚC BÀI VIẾT`...).
 - **Cấm lạm dụng**: Không dùng emoji bừa bãi làm bullet point đầu dòng cho từng câu giải thích.
 
 ---
@@ -78,6 +88,7 @@
 
 - [ ] Tiêu đề slide đã có đúng 1 emoji phía trước chưa?
 - [ ] Heading slide và các thanh dọc Quote có dùng chung 1 màu duy nhất trong 4 màu (Đỏ, Tím, Cam, Hồng) không?
-- [ ] Mỗi khối nội dung đã có thanh dọc Accent Bar mảnh bên trái chưa?
-- [ ] Đáy của khối chữ cuối cùng có cách mép dưới slide tối thiểu 0.8 inch không? (Kiểm tra Fullscreen không bị cắt chữ).
-- [ ] Slide có ảnh có đảm bảo không nhét quá 2 khối / 5 dòng chữ không? (Đã tách slide nếu quá dài).
+- [ ] Thanh dọc Quote có kéo dài trọn vẹn từ đầu tiêu đề đến tận đáy dòng chữ cuối cùng không?
+- [ ] Chữ có bị đè lên nhau không? Khoảng cách dòng (line spacing) có đạt chuẩn 1.3x không?
+- [ ] Slide có ảnh có đảm bảo chỉ chứa 1 khối nội dung trọng tâm và đáy cách mép dưới > 70pt không?
+- [ ] Đã cài đặt hiệu ứng Fade chuyển slide và Fade on-click cho từng khối nội dung chưa?
