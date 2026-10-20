@@ -1,73 +1,74 @@
-# 🎨 RULE FOR MINIMAL SLIDES (QUY ƯỚC THIẾT KẾ SLIDE MINIMAL - KHÔNG MÙI AI)
+# 🎨 RULE FOR SLIDES (QUY ƯỚC THIẾT KẾ SLIDE MINIMAL CHUẨN THỰC CHIẾN)
 
-> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide theo phong cách **Minimalist Monochrome (Trắng đen tối giản)** dành cho video học thuật IELTS. Loại bỏ hoàn toàn cảm giác "slide do AI tạo tự động", tập trung tuyệt đối vào sự rõ ràng, sang trọng, tinh tế và dễ đọc nhất cho người xem.
+> **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế và chuẩn xác về bố cục cho video giáo dục IELTS. Giải quyết triệt để vấn đề tràn khung (overflow), giữ nhịp đọc thoáng mắt và tạo điểm nhấn thị giác bằng màu sắc có kiểm soát.
 
 ---
 
-## ⚪ 1. NỀN & MÀU SẮC (MONOCHROME PALETTE)
+## ⚪ 1. NỀN & MÀU SẮC CHỦ ĐẠO (BACKGROUND & ACCENT COLOR)
 
-- **Màu nền**: **100% Màu trắng thuần (`#FFFFFF`)**. Tuyệt đối không dùng gradient, nền tối hay bất kỳ texture nào.
-- **Màu chữ**: **100% Đen / Xám đen thuần túy (`#000000` hoặc `#0F172A`)**.
-- **QUY TẮC VỀ MÀU (NO COLOR RULE)**:
-  - **TUYỆT ĐỐI KHÔNG DÙNG MÀU SẮC** (Không chữ đỏ, không chữ xanh, không highlight vàng).
-  - Mọi sự nhấn mạnh, phân biệt đều **chỉ dựa vào typography** (Bold, Italic, Kích thước font).
+- **Màu nền**: **100% Màu trắng thuần (`#FFFFFF`)**. Không dùng gradient hay nền tối.
+- **Màu văn bản nội dung (Body text)**: **100% Đen / Xám đen đậm (`#0F172A`)**.
+- **QUY TẮC MÀU HEADING ĐỀ MỤC (ONE ACCENT COLOR PER SLIDE)**:
+  - Heading đề mục trên mỗi slide **được phép dùng 1 màu nhấn**.
+  - Chỉ được chọn **1 trong 4 màu** sau:
+    1. 🔴 **Đỏ**: `#DC2626`
+    2. 🟣 **Tím**: `#7C3AED`
+    3. 🟠 **Cam**: `#EA580C`
+    4. 🌸 **Hồng**: `#DB2777`
+  - **LƯU Ý BẮT BUỘC**: **Mỗi slide chỉ được dùng đúng 1 màu duy nhất cho heading** (không trộn 2-3 màu khác nhau trên cùng một trang slide). Nội dung bên dưới vẫn giữ nguyên màu đen/xám đen để đảm bảo tính tối giản.
 
 ---
 
 ## 🔤 2. TYPOGRAPHY (FONT CHỮ, KÍCH THƯỚC & ĐỊNH DẠNG)
 
-- **Font chữ quy định**: **Montserrat** duy nhất cho toàn bộ slide (từ tiêu đề đến nội dung).
+- **Font chữ quy định**: **Montserrat** duy nhất cho toàn bộ slide.
 - **Độ lớn font chữ (Font Size)**:
-  - **Tối thiểu: 24px** (Không có bất kỳ chữ nào nhỏ hơn 24px trên toàn bộ slide để người xem trên điện thoại nhìn rõ 100%).
-  - Tiêu đề chính: 40px – 48px.
-  - Phụ đề / Đầu mục: 28px – 32px.
-  - Nội dung / Ví dụ: 24px – 28px.
-- **Định dạng chữ cho phép**:
-  - **Bold (In đậm)**: Dùng cho từ khóa quan trọng, công thức cốt lõi, cụm Collocation ăn điểm.
-  - *Italic (In nghiêng)*: Dùng cho câu ví dụ tiếng Anh, trích dẫn lời giải thích.
-  - Regular (Bình thường): Dùng cho văn bản diễn giải thông thường.
+  - **Tối thiểu: 24pt** (để người xem trên điện thoại nhìn rõ 100%).
+  - Tiêu đề chính (Slide Heading): 34pt – 38pt.
+  - Phụ đề / Đầu mục con: 26pt – 28pt.
+  - Nội dung / Câu ví dụ: 24pt – 26pt.
+- **Định dạng cho phép**:
+  - **Bold (In đậm)**: Dùng cho heading, từ khóa quan trọng, cụm Collocation ăn điểm.
+  - *Italic (In nghiêng)*: Dùng cho các câu ví dụ tiếng Anh hoặc trích dẫn đề bài.
 
 ---
 
-## 📐 3. BỐ CỤC, KHOẢNG CÁCH & ĐOẠN VĂN (SPACING & LAYOUT)
+## 🚫 3. QUY TẮC CHỐNG TRÀN SLIDE & TÍNH TOÁN DÒNG (ANTI-OVERFLOW SYSTEM)
 
-- **TUYỆT ĐỐI KHÔNG DÙNG BULLET POINT**:
-  - Không dùng dấu chấm đầu dòng (`•`), dấu gạch đầu dòng (`-`), dấu sao (`*`), hay số thứ tự (`1.`, `2.`).
-  - Mỗi ý là một dòng độc lập, đứng tách biệt.
-- **Khoảng cách dòng & Giãn cách cực cao (High Line-height & High Spacing)**:
-  - Line-height tối thiểu 1.6 – 1.8.
-  - Khoảng cách giữa các khối ý tưởng (Paragraph spacing / Block spacing) phải rất rộng, tạo cảm giác thoáng đãng, dễ theo dõi.
-- **Không gian thở (Whitespace)**:
-  - Tối thiểu 40–50% diện tích slide là khoảng trắng. Chữ ít nhưng đắt giá.
+> [!CRITICAL]
+> **Tuyệt đối không để chữ bị che khuất hoặc tràn khỏi mép dưới màn hình (Safe Margin: lề dưới cách mép tối thiểu 0.8 inch / 60px).**
 
----
-
-## 🖼️ 4. QUY TẮC HÌNH ẢNH (IMAGES & EXERCISES)
-
-- **Chỉ xuất hiện khi kịch bản (Script) nhắc tới**:
-  - **KHÔNG** dùng ảnh stock trang trí (người bắt tay, bóng đèn, hoạt hình...).
-  - Chỉ chèn ảnh khi đó là **đề thi thật Cambridge, bản đồ thật, hoặc sơ đồ bài tập** mà script đang phân tích trực tiếp.
-- **Vị trí ảnh**:
-  - Đặt ở một nửa màn hình (chia đôi màn hình: 1 bên ảnh đề thi, 1 bên chữ phân tích).
+- **Giới hạn số dòng hiển thị trên 1 Slide**:
+  - **Với Slide có ảnh (Split-screen 50/50)**: Cột chữ bên cạnh chỉ chứa **tối đa 6 đến 7 dòng văn bản**. Nếu nội dung dài, bắt buộc phải tách sang slide tiếp theo.
+  - **Với Slide toàn chữ (Full text)**: Tối đa **8 đến 9 dòng văn bản**.
+- **Line-height & Spacing chuẩn mực**:
+  - Line-spacing vừa vặn: **1.25 – 1.35** (không để quá cao dẫn tới đẩy chữ xuống đáy màn hình).
+  - Khoảng cách sau mỗi đoạn (Space After): từ **12pt đến 20pt** giữa các khối ý chính để tạo cảm giác thoáng đãng mà không làm vỡ khung.
 
 ---
 
-## 🐸 5. QUY TẮC EMOJI (MINIMAL SYMBOL ONLY)
+## 🐸 4. QUY TẮC EMOJI & ICON
 
-- **Không dùng emoji để trang trí đầu dòng**.
-- **Chỉ dùng emoji khi minh họa chuỗi quy trình nối nhau bằng mũi tên**:
-  - *Ví dụ quy trình tự nhiên*: `🥚 Trứng ➔ 🐟 Nòng nọc ➔ 🐸 Ếch trưởng thành`
-  - *Ví dụ chuỗi thay đổi bản đồ*: `🌾 Nông trại ➔ 🚜 Giải tỏa ➔ 🏘️ Khu dân cư`
-  - *Ví dụ thay đổi công năng*: `🛒 Cửa hàng cũ ➔ ❌ Phá dỡ ➔ 🏢 Siêu thị mới`
-- Các ký hiệu chức năng tối giản cho phép: `❌` (câu chưa tối ưu), `✅` (câu chuẩn 7.5+), `➔` (chuyển đổi).
+- **1 Emoji duy nhất trước mỗi Heading đề mục**:
+  - Mỗi tiêu đề chính của slide **bắt buộc có 1 emoji phù hợp đứng trước** để tạo mốc định hướng cho người xem (Ví dụ: `🗺️ PHÂN LOẠI CÁC DẠNG BÀI MAP`, `🎯 4 TIÊU CHÍ CHẤM ĐIỂM`, `📐 CẤU TRÚC BÀI VIẾT 4 ĐOẠN`...).
+- **Emoji trong chuỗi quy trình**:
+  - Vẫn được dùng trong các chuỗi nối nhau bằng mũi tên: `🌾 Nông trại ➔ 🚜 Giải tỏa ➔ 🏘️ Khu dân cư` hoặc `🥚 Trứng ➔ 🐟 Nòng nọc ➔ 🐸 Ếch trưởng thành`.
+- **Cấm lạm dụng**: Không dùng emoji bừa bãi làm bullet point đầu dòng cho từng câu giải thích.
 
 ---
 
-## 📋 CHECKLIST KIỂM DUYỆT SLIDE TRƯỚC KHI XUẤT BẢN:
+## 📐 5. BỐ CỤC & HÌNH ẢNH
 
-- [ ] Font chữ đã đặt đúng là Montserrat chưa?
-- [ ] Tất cả cỡ chữ có đảm bảo tối thiểu từ 24px trở lên không?
-- [ ] Đã xóa sạch 100% màu sắc trang trí chưa? (Chỉ dùng đen/trắng, nhấn bằng Bold và Italic).
-- [ ] Đã bỏ hết toàn bộ bullet point (`•`, `-`, `*`) chưa?
-- [ ] Spacing (khoảng cách giữa các dòng và các khối) có đủ cao và thoáng chưa?
-- [ ] Có ảnh stock vô nghĩa nào không? (Chỉ giữ lại ảnh bài tập thật khi script nhắc đến).
+- **Không dùng bullet point truyền thống** (`•`, `-`, `*`). Mỗi ý là một khối dòng riêng biệt.
+- **Hình ảnh bài tập**: Chỉ chèn ảnh đề thi thật / sơ đồ khi kịch bản nhắc tới. Ảnh phải được căn chỉnh tỷ lệ (Aspect Ratio) hợp lý để không đè lên vùng chữ.
+
+---
+
+## 📋 CHECKLIST KIỂM DUYỆT TRƯỚC KHI XUẤT FILE SLIDE / PPTX:
+
+- [ ] Tiêu đề slide đã có đúng 1 emoji phía trước chưa?
+- [ ] Heading slide có dùng 1 màu duy nhất trong 4 màu (Đỏ, Tím, Cam, Hồng) không?
+- [ ] Toàn bộ nội dung bên dưới có giữ màu đen/xám đen thuần túy không?
+- [ ] Font chữ toàn bộ là Montserrat và cỡ chữ nhỏ nhất $\ge 24\text{pt}$ chưa?
+- [ ] Slide có ảnh có vượt quá 7 dòng chữ không? (Đảm bảo không bị tràn mép dưới).
+- [ ] Khoảng cách lề dưới có thoáng và an toàn khi trình chiếu không?
