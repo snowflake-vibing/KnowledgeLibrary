@@ -35,8 +35,9 @@ Mô hình kết hợp **Slide Canva trực quan + Lời thoại văn nói** giú
 
 | Tài liệu | Mô tả chi tiết | Liên kết |
 | :--- | :--- | :---: |
-| 🖥️ **Nội dung Slide Canva** | Text, bảng biểu và hướng dẫn bố cục cho 11 trang Slide Canva | [01_Slide_Content_Canva.md](01_Slide_Content_Canva.md) |
-| 🎙️ **Lời thoại quay video** | Kịch bản văn nói One-Take có đánh dấu nhịp chuyển slide `[Bấm chuyển Slide X]` | [01_Video_Script_Voiceover.md](01_Video_Script_Voiceover.md) |
+| 📊 **Slide PowerPoint PPTX** | File slide 41 trang chuẩn 16:9, thanh quote dọc, fade on-click | [01_Slides_Writing_Task1_Map.pptx](01_Slides_Writing_Task1_Map.pptx) |
+| 🖥️ **Nội dung Slide (Dàn ý)** | Text, bảng biểu và bố cục cho 41 trang Slide chuẩn hóa | [01_Slide_Content_Canva.md](01_Slide_Content_Canva.md) |
+| 🎙️ **Lời thoại quay video** | Kịch bản One-Take 41 slide kèm nhịp `[Bấm chuyển Slide X]` & `[Click: Hiện khối Y]` | [01_Video_Script_Voiceover.md](01_Video_Script_Voiceover.md) |
 | 📖 **Bản kịch bản tổng hợp** | Tài liệu kịch bản tích hợp đầy đủ text, script và link đề thi | [01_Video_Writing_Task1_Map.md](01_Video_Writing_Task1_Map.md) |
 | 📚 **Bài học chuyên sâu** | Ghi chú lý thuyết toàn tập, cấu trúc ngữ pháp và 2 bài mẫu Band 7.5+ | [01_Task1_Map_Mastery.md](../03_Writing/01_Task1_Map_Mastery.md) |
 
