@@ -83,8 +83,41 @@
 
 ---
 
+## 🏛️ 7. CẤU TRÚC BỘ SLIDE 3 PHẦN (3-PART DECK ARCHITECTURE)
+
+Một bộ Slide chuẩn cho video YouTube Masterclass bắt buộc gồm đủ 3 thành phần cấu trúc:
+
+```
+[Slide 01: Title & Thumbnail] ──> [Slides 02 đến N-1: Core Content] ──> [Slide N: Outro & CTA]
+```
+
+### 1. Slide 01: Tiêu đề & YouTube Thumbnail (Title & Thumbnail Slide)
+- **Mục đích**: Vừa làm trang bìa mở đầu video, vừa có thể xuất trực tiếp thành ảnh PNG 1920x1080 làm **YouTube Thumbnail chất lượng cao**.
+- **Không dùng Animation (`Animations = 0`)**: Mọi thành phần chữ, badge, hình ảnh phải xuất hiện 100% ngay từ đầu (không bị ẩn) để khi xuất ảnh Thumbnail hoặc mở slide không bị trống.
+- **Bố cục chuẩn**:
+  - **Badge Pill**: Khối badge bo tròn trên cùng (Ví dụ: `IELTS WRITING TASK 1 • BAND 7.5+`).
+  - **Main Headline**: Chữ to đậm 32-34pt nổi bật thị giác (`#0F172A`).
+  - **Sub-headline**: Màu accent chủ đạo 18-20pt (`COMPLETE MASTERCLASS`).
+  - **Mô tả song ngữ**: 1 dòng tóm tắt Tiếng Anh và Tiếng Việt phụ chú.
+  - **Ảnh minh họa thực chiến (Hero Image)**: Đặt ở góc phải hoặc trung tâm, có viền mảnh (`#E2E8F0`) và bo góc nhẹ (`max_w <= 355pt`, `max_h <= 385pt`).
+
+### 2. Slides 02 đến N-1: Nội dung bài giảng song ngữ (Core Content Slides)
+- Toàn bộ các slide bài giảng tuân thủ nghiêm ngặt các nguyên tắc: 1 màu accent/slide, thanh Quote dọc ôm trọn nội dung, dòng Tiếng Anh chính `#0F172A` (14.5-15pt) + Tiếng Việt phụ chú in nghiêng `#64748B` (12pt), On-click fade animation, zero-overflow ($>50\text{pt}$ lề đáy).
+
+### 3. Slide N (Slide cuối): Kêu gọi hành động & Kết thúc (Outro & CTA Slide)
+- **Mục đích**: Chốt lại bài học, giữ chân người xem và chuyển đổi tương tác (Like, Share, Subscribe, Tải tài liệu).
+- **Bố cục 3 khối song ngữ tối giản**:
+  1. **Like & Share** (Bấm Thích & Chia sẻ nếu video hữu ích).
+  2. **Subscribe & Bell** (Đăng ký kênh & Bật chuông thông báo bài học tiếp theo).
+  3. **Free Resources / GitHub** (Tải toàn bộ Slide PPTX, Kịch bản & Prompt tự học hoàn toàn miễn phí tại GitHub).
+- Hiệu ứng: Xuất hiện lần lượt qua từng cú click chuột đồng bộ với lời chào kết thúc.
+
+---
+
 ## 📋 CHECKLIST KIỂM DUYỆT TRƯỚC KHI BÀN GIAO PPTX:
 
+- [ ] Đã có Slide 01 thiết kế đẹp làm Thumbnail (không có animation, hiển thị đầy đủ ngay lập tức)?
+- [ ] Đã có Slide cuối Outro CTA kêu gọi Like, Share, Subscribe & tải tài liệu miễn phí?
 - [ ] Tiêu đề slide đã có đúng 1 emoji phía trước chưa?
 - [ ] Heading slide và các thanh dọc Quote có dùng chung 1 màu duy nhất trong 4 màu (Đỏ, Tím, Cam, Hồng) không?
 - [ ] Slide đã được trình bày song ngữ (English chính đậm, Vietnamese phụ chú in nghiêng màu `#64748B` chưa)?

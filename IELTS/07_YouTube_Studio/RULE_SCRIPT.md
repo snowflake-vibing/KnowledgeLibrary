@@ -68,8 +68,41 @@ Mọi file script bắt buộc phải sử dụng các thẻ ký hiệu chuẩn 
 
 ---
 
+## 🏗️ 6. CẤU TRÚC KỊCH BẢN 3 PHẦN ĐỒNG BỘ BỘ SLIDE
+
+Kịch bản voiceover One-take được phân chia thành 3 phần rõ ràng tương ứng với cấu trúc 3 phần của bộ Slide:
+
+```
+[Phần 1: Hook & Giới thiệu (Slide 1)] ──> [Phần 2: Thân bài Thực chiến (Slides 2 to N-1)] ──> [Phần 3: Outro CTA (Slide N)]
+```
+
+### 1. Phần 1: Hook & Giới thiệu bài học (Ứng với Slide 01 - Thumbnail/Title)
+- **Thời lượng**: 15 – 25 giây.
+- **Nội dung**: Bắt đầu ngay với câu Hook trực diện:
+  - Nêu ngay tên chủ đề + điểm số mục tiêu (Band 7.5+).
+  - Khẳng định giá trị thực chiến: *"Sau video này, các bạn sẽ nắm trọn quy trình 4 bước, công thức viết và từ vựng ăn điểm..."*.
+  - Nhắc người xem theo dõi đến cuối video để nhận tài liệu template và prompt luyện thi độc quyền.
+
+### 2. Phần 2: Thân bài Giảng giải Thực chiến (Ứng với Slides 02 đến N-1)
+- **Thời lượng**: 25 – 40 giây / slide.
+- **Nội dung**: 
+  - Toàn bộ phân tích, hướng dẫn tư duy diễn đạt bằng Tiếng Việt đàm thoại tự nhiên.
+  - **Khi đọc từ vựng, collocation, câu ví dụ tiếng Anh trên slide: CHỈ ĐỌC NGUYÊN BẢN TIẾNG ANH, TUYỆT ĐỐI KHÔNG DỊCH BẰNG LỜI NÓI**.
+  - Đánh dấu đầy đủ `[Bấm chuyển Slide X]` và `[Click: Hiện khối Y]` để người nói bấm chuột đồng nhịp với animation trên slide.
+
+### 3. Phần 3: Kêu gọi hành động & Chào kết thúc (Ứng với Slide N - Outro CTA)
+- **Thời lượng**: 20 – 30 giây.
+- **Nội dung**:
+  - `[Click: Like & Share]`: Kêu gọi để lại 1 Like và Share nếu bài giảng mang lại giá trị.
+  - `[Click: Subscribe]`: Nhắc bấm Đăng ký kênh và Bật chuông thông báo để không bỏ lỡ các tập tiếp theo.
+  - `[Click: Free Materials]`: Hướng dẫn truy cập đường link dưới phần mô tả (GitHub / Drive) để tải slide PPTX, kịch bản mẫu và prompt AI hoàn toàn miễn phí.
+  - Lời chúc súc tích và hẹn gặp lại trong video tới.
+
+---
+
 ## 📋 CHECKLIST KIỂM DUYỆT SCRIPT TRƯỚC KHI BÀN GIAO:
 
+- [ ] Kịch bản đã có đủ 3 phần: Hook Slide 01 (10-15s), Thân bài (Slides 2 đến N-1), Outro CTA (Slide cuối cùng)?
 - [ ] Lời dẫn và phân tích có viết bằng Tiếng Việt đàm thoại tự nhiên không?
 - [ ] Khi đọc câu ví dụ / từ vựng Tiếng Anh trên slide, người nói có giữ nguyên Tiếng Anh và KHÔNG dịch sang Tiếng Việt không?
 - [ ] Mở đầu có đi thẳng vào vấn đề trong 10 giây đầu tiên (Hook 10s) không?

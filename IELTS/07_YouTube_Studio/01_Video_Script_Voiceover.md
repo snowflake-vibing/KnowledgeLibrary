@@ -1,4 +1,4 @@
-# 🎙️ LỜI THOẠI QUAY VIDEO (SPOKEN SCRIPT): IELTS WRITING TASK 1 MAP & FLOOR PLAN (41 SLIDES)
+# 🎙️ LỜI THOẠI QUAY VIDEO (SPOKEN SCRIPT): IELTS WRITING TASK 1 MAP & FLOOR PLAN (43 SLIDES)
 
 > **Mục đích file**: Kịch bản văn nói One-Take dùng để bạn mở trên màn hình thứ hai hoặc điện thoại đọc trong lúc quay video chiếu Slide.  
 > **Nguyên tắc ngôn ngữ quan trọng**:  
@@ -13,24 +13,33 @@
 
 ---
 
-## 🎙️ LỜI ĐỌC CHI TIẾT ĐỒNG BỘ 41 SLIDES (KHÔNG DỊCH CÂU TIẾNG ANH)
+## 🎙️ LỜI ĐỌC CHI TIẾT ĐỒNG BỘ 43 SLIDES (KHÔNG DỊCH CÂU TIẾNG ANH)
+
+---
+
+### PHẦN MỞ ĐẦU & THUMBNAIL
+
+#### 🟢 SLIDE 01: 🎬 MAP & FLOOR PLAN – COMPLETE MASTERCLASS (THUMBNAIL & INTRO)
+*(Bắt đầu video khi màn hình đang ở Slide 1 - Slide Thumbnail)*
+
+"Chào các bạn! Trong video ngày hôm nay, chúng ta sẽ đi thẳng vào trọn bộ phương pháp làm chủ dạng bài **Bản đồ – Map và Floor Plan trong IELTS Writing Task 1**: từ phân loại dạng bài, 4 tiêu chí chấm điểm, cấu trúc 4 đoạn chuẩn mực, 5 nhóm động từ thay đổi, 4 cấu trúc ngữ pháp ăn điểm GRA, cho đến cách giải chi tiết 2 đề thi thật Cambridge. `[nghỉ 1s]`
+
+Không để các bạn chờ lâu, chúng ta cùng bắt đầu ngay với dạng bài đầu tiên!"
 
 ---
 
 ### PHẦN 1: PHÂN LOẠI CÁC DẠNG BÀI MAP
 
-#### 🟢 SLIDE 01: 🗺️ 01. TASK TYPE 1: PAST TO PAST (1930 - 2010)
-*(Bắt đầu video khi màn hình đang ở Slide 1)*
-
-"Chào các bạn! Trong video này, chúng ta sẽ đi thẳng vào trọn bộ phương pháp làm chủ dạng bài **Bản đồ – Map và Floor Plan trong IELTS Writing Task 1**: từ phân loại dạng bài, 4 tiêu chí chấm điểm, cấu trúc chuẩn 4 đoạn, 5 nhóm động từ thay đổi, 4 ngữ pháp ăn điểm, cho đến cách giải chi tiết 2 đề thi thật Cambridge. `[nghỉ 1s]`
+#### 🟢 SLIDE 03: 🗺️ 01. TASK TYPE 1: PAST TO PAST (1930 - 2010)
+`[Bấm chuyển Slide 3]`
 
 `[Click: Hiện khối 1]`
-Đầu tiên là **Dạng 1: Quá khứ sang Quá khứ**, ví dụ đề làng Stokeford 1930 và 2010 bên trái màn hình. Vì cả hai mốc năm đều đã kết thúc hoàn toàn trong quá khứ, nên nguyên tắc bất di bất dịch là bạn phải dùng 100% thì **Quá khứ đơn** và **Quá khứ hoàn thành** ở thể bị động: *was constructed, were demolished, had been converted into*. Tuyệt đối không để lẫn lộn thì hiện tại vào bài!"
+"Đầu tiên là **Dạng 1: Quá khứ sang Quá khứ**, ví dụ đề làng Stokeford 1930 và 2010 bên trái màn hình. Vì cả hai mốc năm đều đã kết thúc hoàn toàn trong quá khứ, nên nguyên tắc bất di bất dịch là bạn phải dùng 100% thì **Quá khứ đơn** và **Quá khứ hoàn thành** ở thể bị động: *was constructed, were demolished, had been converted into*. Tuyệt đối không để lẫn lộn thì hiện tại vào bài!"
 
 ---
 
-#### 🟢 SLIDE 02: 🗺️ 01. TASK TYPE 1: MODEL SENTENCES
-`[Bấm chuyển Slide 2]`
+#### 🟢 SLIDE 03: 🗺️ 01. TASK TYPE 1: MODEL SENTENCES
+`[Bấm chuyển Slide 3]`
 
 "Để ăn điểm ngữ pháp ở dạng này, chúng ta kết hợp thể bị động quá khứ với các liên từ thời gian: `[nghỉ 1s]`
 
@@ -43,8 +52,8 @@ Cả hai câu đều thể hiện sự biến chuyển mạch lạc và cực k�
 
 ---
 
-#### 🟢 SLIDE 03: 🗺️ 01. TASK TYPE 2: PAST TO PRESENT (20 YRS AGO - TODAY)
-`[Bấm chuyển Slide 3]`
+#### 🟢 SLIDE 04: 🗺️ 01. TASK TYPE 2: PAST TO PRESENT (20 YRS AGO - TODAY)
+`[Bấm chuyển Slide 4]`
 
 "Dạng bài thứ hai là **Quá khứ sang Hiện tại**, ví dụ sơ đồ mặt bằng thư viện Cambridge 18 bên trái: so sánh 20 năm trước với thời điểm hôm nay. `[nghỉ 1s]`
 
@@ -53,8 +62,8 @@ Cả hai câu đều thể hiện sự biến chuyển mạch lạc và cực k�
 
 ---
 
-#### 🟢 SLIDE 04: 🗺️ 01. TASK TYPE 2: MODEL SENTENCES
-`[Bấm chuyển Slide 4]`
+#### 🟢 SLIDE 05: 🗺️ 01. TASK TYPE 2: MODEL SENTENCES
+`[Bấm chuyển Slide 5]`
 
 "Áp dụng trực tiếp vào sơ đồ thư viện: `[nghỉ 1s]`
 
@@ -66,8 +75,8 @@ Hai câu này mô tả chuẩn xác những thay đổi đã hoàn thành và đ
 
 ---
 
-#### 🟢 SLIDE 05: 🗺️ 01. TASK TYPE 3: PRESENT TO FUTURE (NOW - 2035)
-`[Bấm chuyển Slide 5]`
+#### 🟢 SLIDE 06: 🗺️ 01. TASK TYPE 3: PRESENT TO FUTURE (NOW - 2035)
+`[Bấm chuyển Slide 6]`
 
 "Dạng bài thứ ba ít gặp hơn nhưng rất dễ mất điểm: **Hiện tại sang Tương lai**, ví dụ đề quy hoạch thị trấn từ nay đến năm 2035. `[nghỉ 1s]`
 
@@ -76,8 +85,8 @@ Lỗi sai kinh điển của 90% thí sinh là lặp đi lặp lại từ *'will
 
 ---
 
-#### 🟢 SLIDE 06: 🗺️ 01. TASK TYPE 3: ACADEMIC PROJECTIONS
-`[Bấm chuyển Slide 6]`
+#### 🟢 SLIDE 07: 🗺️ 01. TASK TYPE 3: ACADEMIC PROJECTIONS
+`[Bấm chuyển Slide 7]`
 
 "Đây là hai mẫu câu dự báo chuẩn xác bạn có thể ghi nhớ: `[nghỉ 1s]`
 
@@ -89,8 +98,8 @@ Cấu trúc bị động khách quan này giúp bài viết đậm tính học t
 
 ---
 
-#### 🟢 SLIDE 07: 🗺️ 01. TASK TYPE 4: STATIC MAP (NO TIME ELEMENT)
-`[Bấm chuyển Slide 7]`
+#### 🟢 SLIDE 08: 🗺️ 01. TASK TYPE 4: STATIC MAP (NO TIME ELEMENT)
+`[Bấm chuyển Slide 8]`
 
 "Dạng bài thứ tư là **Static Map – Bản đồ tĩnh không có mốc thời gian**. Tiêu biểu nhất là đề Cambridge 5 bên trái: thị trấn Garlsdon đề xuất 2 vị trí Site 1 và Site 2 để xây siêu thị. `[nghỉ 1s]`
 
@@ -99,8 +108,8 @@ Vì không có sự thay đổi theo thời gian, nên bạn dùng 100% thì **H
 
 ---
 
-#### 🟢 SLIDE 08: 🗺️ 01. TASK TYPE 4: MODEL COMPARISON
-`[Bấm chuyển Slide 8]`
+#### 🟢 SLIDE 09: 🗺️ 01. TASK TYPE 4: MODEL COMPARISON
+`[Bấm chuyển Slide 9]`
 
 "Cách so sánh đặc điểm giữa hai vị trí đề xuất: `[nghỉ 1s]`
 
@@ -113,8 +122,8 @@ Hai câu văn tạo sự đối chiếu rõ nét về ưu thế giao thông và 
 
 ### PHẦN 2: 4 TIÊU CHÍ CHẤM ĐIỂM BAND 7.5+
 
-#### 🟢 SLIDE 09: 🎯 02. BAND 7.5+ CRITERIA: TA & CC
-`[Bấm chuyển Slide 9]`
+#### 🟢 SLIDE 10: 🎯 02. BAND 7.5+ CRITERIA: TA & CC
+`[Bấm chuyển Slide 10]`
 
 "Sang phần 2: **Giám khảo chấm điểm bài Map dựa trên những tiêu chí nào?** `[nghỉ 1s]`
 
@@ -126,8 +135,8 @@ Tiêu chí 2 là **Coherence and Cohesion**: Miêu tả bài viết theo một t
 
 ---
 
-#### 🟢 SLIDE 10: 🎯 02. BAND 7.5+ CRITERIA: LR & GRA
-`[Bấm chuyển Slide 10]`
+#### 🟢 SLIDE 11: 🎯 02. BAND 7.5+ CRITERIA: LR & GRA
+`[Bấm chuyển Slide 11]`
 
 "Hai tiêu chí ngôn ngữ tiếp theo: `[nghỉ 1s]`
 
@@ -141,8 +150,8 @@ Tiêu chí 4 là **Grammatical Range & Accuracy**: Vì công trình do con ngư�
 
 ### PHẦN 3: CẤU TRÚC BÀI VIẾT VÀ CHIẾN LƯỢC CHIA BODY
 
-#### 🟢 SLIDE 11: 📐 03. ESSAY STRUCTURE: 4-PARAGRAPH STANDARD
-`[Bấm chuyển Slide 11]`
+#### 🟢 SLIDE 12: 📐 03. ESSAY STRUCTURE: 4-PARAGRAPH STANDARD
+`[Bấm chuyển Slide 12]`
 
 "Để đáp ứng trọn vẹn 4 tiêu chí trên, chúng ta khóa cố định **Khung bài 4 đoạn chuẩn mực**: `[nghỉ 1s]`
 
@@ -154,8 +163,8 @@ Và quy tắc bất di bất dịch: **Tuyệt đối KHÔNG viết Kết bài (
 
 ---
 
-#### 🟢 SLIDE 12: 📐 03. BODY GROUPING: NORTH - SOUTH SPLIT
-`[Bấm chuyển Slide 12]`
+#### 🟢 SLIDE 13: 📐 03. BODY GROUPING: NORTH - SOUTH SPLIT
+`[Bấm chuyển Slide 13]`
 
 "Khi vào phòng thi, làm sao để chia nhóm Body 1 và Body 2 hợp lý? Chúng ta có **hai chiến lược kinh điển**: `[nghỉ 1s]`
 
@@ -167,8 +176,8 @@ Phân bổ rất rành mạch: Toàn bộ Body 1 miêu tả nửa phía Bắc c�
 
 ---
 
-#### 🟢 SLIDE 13: 📐 03. BODY GROUPING: CENTER & FUNCTION SPLIT
-`[Bấm chuyển Slide 13]`
+#### 🟢 SLIDE 14: 📐 03. BODY GROUPING: CENTER & FUNCTION SPLIT
+`[Bấm chuyển Slide 14]`
 
 "Nếu đề bài không có trục cắt ngang thì sao? Bạn dùng 2 cách sau: `[nghỉ 1s]`
 
@@ -182,8 +191,8 @@ Cách thứ ba là **Chia theo nhóm chức năng**: Dành cho bản đồ có c
 
 ### PHẦN 4: KHUNG CÂU INTRODUCTION & OVERVIEW
 
-#### 🟢 SLIDE 14: ✍️ 04. INTRODUCTION FORMULA (1 SENTENCE)
-`[Bấm chuyển Slide 14]`
+#### 🟢 SLIDE 15: ✍️ 04. INTRODUCTION FORMULA (1 SENTENCE)
+`[Bấm chuyển Slide 15]`
 
 "Sang phần 4: **Khung câu mở bài và tổng quan**. Đầu tiên là đoạn Introduction viết trong 1 phút: `[nghỉ 1s]`
 
@@ -195,8 +204,8 @@ Ví dụ thực chiến: *The two maps illustrate how Stokeford developed over a
 
 ---
 
-#### 🟢 SLIDE 15: ✍️ 04. OVERVIEW FORMULA (2 SENTENCES)
-`[Bấm chuyển Slide 15]`
+#### 🟢 SLIDE 16: ✍️ 04. OVERVIEW FORMULA (2 SENTENCES)
+`[Bấm chuyển Slide 16]`
 
 "Đoạn **Overview là trái tim của bài viết**, gồm 2 câu: `[nghỉ 1s]`
 
@@ -213,7 +222,7 @@ Lưu ý quan trọng: Không đưa số liệu chi tiết hay tên phòng vụn 
 
 ### PHẦN 5: LA BÀN & QUY TẮC GIỚI TỪ PHƯƠNG HƯỚNG
 
-#### 🟢 SLIDE 16: 🧭 05. 8 COMPASS DIRECTIONS
+#### 🟢 SLIDE 17: 🧭 05. 8 COMPASS DIRECTIONS
 `[Switch to Slide 16]`
 
 "Phần 5: **Cách định vị phương hướng trên bản đồ ngoài trời**. `[nghỉ 1s]`
@@ -224,8 +233,8 @@ Kết hợp lại thành 4 hướng phụ: North-East, North-West, South-East, v
 
 ---
 
-#### 🟢 SLIDE 17: 🧭 05. ADVANCED SPATIAL COLLOCATIONS
-`[Bấm chuyển Slide 17]`
+#### 🟢 SLIDE 18: 🧭 05. ADVANCED SPATIAL COLLOCATIONS
+`[Bấm chuyển Slide 18]`
 
 "Thay vì chỉ dùng cụm từ đơn giản 'in the north', các bạn hãy nâng cấp bài viết bằng các cụm collocation học thuật: `[nghỉ 1s]`
 
@@ -237,8 +246,8 @@ Những cụm từ này thể hiện độ chính xác không gian rất cao."
 
 ---
 
-#### 🟢 SLIDE 18: 🧭 05. GOLDEN RULE: PREPOSITION 'IN'
-`[Bấm chuyển Slide 18]`
+#### 🟢 SLIDE 19: 🧭 05. GOLDEN RULE: PREPOSITION 'IN'
+`[Bấm chuyển Slide 19]`
 
 "Bây giờ là **quy tắc ngữ pháp sống còn: Phân biệt giới từ IN và TO khi chỉ hướng**. Rất nhiều bạn mất điểm chỗ này: `[nghỉ 1s]`
 
@@ -249,8 +258,8 @@ Ví dụ khi bệnh viện nằm trong khuôn viên thị trấn:
 
 ---
 
-#### 🟢 SLIDE 19: 🧭 05. GOLDEN RULE: PREPOSITION 'TO'
-`[Bấm chuyển Slide 19]`
+#### 🟢 SLIDE 20: 🧭 05. GOLDEN RULE: PREPOSITION 'TO'
+`[Bấm chuyển Slide 20]`
 
 "Ngược lại hoàn toàn là giới từ **TO**: `[nghỉ 1s]`
 
@@ -263,8 +272,8 @@ Hoặc:
 
 ---
 
-#### 🟢 SLIDE 20: 🧭 05. PROXIMITY: ADJACENT TO / NEXT TO
-`[Bấm chuyển Slide 20]`
+#### 🟢 SLIDE 21: 🧭 05. PROXIMITY: ADJACENT TO / NEXT TO
+`[Bấm chuyển Slide 21]`
 
 "Để miêu tả hai công trình nằm sát cạnh nhau: `[nghỉ 1s]`
 
@@ -276,8 +285,8 @@ Hoặc:
 
 ---
 
-#### 🟢 SLIDE 21: 🧭 05. OPPOSITION: OPPOSITE / ACROSS FROM
-`[Bấm chuyển Slide 21]`
+#### 🟢 SLIDE 22: 🧭 05. OPPOSITION: OPPOSITE / ACROSS FROM
+`[Bấm chuyển Slide 22]`
 
 "Còn khi hai công trình nằm đối diện nhau qua một con đường hay dòng sông: `[nghỉ 1s]`
 
@@ -291,8 +300,8 @@ Hoặc:
 
 ### PHẦN 6: ĐỊNH VỊ SƠ ĐỒ MẶT BẰNG TRONG NHÀ (FLOOR PLAN)
 
-#### 🟢 SLIDE 22: 🏢 06. FLOOR PLAN: ENTRANCE & CENTER
-`[Bấm chuyển Slide 22]`
+#### 🟢 SLIDE 23: 🏢 06. FLOOR PLAN: ENTRANCE & CENTER
+`[Bấm chuyển Slide 23]`
 
 "Sang phần 6: **Cách định vị sơ đồ mặt bằng trong nhà – dạng bài không hề có la bàn**. `[nghỉ 1s]`
 
@@ -304,8 +313,8 @@ Mốc thứ hai là **Khu vực trung tâm**: Dùng các cụm *In the center or
 
 ---
 
-#### 🟢 SLIDE 23: 🏢 06. FLOOR PLAN: WALLS & CORNERS
-`[Bấm chuyển Slide 23]`
+#### 🟢 SLIDE 24: 🏢 06. FLOOR PLAN: WALLS & CORNERS
+`[Bấm chuyển Slide 24]`
 
 "Các khu vực còn lại trong phòng: `[nghỉ 1s]`
 
@@ -319,8 +328,8 @@ Và các góc cùng phía cuối căn phòng: *In the top-left or top-right corn
 
 ### PHẦN 7: 5 NHÓM ĐỘNG TỪ THAY ĐỔI VÀ DANH TỪ HÓA
 
-#### 🟢 SLIDE 24: 🔄 07. VERB GROUP 1: CONSTRUCTION & ADDITION
-`[Bấm chuyển Slide 24]`
+#### 🟢 SLIDE 25: 🔄 07. VERB GROUP 1: CONSTRUCTION & ADDITION
+`[Bấm chuyển Slide 25]`
 
 "Phần 7: **Kho từ vựng 5 nhóm động từ thay đổi và kỹ thuật Danh từ hóa**. `[nghỉ 1s]`
 
@@ -334,8 +343,8 @@ Ví dụ: *The period witnessed the construction of a new residential estate.*"
 
 ---
 
-#### 🟢 SLIDE 25: 🔄 07. VERB GROUP 2: DEMOLITION & REMOVAL
-`[Bấm chuyển Slide 25]`
+#### 🟢 SLIDE 26: 🔄 07. VERB GROUP 2: DEMOLITION & REMOVAL
+`[Bấm chuyển Slide 26]`
 
 "Nhóm 2 là **Phá bỏ hoặc Dọn trống**, bạn cần chọn đúng từ cho từng loại đối tượng: `[nghỉ 1s]`
 
@@ -349,8 +358,8 @@ Danh từ hóa tương ứng: *the demolition of old shops, the clearance of far
 
 ---
 
-#### 🟢 SLIDE 26: 🔄 07. VERB GROUP 3: REPLACEMENT & CONVERSION
-`[Bấm chuyển Slide 26]`
+#### 🟢 SLIDE 27: 🔄 07. VERB GROUP 3: REPLACEMENT & CONVERSION
+`[Bấm chuyển Slide 27]`
 
 "Nhóm 3 rất phổ biến trong đề thi: **Thay thế và Chuyển đổi công năng**. `[nghỉ 1s]`
 
@@ -366,8 +375,8 @@ Và: *The former children's book area gave way to a modern lecture room.*"
 
 ---
 
-#### 🟢 SLIDE 27: 🔄 07. VERB GROUPS 4 & 5: RESIZING & UNCHANGED
-`[Bấm chuyển Slide 27]`
+#### 🟢 SLIDE 28: 🔄 07. VERB GROUPS 4 & 5: RESIZING & UNCHANGED
+`[Bấm chuyển Slide 28]`
 
 "Hai nhóm động từ cuối cùng: `[nghỉ 1s]`
 
@@ -382,8 +391,8 @@ Ví dụ: *The primary school stayed intact despite surrounding developments.*"
 
 ### PHẦN 8: 4 CẤU TRÚC NGỮ PHÁP ĂN ĐIỂM GRA (BAND 7.5+)
 
-#### 🟢 SLIDE 28: 💡 08. ADVANCED GRAMMAR #1: PARTICIPLE CLAUSES
-`[Bấm chuyển Slide 28]`
+#### 🟢 SLIDE 29: 💡 08. ADVANCED GRAMMAR #1: PARTICIPLE CLAUSES
+`[Bấm chuyển Slide 29]`
 
 "Sang phần 8: **4 cấu trúc ngữ pháp giúp bạn bứt phá tiêu chí GRA**. `[nghỉ 1s]`
 
@@ -397,8 +406,8 @@ Cách viết này giúp gộp hai câu đơn thành một câu ghép học thu�
 
 ---
 
-#### 🟢 SLIDE 29: 💡 08. ADVANCED GRAMMAR #2: SPATIAL INVERSION
-`[Bấm chuyển Slide 29]`
+#### 🟢 SLIDE 30: 💡 08. ADVANCED GRAMMAR #2: SPATIAL INVERSION
+`[Bấm chuyển Slide 30]`
 
 "Cấu trúc thứ hai tạo ấn tượng phong cách rất mạnh: **Đảo ngữ cụm giới từ chỉ nơi chốn**. `[nghỉ 1s]`
 
@@ -412,8 +421,8 @@ Chủ ngữ đi ngay sau động từ tạo nhịp điệu câu rất ấn tư�
 
 ---
 
-#### 🟢 SLIDE 30: 💡 08. ADVANCED GRAMMAR #3: AT THE EXPENSE OF
-`[Bấm chuyển Slide 30]`
+#### 🟢 SLIDE 31: 💡 08. ADVANCED GRAMMAR #3: AT THE EXPENSE OF
+`[Bấm chuyển Slide 31]`
 
 "Cấu trúc thứ ba là **Cụm quan hệ đánh đổi 'at the expense of'**: `[nghỉ 1s]`
 
@@ -427,8 +436,8 @@ Một dấu ấn rõ nét của bài viết Band 8.0 trở lên."
 
 ---
 
-#### 🟢 SLIDE 31: 💡 08. ADVANCED GRAMMAR #4: NOMINALIZATION WITNESSED
-`[Bấm chuyển Slide 31]`
+#### 🟢 SLIDE 32: 💡 08. ADVANCED GRAMMAR #4: NOMINALIZATION WITNESSED
+`[Bấm chuyển Slide 32]`
 
 "Cấu trúc thứ tư là **Danh từ hóa đi với các động từ nhân hóa như 'witnessed' hoặc 'saw'**: `[nghỉ 1s]`
 
@@ -444,8 +453,8 @@ Câu văn trở nên sinh động và đậm chất báo chí học thuật."
 
 ### PHẦN 9: GIẢI CHI TIẾT ĐỀ THI THẬT #1 – LÀNG STOKEFORD (1930 - 2010)
 
-#### 🟢 SLIDE 32: 🏡 09. REAL EXAM #1: STOKEFORD – INTRODUCTION
-`[Bấm chuyển Slide 32]`
+#### 🟢 SLIDE 33: 🏡 09. REAL EXAM #1: STOKEFORD – INTRODUCTION
+`[Bấm chuyển Slide 33]`
 
 "Bây giờ chúng ta bước vào phần thực chiến: **Giải trọn vẹn đề thi thật số 1 – Ngôi làng Stokeford từ năm 1930 đến 2010**. `[nghỉ 1s]`
 
@@ -456,8 +465,8 @@ Ngắn gọn, chuẩn xác và không lặp lại từ ngữ của đề bài."
 
 ---
 
-#### 🟢 SLIDE 33: 🏡 09. REAL EXAM #1: STOKEFORD – OVERVIEW
-`[Bấm chuyển Slide 33]`
+#### 🟢 SLIDE 34: 🏡 09. REAL EXAM #1: STOKEFORD – OVERVIEW
+`[Bấm chuyển Slide 34]`
 
 "Tiếp theo là đoạn Tổng quan Overview gồm 2 câu: `[nghỉ 1s]`
 
@@ -468,8 +477,8 @@ Hai câu này đã bao trọn toàn bộ câu chuyện chuyển dịch vĩ mô c
 
 ---
 
-#### 🟢 SLIDE 34: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (UNCHANGED)
-`[Bấm chuyển Slide 34]`
+#### 🟢 SLIDE 35: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (UNCHANGED)
+`[Bấm chuyển Slide 35]`
 
 "Chúng ta áp dụng chiến lược chia đôi Bắc – Nam. Bắt đầu với Body 1 tả các chi tiết giữ nguyên ở nửa phía Bắc: `[nghỉ 1s]`
 
@@ -480,8 +489,8 @@ Nêu được hai chi tiết này giúp bạn đảm bảo tối đa điểm Tas
 
 ---
 
-#### 🟢 SLIDE 35: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (CHANGED)
-`[Bấm chuyển Slide 35]`
+#### 🟢 SLIDE 36: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (CHANGED)
+`[Bấm chuyển Slide 36]`
 
 "Tiếp tục Body 1 với các công trình thay đổi ở nửa phía Bắc: `[nghỉ 1s]`
 
@@ -492,8 +501,8 @@ Tất cả sự thay đổi được sắp xếp liền mạch theo không gian 
 
 ---
 
-#### 🟢 SLIDE 36: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH)
-`[Bấm chuyển Slide 36]`
+#### 🟢 SLIDE 37: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH)
+`[Bấm chuyển Slide 37]`
 
 "Chuyển sang Body 2 miêu tả nửa phía Nam của ngôi làng: `[nghỉ 1s]`
 
@@ -504,8 +513,8 @@ Tất cả sự thay đổi được sắp xếp liền mạch theo không gian 
 
 ---
 
-#### 🟢 SLIDE 37: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH-WEST)
-`[Bấm chuyển Slide 37]`
+#### 🟢 SLIDE 38: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH-WEST)
+`[Bấm chuyển Slide 38]`
 
 "Và hoàn thành Body 2 với khu đất nông nghiệp góc tây nam: `[nghỉ 1s]`
 
@@ -518,8 +527,8 @@ Vậy là chúng ta đã hoàn thành bài viết Band 8.5 chuẩn mực cho đ�
 
 ### PHẦN 10: GIẢI CHI TIẾT ĐỀ THI THẬT #2 – THƯ VIỆN (CAMBRIDGE 18 TEST 3)
 
-#### 🟢 SLIDE 38: 📚 10. REAL EXAM #2: LIBRARY – OVERVIEW
-`[Bấm chuyển Slide 38]`
+#### 🟢 SLIDE 39: 📚 10. REAL EXAM #2: LIBRARY – OVERVIEW
+`[Bấm chuyển Slide 39]`
 
 "Đề thực chiến số 2 là sơ đồ mặt bằng trong nhà: **Cambridge 18 Test 3 Central Library**. `[nghỉ 1s]`
 
@@ -531,8 +540,8 @@ Rõ ràng, khúc chiết và ăn khớp 100% với trục thời gian của đ�
 
 ---
 
-#### 🟢 SLIDE 39: 📚 10. REAL EXAM #2: LIBRARY – BODY 1
-`[Bấm chuyển Slide 39]`
+#### 🟢 SLIDE 40: 📚 10. REAL EXAM #2: LIBRARY – BODY 1
+`[Bấm chuyển Slide 40]`
 
 "Chúng ta áp dụng chiến lược chia Lối vào & Sảnh trung tâm cho Body 1: `[nghỉ 1s]`
 
@@ -542,8 +551,8 @@ Rõ ràng, khúc chiết và ăn khớp 100% với trục thời gian của đ�
 
 ---
 
-#### 🟢 SLIDE 40: 📚 10. REAL EXAM #2: LIBRARY – BODY 2
-`[Bấm chuyển Slide 40]`
+#### 🟢 SLIDE 41: 📚 10. REAL EXAM #2: LIBRARY – BODY 2
+`[Bấm chuyển Slide 41]`
 
 "Sang Body 2 miêu tả các phòng chức năng ở các góc và phía cuối: `[nghỉ 1s]`
 
@@ -553,8 +562,8 @@ Rõ ràng, khúc chiết và ăn khớp 100% với trục thời gian của đ�
 
 ---
 
-#### 🟢 SLIDE 41: 📚 10. REAL EXAM #2: LIBRARY – INVERSION FINALE
-`[Bấm chuyển Slide 41]`
+#### 🟢 SLIDE 42: 📚 10. REAL EXAM #2: LIBRARY – INVERSION FINALE
+`[Bấm chuyển Slide 42]`
 
 "Và kết bài bằng một câu đảo ngữ vị trí đỉnh cao để chốt hạ điểm GRA: `[nghỉ 1s]`
 
@@ -563,3 +572,19 @@ Rõ ràng, khúc chiết và ăn khớp 100% với trục thời gian của đ�
 *Positioned along the right-hand wall are updated self-service kiosks.* `[nghỉ 1s]`
 
 Như vậy, chúng ta đã nắm trọn toàn bộ hệ thống lý thuyết, từ vựng và bài mẫu cho dạng bài Map và Floor Plan trong IELTS Writing Task 1. Chúc các bạn luyện tập hiệu quả và đạt điểm số mục tiêu trong kỳ thi sắp tới!"
+
+---
+
+### PHẦN KẾT BÀI & KÊU GỌI HÀNH ĐỘNG (OUTRO & CALL TO ACTION)
+
+#### 🟢 SLIDE 43: 🎉 THANK YOU FOR WATCHING (OUTRO & CALL TO ACTION)
+`[Bấm chuyển Slide 43]`
+
+`[Click: Hiện khối 1]`
+"Nếu bài học hôm nay giúp các bạn tự tin hơn khi xử lý dạng bài Map và Floor Plan, hãy bấm Like và Chia sẻ video này để ủng hộ kênh nhé! `[nghỉ 1s]`
+
+`[Click: Hiện khối 2]`
+Đừng quên bấm Subscribe và bật chuông thông báo để không bỏ lỡ các video bài giảng chuyên sâu tiếp theo cho Writing và Speaking. `[nghỉ 1s]`
+
+`[Click: Hiện khối 3]`
+Toàn bộ slide trình chiếu, kịch bản đọc và bài mẫu band 8.5+ đều được chia sẻ hoàn toàn miễn phí tại đường link GitHub bên dưới phần mô tả. Cảm ơn các bạn đã theo dõi và chúc các bạn đạt được band điểm mục tiêu trong kỳ thi IELTS sắp tới!"
