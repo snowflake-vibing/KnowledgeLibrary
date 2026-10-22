@@ -8,7 +8,7 @@ Whenever the user asks to create or prepare YouTube video content, you MUST stri
 
 1. **Mandatory Output - Always Deliver 3 Production Artifacts**:
    - `[Number]_[Topic]_Slide_Content_Canva.md`: Contains bilingual slide content (English primary + Vietnamese italic lighter subtext), visual layout instructions, and image paths.
-   - `[Number]_[Topic]_Video_Script_Voiceover.md`: 100% conversational SPOKEN ENGLISH ONLY script designed for one-take recording (no Vietnamese in voiceover). MUST include slide transitions `[Switch to Slide X]`, click triggers for animation `[Click: Block Y]`, breathing pauses `[pause 1s]`, and bold keywords for natural vocal emphasis.
+   - `[Number]_[Topic]_Video_Script_Voiceover.md`: Natural conversational VIETNAMESE script designed for one-take recording. CRITICAL RULE: When citing or reading English vocabulary/sentences from the slide, read pure English and DO NOT translate to Vietnamese verbally (since the slide already displays the Vietnamese subtext). MUST include slide transitions `[Bấm chuyển Slide X]`, click triggers for animation `[Click: Hiện khối Y]`, breathing pauses `[nghỉ 1s]`, and bold keywords for natural vocal emphasis.
    - `[Number]_Slides_[Topic].pptx`: Clean, minimal PowerPoint presentation adhering 100% to `RULE_SLIDES.md`:
      - 100% pure white background (`#FFFFFF`).
      - Bilingual presentation: English primary line (`#0F172A`, 14.5-15pt) + Vietnamese subtext underneath (*italic*, muted slate `#64748B`, 12pt) for comfortable readability.
