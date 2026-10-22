@@ -1,424 +1,478 @@
-# 🖥️ NỘI DUNG THIẾT KẾ SLIDE: IELTS WRITING TASK 1 MAP & FLOOR PLAN (41 SLIDES)
+# 🖥️ NỘI DUNG THIẾT KẾ SLIDE: IELTS WRITING TASK 1 MAP & FLOOR PLAN (41 SLIDES - BILINGUAL)
 
-> **Mục đích file**: Dàn ý nội dung chi tiết cho 41 trang slide, dùng để đối chiếu khi chỉnh sửa slide trên Canva hoặc kiểm tra bài giảng.  
-> **Quy chuẩn thiết kế**: Tuân thủ 100% [**`rule_slides.md`**](rule_slides.md): Nền trắng `#FFFFFF`, font Montserrat $\ge 24\text{pt}$, 1 màu accent/slide, thanh quote dọc ôm trọn bài, zero-overflow (mép đáy $> 50\text{pt}$).
-
----
-
-## 🗺️ PHẦN 1: PHÂN LOẠI CÁC DẠNG BÀI MAP
-
-### Slide 01: 🗺️ 01. DẠNG BÀI 1: QUÁ KHỨ ➔ QUÁ KHỨ (1930 - 2010)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi [`assets/map_video/cambridge_stokeford_1930_2010.jpg`](assets/map_video/cambridge_stokeford_1930_2010.jpg)
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **ĐẶC TRƯNG VÀ THÌ CHỦ ĐẠO**
-    - *So sánh hai mốc thời gian trong quá khứ.*
-    - *Sử dụng 100% thì Quá khứ đơn (Past Simple) và Quá khứ hoàn thành.*
-    - *was constructed / were demolished / had been converted into.*
-
-### Slide 02: 🗺️ 01. DẠNG BÀI 1: CÂU VĂN THỰC CHIẾN MẪU
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi `cambridge_stokeford_1930_2010.jpg`
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **CÂU MÔ TẢ THAY ĐỔI THEO THỜI GIAN**
-    - *The farmland in the north-east was cleared before a new residential estate was constructed.*
-    - *The local shops adjacent to the post office were demolished to make way for houses.*
-
-### Slide 03: 🗺️ 01. DẠNG BÀI 2: QUÁ KHỨ ➔ HIỆN TẠI (20 NĂM TRƯỚC - NAY)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh sơ đồ [`assets/map_video/cambridge_18_library_floorplan.png`](assets/map_video/cambridge_18_library_floorplan.png)
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **ĐẶC TRƯNG VÀ THÌ CHỦ ĐẠO**
-    - *So sánh một mốc quá khứ với thời điểm hiện nay.*
-    - *Bắt buộc dùng thì Hiện tại hoàn thành (Present Perfect).*
-    - *has been modernized / have been removed / has given way to.*
-
-### Slide 04: 🗺️ 01. DẠNG BÀI 2: CÂU VĂN THỰC CHIẾN MẪU
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh sơ đồ `cambridge_18_library_floorplan.png`
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **CÂU MÔ TẢ VỚI HIỆN TẠI HOÀN THÀNH**
-    - *The central tables and chairs have been completely removed to create open space.*
-    - *The former enquiry desk has given way to a modern café and self-service machines.*
-
-### Slide 05: 🗺️ 01. DẠNG BÀI 3: HIỆN TẠI ➔ TƯƠNG LAI (NOW - 2035)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi [`assets/map_video/cambridge_static_map_s1_s2.png`](assets/map_video/cambridge_static_map_s1_s2.png)
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **ĐẶC TRƯNG VÀ THÌ CHỦ ĐẠO**
-    - *Bản đồ quy hoạch phát triển trong tương lai.*
-    - *Tuyệt đối tránh lạm dụng 'will + V' một cách đơn điệu.*
-    - *is planned to be built / is projected to be converted.*
-
-### Slide 06: 🗺️ 01. DẠNG BÀI 3: CẤU TRÚC DỰ ĐOÁN HỌC THUẬT
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi `cambridge_static_map_s1_s2.png`
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **CẤU TRÚC BỊ ĐỘNG DỰ ĐOÁN TƯƠNG LAI**
-    - *It is anticipated that the industrial area will be relocated to the outskirts.*
-    - *The vacant land is proposed to be transformed into a community sports complex.*
-
-### Slide 07: 🗺️ 01. DẠNG BÀI 4: STATIC MAP (SO SÁNH 2 ĐỊA ĐIỂM)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi `cambridge_static_map_s1_s2.png`
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **ĐẶC TRƯNG VÀ THÌ CHỦ ĐẠO**
-    - *Bản đồ so sánh vị trí đề xuất (Site 1 vs Site 2) không có yếu tố thời gian.*
-    - *Sử dụng 100% thì Hiện tại đơn (Present Simple) để miêu tả vị trí.*
-    - *is located in / lies to the north / stands adjacent to.*
-
-### Slide 08: 🗺️ 01. DẠNG BÀI 4: CÂU VĂN THỰC CHIẾN MẪU
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50
-  - **Cột trái**: Ảnh đề thi `cambridge_static_map_s1_s2.png`
-  - **Cột phải**: Thanh Quote đỏ + Khối nội dung:
-    - **SO SÁNH HAI VỊ TRÍ ĐỀ XUẤT**
-    - *Site 1 is situated close to the residential zone, offering great accessibility.*
-    - *In contrast, Site 2 lies adjacent to the bypass road, providing convenient freight transport.*
+> **Mục đích file**: Dàn ý nội dung chi tiết cho 41 trang slide song ngữ (English chính + Vietnamese phụ chú in nghiêng nhạt màu), dùng để đối chiếu khi làm việc hoặc kiểm tra bài giảng.  
+> **Quy chuẩn thiết kế**: Tuân thủ 100% [**`rule_slides.md`**](rule_slides.md): Nền trắng `#FFFFFF`, font Montserrat vừa phải dễ chịu, 1 màu accent/slide, thanh quote dọc ôm trọn bài, zero-overflow (mép đáy $> 50\text{pt}$).
 
 ---
 
-## 🎯 PHẦN 2: 4 TIÊU CHÍ CHẤM ĐIỂM (BAND 7.5+)
+## 🗺️ SECTION 1: TASK TYPES & TENSES (PHÂN LOẠI DẠNG BÀI)
 
-### Slide 09: 🎯 02. TIÊU CHÍ CHẤM ĐIỂM (NỘI DUNG & BỐ CỤC)
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chiều rộng đầy đủ (Full width), 2 khối Quote tím:
-  - **Khối 1: TASK ACHIEVEMENT (HOÀN THÀNH NHIỆM VỤ)**
-    - *Bắt buộc có đoạn Overview tổng thể nêu bật 2 xu hướng chuyển dịch lớn nhất.*
-    - *Mô tả trọn vẹn cả những chi tiết thay đổi lẫn các công trình giữ nguyên.*
-  - **Khối 2: COHERENCE AND COHESION (MẠCH LẠC & LIÊN KẾT)**
-    - *Chia đoạn theo trật tự không gian logic: Bắc ➔ Nam hoặc Ngoài ➔ Trong.*
-    - *Tuyệt đối không nhảy cóc các vị trí lộn xộn khiến người đọc mất phương hướng.*
+### Slide 01: 🗺️ 01. TASK TYPE 1: PAST TO PAST (1930 - 2010)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: [`assets/map_video/cambridge_stokeford_1930_2010.jpg`](assets/map_video/cambridge_stokeford_1930_2010.jpg)
+- **Right Column (Quote Block)**:
+  - **KEY CHARACTERISTICS & TENSE**
+  - Comparing two distinct historical timeframes (e.g., 1930 vs. 2010).  
+    *So sánh hai mốc thời gian hoàn toàn trong quá khứ.*
+  - Exclusively use Past Simple and Past Perfect passive forms.  
+    *Sử dụng 100% thì Quá khứ đơn và Quá khứ hoàn thành ở thể bị động.*
+  - was constructed / were demolished / had been converted into.  
+    *Các động từ phổ biến: được xây dựng / bị phá bỏ / đã được chuyển đổi thành.*
 
-### Slide 10: 🎯 02. TIÊU CHÍ CHẤM ĐIỂM (TỪ VỰNG & NGỮ PHÁP)
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chiều rộng đầy đủ (Full width), 2 khối Quote tím:
-  - **Khối 1: LEXICAL RESOURCE (VỐN TỪ VỰNG HỌC THUẬT)**
-    - *Vận dụng linh hoạt 5 nhóm động từ thay đổi và cấu trúc danh từ hóa.*
-    - *Chính xác tuyệt đối các giới từ phương hướng: IN the north vs TO the north.*
-  - **Khối 2: GRAMMATICAL RANGE AND ACCURACY (NGỮ PHÁP CHÍNH XÁC)**
-    - *Hơn 80% câu mô tả cần sử dụng thể bị động chuẩn xác.*
-    - *Kết hợp linh hoạt mệnh đề phân từ rút gọn và đảo ngữ cụm giới từ chỉ nơi chốn.*
+### Slide 02: 🗺️ 01. TASK TYPE 1: MODEL SENTENCES
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: `cambridge_stokeford_1930_2010.jpg`
+- **Right Column (Quote Block)**:
+  - **AUTHENTIC MODEL SENTENCES**
+  - The farmland in the north-east was cleared before a new estate was built.  
+    *Đất nông nghiệp phía đông bắc đã được giải tỏa trước khi khu nhà ở mới được xây dựng.*
+  - The local shops adjacent to the post office were demolished to make way for houses.  
+    *Các cửa hàng sát cạnh bưu điện bị phá bỏ để nhường chỗ cho nhà ở.*
 
----
+### Slide 03: 🗺️ 01. TASK TYPE 2: PAST TO PRESENT (20 YRS AGO - TODAY)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: [`assets/map_video/cambridge_18_library_floorplan.png`](assets/map_video/cambridge_18_library_floorplan.png)
+- **Right Column (Quote Block)**:
+  - **KEY CHARACTERISTICS & TENSE**
+  - Comparing a past baseline against the present day.  
+    *So sánh một mốc quá khứ với thời điểm hiện nay.*
+  - Mandatory use of Present Perfect passive: has/have been + V3/ed.  
+    *Bắt buộc dùng thì Hiện tại hoàn thành ở thể bị động.*
+  - has been modernized / have been removed / has given way to.  
+    *Đã được hiện đại hóa / đã bị dọn đi / đã nhường chỗ cho.*
 
-## 📐 PHẦN 3: CẤU TRÚC BÀI VIẾT VÀ CHIẾN LƯỢC CHIA BODY
+### Slide 04: 🗺️ 01. TASK TYPE 2: MODEL SENTENCES
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: `cambridge_18_library_floorplan.png`
+- **Right Column (Quote Block)**:
+  - **AUTHENTIC MODEL SENTENCES**
+  - The central tables and chairs have been completely removed for open space.  
+    *Bàn ghế ở trung tâm đã được dọn đi hoàn toàn để tạo không gian mở.*
+  - The enquiry desk has given way to a modern café and self-service kiosks.  
+    *Bàn thông tin cũ đã nhường chỗ cho một quán café và máy tự phục vụ.*
 
-### Slide 11: 📐 03. CẤU TRÚC 4 ĐOẠN CHUẨN MỰC BAND 7.5+
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **Khối 1: BỐ CỤC 4 ĐOẠN KHÔNG ĐỔI**
-    - *1. Introduction: 1 câu paraphrase lại đề bài.*
-    - *2. Overview: 2 câu tóm tắt bức tranh toàn cảnh.*
-    - *3. Body 1: Mô tả chi tiết phân khu 1 (3 - 4 câu).*
-    - *4. Body 2: Mô tả chi tiết phân khu 2 (3 - 4 câu).*
-  - **Khối 2: QUY TẮC BẤT DI BẤT DỊCH**
-    - *Tuyệt đối KHÔNG viết đoạn Kết bài (Conclusion) cho IELTS Writing Task 1.*
-    - *Mọi nhận định tổng quan phải nằm trọn trong đoạn Overview.*
+### Slide 05: 🗺️ 01. TASK TYPE 3: PRESENT TO FUTURE (NOW - 2035)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: [`assets/map_video/cambridge_static_map_s1_s2.png`](assets/map_video/cambridge_static_map_s1_s2.png)
+- **Right Column (Quote Block)**:
+  - **KEY CHARACTERISTICS & TENSE**
+  - Future development and zoning proposals (e.g., Now vs. 2035).  
+    *Bản đồ quy hoạch và đề xuất phát triển trong tương lai.*
+  - Avoid repetitive 'will be'; use academic projection patterns.  
+    *Tránh lặp từ 'will be'; sử dụng cấu trúc dự báo học thuật.*
+  - is planned to be built / is projected to be converted.  
+    *Được lên kế hoạch xây dựng / được dự kiến chuyển đổi thành.*
 
-### Slide 12: 📐 03. CHIẾN LƯỢC CHIA BODY: KHÔNG GIAN BẮC - NAM
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **Khối 1: KHI NÀO ÁP DỤNG CHIẾN LƯỢC NÀY?**
-    - *Áp dụng tối ưu khi có con sông hoặc trục đường lớn cắt ngang qua bản đồ.*
-    - *Tạo ranh giới tự nhiên giúp bài viết rõ ràng, mạch lạc.*
-  - **Khối 2: PHÂN BỔ NỘI DUNG**
-    - *Body 1 ➔ Mô tả toàn bộ khu vực nửa phía Bắc của ranh giới.*
-    - *Body 2 ➔ Mô tả toàn bộ khu vực nửa phía Nam của ranh giới.*
+### Slide 06: 🗺️ 01. TASK TYPE 3: ACADEMIC PROJECTIONS
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: `cambridge_static_map_s1_s2.png`
+- **Right Column (Quote Block)**:
+  - **FUTURE PROJECTION STRUCTURES**
+  - It is anticipated that the industrial area will be relocated to the outskirts.  
+    *Dự kiến khu công nghiệp sẽ được di dời ra vùng ngoại ô.*
+  - The vacant land is projected to be transformed into a sports complex.  
+    *Khu đất trống được dự kiến chuyển đổi thành khu phức hợp thể thao.*
 
-### Slide 13: 📐 03. CHIẾN LƯỢC CHIA BODY: TRUNG TÂM & CHỨC NĂNG
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **Khối 1: CHIẾN LƯỢC TRUNG TÂM VÀ NGOẠI VI (SƠ ĐỒ TRONG NHÀ)**
-    - *Body 1: Miêu tả lối vào chính và sảnh trung tâm căn phòng.*
-    - *Body 2: Miêu tả các phòng chức năng ở các góc và dọc tường hai bên.*
-  - **Khối 2: CHIẾN LƯỢC NHÓM CHỨC NĂNG CÔNG TRÌNH**
-    - *Body 1: Tập trung vào hạ tầng giao thông và nhà ở dân cư.*
-    - *Body 2: Tập trung vào tiện ích công cộng và thiên nhiên.*
+### Slide 07: 🗺️ 01. TASK TYPE 4: STATIC MAP (NO TIME ELEMENT)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: `cambridge_static_map_s1_s2.png`
+- **Right Column (Quote Block)**:
+  - **KEY CHARACTERISTICS & TENSE**
+  - Comparing two proposed locations (Site 1 vs Site 2) with zero timeline.  
+    *So sánh hai vị trí đề xuất không có yếu tố mốc thời gian.*
+  - Strictly use 100% Present Simple for spatial description.  
+    *Sử dụng 100% thì Hiện tại đơn để miêu tả vị trí không gian.*
+  - is located in / lies to the north / stands adjacent to.  
+    *Tọa lạc tại / nằm về phía bắc / đứng sát cạnh.*
 
----
-
-## ✍️ PHẦN 4: KHUNG CÂU INTRODUCTION & OVERVIEW
-
-### Slide 14: ✍️ 04. KHUNG CÂU MỞ BÀI (INTRODUCTION)
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **Khối 1: CÔNG THỨC PARAPHRASE 1 CÂU DUY NHẤT**
-    - *The map shows / illustrates / depicts + how [Place] changed / developed over a period of [X] years.*
-    - *The floor plans compare the layout of [Building] with its current configuration.*
-  - **Khối 2: VÍ DỤ MẪU THỰC CHIẾN**
-    - *The two maps illustrate how Stokeford developed over an 80-year period from 1930 to 2010.*
-
-### Slide 15: ✍️ 04. KHUNG CÂU TỔNG QUAN (OVERVIEW)
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **Khối 1: CÔNG THỨC 2 CÂU BỨC TRANH TOÀN CẢNH**
-    - *Câu 1 (Xu hướng lớn): Overall, [Place] underwent significant modernization / transformation.*
-    - *Câu 2 (Chi tiết ấn tượng): The most notable changes include the complete clearance of farmland for new housing.*
-  - **Khối 2: LƯU Ý CỐT LÕI**
-    - *Không đưa số liệu chi tiết hay tên riêng vụn vặt vào Overview.*
-    - *Tập trung vào sự biến chuyển lớn nhất mà mắt người nhìn thấy đầu tiên.*
-
----
-
-## 🧭 PHẦN 5: LA BÀN & ĐỊNH VỊ PHƯƠNG HƯỚNG
-
-### Slide 16: 🧭 05. 8 HƯỚNG LA BÀN HÀNG HẢI CHUẨN XÁC
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh [`assets/map_video/wikimedia_compass_rose.png`](assets/map_video/wikimedia_compass_rose.png)
-- **Cột phải**:
-  - **4 HƯỚNG CHÍNH & 4 HƯỚNG PHỤ**
-  - *North (Bắc) - South (Nam) - East (Đông) - West (Tây).*
-  - *North-East (Đông Bắc) - North-West (Tây Bắc).*
-  - *South-East (Đông Nam) - South-West (Tây Nam).*
-
-### Slide 17: 🧭 05. CÁC CỤM TỪ CHỈ VỊ TRÍ PHƯƠNG HƯỚNG
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `wikimedia_compass_rose.png`
-- **Cột phải**:
-  - **CỤM TỪ MIÊU TẢ HỌC THUẬT**
-  - *in the north-eastern part of the village*
-  - *situated along the eastern boundary of the town*
-  - *occupying the south-western quadrant of the area*
-
-### Slide 18: 🧭 05. QUY TẮC VÀNG: GIỚI TỪ 'IN'
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `wikimedia_compass_rose.png`
-- **Cột phải**:
-  - **GIỚI TỪ 'IN' ➔ NẰM TRONG RANH GIỚI**
-  - *Dùng khi đối tượng nằm BÊN TRONG ranh giới khu vực.*
-  - *A new hospital was constructed in the north of the town.*
-  - *The library is located in the center of the campus.*
-
-### Slide 19: 🧭 05. QUY TẮC VÀNG: GIỚI TỪ 'TO'
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `wikimedia_compass_rose.png`
-- **Cột phải**:
-  - **GIỚI TỪ 'TO' ➔ NẰM TÁCH BIỆT BÊN NGOÀI**
-  - *Dùng khi đối tượng nằm TÁCH RỜI, BÊN NGOÀI ranh giới khu vực.*
-  - *A dense forest lies to the north of the town.*
-  - *To the east of the river stands a modern railway station.*
-
-### Slide 20: 🧭 05. VỊ TRÍ TIẾP GIÁP: ADJACENT TO / NEXT TO
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `wikimedia_compass_rose.png`
-- **Cột phải**:
-  - **ADJACENT TO / NEXT TO (SÁT CẠNH NHAU)**
-  - *Dùng khi hai công trình nằm liền kề hoặc sát vách nhau.*
-  - *The local shops adjacent to the post office were demolished.*
-  - *A car park was added adjacent to the primary school.*
-
-### Slide 21: 🧭 05. VỊ TRÍ ĐỐI DIỆN: OPPOSITE / ACROSS FROM
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `wikimedia_compass_rose.png`
-- **Cột phải**:
-  - **OPPOSITE / ACROSS FROM (ĐỐI DIỆN NHAU)**
-  - *Dùng khi hai địa điểm nằm đối diện nhau qua một con đường/dòng sông.*
-  - *A modern café was constructed opposite the library entrance.*
-  - *The new supermarket stands directly across from the train station.*
+### Slide 08: 🗺️ 01. TASK TYPE 4: MODEL COMPARISON
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50
+- **Left Column**: `cambridge_static_map_s1_s2.png`
+- **Right Column (Quote Block)**:
+  - **SPATIAL COMPARISON SENTENCES**
+  - Site 1 is situated close to the residential zone, offering great accessibility.  
+    *Vị trí 1 nằm gần khu dân cư, mang lại khả năng tiếp cận thuận tiện.*
+  - In contrast, Site 2 lies adjacent to the bypass road for freight transport.  
+    *Ngược lại, vị trí 2 nằm cạnh đường tránh, thuận tiện cho xe vận tải hàng hóa.*
 
 ---
 
-## 🏢 PHẦN 6: ĐỊNH VỊ SƠ ĐỒ TRONG NHÀ (FLOOR PLAN)
+## 🎯 SECTION 2: BAND 7.5+ SCORING CRITERIA (4 TIÊU CHÍ CHẤM ĐIỂM)
 
-### Slide 22: 🏢 06. SƠ ĐỒ TRONG NHÀ: LỐI VÀO & TRUNG TÂM
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**: 2 khối Quote tím:
-  - **LỐI VÀO CHÍNH LÀM MỐC XUẤT PHÁT**
-    - *To the immediate left / right of the entrance*
-    - *Just inside the main entrance on either side*
-  - **KHU VỰC TRUNG TÂM CĂN PHÒNG**
-    - *In the center / middle / heart of the library*
-    - *Occupying the central open space*
+### Slide 09: 🎯 02. BAND 7.5+ CRITERIA: TA & CC
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **TASK ACHIEVEMENT (25%)**
+  - Must include an Overview identifying the two most prominent macro-trends.  
+    *Bắt buộc có đoạn Overview nêu bật 2 xu hướng chuyển dịch lớn nhất.*
+  - Crucial: Must describe unchanged features alongside newly built ones.  
+    *Rất quan trọng: Phải miêu tả cả các công trình giữ nguyên không đổi.*
+- **Block 2**:
+  - **COHERENCE AND COHESION (25%)**
+  - Organize body paragraphs following a logical spatial sequence (North to South).  
+    *Sắp xếp thân bài theo trật tự không gian logic (từ Bắc xuống Nam).*
+  - Never jump erratically between unrelated coordinates across the map.  
+    *Không nhảy cóc lộn xộn giữa các góc bản đồ làm người đọc mất phương hướng.*
 
-### Slide 23: 🏢 06. SƠ ĐỒ TRONG NHÀ: TƯỜNG BAO & CÁC GÓC
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**: 2 khối Quote tím:
-  - **DỌC THEO CÁC BỨC TƯỜNG HAI BÊN**
-    - *Along the left-hand / right-hand wall*
-    - *Positioned against the western boundary of the room*
-  - **HAI GÓC VÀ PHÍA CUỐI PHÒNG**
-    - *In the top-left / top-right corner of the room*
-    - *At the back / far end of the floor plan*
-
----
-
-## 🔄 PHẦN 7: 5 NHÓM ĐỘNG TỪ THAY ĐỔI & DANH TỪ HÓA
-
-### Slide 24: 🔄 07. ĐỘNG TỪ NHÓM 1: XÂY MỚI HOẶC THÊM VÀO
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **CÁC ĐỘNG TỪ THỂ BỊ ĐỘNG**
-    - *be constructed / erected / built / established / added*
-    - *A lecture room was erected in the top-right corner.*
-  - **CẤU TRÚC DANH TỪ HÓA TƯƠNG ỨNG**
-    - *the construction / erection / addition of [Facility]*
-    - *The period witnessed the construction of a new residential estate.*
-
-### Slide 25: 🔄 07. ĐỘNG TỪ NHÓM 2: PHÁ BỎ HOẶC DỌN TRỐNG
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **PHÂN BIỆT THEO TỪNG LOẠI ĐỐI TƯỢNG**
-    - *be demolished / knocked down (công trình kiến trúc, nhà cửa)*
-    - *be cleared / cut down (cây cối, đất nông nghiệp)*
-    - *be removed (bàn ghế, trang thiết bị nội thất)*
-  - **DANH TỪ HÓA TƯƠNG ỨNG**
-    - *the demolition of the old shops / the clearance of farmland / the removal of tables*
-
-### Slide 26: 🔄 07. ĐỘNG TỪ NHÓM 3: THAY THẾ VÀ CHUYỂN ĐỔI
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **CÁC CẤU TRÚC THAY THẾ PHỔ BIẾN**
-    - *be converted into / transformed into (biến đổi công năng)*
-    - *be replaced by / superseded by (bị thay thế bởi cái mới)*
-    - *gave way to / made way for (nhường chỗ cho)*
-  - **VÍ DỤ VẬN DỤNG THỰC TẾ**
-    - *The large house was converted into a retirement home.*
-    - *The former children's book area gave way to a modern lecture room.*
-
-### Slide 27: 🔄 07. ĐỘNG TỪ NHÓM 4 & 5: MỞ RỘNG & GIỮ NGUYÊN
-- **Màu Accent**: 🟠 Cam (`#EA580C`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote cam:
-  - **NHÓM 4: MỞ RỘNG HOẶC THU HẸP (SIZE ALTERATION)**
-    - *be expanded / extended / enlarged / doubled in size*
-    - *be reduced in size / narrowed / scaled down*
-  - **NHÓM 5: GIỮ NGUYÊN KHÔNG ĐỔI (NO CHANGE)**
-    - *remained unchanged / stayed intact / stood unmodified throughout the period*
-    - *The primary school stayed intact despite surrounding developments.*
+### Slide 10: 🎯 02. BAND 7.5+ CRITERIA: LR & GRA
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **LEXICAL RESOURCE (25%)**
+  - Utilize 5 distinct verb categories and nominalization structures.  
+    *Sử dụng linh hoạt 5 nhóm động từ biến đổi và cấu trúc danh từ hóa.*
+  - Ensure 100% accuracy with directional prepositions: IN vs TO the north.  
+    *Chính xác tuyệt đối các giới từ chỉ phương hướng: IN vs TO the north.*
+- **Block 2**:
+  - **GRAMMATICAL RANGE AND ACCURACY (25%)**
+  - Over 80% of sentences must be correctly formed in the passive voice.  
+    *Hơn 80% số câu trong bài phải chia ở thể bị động chuẩn xác.*
+  - Integrate participle clauses and spatial inversions for advanced complexity.  
+    *Kết hợp mệnh đề phân từ rút gọn và đảo ngữ vị trí để ghi điểm ngữ pháp cao.*
 
 ---
 
-## 💡 PHẦN 8: 4 CẤU TRÚC NGỮ PHÁP ĂN ĐIỂM GRA (BAND 7.5+)
+## 📐 SECTION 3: ESSAY STRUCTURE & BODY GROUPING (CẤU TRÚC BÀI VIẾT)
 
-### Slide 28: 💡 08. NGỮ PHÁP #1: MỆNH ĐỀ PHÂN TỪ RÚT GỌN
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **CƠ CHẾ RÚT GỌN MỆNH ĐỀ**
-    - *Đưa cụm phân từ quá khứ chỉ vị trí lên đầu câu để tạo nhịp điệu phong phú.*
-    - *Công thức: Located / Situated + [Vị trí], [Đối tượng chính] was + [Động từ].*
-  - **CÂU VĂN THỰC CHIẾN BAND 7.5+**
-    - *Located to the east of the primary road, the local school was significantly extended.*
+### Slide 11: 📐 03. ESSAY STRUCTURE: 4-PARAGRAPH STANDARD
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **THE FIXED 4-PARAGRAPH BLUEPRINT**
+  - Introduction (1 sentence) ➔ Overview (2 sentences) ➔ Body 1 ➔ Body 2.  
+    *Mở bài (1 câu) ➔ Tổng quan (2 câu) ➔ Thân bài 1 (3-4 câu) ➔ Thân bài 2 (3-4 câu).*
+- **Block 2**:
+  - **GOLDEN RULE: NO CONCLUSION**
+  - Never write a Conclusion paragraph in IELTS Task 1; all summaries belong in the Overview.  
+    *Tuyệt đối không viết Kết bài cho Task 1; mọi nhận định tổng quan phải nằm ở đoạn Overview.*
 
-### Slide 29: 💡 08. NGỮ PHÁP #2: ĐẢO NGỮ CỤM GIỚI TỪ NƠI CHỐN
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **CƠ CHẾ ĐẢO NGỮ (PREPOSITIONAL INVERSION)**
-    - *Đảo cụm giới từ chỉ vị trí lên đầu câu mà KHÔNG cần mượn trợ động từ.*
-    - *Công thức: [Prepositional Phrase of Place] + stands / lies / sat + [Subject].*
-  - **CÂU VĂN THỰC CHIẾN BAND 7.5+**
-    - *In the top-right corner of the library now stands a newly constructed lecture room.*
+### Slide 12: 📐 03. BODY GROUPING: NORTH - SOUTH SPLIT
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **WHEN TO APPLY THIS STRATEGY**
+  - Best suited when a river, railway, or main road bisects the landscape.  
+    *Phù hợp nhất khi có dòng sông, đường sắt hoặc trục lộ lớn cắt ngang bản đồ.*
+- **Block 2**:
+  - **PARAGRAPH ALLOCATION**
+  - Body 1 covers the northern half; Body 2 details the southern half and unchanged items.  
+    *Body 1 tả nửa phía Bắc; Body 2 tả nửa phía Nam cùng các công trình giữ nguyên.*
 
-### Slide 30: 💡 08. NGỮ PHÁP #3: CẤU TRÚC ĐÁNH ĐỔI AT THE EXPENSE OF
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **Ý NGHĨA VÀ CÁCH DÙNG**
-    - *Diễn tả sự phát triển của công trình này làm thu hẹp hoặc mất đi công trình khác.*
-    - *Thể hiện tư duy so sánh tương quan sâu sắc, chuẩn văn phong học thuật.*
-  - **CÂU VĂN THỰC CHIẾN BAND 7.5+**
-    - *The retirement home was expanded at the expense of the surrounding gardens.*
-
-### Slide 31: 💡 08. NGỮ PHÁP #4: DANH TỪ HÓA VỚI WITNESSED
-- **Màu Accent**: 🌸 Hồng (`#DB2777`)
-- **Bố cục**: Chiều rộng đầy đủ, 2 khối Quote hồng:
-  - **CƠ CHẾ DANH TỪ HÓA**
-    - *Lấy địa điểm hoặc thời gian làm chủ ngữ cho động từ witnessed / saw.*
-    - *Công thức: [Place / Time] + witnessed / saw + the [Noun Phrase of Change].*
-  - **CÂU VĂN THỰC CHIẾN BAND 7.5+**
-    - *The bottom-right corner witnessed the conversion of the enquiry desk into a café.*
+### Slide 13: 📐 03. BODY GROUPING: CENTER & FUNCTION SPLIT
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **CENTER VS PERIPHERY (FLOOR PLANS)**
+  - Body 1 details main entrance & central hall; Body 2 details perimeter rooms.  
+    *Body 1 tả lối vào & sảnh trung tâm; Body 2 tả các phòng chức năng xung quanh.*
+- **Block 2**:
+  - **FUNCTIONAL CATEGORIZATION**
+  - Body 1 groups residential & transport; Body 2 groups commercial & green amenities.  
+    *Body 1 gom khu dân cư & giao thông; Body 2 gom tiện ích thương mại & thiên nhiên.*
 
 ---
 
-## 🏡 PHẦN 9: THỰC CHIẾN #1 – LÀNG STOKEFORD (1930 - 2010)
+## ✍️ SECTION 4: INTRODUCTION & OVERVIEW FORMULAS (KHUNG CÂU)
 
-### Slide 32: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – MỞ BÀI
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **INTRODUCTION (QUÁ KHỨ ĐƠN)**
-  - *The two maps illustrate how Stokeford developed over an 80-year period from 1930 to 2010.*
-  - *Chỉ dùng 1 câu duy nhất paraphrase lại đề bài ngắn gọn và chính xác.*
+### Slide 14: ✍️ 04. INTRODUCTION FORMULA (1 SENTENCE)
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **PARAPHRASE TEMPLATE**
+  - The map illustrates how [Place] developed over a [X]-year period from [Year] to [Year].  
+    *Bản đồ minh họa nơi chốn đã phát triển qua khoảng thời gian X năm.*
+- **Block 2**:
+  - **AUTHENTIC MODEL SENTENCE**
+  - The two maps illustrate how Stokeford developed over an 80-year period from 1930 to 2010.  
+    *Hai bản đồ minh họa cách làng Stokeford phát triển trong 80 năm từ 1930 đến 2010.*
 
-### Slide 33: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – TỔNG QUAN
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **OVERVIEW (TỔNG THỂ DÂN CƯ HÓA)**
-  - *Overall, the village underwent a transformation from a rural into a residential area.*
-  - *The most notable changes include the complete clearance of farmland for new housing.*
-
-### Slide 34: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – BODY 1 (GIỮ NGUYÊN)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **CÔNG TRÌNH GIỮ NGUYÊN NỬA PHÍA BẮC**
-  - *River Stoke and the bridge in the north remained completely unchanged.*
-  - *The post office in the village center also stayed intact throughout the 80 years.*
-
-### Slide 35: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – BODY 1 (THAY ĐỔI)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **KHU VỰC THAY ĐỔI NỬA PHÍA BẮC**
-  - *Farmland in the north-east was cleared to make way for new residential houses.*
-  - *The row of shops adjacent to the post office was replaced by residential dwellings.*
-
-### Slide 36: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – BODY 2 (PHÍA NAM)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **TRƯỜNG TIỂU HỌC & NHÀ DƯỠNG LÃO**
-  - *The primary school to the east of the road was significantly extended.*
-  - *The large house was converted into a retirement home at the expense of its gardens.*
-
-### Slide 37: 🏡 09. THỰC CHIẾN #1: LÀNG STOKEFORD – BODY 2 (TÂY NAM)
-- **Màu Accent**: 🔴 Đỏ (`#DC2626`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_stokeford_1930_2010.jpg`
-- **Cột phải**:
-  - **ĐẤT NÔNG NGHIỆP PHÍA TÂY NAM**
-  - *Farmland in the south-west gave way to an extensive housing network.*
-  - *Additional side roads were constructed to connect the newly built houses.*
+### Slide 15: ✍️ 04. OVERVIEW FORMULA (2 SENTENCES)
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **THE 2-SENTENCE OVERVIEW BLUEPRINT**
+  - Sentence 1: Overall, [Place] underwent a transformation from a rural to a residential area.  
+    *Câu 1: Nhìn chung, ngôi làng trải qua sự chuyển dịch từ nông thôn thành khu dân cư.*
+  - Sentence 2: The most notable change was the complete clearance of farmland for housing.  
+    *Câu 2: Thay đổi đáng chú ý nhất là việc xóa bỏ đất nông nghiệp để xây nhà ở.*
+- **Block 2**:
+  - **CRITICAL GUIDELINE**
+  - Never include minor statistics or specific room names in the Overview.  
+    *Không đưa số liệu chi tiết hay tên riêng vụn vặt vào đoạn Overview.*
 
 ---
 
-## 📚 PHẦN 10: THỰC CHIẾN #2 – THƯ VIỆN (CAMBRIDGE 18 TEST 3)
+## 🧭 SECTION 5: COMPASS DIRECTIONS & PREPOSITIONS (LA BÀN & GIỚI TỪ)
 
-### Slide 38: 📚 10. THỰC CHIẾN #2: THƯ VIỆN – TỔNG QUAN
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**:
-  - **OVERVIEW (TỔNG THỂ HIỆN ĐẠI HÓA)**
-  - *The library has been significantly modernized with expanded digital amenities.*
-  - *The central tables and chairs have been completely removed to create open space.*
+### Slide 16: 🧭 05. 8 COMPASS DIRECTIONS
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **CARDINAL & INTERCARDINAL POINTS**
+  - North, South, East, West combined with NE, NW, SE, and SW.  
+    *4 hướng chính (Bắc, Nam, Đông, Tây) kết hợp 4 hướng phụ (ĐB, TB, ĐN, TN).*
+  - Essential spatial orientation anchors for any outdoor exam prompt.  
+    *Hệ quy chiếu phương hướng bắt buộc cho mọi đề thi bản đồ ngoài trời.*
 
-### Slide 39: 📚 10. THỰC CHIẾN #2: THƯ VIỆN – BODY 1
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**:
-  - **BODY 1 ➔ LỐI VÀO & KHU VỰC TRUNG TÂM**
-  - *The main entrance has remained in its original location.*
-  - *The enquiry desk has given way to a café and modern self-service machines.*
+### Slide 17: 🧭 05. ADVANCED SPATIAL COLLOCATIONS
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **HIGH-SCORING POSITIONING PHRASES**
+  - in the north-eastern part of the village (*ở khu vực phía đông bắc của ngôi làng*)
+  - situated along the eastern boundary of the town (*nằm dọc theo ranh giới phía đông của thị trấn*)
+  - occupying the south-western quadrant of the area (*chiếm trọn góc phần tư phía tây nam của khu vực*)
 
-### Slide 40: 📚 10. THỰC CHIẾN #2: THƯ VIỆN – BODY 2
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**:
-  - **BODY 2 ➔ CÁC PHÒNG CHỨC NĂNG**
-  - *The room in the top-left corner was enlarged into a storytelling area.*
-  - *The former children's book section has been converted into a lecture room.*
+### Slide 18: 🧭 05. GOLDEN RULE: PREPOSITION 'IN'
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **WITHIN BOUNDARIES ➔ USE 'IN'**
+  - Used when a feature is situated INSIDE the territory of the town.  
+    *Dùng khi công trình nằm BÊN TRONG ranh giới của khu vực.*
+  - A new hospital was constructed in the north of the town.  
+    *Một bệnh viện mới được xây dựng ở phía bắc của thị trấn (nằm trong thị trấn).*
 
-### Slide 41: 📚 10. THỰC CHIẾN #2: THƯ VIỆN – ĐẢO NGỮ NƠI CHỐN
-- **Màu Accent**: 🟣 Tím (`#7C3AED`)
-- **Bố cục**: Chia đôi 50/50 với ảnh `cambridge_18_library_floorplan.png`
-- **Cột phải**:
-  - **CẤU TRÚC ĐẢO NGỮ ĂN ĐIỂM NGỮ PHÁP**
-  - *In the top-right corner now stands a newly constructed lecture room.*
-  - *Positioned along the right-hand wall are updated self-service kiosks.*
+### Slide 19: 🧭 05. GOLDEN RULE: PREPOSITION 'TO'
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **EXTERNAL & SEPARATE ➔ USE 'TO'**
+  - Used when a feature lies OUTSIDE and detached from the town border.  
+    *Dùng khi công trình nằm TÁCH RỜI, BÊN NGOÀI ranh giới khu vực.*
+  - A dense forest lies to the north of the town.  
+    *Một khu rừng rậm nằm về phía bắc của thị trấn (nằm bên ngoài thị trấn).*
+
+### Slide 20: 🧭 05. PROXIMITY: ADJACENT TO / NEXT TO
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **IMMEDIATE ADJACENCY**
+  - Use 'adjacent to' as an academic replacement for 'next to'.  
+    *Dùng 'adjacent to' thay cho 'next to' để tăng tính học thuật.*
+  - The local shops adjacent to the post office were demolished.  
+    *Các cửa hàng sát cạnh bưu điện đã bị phá dỡ.*
+
+### Slide 21: 🧭 05. OPPOSITION: OPPOSITE / ACROSS FROM
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `wikimedia_compass_rose.png`
+- **Block**:
+  - **FACING ACROSS A DIVIDER**
+  - Used when two landmarks face each other across a road or waterway.  
+    *Dùng khi hai địa điểm nằm đối diện nhau qua một con đường hoặc dòng sông.*
+  - A modern café was constructed opposite the library entrance.  
+    *Một quán café hiện đại được xây dựng đối diện lối vào thư viện.*
+
+---
+
+## 🏢 SECTION 6: FLOOR PLAN ORIENTATION (SƠ ĐỒ TRONG NHÀ)
+
+### Slide 22: 🏢 06. FLOOR PLAN: ENTRANCE & CENTER
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block 1**:
+  - **MAIN ENTRANCE AS STARTING ANCHOR**
+  - To the immediate left / right of the entrance.  
+    *Ngay sát bên trái / bên phải của lối vào chính.*
+- **Block 2**:
+  - **CENTRAL OPEN AREA**
+  - In the center / middle / heart of the library floor plan.  
+    *Ở chính giữa / trung tâm của mặt bằng thư viện.*
+
+### Slide 23: 🏢 06. FLOOR PLAN: WALLS & CORNERS
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block 1**:
+  - **ALONG PERIMETER WALLS**
+  - Along the left-hand / right-hand wall of the facility.  
+    *Dọc theo bức tường bên trái / bên phải của tòa nhà.*
+- **Block 2**:
+  - **CORNER & REAR ZONES**
+  - In the top-left / top-right corner; at the back of the room.  
+    *Ở góc trên bên trái / phải; phía cuối căn phòng.*
+
+---
+
+## 🔄 SECTION 7: 5 VERB GROUPS & NOMINALIZATION (5 NHÓM ĐỘNG TỪ)
+
+### Slide 24: 🔄 07. VERB GROUP 1: CONSTRUCTION & ADDITION
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **PASSIVE VERBS**
+  - be constructed / erected / built / established / added  
+    *được xây dựng / dựng lên / thiết lập / thêm vào*
+  - A lecture room was erected in the top-right corner.  
+    *Một phòng thuyết trình được dựng lên ở góc trên bên phải.*
+- **Block 2**:
+  - **NOMINALIZATION**
+  - the construction / erection / addition of a facility  
+    *sự xây dựng / dựng lên / thêm vào của một công trình*
+
+### Slide 25: 🔄 07. VERB GROUP 2: DEMOLITION & REMOVAL
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **CATEGORY-SPECIFIC VERBS**
+  - be demolished / knocked down (buildings & structures)  
+    *bị phá dỡ / san phẳng (công trình xây dựng)*
+  - be cleared / cut down (trees & farmland); be removed (furniture)  
+    *bị giải tỏa / đốn hạ (cây cối, đất đai); bị dời đi (bàn ghế, đồ đạc)*
+- **Block 2**:
+  - **NOMINALIZATION**
+  - the demolition of old shops / the clearance of farmland  
+    *sự phá dỡ các cửa hàng cũ / sự giải tỏa đất nông nghiệp*
+
+### Slide 26: 🔄 07. VERB GROUP 3: REPLACEMENT & CONVERSION
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **CORE TRANSFORMATION STRUCTURES**
+  - be converted into / be transformed into (functional change)  
+    *được chuyển đổi thành (thay đổi công năng)*
+  - be replaced by / gave way to / made way for (substitution)  
+    *bị thay thế bởi / nhường chỗ cho (thay thế công trình)*
+- **Block 2**:
+  - **MODEL APPLICATIONS**
+  - The large house was converted into a retirement home.  
+    *Ngôi nhà lớn được chuyển đổi thành nhà dưỡng lão.*
+
+### Slide 27: 🔄 07. VERB GROUPS 4 & 5: RESIZING & UNCHANGED
+- **Accent Color**: 🟠 Orange (`#EA580C`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **GROUP 4: EXPANSION & REDUCTION**
+  - be expanded / extended / enlarged / reduced in size  
+    *được mở rộng / cơi nới / thu hẹp diện tích*
+- **Block 2**:
+  - **GROUP 5: REMAINING UNCHANGED**
+  - remained unchanged / stayed intact / stood unmodified  
+    *giữ nguyên không đổi / nguyên vẹn suốt giai đoạn*
+
+---
+
+## 💡 SECTION 8: 4 ADVANCED GRAMMAR STRUCTURES (4 NGỮ PHÁP ĂN ĐIỂM)
+
+### Slide 28: 💡 08. ADVANCED GRAMMAR #1: PARTICIPLE CLAUSES
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **PARTICIPLE CLAUSE MECHANISM**
+  - Located / Situated + [Location], [Main Subject] was + [Past Participle].  
+    *Đặt cụm phân từ chỉ vị trí lên đầu câu tạo nhịp điệu phong phú.*
+- **Block 2**:
+  - **MODEL SENTENCE**
+  - Located to the east of the primary road, the local school was significantly extended.  
+    *Nằm ở phía đông trục đường chính, ngôi trường địa phương đã được mở rộng đáng kể.*
+
+### Slide 29: 💡 08. ADVANCED GRAMMAR #2: SPATIAL INVERSION
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **PREPOSITIONAL INVERSION RULES**
+  - [Prepositional Phrase of Place] + stands / lies / sat + [Subject].  
+    *Đảo cụm giới từ chỉ vị trí lên đầu câu (không dùng trợ động từ).*
+- **Block 2**:
+  - **MODEL SENTENCE**
+  - In the top-right corner of the library now stands a newly constructed lecture room.  
+    *Ở góc trên bên phải thư viện giờ đây hiện diện một phòng thuyết trình mới xây.*
+
+### Slide 30: 💡 08. ADVANCED GRAMMAR #3: AT THE EXPENSE OF
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **TRADE-OFF RELATIONSHIPS**
+  - Expresses that the expansion of one feature came at the sacrifice of another.  
+    *Diễn tả sự phát triển của công trình này đánh đổi bằng sự thu hẹp của công trình khác.*
+- **Block 2**:
+  - **MODEL SENTENCE**
+  - The retirement home was expanded at the expense of the surrounding gardens.  
+    *Nhà dưỡng lão được mở rộng trên phần đất vốn là khu vườn bao quanh.*
+
+### Slide 31: 💡 08. ADVANCED GRAMMAR #4: NOMINALIZATION WITNESSED
+- **Accent Color**: 🌸 Pink (`#DB2777`) | **Layout**: Full Width (2 Blocks)
+- **Block 1**:
+  - **PERSONIFIED LOCATION SUBJECT**
+  - [Place / Time] + witnessed / saw + the [Noun Phrase of Change].  
+    *Lấy địa điểm hoặc thời gian làm chủ ngữ cho động từ witnessed / saw.*
+- **Block 2**:
+  - **MODEL SENTENCE**
+  - The bottom-right corner witnessed the conversion of the enquiry desk into a café.  
+    *Góc dưới bên phải đã chứng kiến sự chuyển đổi của bàn thông tin thành một quán café.*
+
+---
+
+## 🏡 SECTION 9: REAL EXAM #1 – STOKEFORD VILLAGE (1930 - 2010)
+
+### Slide 32: 🏡 09. REAL EXAM #1: STOKEFORD – INTRODUCTION
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **1-SENTENCE INTRODUCTION**
+  - The two maps illustrate how Stokeford developed over an 80-year period from 1930 to 2010.  
+    *Hai bản đồ minh họa cách làng Stokeford phát triển trong 80 năm từ 1930 đến 2010.*
+  - A concise, accurate paraphrase avoiding repetitive prompt vocabulary.  
+    *Paraphrase ngắn gọn, chuẩn xác, tránh lặp lại từ ngữ của đề bài.*
+
+### Slide 33: 🏡 09. REAL EXAM #1: STOKEFORD – OVERVIEW
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **2-SENTENCE MACRO OVERVIEW**
+  - Overall, the village underwent a transformation from a rural into a residential area.  
+    *Tổng thể, ngôi làng trải qua sự chuyển dịch từ vùng nông thôn thành khu dân cư.*
+  - The most notable changes include the complete clearance of farmland for new housing.  
+    *Thay đổi đáng kể nhất bao gồm việc xóa sổ hoàn toàn đất nông nghiệp để xây nhà ở.*
+
+### Slide 34: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (UNCHANGED)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **NORTHERN UNCHANGED FEATURES**
+  - River Stoke and the bridge in the north remained completely unchanged.  
+    *Dòng sông Stoke và cây cầu ở phía bắc hoàn toàn giữ nguyên không đổi.*
+  - The post office in the village center also stayed intact throughout the period.  
+    *Bưu điện ở trung tâm làng cũng giữ nguyên vẹn trong suốt giai đoạn.*
+
+### Slide 35: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 1 (CHANGED)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **NORTHERN DEVELOPMENTS**
+  - Farmland in the north-east was cleared to make way for new residential housing.  
+    *Đất nông nghiệp phía đông bắc bị giải tỏa để nhường chỗ cho nhà ở mới.*
+  - The shops adjacent to the post office were replaced by residential dwellings.  
+    *Dãy cửa hàng cạnh bưu điện bị thay thế bởi các căn nhà ở.*
+
+### Slide 36: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **SCHOOL & RETIREMENT HOME**
+  - The primary school to the east of the road was significantly extended.  
+    *Trường tiểu học ở phía đông trục đường đã được mở rộng đáng kể.*
+  - The large house was converted into a retirement home at the expense of gardens.  
+    *Ngôi nhà lớn được chuyển đổi thành nhà dưỡng lão, thu hẹp diện tích khu vườn.*
+
+### Slide 37: 🏡 09. REAL EXAM #1: STOKEFORD – BODY 2 (SOUTH-WEST)
+- **Accent Color**: 🔴 Red (`#DC2626`) | **Layout**: Split 50/50 with `cambridge_stokeford_1930_2010.jpg`
+- **Block**:
+  - **SOUTH-WESTERN RESIDENTIAL EXPANSION**
+  - Farmland in the south-west gave way to an extensive modern housing network.  
+    *Đất nông nghiệp ở phía tây nam nhường chỗ cho mạng lưới nhà ở hiện đại.*
+  - Additional side roads were constructed to connect the newly built houses.  
+    *Các con đường nhánh bổ sung được xây dựng để kết nối các ngôi nhà mới.*
+
+---
+
+## 📚 SECTION 10: REAL EXAM #2 – LIBRARY FLOOR PLAN (CAMBRIDGE 18)
+
+### Slide 38: 📚 10. REAL EXAM #2: LIBRARY – OVERVIEW
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block**:
+  - **MACRO MODERNIZATION OVERVIEW**
+  - The library has been significantly modernized with expanded digital amenities.  
+    *Thư viện đã được hiện đại hóa đáng kể với các tiện ích kỹ thuật số.*
+  - The central tables and chairs have been completely removed to create open space.  
+    *Bàn ghế ở trung tâm đã được dọn đi hoàn toàn để tạo không gian mở.*
+
+### Slide 39: 📚 10. REAL EXAM #2: LIBRARY – BODY 1
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block**:
+  - **ENTRANCE & CENTRAL DESK**
+  - The main entrance has remained in its original location.  
+    *Lối vào chính vẫn giữ nguyên ở vị trí ban đầu.*
+  - The enquiry desk has given way to a café and modern self-service machines.  
+    *Bàn thông tin cũ đã nhường chỗ cho một quán café và máy tự phục vụ.*
+
+### Slide 40: 📚 10. REAL EXAM #2: LIBRARY – BODY 2
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block**:
+  - **CORNER & FUNCTION ROOMS**
+  - The room in the top-left corner was enlarged into a storytelling area.  
+    *Phòng ở góc trên bên trái được mở rộng thành khu vực kể chuyện.*
+  - The former children's book section has been converted into a lecture room.  
+    *Khu vực sách thiếu nhi cũ được chuyển đổi thành phòng thuyết trình.*
+
+### Slide 41: 📚 10. REAL EXAM #2: LIBRARY – INVERSION FINALE
+- **Accent Color**: 🟣 Purple (`#7C3AED`) | **Layout**: Split 50/50 with `cambridge_18_library_floorplan.png`
+- **Block**:
+  - **SPATIAL INVERSION HIGHLIGHT**
+  - In the top-right corner now stands a newly constructed lecture room.  
+    *Ở góc trên bên phải giờ đây hiện diện một phòng thuyết trình mới xây.*
+  - Positioned along the right-hand wall are updated self-service kiosks.  
+    *Nằm dọc theo bức tường bên phải là các trạm máy tự phục vụ hiện đại.*

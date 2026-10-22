@@ -56,6 +56,7 @@ Tất cả hình ảnh minh họa đều được trích xuất từ đề thi t
 
 ## 📌 File Mẫu & Quy chuẩn (Templates & System Rules)
 
-- 📜 [**YOUTUBE_RULES.md**](YOUTUBE_RULES.md) – **Bộ quy tắc chuẩn hóa kịch bản & sản xuất (System Rules)** bắt buộc AI phải tuân thủ khi viết script và làm video.
-- 🎨 [**rule_slides.md**](rule_slides.md) – **Quy ước thiết kế Slide tối giản (Minimal Slide Rules)**: Nền trắng, 1 màu accent/slide, thanh quote dọc, font Montserrat $\ge 24\text{pt}$, không tràn viền.
+- 📜 [**YOUTUBE_RULES.md**](YOUTUBE_RULES.md) – **Bộ quy tắc tổng thể quy trình sản xuất YouTube Studio (Zero-Edit Workflow)**.
+- 🎨 [**RULE_SLIDES.md**](RULE_SLIDES.md) (và [rule_slides.md](rule_slides.md)) – **Quy ước thiết kế Slide song ngữ tối giản**: Nền trắng, song ngữ (English chính + Vietnamese phụ chú in nghiêng `#64748B`), cỡ chữ vừa phải dễ chịu, 1 màu accent/slide, thanh quote dọc ôm trọn bài, zero-overflow.
+- 🎙️ [**RULE_SCRIPT.md**](RULE_SCRIPT.md) – **Quy ước kịch bản thu âm One-Take 100% Tiếng Anh**: Văn nói tự nhiên, mở đầu 10s Hook, nhịp 30-40s/slide, đánh dấu đồng bộ `[Switch to Slide X]` và `[Click: Block Y]`.
 - [00_Template_Script_Canva.md](00_Template_Script_Canva.md) – Mẫu chuẩn để lên ý tưởng kịch bản cho các video bài học tiếp theo.

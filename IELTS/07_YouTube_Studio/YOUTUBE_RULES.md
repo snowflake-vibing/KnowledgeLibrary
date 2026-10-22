@@ -83,8 +83,9 @@ Mọi sản phẩm của YouTube Studio phải được lưu vào đúng thư m�
 
 ```text
 IELTS/07_YouTube_Studio/
-├── YOUTUBE_RULES.md                        # File quy tắc chuẩn này
-├── rule_slides.md                          # Bộ quy ước thiết kế Slide & Python Generator
+├── YOUTUBE_RULES.md                        # Bộ quy tắc tổng quan quy trình sản xuất
+├── RULE_SLIDES.md                          # Bộ quy ước thiết kế Slide song ngữ & Python Generator
+├── RULE_SCRIPT.md                          # Bộ quy ước kịch bản thu âm 100% Tiếng Anh
 ├── README.md                               # Menu điều hướng toàn bộ studio
 ├── 00_Template_Script_Canva.md             # Template mẫu
 ├── assets/                                 # Ảnh đề thi thật chuẩn web
