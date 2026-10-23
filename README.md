@@ -29,6 +29,7 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 
 ### 4. [Web – Phát triển ứng dụng Web (IS207)](web/README.md)
 - **[📌 Take-Note Tổng Hợp Kiến Thức (HTML5, CSS3, JavaScript)](web/take-note.md)**
+- **[📘 Giải Chi Tiết Đề Thi Giữa Kỳ HK1 2019-2020 & HK1 2024-2025](web/take-note-2.md)**
 - **[Đề cương & Cẩm nang ôn thi giữa kỳ thực chiến](web/De_Cuong_On_Thi_Giua_Ky.md)** ([Hướng dẫn thực chiến](web/doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md))
 - **[Chương 2: Công nghệ Web phía Client (HTML5, CSS3, Bootstrap)](web/De_Muc_On_Tap_Chuong_2.md)**
 - **[Chương 3: Lập trình phía Client (JavaScript ES6+, DOM, jQuery)](web/De_Muc_On_Tap_Chuong_3.md)**

@@ -7,7 +7,7 @@ Repository lưu trữ toàn bộ tài liệu học tập, đề cương ôn thi 
 ## 🎯 ĐỀ CƯƠNG & CẨM NANG ÔN THI GIỮA KỲ (THỰC CHIẾN)
 > Dành riêng cho kỳ thi **Ghi code trực tiếp trang web sử dụng HTML + CSS + JavaScript + jQuery**:
 
-👉 **Xem ngay:** **[`take-note.md`](./take-note.md)** *(Tài liệu tổng hợp kiến thức & code mẫu)*, **[`De_Cuong_On_Thi_Giua_Ky.md`](./De_Cuong_On_Thi_Giua_Ky.md)** và **[`doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md`](./doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md)**  
+👉 **Xem ngay:** **[`take-note.md`](./take-note.md)** *(Tài liệu tổng hợp kiến thức & code mẫu)*, **[`take-note-2.md`](./take-note-2.md)** *(Giải chi tiết đề thi HK1 2019-2020 & 2024-2025)*, **[`De_Cuong_On_Thi_Giua_Ky.md`](./De_Cuong_On_Thi_Giua_Ky.md)** và **[`doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md`](./doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md)**  
 Bao gồm:
 - **Khung template code mẫu** sẵn sàng vào phòng thi.
 - **4 Dạng bài tập code kinh điển nhất tại UIT** (Form Validation Regex, Thực đơn tính tiền đêm +10%, Giỏ hàng động tự tính tiền khi đổi số lượng & xóa dòng, Đồng hồ hệ thống & Chọn món theo bàn).
