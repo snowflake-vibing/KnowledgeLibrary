@@ -42,6 +42,8 @@ const duLieu = JSON.parse(localStorage.getItem("ten_khoa")) || [];
 
 ## 1.2. Bài giải Câu 1: Trang Danh Mục Sách (`index.html`)
 
+![Giao diện Câu 1 - Đề HK1 2019-2020](./images/de_2019_2020_cau1.png)
+
 ```html
 <!DOCTYPE html>
 <html lang="vi">
@@ -232,6 +234,8 @@ const duLieu = JSON.parse(localStorage.getItem("ten_khoa")) || [];
 
 ## 1.3. Bài giải Câu 2: Trang Giỏ Hàng (`giohang.html`)
 
+![Giao diện Câu 2 - Đề HK1 2019-2020](./images/de_2019_2020_cau2.png)
+
 ```html
 <!DOCTYPE html>
 <html lang="vi">
@@ -400,6 +404,8 @@ const duLieu = JSON.parse(localStorage.getItem("ten_khoa")) || [];
 ---
 
 ## 2.2. Bài giải Câu 1: Trang Tạo Phiếu Mượn Sách (`phieumuon.html`)
+
+![Giao diện Câu 1 - Đề HK1 2024-2025](./images/de_2024_2025_cau1.png)
 
 ```html
 <!DOCTYPE html>
@@ -648,6 +654,8 @@ const duLieu = JSON.parse(localStorage.getItem("ten_khoa")) || [];
 ---
 
 ## 2.3. Bài giải Câu 2: Trang Chi Tiết Phiếu Mượn (`chitiet.html`)
+
+![Giao diện Câu 2 - Đề HK1 2024-2025](./images/de_2024_2025_cau2.png)
 
 ```html
 <!DOCTYPE html>

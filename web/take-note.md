@@ -658,6 +658,8 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 ## 📝 6. BÀI TẬP THỰC HÀNH: FORM THÔNG TIN LIÊN HỆ NHÓM
 
 ### 6.1. Yêu cầu thiết kế "Form Thông tin liên hệ nhóm" (HTML5 + Embedded CSS)
+
+![Form Thông tin liên hệ nhóm](./images/form_thong_tin_nhom.png)
 **Mô tả yêu cầu:**
 - Khai báo cấu trúc chuẩn HTML5 (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`), sử dụng bảng mã Unicode (`<meta charset="utf-8">`), tiêu đề trang trên tab trình duyệt: `<title>Form Thông tin liên hệ nhóm</title>`.
 - Sử dụng **Internal/Embedded CSS** (thẻ `<style>` đặt trong `<head>`).
