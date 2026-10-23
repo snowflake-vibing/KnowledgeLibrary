@@ -5,7 +5,12 @@
 
 ---
 
-## ⚡ 0. TEMPLATE CẤU TRÚC TRANG WEB CƠ BẢN
+## ⚡ 0. TEMPLATE CẤU TRÚC TRANG WEB CƠ BẢN (TỐI GIẢN PHÒNG THI)
+
+> 💡 **Lưu ý phòng thi quan trọng:**
+> - Trong đề thi thực tế, giảng viên **KHÔNG** bắt buộc bạn phải viết các CSS trang trí rườm rà (như `box-shadow`, `border-radius`, hover nút, màu nền...).
+> - **Nếu đề có chấm CSS:** Đề sẽ ghi rõ từng thông số cụ thể (VD: *khung rộng 480px, viền 2px solid darkcyan...*), đề bảo viết gì thì viết nấy.
+> - **Nếu đề chú trọng JavaScript/PHP:** Bạn chỉ cần dùng bộ CSS **tối giản (4-5 dòng cốt lõi)** bên dưới để giao diện ngay ngắn, không vỡ layout và tiết kiệm tối đa thời gian làm bài.
 
 ```html
 <!DOCTYPE html>
@@ -15,24 +20,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ứng Dụng Web IS207</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 20px; }
-    .container { max-width: 850px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    h2, h3 { text-align: center; color: #003366; margin-bottom: 15px; }
+    /* 1. Tránh vỡ layout khi dùng width 100% kèm padding */
+    * { box-sizing: border-box; }
+
+    /* 2. Khung chứa căn giữa cơ bản */
+    .container { max-width: 800px; margin: 20px auto; font-family: Arial, sans-serif; }
+
+    /* 3. Kẻ bảng nét đơn chuẩn phòng thi */
     table { width: 100%; border-collapse: collapse; margin-top: 15px; }
     th, td { border: 1px solid #333; padding: 8px; }
-    th { background: #007bff; color: #fff; text-align: center; }
+    th { background: #eee; }
+
+    /* 4. Căn lề số lượng / đơn giá / nút bấm */
     .text-right { text-align: right; }
     .text-center { text-align: center; }
+
+    /* 5. Khoảng cách form & thông báo lỗi màu đỏ */
     .form-group { margin-bottom: 12px; }
-    label { font-weight: bold; display: inline-block; margin-bottom: 4px; }
-    input[type="text"], input[type="number"], input[type="date"], select {
-      width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 4px;
-    }
-    .btn { background: #28a745; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .btn:hover { background: #218838; }
-    .btn-del { background: #dc3545; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-    .error { color: red; font-size: 13px; font-style: italic; margin-top: 3px; }
+    .error { color: red; font-size: 13px; font-style: italic; }
   </style>
 </head>
 <body>
