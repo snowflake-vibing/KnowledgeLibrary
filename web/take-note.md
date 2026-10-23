@@ -1,11 +1,11 @@
-# 📌 TAKE-NOTE THI GIỮA KỲ MÔN WEB (IS207 - UIT)
-### TÀI LIỆU TRA CỨU NHANH: HTML5 • CSS3 • BOOTSTRAP 5 • JAVASCRIPT THUẦN (VANILLA JS)
+# 📌 TỔNG HỢP KIẾN THỨC MÔN WEB (IS207 - UIT)
+### TÀI LIỆU TRA CỨU: HTML5 • CSS3 • BOOTSTRAP 5 • JAVASCRIPT THUẦN (VANILLA JS)
 
-> **Mục đích:** Tài liệu cô đọng toàn bộ cú pháp, mẹo lý thuyết và khung code mẫu thực chiến **100% HTML + CSS + JavaScript thuần (không dùng jQuery)** để mang vào phòng thi giữa kỳ.
+> **Nội dung:** Hệ thống hóa cú pháp, kiến thức trọng tâm và các mẫu bài tập thực hành kết hợp **HTML5 + CSS3 + JavaScript thuần**.
 
 ---
 
-## ⚡ 0. KHUNG CODE KHỞI ĐẦU 1 PHÚT (CHÉP NGAY KHI NHẬN ĐỀ)
+## ⚡ 0. TEMPLATE CẤU TRÚC TRANG WEB CƠ BẢN
 
 ```html
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bài Thi Giữa Kỳ IS207</title>
+  <title>Ứng Dụng Web IS207</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 20px; }
@@ -37,7 +37,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- NỘI DUNG BÀI THI ĐẶT TẠI ĐÂY -->
+    <!-- NỘI DUNG GIAO DIỆN ĐẶT TẠI ĐÂY -->
   </div>
 
   <script>
@@ -139,7 +139,7 @@
 - `fixed`: Neo cố định theo **khung nhìn trình duyệt (viewport)**, cuộn trang không bị trôi (nút Back-to-top, menu nổi).
 - `sticky`: Lai giữa `relative` và `fixed` (cuộn chạm mốc `top: 0` sẽ dính lại).
 
-### 2.4. Chia bố cục nhanh khi đi thi (Flexbox & Grid)
+### 2.4. Chia bố cục với Flexbox & Grid
 ```css
 /* Chia 2 cột trái - phải bằng Flexbox */
 .row-flex {
@@ -230,10 +230,10 @@ function getVietnameseDateTime() {
 // setInterval(() => { document.getElementById("clock").textContent = getVietnameseDateTime(); }, 1000);
 ```
 
-### 3.4. Bảng Tra Cứu Biểu Thức Chính Quy (Regex) Thi Giữa Kỳ
+### 3.4. Bảng Tra Cứu Biểu Thức Chính Quy (Regex) Thông Dụng
 Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `true` / `false`).
 
-| Yêu cầu kiểm tra trong đề thi | Biểu thức Regex chuẩn | Giải thích nhanh |
+| Yêu cầu kiểm tra | Biểu thức Regex chuẩn | Giải thích nhanh |
 | :--- | :--- | :--- |
 | **MSSV UIT** (8 chữ số, bắt đầu bằng số 2) | `/^2\d{7}$/` | `^2` (đầu là 2) + `\d{7}` (7 số tiếp theo) |
 | **Mã khách hàng** (Ví dụ: `KH` + 4 chữ số) | `/^KH\d{4}$/` | Bắt đầu bằng `KH`, theo sau đúng 4 chữ số |
@@ -268,7 +268,7 @@ Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `
 | **Thêm / Xóa / Đảo class CSS** | `el.classList.add("active");` / `.remove("active");` / `.toggle("active");` |
 
 ### 4.2. Hai cách thêm dòng mới vào bảng `<table>`
-**Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Nhanh & ngắn gọn nhất khi thi)**
+**Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Ngắn gọn & trực quan)**
 ```javascript
 const tbody = document.querySelector("#myTable tbody");
 tbody.insertAdjacentHTML("beforeend", `
@@ -309,7 +309,7 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-## 🏆 5. 4 MẪU CODE "CHÉP NHANH" BẰNG JS THUẦN CHO 4 DẠNG ĐỀ THI UIT
+## 🏆 5. CÁC MẪU BÀI TẬP THỰC HÀNH TRỌNG TÂM (VANILLA JS)
 
 ### 📌 DẠNG 1: FORM VALIDATION VỚI REGEX + THÊM VÀO BẢNG
 ```html
@@ -650,9 +650,9 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-## 📝 6. ĐỀ THI THỰC TẾ & BÀI GIẢI CHUẨN BAREM 10/10 ĐIỂM
+## 📝 6. BÀI TẬP THỰC HÀNH: FORM THÔNG TIN LIÊN HỆ NHÓM
 
-### 6.1. Đề bài: Xây dựng "Form Thông tin liên hệ nhóm" (HTML5 + Embedded CSS)
+### 6.1. Yêu cầu thiết kế "Form Thông tin liên hệ nhóm" (HTML5 + Embedded CSS)
 **Mô tả yêu cầu:**
 - Khai báo cấu trúc chuẩn HTML5 (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`), sử dụng bảng mã Unicode (`<meta charset="utf-8">`), tiêu đề trang trên tab trình duyệt: `<title>Form Thông tin liên hệ nhóm</title>`.
 - Sử dụng **Internal/Embedded CSS** (thẻ `<style>` đặt trong `<head>`).
@@ -673,7 +673,7 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-### 6.2. Barem chấm điểm chi tiết của giảng viên (Cực kỳ quan trọng để không mất điểm oan!)
+### 6.2. Các tiêu chí đánh giá kỹ thuật cần lưu ý
 1. **Khai báo chung (2.0 điểm):**
    - Thiếu `<!DOCTYPE html>`: `-0.25đ`
    - Thiếu hoặc đặt sai chỗ `html`, `head`, `body`: `-0.25đ` đến `-0.5đ`
@@ -699,7 +699,7 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-### 6.3. Bài giải mẫu đạt 10/10 điểm (Khớp 100% Barem chấm thi)
+### 6.3. Mã nguồn hoàn chỉnh (HTML5 + Internal CSS)
 
 ```html
 <!DOCTYPE html>
@@ -827,13 +827,13 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-## 🚨 7. CHECKLIST 8 ĐIỂM KIỂM TRA TRƯỚC KHI NỘP BÀI
+## 🚨 7. CHECKLIST KIỂM TRA KỸ THUẬT
 
-1. **Nhìn kỹ thanh tiêu đề tab trên ảnh đề thi** để đặt `<title>...</title>` chính xác từng chữ (tránh mất `0.25đ`).
-2. **Mọi `<label for="id_cua_o">` phải khớp 100% với `id="id_cua_o"`** của thẻ `input` / `select` / `textarea` (quên `for` và `id` bị trừ tới `0.5đ`).
-3. **Thấy khung viền có tiêu đề nằm đè lên cạnh trên** $\rightarrow$ Dùng ngay `<fieldset>` và `<legend>`.
-4. **Chọn đúng kiểu `type` cho `<input>` và `<button>`**: Địa chỉ web dùng `type="url"`, email dùng `type="email"`, nút xóa trắng form (Cancel/Nhập lại) dùng `<button type="reset">`.
-5. **Đã có `e.preventDefault()` trong sự kiện `submit` (nếu xử lý bằng JS) chưa?** (Hoặc đổi nút bấm sang `type="button"` để trang không bị reload mất kết quả).
-6. **Đã bọc `parseInt()` / `parseFloat()` khi lấy `.value` để tính toán chưa?** (Tránh lỗi `"10000" + "20000" = "1000020000"`).
-7. **Tháng trong `new Date().getMonth()` đã cộng thêm `1` chưa?**
-8. **Sự kiện click nút Xóa dòng mới thêm đã dùng Event Delegation (`tbody.addEventListener("click", ...)`) và `e.target.closest("tr").remove()` chưa?**
+1. **Tiêu đề trang `<title>`**: Khai báo đúng nội dung tiêu đề hiển thị trên thanh tab trình duyệt.
+2. **Liên kết `<label for="id_cua_o">`**: Phải khớp chính xác với thuộc tính `id="id_cua_o"` của thẻ `input` / `select` / `textarea`.
+3. **Nhóm các trường liên quan**: Sử dụng `<fieldset>` kết hợp với `<legend>` cho khung viền có tiêu đề nằm trên cạnh trên.
+4. **Kiểu `type` cho `<input>` và `<button>`**: Địa chỉ web dùng `type="url"`, email dùng `type="email"`, nút làm mới form (Cancel/Nhập lại) dùng `<button type="reset">`.
+5. **Chặn tải lại trang với `e.preventDefault()`**: Đặt ở đầu hàm xử lý sự kiện `submit` bằng JS (hoặc dùng nút `type="button"`).
+6. **Ép kiểu số học**: Bọc `parseInt()` / `parseFloat()` khi lấy `.value` từ input để tính toán (tránh lỗi nối chuỗi `"10000" + "20000"`).
+7. **Tháng trong đối tượng `Date`**: Giá trị `new Date().getMonth()` tính từ `0` đến `11` nên cần cộng thêm `1`.
+8. **Ủy quyền sự kiện (Event Delegation)**: Với các dòng bảng được thêm động, lắng nghe sự kiện trên `tbody` (`tbody.addEventListener("click", ...)`) và xóa dòng bằng `e.target.closest("tr").remove()`.
