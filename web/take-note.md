@@ -650,11 +650,190 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
-## 🚨 6. CHECKLIST 6 ĐIỂM KIỂM TRA TRƯỚC KHI NỘP BÀI
+## 📝 6. ĐỀ THI THỰC TẾ & BÀI GIẢI CHUẨN BAREM 10/10 ĐIỂM
 
-1. **Đã có `e.preventDefault()` trong sự kiện `submit` chưa?** (Hoặc đổi nút bấm sang `type="button"` để trang không bị reload mất kết quả).
-2. **Đã bọc `parseInt()` / `parseFloat()` khi lấy `.value` để tính toán chưa?** (Tránh lỗi `"10000" + "20000" = "1000020000"`).
-3. **Tháng trong `new Date().getMonth()` đã cộng thêm `1` chưa?**
-4. **Sự kiện click nút Xóa dòng mới thêm đã dùng Event Delegation (`tbody.addEventListener("click", ...)`) và `e.target.closest("tr").remove()` chưa?**
-5. **Các nút `radio` cùng nhóm đã có chung thuộc tính `name="..."` chưa?**
-6. **Bảng gộp ô `colspan` / `rowspan` đã xóa bớt các thẻ `<td>` bị chiếm chỗ chưa?**
+### 6.1. Đề bài: Xây dựng "Form Thông tin liên hệ nhóm" (HTML5 + Embedded CSS)
+**Mô tả yêu cầu:**
+- Khai báo cấu trúc chuẩn HTML5 (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`), sử dụng bảng mã Unicode (`<meta charset="utf-8">`), tiêu đề trang trên tab trình duyệt: `<title>Form Thông tin liên hệ nhóm</title>`.
+- Sử dụng **Internal/Embedded CSS** (thẻ `<style>` đặt trong `<head>`).
+- Khung chứa form (`.container`): `width: 480px; margin: auto; border: 2px solid darkcyan; padding: 20px; font-size: 22px;`.
+- Tiêu đề `THÔNG TIN LIÊN HỆ NHÓM`: dùng thẻ `<h2>`, chữ màu đỏ (`color: red`), canh giữa (`text-align: center`).
+- Thẻ `<form>` gửi bằng giao thức `post` (`method="post"`), trang xử lý là `GroupInfo.php` (`action="GroupInfo.php"`).
+- **Mỗi `<label>` bắt buộc phải liên kết đúng với control qua cặp thuộc tính `for="..."` và `id="..."`**.
+- Các control trong form:
+  1. **Tên nhóm**: `<input type="text" id="groupName" name="groupName">`, placeholder `"Nhập tên của nhóm bạn"`, bắt buộc nhập (`required`).
+  2. **Nhóm trưởng**: `<input type="text" id="groupLeader" name="groupLeader">`, placeholder `"Nhập họ tên của người nhóm trưởng"`, bắt buộc nhập (`required`).
+  3. Khung nhóm **`<fieldset>`** có tiêu đề **`<legend>Trang web giới thiệu đồ án của nhóm</legend>`**, bên trong gồm:
+     - **Nền tảng:**: `<select id="platform" name="platform">` có 1 option mặc định `"Chọn các nền tảng trang web của nhóm"` và **5 `<option>` có `value` khác nhau**: `Wordpress`, `Google`, `Wix`, `Github`, `Khác`.
+     - **Địa chỉ**: `<input type="url" id="websiteUrl" name="websiteUrl">`, placeholder `"Nhập địa chỉ trang web nhóm"`, bắt buộc nhập (`required`).
+  4. **Ý kiến khác của nhóm**: `<textarea id="otherComments" name="otherComments"></textarea>`.
+  5. **Hai nút bấm canh giữa**:
+     - Nút **Submit** (`<button type="submit">`) và nút **Cancel** (`<button type="reset">`).
+     - Định dạng nút: `width: 150px; padding: 10px; background-color: darkorange; border: none;`, chữ in đậm (`<strong>` hoặc `font-weight: bold`).
+
+---
+
+### 6.2. Barem chấm điểm chi tiết của giảng viên (Cực kỳ quan trọng để không mất điểm oan!)
+1. **Khai báo chung (2.0 điểm):**
+   - Thiếu `<!DOCTYPE html>`: `-0.25đ`
+   - Thiếu hoặc đặt sai chỗ `html`, `head`, `body`: `-0.25đ` đến `-0.5đ`
+   - Thiếu `<meta charset="utf-8">`: `-0.25đ`
+   - Thiếu `<title>Form Thông tin liên hệ nhóm</title>` (nhìn kỹ thanh tab trên hình đề thi!): `-0.25đ`
+   - Không viết `<style>` (Internal CSS) trong `<head>`: `-0.5đ`
+   - Thiếu `<form action="GroupInfo.php" method="post">`: `-0.25đ`
+2. **HTML (5.0 điểm):**
+   - Thiếu `<h2>`: `-0.25đ` | Thiếu `<div class="container">`: `-0.5đ`
+   - Thiếu các thẻ `<label>` hoặc **không có `for` khớp với `id` của input/select/textarea**: `-0.25đ` đến `-1.75đ`
+   - Đặt tên/kiểu input chuẩn: `type="text"` cho `groupName`, `groupLeader` (`-0.5đ`); **`type="url"`** cho `websiteUrl` (`-0.25đ`)
+   - Thiếu `placeholder` hoặc `required` tại Tên nhóm, Nhóm trưởng, Địa chỉ: `-0.25đ` đến `-0.75đ`
+   - Không dùng `<fieldset>` và `<legend>` cho khung "Trang web giới thiệu đồ án của nhóm": `-0.5đ`
+   - Không tạo đủ 5 `<option>` với các `value` khác nhau (kèm 1 option hướng dẫn đầu tiên): `-0.25đ` đến `-0.5đ`
+   - Thiếu `<textarea>`: `-0.5đ`
+   - Hai nút bấm phải dùng đúng `type="submit"` (Submit) và `type="reset"` (Cancel): `-0.25đ` đến `-0.5đ`
+3. **CSS (3.0 điểm):**
+   - Định dạng `.container` đúng thông số đề bài: `0.75đ`
+   - Định dạng `h2` màu đỏ, canh giữa: `0.25đ`
+   - Định dạng chung `input[type="text"], input[type="url"], select, textarea` (`width: 100%; box-sizing: border-box;`): `0.75đ`
+   - Định dạng `button` đúng thông số và canh giữa 2 nút: `0.75đ`
+   - *(Lưu ý: Nhớ ghi tên nhóm/thông tin sinh viên đúng vị trí yêu cầu của đề, quên trừ 1.0đ!)*
+
+---
+
+### 6.3. Bài giải mẫu đạt 10/10 điểm (Khớp 100% Barem chấm thi)
+
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Thông tin liên hệ nhóm</title>
+  <style>
+    /* 1. Định dạng khung chứa .container theo đúng đề bài */
+    .container {
+      width: 480px;
+      margin: auto;
+      border: 2px solid darkcyan;
+      padding: 20px;
+      font-size: 22px;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* 2. Định dạng tiêu đề h2 màu đỏ, canh giữa */
+    h2 {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    /* 3. Định dạng label và các ô nhập liệu */
+    label {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 14px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    /* 4. Định dạng khung Fieldset & Legend */
+    fieldset {
+      border: 1px solid #ddd;
+      padding: 12px 15px 4px 15px;
+      margin-bottom: 14px;
+    }
+
+    legend {
+      font-weight: bold;
+      padding: 0 5px;
+    }
+
+    /* 5. Định dạng và canh giữa 2 nút bấm */
+    .button-group {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      width: 150px;
+      padding: 10px;
+      background-color: darkorange;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>THÔNG TIN LIÊN HỆ NHÓM</h2>
+
+    <form action="GroupInfo.php" method="post">
+      <!-- 1. Tên nhóm -->
+      <label for="groupName">Tên nhóm</label>
+      <input type="text" id="groupName" name="groupName" placeholder="Nhập tên của nhóm bạn" required>
+
+      <!-- 2. Nhóm trưởng -->
+      <label for="groupLeader">Nhóm trưởng</label>
+      <input type="text" id="groupLeader" name="groupLeader" placeholder="Nhập họ tên của người nhóm trưởng" required>
+
+      <!-- 3. Khung Fieldset: Trang web giới thiệu đồ án của nhóm -->
+      <fieldset>
+        <legend><strong>Trang web giới thiệu đồ án của nhóm</strong></legend>
+
+        <label for="platform">Nền tảng:</label>
+        <select id="platform" name="platform">
+          <option value="">Chọn các nền tảng trang web của nhóm</option>
+          <option value="wordpress">Wordpress</option>
+          <option value="google">Google</option>
+          <option value="wix">Wix</option>
+          <option value="github">Github</option>
+          <option value="other">Khác</option>
+        </select>
+
+        <label for="websiteUrl">Địa chỉ</label>
+        <input type="url" id="websiteUrl" name="websiteUrl" placeholder="Nhập địa chỉ trang web nhóm" required>
+      </fieldset>
+
+      <!-- 4. Ý kiến khác của nhóm -->
+      <label for="otherComments">Ý kiến khác của nhóm</label>
+      <textarea id="otherComments" name="otherComments" rows="3"></textarea>
+
+      <!-- 5. Nút Submit & Cancel (reset) canh giữa -->
+      <div class="button-group">
+        <button type="submit"><strong>Submit</strong></button>
+        <button type="reset"><strong>Cancel</strong></button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
+```
+
+---
+
+## 🚨 7. CHECKLIST 8 ĐIỂM KIỂM TRA TRƯỚC KHI NỘP BÀI
+
+1. **Nhìn kỹ thanh tiêu đề tab trên ảnh đề thi** để đặt `<title>...</title>` chính xác từng chữ (tránh mất `0.25đ`).
+2. **Mọi `<label for="id_cua_o">` phải khớp 100% với `id="id_cua_o"`** của thẻ `input` / `select` / `textarea` (quên `for` và `id` bị trừ tới `0.5đ`).
+3. **Thấy khung viền có tiêu đề nằm đè lên cạnh trên** $\rightarrow$ Dùng ngay `<fieldset>` và `<legend>`.
+4. **Chọn đúng kiểu `type` cho `<input>` và `<button>`**: Địa chỉ web dùng `type="url"`, email dùng `type="email"`, nút xóa trắng form (Cancel/Nhập lại) dùng `<button type="reset">`.
+5. **Đã có `e.preventDefault()` trong sự kiện `submit` (nếu xử lý bằng JS) chưa?** (Hoặc đổi nút bấm sang `type="button"` để trang không bị reload mất kết quả).
+6. **Đã bọc `parseInt()` / `parseFloat()` khi lấy `.value` để tính toán chưa?** (Tránh lỗi `"10000" + "20000" = "1000020000"`).
+7. **Tháng trong `new Date().getMonth()` đã cộng thêm `1` chưa?**
+8. **Sự kiện click nút Xóa dòng mới thêm đã dùng Event Delegation (`tbody.addEventListener("click", ...)`) và `e.target.closest("tr").remove()` chưa?**
