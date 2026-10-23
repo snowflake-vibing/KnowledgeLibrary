@@ -1,67 +1,78 @@
 # 🎙️ RULE FOR SCRIPT (QUY ƯỚC SOẠN KỊCH BẢN THU ÂM ONE-TAKE CHUẨN THỰC CHIẾN)
 
 > **Mục tiêu cốt lõi**: Bộ quy ước chuẩn hóa cho việc biên soạn kịch bản video YouTube IELTS chuyên sâu.  
-> **Nguyên tắc bất biến**: Lời dẫn và giảng giải 100% bằng **Tiếng Việt văn nói tự nhiên**, phong thái chuyên gia IELTS Band 8.5+, mở đầu 10s Hook, nhịp chuyển cảnh nhanh (25-40s/slide), **KHI ĐỌC CÂU TIẾNG ANH TRÊN SLIDE THÌ KHÔNG DỊCH NGHĨA SANG TIẾNG VIỆT**, và đồng bộ 100% với hiệu ứng animation trên Slide.
+> **Nguyên tắc bất biến**: Lời dẫn và giảng giải 100% bằng **Tiếng Việt văn nói bình dân, gần gũi**, không dùng từ sượng/đao to búa lớn, **KHÔNG ĐỌC CẢ CÂU TIẾNG ANH VÍ DỤ (chỉ đọc từ/cụm ngắn, câu dài nói "như trên slide")**, bẻ nhỏ thành các **vạch nhịp thở `//`** (4-7 từ) để chống hụt hơi, và đồng bộ 100% với hiệu ứng animation trên Slide.
 
 ---
 
-## 🗣️ 1. QUY TẮC NGÔN NGỮ & QUY TẮC ĐỌC TIẾNG ANH KHÔNG DỊCH
+## 🗣️ 1. QUY TẮC NGÔN NGỮ & XỬ LÝ TIẾNG ANH - TIẾNG VIỆT
 
-### A. Lời giảng & Dẫn dắt: 100% Tiếng Việt tự nhiên
-- Toàn bộ lời chào, dẫn dắt, giải thích ngữ pháp, phân tích tiêu chí và hướng dẫn làm bài được viết bằng **Tiếng Việt đàm thoại trực tiếp** (*"Chào các bạn...", "Các bạn nhìn vào câu mẫu trên màn hình...", "Để ăn điểm tiêu chí này..."*).
-- Văn phong tự nhiên, đĩnh đạc, truyền cảm hứng của một giảng viên IELTS Band 8.5+.
-- Câu văn ngắn gọn, dễ thở, phù hợp nguyên tắc quay One-Take ít edit.
+### A. Ngôn ngữ văn nói bình dân, thân thiện (Conversational YouTube Tone)
+- Toàn bộ kịch bản phải được viết như **hai người bạn đang ngồi trò chuyện, trao đổi kinh nghiệm thi**:
+  - Dùng đại từ thân thiện: *"mình – các bạn"*.
+  - Dùng các từ đệm tự nhiên: *"nè", "nha", "nhé", "đúng không nào", "nhớ kỹ chỗ này nha", "mẹo cực hay ở đây là..."*.
+- 🚫 **NGHIÊM CẤM TỪ HÀN LÂM, SƯỢNG MIỆNG (LITERARY/ACADEMIC CLICHÉS)**:
+  - Tuyệt đối không dùng các từ đao to búa lớn, đọc lên nghe rất sượng như:
+    - ❌ *"nguyên tắc bất di bất dịch"* ➔ ✅ Thay bằng: *"chỗ này nhớ kỹ nha"* hoặc *"công thức bắt buộc ở đây là"*.
+    - ❌ *"chúng ta khóa cố định khung bài..."* ➔ ✅ Thay bằng: *"mình cứ áp dụng đúng khung 4 đoạn này thôi"*.
+    - ❌ *"đặc trưng sống còn"* ➔ ✅ Thay bằng: *"điểm mấu chốt ở đây là"*.
+    - ❌ *"sang phần 2: giám khảo chấm điểm..."* ➔ ✅ Thay bằng: *"bây giờ mình cùng xem giám khảo chấm điểm ra sao nhé"*.
 
-### B. QUY TẮC BẮT BUỘC: ĐỌC TIẾNG ANH TRÊN SLIDE KHÔNG DỊCH SANG TIẾNG VIỆT
-- Khi người nói đọc đến các **từ vựng, cụm collocation, công thức hoặc câu ví dụ Tiếng Anh** hiển thị trên slide:
-  - ✅ **Chỉ đọc chuẩn xác Tiếng Anh** với phát âm rõ ràng, ngữ điệu tự nhiên.
-  - 🚫 **TUYỆT ĐỐI KHÔNG DỊCH NGHĨA SANG TIẾNG VIỆT BẰNG LỜI NÓI**.
-- **Lý do sư phạm cốt lõi**:
-  1. **Slide đã có sẵn dòng Tiếng Việt phụ chú**: Slide chuẩn theo `RULE_SLIDES.md` đã có sẵn dòng dịch nghĩa Tiếng Việt in nghiêng màu xám nhạt (`#64748B`) ngay dưới dòng Tiếng Anh. Mắt người xem đã tự đọc được nghĩa.
-  2. **Tránh thừa thãi & Tối ưu thời lượng**: Việc đọc Tiếng Anh rồi dịch lại từng câu khiến video bị lê thê, kéo dài không cần thiết và làm đứt gãy nhịp độ bài giảng.
-  3. **Tạo phản xạ ngôn ngữ thực chiến**: Giúp người học vừa nghe phát âm chuẩn Tiếng Anh, vừa nhìn đối chiếu chữ trên màn hình.
+### B. QUY TẮC BẮT BUỘC: KHÔNG ĐỌC NGUYÊN CÂU TIẾNG ANH VÍ DỤ
+- **Với từ vựng hoặc cụm collocation ngắn (1 – 3 từ)**:
+  - ✅ **Vẫn đọc tiếng Anh chuẩn xác**: *was constructed*, *were demolished*, *adjacent to*, *in the north*...
+- **Với các CÂU VÍ DỤ TIẾNG ANH DÀI (10 – 15 từ)**:
+  - 🚫 **TUYỆT ĐỐI KHÔNG ĐỌC CẢ CÂU TIẾNG ANH BẰNG LỜI NÓI**.
+  - ✅ **Chỉ dùng câu điều hướng tự nhiên**:  
+    - *"Như trên slide các bạn thấy nè..."*  
+    - *"Các bạn nhìn vào câu mẫu trên màn hình nha..."*  
+    - *"Câu này áp dụng y như trên slide..."*  
+    - *"Như 2 câu ví dụ trên màn hình..."*
+- **Lý do sư phạm & kỹ thuật thu âm cốt lõi**:
+  1. **Slide đã hiển thị song ngữ đầy đủ**: Người xem nhìn mắt vào màn hình là tự động đọc được cả câu tiếng Anh in đậm lẫn tiếng Việt in nghiêng bên dưới.
+  2. **Giải phóng hoàn toàn hơi thở**: Việc đọc một câu tiếng Anh học thuật 15 từ đòi hỏi tập trung phát âm/trọng âm rất căng thẳng, khiến người nói vô thức nín thở và hụt hơi nghiêm trọng.
+  3. **Tăng tốc độ bài giảng**: Giữ nhịp video luôn nhanh, gãy gọn, tập trung vào tư duy làm bài thay vì "đọc diễn cảm hộ khán giả".
 
 ---
 
-## ⚡ 2. QUY TẮC MỞ ĐẦU 10 GIÂY (ZERO-FLUFF HOOK)
+## 🫁 2. VẠCH NHỊP THỞ `//` CHỐNG HỤT HƠI (SENSE UNITS 4 – 7 TỪ)
+
+> [!IMPORTANT]
+> **Quy tắc vàng chống hụt hơi**: Không bao giờ viết một câu dài quá 10 – 12 từ mà không có điểm ngắt hơi.
+
+- Mọi câu nói trong kịch bản bắt buộc phải được chia nhỏ bằng ký hiệu `//`:
+  - Mỗi cụm giữa hai vạch `//` chỉ dài từ **4 đến 7 từ**.
+  - Mỗi khi gặp vạch `//`, người nói tự động **lấy hơi nhẹ bằng mũi (micro-breath)** mà không phát ra tiếng thở dốc.
+  - Giúp lồng ngực luôn đầy khí, giọng nói luôn dày, ấm và giữ được năng lượng từ đầu đến cuối video 15–20 phút mà không bị đuối giọng.
+
+---
+
+## ⚡ 3. QUY TẮC MỞ ĐẦU 10 GIÂY (ZERO-FLUFF HOOK)
 
 - 🚫 **Nghiêm cấm tuyệt đối**:
-  - Không chào hỏi lê thê (*"Chào mừng các bạn đã quay trở lại với kênh YouTube của mình, đừng quên like và subscribe..."*).
-  - Không giới thiệu bản thân dài dòng hoặc kể chuyện ngoài lề.
+  - Không chào hỏi lê thê (*"Chào mừng các bạn đã quay trở lại với kênh YouTube của mình..."*).
+  - Không liệt kê danh mục mục lục dài dòng gây ngạt thở.
 - ✅ **Bắt buộc đi thẳng vào vấn đề trong 5 – 10 giây đầu**:
-  - Nêu ngay: **Chủ đề bài học** + **Nỗi đau / Lỗi sai kinh điển của 90% thí sinh** + **Kết quả cụ thể đạt được sau video**.
-  - *Ví dụ mẫu*: *"Chào các bạn! Trong video này, chúng ta sẽ đi thẳng vào trọn bộ phương pháp làm chủ dạng bài Bản đồ – Map và Floor Plan trong IELTS Writing Task 1..."*
-
----
-
-## ⏱️ 3. NHỊP ĐỘ GIỮ CHÂN NGƯỜI XEM (RETENTION & PACING)
-
-1. **Quy tắc 25 – 40 Giây / Slide**:
-   - Để video giáo dục không bị nhàm chán và giữ tỷ lệ giữ chân người xem (Viewer Retention) cao nhất, mỗi slide chỉ kéo dài từ **25 đến 40 giây**.
-2. **Quy tắc Kéo sự chú ý vào Slide (Pattern Interrupts)**:
-   - Cứ sau 2–3 câu giảng giải, phải có 1 câu điều hướng mắt người xem vào màn hình:
-     - *"Các bạn nhìn vào câu mẫu trên màn hình..."*
-     - *"Để ý giới từ được in đậm màu đỏ..."*
-     - *"Quan sát cách cấu trúc bị động được áp dụng tại đây..."*
+  - *"Chào các bạn! // Trong video hôm nay, // mình sẽ cùng các bạn xử lý gọn gàng dạng bài Map và Floor Plan trong Task 1. //..."*
 
 ---
 
 ## 🎬 4. HỆ THỐNG KÝ HIỆU ĐỒNG BỘ SLIDE & ANIMATION
 
-Mọi file script bắt buộc phải sử dụng các thẻ ký hiệu chuẩn xác sau:
+Mọi file script bắt buộc sử dụng hệ thống thẻ chuẩn xác sau:
 
 | Ký hiệu | Ý nghĩa | Hành động khi quay video |
 | :--- | :--- | :--- |
 | `[Bấm chuyển Slide X]` | Chuyển sang Slide X | Nhấn phím mũi tên phải ➔ hoặc click chuột để đổi slide trên PowerPoint/Canva |
 | `[Click: Hiện khối X]` | Xuất hiện khối nội dung X | Click chuột để hiệu ứng Fade animation kích hoạt khối chữ hiện lên |
-| `[nghỉ 1s]` | Nhịp thở / Ngắt câu | Dừng lại đúng 1 nhịp để lấy hơi và giúp người nghe kịp tiếp thu |
-| **In đậm (Bold)** | Nhấn giọng (Vocal Stress) | Lên giọng hoặc nhấn mạnh từ khóa để giọng nói giàu năng lượng, không đều đều |
+| `//` | Vạch ngắt nhịp thở | Lấy hơi nhẹ vi mô bằng mũi, không dừng quá lâu làm đứt mạch câu |
+| **In đậm (Bold)** | Nhấn giọng (Vocal Stress) | Lên giọng hoặc nhấn mạnh từ khóa để giọng nói giàu năng lượng |
 
 ---
 
 ## 💡 5. NGUYÊN TẮC THU ÂM ONE-TAKE (ONE-TAKE RECORDING MINDSET)
 
-- **Mẹo chống vấp**: Nếu trong lúc đọc bạn phát âm sai hoặc vấp một câu:
+- **Mẹo chống vấp**: Nếu trong lúc đọc bạn phát âm sai hoặc vấp một từ/cụm:
   - **TUYỆT ĐỐI KHÔNG BẤM DỪNG QUAY**.
   - Hãy im lặng đúng 2 giây để tạo khoảng lặng sóng âm trên phần mềm dựng phim, sau đó đọc lại câu đó từ đầu.
   - Khi edit, chỉ cần một thao tác cắt bỏ khoảng lặng là video hoàn toàn liền mạch.
@@ -78,35 +89,29 @@ Kịch bản voiceover One-take được phân chia thành 3 phần rõ ràng t�
 
 ### 1. Phần 1: Hook & Giới thiệu bài học (Ứng với Slide 01 - Thumbnail/Title)
 - **Thời lượng**: 15 – 25 giây.
-- **Nội dung**: Bắt đầu ngay với câu Hook trực diện:
-  - Nêu ngay tên chủ đề + điểm số mục tiêu (Band 7.5+).
-  - Khẳng định giá trị thực chiến: *"Sau video này, các bạn sẽ nắm trọn quy trình 4 bước, công thức viết và từ vựng ăn điểm..."*.
-  - Nhắc người xem theo dõi đến cuối video để nhận tài liệu template và prompt luyện thi độc quyền.
+- **Nội dung**: Bắt đầu ngay với câu Hook trực diện ngắn gọn, chia nhịp thở rõ ràng.
 
 ### 2. Phần 2: Thân bài Giảng giải Thực chiến (Ứng với Slides 02 đến N-1)
 - **Thời lượng**: 25 – 40 giây / slide.
 - **Nội dung**: 
-  - Toàn bộ phân tích, hướng dẫn tư duy diễn đạt bằng Tiếng Việt đàm thoại tự nhiên.
-  - **Khi đọc từ vựng, collocation, câu ví dụ tiếng Anh trên slide: CHỈ ĐỌC NGUYÊN BẢN TIẾNG ANH, TUYỆT ĐỐI KHÔNG DỊCH BẰNG LỜI NÓI**.
-  - Đánh dấu đầy đủ `[Bấm chuyển Slide X]` và `[Click: Hiện khối Y]` để người nói bấm chuột đồng nhịp với animation trên slide.
+  - Toàn bộ phân tích, hướng dẫn tư duy diễn đạt bằng Tiếng Việt đàm thoại bình dân.
+  - Từ vựng ngắn đọc tiếng Anh; câu ví dụ dài nói "như trên slide nè".
+  - Đánh dấu đầy đủ `[Bấm chuyển Slide X]` và `[Click: Hiện khối Y]`.
 
 ### 3. Phần 3: Kêu gọi hành động & Chào kết thúc (Ứng với Slide N - Outro CTA)
 - **Thời lượng**: 20 – 30 giây.
 - **Nội dung**:
-  - `[Click: Like & Share]`: Kêu gọi để lại 1 Like và Share nếu bài giảng mang lại giá trị.
-  - `[Click: Subscribe]`: Nhắc bấm Đăng ký kênh và Bật chuông thông báo để không bỏ lỡ các tập tiếp theo.
-  - `[Click: Free Materials]`: Hướng dẫn truy cập đường link dưới phần mô tả (GitHub / Drive) để tải slide PPTX, kịch bản mẫu và prompt AI hoàn toàn miễn phí.
-  - Lời chúc súc tích và hẹn gặp lại trong video tới.
+  - `[Click: Like & Share]`: Bấm Thích & Chia sẻ.
+  - `[Click: Subscribe]`: Đăng ký kênh & Bật chuông.
+  - `[Click: Free Materials]`: Link tải slide PPTX, kịch bản mẫu miễn phí dưới phần mô tả.
 
 ---
 
 ## 📋 CHECKLIST KIỂM DUYỆT SCRIPT TRƯỚC KHI BÀN GIAO:
 
-- [ ] Kịch bản đã có đủ 3 phần: Hook Slide 01 (10-15s), Thân bài (Slides 2 đến N-1), Outro CTA (Slide cuối cùng)?
-- [ ] Lời dẫn và phân tích có viết bằng Tiếng Việt đàm thoại tự nhiên không?
-- [ ] Khi đọc câu ví dụ / từ vựng Tiếng Anh trên slide, người nói có giữ nguyên Tiếng Anh và KHÔNG dịch sang Tiếng Việt không?
-- [ ] Mở đầu có đi thẳng vào vấn đề trong 10 giây đầu tiên (Hook 10s) không?
+- [ ] Lời thoại có dùng văn phong bình dân, gần gũi (mình - các bạn, nè, nha) không?
+- [ ] Đã loại bỏ 100% các từ sượng/đao to búa lớn ("bất di bất dịch", "khóa cố định"...) chưa?
+- [ ] Các câu ví dụ tiếng Anh dài có được thay bằng câu điều hướng "như trên slide nè" không?
+- [ ] Đã có đầy đủ các vạch nhịp thở `//` sau mỗi 4-7 từ để chống hụt hơi chưa?
 - [ ] Đã đánh dấu đầy đủ `[Bấm chuyển Slide X]` cho toàn bộ các slide chưa?
 - [ ] Đã đánh dấu đầy đủ các mốc click chuột `[Click: Hiện khối X]` tương ứng với hiệu ứng animation trên Slide chưa?
-- [ ] Đã có các mốc `[nghỉ 1s]` và in đậm các từ khóa cần nhấn giọng chưa?
-- [ ] Độ dài mỗi slide có đảm bảo đọc trong khoảng 25 - 40 giây không?
