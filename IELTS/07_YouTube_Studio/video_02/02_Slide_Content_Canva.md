@@ -1,7 +1,9 @@
 # 🖥️ NỘI DUNG THIẾT KẾ SLIDE: IELTS WRITING TASK 1 PROCESS & DIAGRAM (40 SLIDES)
 
-> **Mục đích file**: Dàn ý nội dung chi tiết cho 40 trang slide song ngữ (English chính + Vietnamese phụ chú in nghiêng nhạt màu), dùng để đối chiếu khi thuyết trình hoặc kiểm tra bài giảng.  
-> **Quy chuẩn thiết kế**: Tuân thủ 100% [**`RULE_SLIDES.md`**](../RULE_SLIDES.md): Nền trắng `#FFFFFF`, font Montserrat vừa phải dễ chịu, 1 màu accent/slide, thanh quote dọc ôm trọn bài, zero-overflow (mép đáy $> 50\text{pt}$).
+> **Mục đích file**: Dàn ý nội dung chi tiết cho 40 trang slide song ngữ (English chính + Vietnamese phụ chú in nghiêng nhạt màu), phục vụ ôn tập học thuật chuyên sâu và đối chiếu khi thuyết trình.  
+> **Quy chuẩn học thuật & thiết kế**: Tuân thủ 100% [**`RULE_SLIDES.md`**](../RULE_SLIDES.md):  
+> - **Nghiên cứu học thuật chuyên sâu (Deep Academic Rigor)**: Trích xuất 100% từ Cambridge Official (Cam 8 Test 3 & Cam 16 Test 1), bám sát Band Descriptors chính thức, phân tích bản chất ngôn ngữ C1–C2.  
+> - **Thiết kế tối giản**: Nền trắng `#FFFFFF`, font Montserrat vừa phải dễ chịu, 1 màu accent/slide, thanh quote dọc ôm trọn bài, zero-overflow (mép đáy $> 50\text{pt}$).
 
 ---
 

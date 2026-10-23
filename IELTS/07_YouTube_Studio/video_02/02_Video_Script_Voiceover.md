@@ -1,18 +1,16 @@
 # 🎙️ LỜI THOẠI QUAY VIDEO (SPOKEN SCRIPT): IELTS WRITING TASK 1 PROCESS & DIAGRAM (40 SLIDES)
 
-> **Mục đích file**: Kịch bản văn nói YouTube đàm thoại tự nhiên, dùng để bạn mở trên màn hình hoặc điện thoại đọc khi quay video chiếu Slide.  
-> **Nguyên tắc cốt lõi giúp bạn KHÔNG BAO GIỜ BỊ HỤT HƠI & NÓI TỰ NHIÊN**:  
-> 1. **KHÔNG ĐỌC CÂU TIẾNG ANH DÀI**: Với các câu ví dụ tiếng Anh trên slide, **bạn chỉ cần nói "như trên slide nè" hoặc "như câu mẫu trên màn hình"** (vì trên slide đã có sẵn cả tiếng Anh lẫn tiếng Việt in nghiêng cho người xem tự đọc). Từ/cụm từ tiếng Anh ngắn (*is excavated, moulting, active voice...*) thì vẫn đọc bình thường.  
-> 2. **VĂN NÓI BÌNH DÂN, THÂN THIỆN**: Dùng từ ngữ gần gũi như hai người bạn chia sẻ kinh nghiệm ("mình - các bạn", "nè", "nha", "nhớ kỹ nha"). Tuyệt đối tránh các từ hàn lâm, đao to búa lớn như "bất di bất dịch", "khóa cố định".  
-> 3. **VẠCH NHỊP THỞ `//` (SENSE UNITS)**: Cứ sau mỗi vạch `//` (4–7 từ), bạn tự động **lấy hơi nhẹ bằng mũi**. Đảm bảo lồng ngực luôn đầy oxy, nói một mạch không bao giờ mệt hay đuối sức!  
-> 4. **Hệ thống ký hiệu quay**:  
->    - `[Bấm chuyển Slide X]`: Thời điểm bấm phím sang slide tiếp theo.  
->    - `[Click: Hiện khối X]`: Thời điểm bấm chuột để hiệu ứng animation fade hiện khối nội dung lên.  
->    - *Mẹo One-Take*: Nếu lỡ vấp một từ, bạn chỉ cần im lặng 2 giây rồi đọc lại cụm đó, khi dựng phim cắt một nhát là xong.
+> **Mục đích file**: Kịch bản văn nói YouTube siêu tinh gọn (Ultra-Concise Delivery), dùng để bạn mở trên màn hình hoặc điện thoại đọc khi quay video chiếu Slide.  
+> **TRIẾT LÝ QUAY TỐI GIẢN & CHỐNG HỤT HƠI**:  
+> 1. **NÓI TRONG THỜI GIAN NGẮN NHẤT (10 – 20S / SLIDE)**: Slide đã chứa hàm lượng học thuật chuyên sâu và dịch nghĩa song ngữ. Bạn **không cần giải thích chi tiết dài dòng**, chỉ "điểm nhãn" 1–2 câu chốt hạ bản chất tư duy hoặc mẹo đắt giá nhất rồi chuyển tiếp!  
+> 2. **KHÔNG ĐỌC CÂU TIẾNG ANH DÀI**: Chỉ cần nói *"như trên slide nè"* hoặc *"như câu mẫu trên màn hình"*. Từ vựng ngắn (*is excavated, moulting...*) thì vẫn đọc chuẩn tiếng Anh.  
+> 3. **VĂN NÓI BÌNH DÂN, GẦN GŨI**: Dùng đại từ thân thiện *"mình - các bạn"*, thêm *"nè", "nha", "đúng không nào"*. Tuyệt đối không dùng từ sượng như *"bất di bất dịch"*.  
+> 4. **VẠCH NHỊP THỞ `//`**: Cứ sau mỗi vạch `//` (4–7 từ), bạn tự động lấy hơi nhẹ bằng mũi.  
+> 5. **Hệ thống ký hiệu**: `[Bấm chuyển Slide X]` và `[Click: Hiện khối Y]`.
 
 ---
 
-## 🎙️ LỜI NÓI CHI TIẾT TRỌN BỘ 40 SLIDES
+## 🎙️ LỜI NÓI SIÊU TINH GỌN ĐỒNG BỘ 40 SLIDES
 
 ---
 
@@ -22,13 +20,9 @@
 *(Bắt đầu video khi màn hình đang ở Slide 1 - Slide Thumbnail)*
 
 "Chào các bạn! //  
-Trong video ngày hôm nay, // mình sẽ cùng các bạn 'xử đẹp' dạng bài Process và Diagram trong Task 1. //  
-
-Rất nhiều bạn sợ dạng này // vì thấy nhiều từ chuyên ngành lạ hoắc. //  
-Nhưng thật ra, // chỉ cần nắm đúng công thức phân loại, // cách dùng thể bị động, // từ nối chỉ bước, //  
-và cách chia 4 đoạn chuẩn mực // là các bạn tự tin ẵm trọn Band 7.5+ rồi. //  
-
-Không để các bạn đợi lâu, // mình cùng vào ngay dạng đầu tiên nhé!"
+Trong video hôm nay, // mình sẽ cùng các bạn 'xử đẹp' dạng bài Process và Diagram trong Task 1. //  
+Từ công thức chọn thể bị động, // từ nối ăn điểm, // cho đến giải chi tiết 2 đề thi thật Cambridge. //  
+Vào bài ngay nhé!"
 
 ---
 
@@ -38,48 +32,44 @@ Không để các bạn đợi lâu, // mình cùng vào ngay dạng đầu tiê
 `[Bấm chuyển Slide 2]`
 
 `[Click: Hiện khối 1]`  
-"Đầu tiên là **Quy trình nhân tạo tuyến tính Man-made Linear Process**, // ví dụ đề sản xuất gạch bên trái màn hình. //  
-Đặc điểm của dạng này // là đi một đường thẳng từ nguyên liệu thô // đến thành phẩm cuối cùng. //  
-Vì do con người và máy móc làm, // nên chỗ này nhớ kỹ nha: // các bạn phải dùng 100% **Thể bị động ở thì Hiện tại đơn**. //  
-Ví dụ như các từ: // *is excavated*, // *is filtered*, // *is moulded*, // hay là *is delivered*."
+"Dạng đầu tiên: // **Quy trình nhân tạo tuyến tính**. //  
+Điểm mấu chốt ở đây // là bắt buộc dùng 100% **Thể bị động ở thì Hiện tại đơn**. //  
+Như trên slide các bạn thấy các động từ: // *is excavated*, // *is filtered*, // hay *is delivered* nha."
 
 ---
 
 #### 🟢 SLIDE 03: ⚙️ 01. TASK TYPE 1: MODEL SENTENCES
 `[Bấm chuyển Slide 3]`
 
-"Để ăn điểm ngữ pháp ở dạng sản xuất này: //  
+"Để ăn điểm ngữ pháp: //  
 
 `[Click: Hiện khối 1]`  
-Các bạn nhìn 2 câu ví dụ trên slide nha. //  
-Câu đầu tiên mô tả việc đào đất sét bằng máy xúc cơ học, //  
-câu thứ hai chỉ ra mục đích chuyển gạch vào buồng làm mát để chống nứt vỡ. //  
-Viết kết hợp bị động với chỉ mục đích như trên màn hình // là câu văn nghe cực kỳ chắc chắn luôn."
+Như 2 câu mẫu trên màn hình nè: //  
+mình ghép thể bị động // với mệnh đề chỉ mục đích *to prevent cracking*. //  
+Viết như vậy câu vừa chắc // lại cực kỳ học thuật luôn."
 
 ---
 
 #### 🟢 SLIDE 04: 🐝 01. TASK TYPE 2: NATURAL CYCLICAL PROCESS
 `[Bấm chuyển Slide 4]`
 
-"Dạng thứ hai ngược lại hoàn toàn: // **Chu trình tự nhiên khép kín Natural Cyclical Process**, // ví dụ vòng đời con ong bên trái màn hình. //  
+"Dạng thứ hai ngược lại hoàn toàn: // **Chu trình tự nhiên khép kín**. //  
 
 `[Click: Hiện khối 1]`  
-Đây là chu trình vòng tròn: // sinh vật lớn lên, // sinh sản, // rồi lặp lại vòng đời từ đầu. //  
-Vì tự nhiên tự vận hành, // nên nguyên tắc ở đây // là các bạn phải dùng **Thể chủ động Active Voice**. //  
-Ví dụ các động từ như: // *lays eggs*, // *hatches*, // *moults*, // *emerges*, // hay là *reaches maturity*."
+Vì sinh vật tự vận hành, // nên bắt buộc dùng 100% **Thể chủ động Active Voice**. //  
+Ví dụ như trên slide nè: // *lays eggs*, // *hatches*, // hay là *moults*."
 
 ---
 
 #### 🟢 SLIDE 05: 🐝 01. TASK TYPE 2: MODEL SENTENCES
 `[Bấm chuyển Slide 5]`
 
-"Áp dụng vào vòng đời con ong nè: //  
+"Áp dụng vào câu văn: //  
 
 `[Click: Hiện khối 1]`  
-Như 2 câu mẫu trên màn hình: //  
-câu đầu diễn tả ong cái đẻ trứng định kỳ 3 ngày một lần, //  
-câu sau nói về việc con non chui ra sau 3 lần lột xác. //  
-Dùng toàn bộ động từ chủ động như trên slide // là đúng chuẩn quy luật sinh học nha các bạn."
+Như 2 câu ví dụ trên slide các bạn thấy nè: //  
+toàn bộ động từ đều chia chủ động thì Hiện tại đơn. //  
+Nhớ kỹ chỗ này để không bị nhầm thể bị động nha!"
 
 ---
 
@@ -88,30 +78,28 @@ Dùng toàn bộ động từ chủ động như trên slide // là đúng chu�
 #### 🟢 SLIDE 06: 🎯 02. BAND 7.5+ CRITERIA: TA & CC
 `[Bấm chuyển Slide 6]`
 
-"Bây giờ mình cùng xem: // **Giám khảo chấm điểm bài Process dựa vào đâu?** //  
+"Hai tiêu chí chấm điểm đầu tiên: //  
 
 `[Click: Hiện khối 1]`  
-Về **Task Achievement**: // Đoạn Overview bắt buộc phải chỉ ra: // tổng số công đoạn, // điểm bắt đầu // và sản phẩm kết thúc. //  
-Và nhớ kỹ chỗ này nha: // Tuyệt đối không được nhảy cóc bỏ sót bất kỳ bước nào trong hình vẽ! //  
+Về **Task Achievement**: // Đoạn Overview bắt buộc nêu: tổng số bước, // điểm bắt đầu // và sản phẩm cuối. //  
+Tuyệt đối không bỏ sót bước nào nha! //  
 
 `[Click: Hiện khối 2]`  
-Về **Coherence and Cohesion**: // Bài viết phải dùng từ nối chỉ thứ tự mượt mà, //  
-và chia 2 đoạn Body tại một điểm ranh giới hợp lý, // ví dụ khâu tạo hình chia riêng với khâu nung nhiệt."
+Về **Coherence and Cohesion**: // Dùng từ nối chỉ thứ tự mượt mà, //  
+và chia 2 đoạn Body tại ranh giới logic như trên màn hình."
 
 ---
 
 #### 🟢 SLIDE 07: 🎯 02. BAND 7.5+ CRITERIA: LR & GRA
 `[Bấm chuyển Slide 7]`
 
-"Hai tiêu chí về ngôn ngữ tiếp theo nè: //  
+"Hai tiêu chí về ngôn ngữ nè: //  
 
 `[Click: Hiện khối 1]`  
-Về từ vựng **Lexical Resource**: // Cần dùng các động từ chế biến chính xác // như nghiền, // đúc khuôn, // nung lò, //  
-và biến đổi linh hoạt sang dạng danh từ hóa // để bài không bị lặp từ. //  
+Về từ vựng **Lexical Resource**: // Dùng chính xác động từ chế biến // và danh từ hóa như trên slide. //  
 
 `[Click: Hiện khối 2]`  
-Còn về ngữ pháp **GRA**: // Phân biệt rạch ròi bị động cho quy trình nhân tạo // và chủ động cho tự nhiên. //  
-Kết hợp thêm các cấu trúc rút gọn như *Once shaped...* // là điểm ngữ pháp chạm mốc 7.5 đến 8.0 ngay."
+Còn về **GRA**: // Kết hợp các cấu trúc rút gọn như *Once shaped...* // là kéo điểm ngữ pháp lên 8.0 ngay."
 
 ---
 
@@ -120,44 +108,41 @@ Kết hợp thêm các cấu trúc rút gọn như *Once shaped...* // là đi�
 #### 🟢 SLIDE 08: 📐 03. ESSAY STRUCTURE: 4-PARAGRAPH STANDARD
 `[Bấm chuyển Slide 8]`
 
-"Để bài làm gọn gàng và không bị rối, // mình cứ áp dụng đúng **Khung 4 đoạn chuẩn** này thôi: //  
+"Cấu trúc bài viết chuẩn chỉnh: //  
 
 `[Click: Hiện khối 1]`  
-Đoạn 1 là **Introduction** – mở bài trong 1 câu. //  
-Đoạn 2 là **Overview** – 2 câu tóm tắt bức tranh toàn cảnh. //  
-Đoạn 3 là **Body 1** tả nửa đầu quy trình. //  
-Và đoạn 4 là **Body 2** tả nửa sau. //  
+Cứ khóa đúng **Khung 4 đoạn**: // Mở bài 1 câu, // Tổng quan 2 câu, // Thân bài 1 // và Thân bài 2. //  
 
 `[Click: Hiện khối 2]`  
-Và đừng quên nhé: // **Task 1 tuyệt đối không viết Kết luận**. // Mọi ý tổng quan nằm trọn trong đoạn Overview rồi."
+Và nhớ giúp mình: // **Task 1 tuyệt đối không viết Kết bài** nha!"
 
 ---
 
 #### 🟢 SLIDE 09: 📐 03. BODY GROUPING: LINEAR HALVES
 `[Bấm chuyển Slide 9]`
 
-"Khi gặp bài sản xuất tuyến tính, // chia Body 1 và Body 2 thế nào cho đẹp? //  
+"Cách chia thân bài cho quy trình sản xuất: //  
 
 `[Click: Hiện khối 1]`  
-Công thức chia đôi cực kỳ hiệu quả nè: //  
+Mình chia đôi dòng chảy: //  
 
 `[Click: Hiện khối 2]`  
-Toàn bộ **Body 1** mình dành cho khâu khai thác nguyên liệu và sơ chế tạo hình, // tức là từ bước 1 đến bước 4. //  
-Còn **Body 2** mình gom các công đoạn xử lý nhiệt, // làm mát, // đóng gói và vận chuyển lại một thể. // Rất rành mạch đúng không nào?"
+Body 1 tả khâu khai thác và tạo hình thô; //  
+Body 2 tả khâu nung nhiệt, // đóng gói // và vận chuyển. // Cực kỳ rành mạch luôn!"
 
 ---
 
 #### 🟢 SLIDE 10: 📐 03. BODY GROUPING: LIFE CYCLE PHASES
 `[Bấm chuyển Slide 10]`
 
-"Thế còn bài vòng đời sinh học thì chia ra sao? //  
+"Thế còn bài vòng đời sinh học: //  
 
 `[Click: Hiện khối 1]`  
-Mình chia theo **Giai đoạn sinh trưởng của sinh vật**: //  
+Mình chia theo giai đoạn phát triển: //  
 
 `[Click: Hiện khối 2]`  
-**Body 1** mình tập trung vào giai đoạn phôi thai ban đầu: // từ lúc đẻ trứng đến khi ấp nở thành con non. //  
-Còn **Body 2** mình tả tiếp các đợt lột xác, // phát triển cánh, // trưởng thành và quay lại đẻ trứng. // Chia như vậy bài viết rất tự nhiên."
+Body 1 tả giai đoạn trứng và ấu trùng non; //  
+Body 2 tả các đợt lột xác, // trưởng thành // và tái sinh sản."
 
 ---
 
@@ -166,30 +151,27 @@ Còn **Body 2** mình tả tiếp các đợt lột xác, // phát triển cánh
 #### 🟢 SLIDE 11: ✍️ 04. INTRODUCTION FORMULA: MAN-MADE VS NATURAL
 `[Bấm chuyển Slide 11]`
 
-"Bây giờ mình qua **Khung câu mở bài**: // Chỉ mất đúng 1 phút để viết! //  
+"Khung câu mở bài viết trong 1 phút: //  
 
 `[Click: Hiện khối 1]`  
-Với quy trình nhân tạo, // mình dùng công thức bị động như ở khối trên slide: //  
-minh họa các công đoạn sản xuất thương mại của sản phẩm. //  
+Quy trình nhân tạo dùng mẫu bị động ở trên slide; //  
 
 `[Click: Hiện khối 2]`  
-Còn với chu trình tự nhiên, // các bạn áp dụng công thức ở khối dưới: //  
-minh họa các giai đoạn phát triển tuần hoàn của sinh vật. // Đơn giản, ngắn gọn mà chuẩn xác tuyệt đối."
+Chu trình tự nhiên dùng mẫu ở khối dưới. // Đúng 1 câu duy nhất là trọn vẹn điểm mở bài."
 
 ---
 
 #### 🟢 SLIDE 12: ✍️ 04. OVERVIEW FORMULA: TOTAL STAGES & DURATION
 `[Bấm chuyển Slide 12]`
 
-"Đoạn **Overview là trái tim của bài viết**, // các bạn cứ viết đúng 2 câu cho mình: //  
+"Đoạn **Overview 2 câu ăn điểm tuyệt đối**: //  
 
 `[Click: Hiện khối 1]`  
-Như trên slide nè: //  
-Câu 1 mình chỉ ra tổng số bước và thời gian diễn ra. //  
-Câu 2 mình nêu rõ bước mở đầu là gì // và bước kết thúc ở đâu. //  
+Câu 1 nêu tổng số bước và thời gian; //  
+Câu 2 chỉ ra bước bắt đầu và bước kết thúc. //  
 
 `[Click: Hiện khối 2]`  
-Nhớ giúp mình chỗ này nha: // Tuyệt đối không nhồi nhiệt độ cụ thể hay tên máy móc vụn vặt vào Overview, // để dành hết cho thân bài."
+Đừng đưa số liệu hay nhiệt độ chi tiết vào đây nha!"
 
 ---
 
@@ -198,55 +180,52 @@ Nhớ giúp mình chỗ này nha: // Tuyệt đối không nhồi nhiệt độ 
 #### 🟢 SLIDE 13: 🔗 05. INITIAL & SEQUENTIAL CONNECTORS
 `[Bấm chuyển Slide 13]`
 
-"Để bài viết không bị lặp từ *First, Then, Next*, // các bạn dùng bộ từ nối xịn này nha: //  
+"Bộ từ nối chỉ bước xịn sò thay cho *First, Then*: //  
 
 `[Click: Hiện khối 1]`  
-Để mở đầu bước 1: // mình dùng *At the initial stage*, // hoặc *The process commences with*. //  
+Bắt đầu bước 1 dùng *At the initial stage*, // hoặc *commences with*. //  
 
 `[Click: Hiện khối 2]`  
-Sang các bước tiếp theo: // các bạn đổi qua lại giữa *Subsequently*, // *Following this*, // hoặc *Prior to being processed* như trên màn hình."
+Các bước tiếp theo đổi sang *Subsequently*, // hoặc *Prior to being processed* như trên slide nè."
 
 ---
 
 #### 🟢 SLIDE 14: 🔗 05. SIMULTANEOUS CONNECTORS
 `[Bấm chuyển Slide 14]`
 
-"Thế khi có 2 hành động diễn ra cùng một lúc thì sao? //  
+"Khi có hai bước diễn ra cùng lúc: //  
 
 `[Click: Hiện khối 1]`  
-Mình dùng các từ nối đồng thời: // *Simultaneously*, // *Concurrently*, // hoặc dùng liên từ *While*. //  
+Dùng các từ đồng thời: *Simultaneously*, // *Concurrently*, // hoặc liên từ *While*. //  
 
 `[Click: Hiện khối 2]`  
-Như câu ví dụ trên slide nè: //  
-cát và nước được thêm vào // trong lúc đất sét đang được máy cán nhào trộn liên tục. // Câu văn nghe rất sống động."
+Như câu mẫu trên slide: cát và nước được thêm vào trong lúc máy đang cán đất sét."
 
 ---
 
 #### 🟢 SLIDE 15: 🔗 05. FINAL STAGE CONNECTORS
 `[Bấm chuyển Slide 15]`
 
-"Đến bước cuối cùng của quy trình sản xuất: //  
+"Đến công đoạn cuối cùng: //  
 
 `[Click: Hiện khối 1]`  
-Các bạn dùng các cụm kết bài học thuật: // *In the final phase*, // hoặc *The process culminates in...*. //  
+Dùng cụm kết thúc học thuật: // *In the final phase*, // hoặc *The process culminates in...*. //  
 
 `[Click: Hiện khối 2]`  
-Áp dụng y như trên slide các bạn thấy nè: //  
-quy trình khép lại bằng việc đóng gói và vận chuyển thành phẩm đến tay khách hàng. // Nghe cực kỳ chuyên nghiệp."
+Như trên slide các bạn thấy nè: // khép lại bằng khâu đóng gói và vận chuyển."
 
 ---
 
 #### 🟢 SLIDE 16: 🔗 05. CYCLICAL REPETITION CONNECTORS
 `[Bấm chuyển Slide 16]`
 
-"Còn với vòng đời tự nhiên lặp lại: //  
+"Với chu trình tự nhiên khép kín: //  
 
 `[Click: Hiện khối 1]`  
-Mình dùng các cụm hoàn tất chu trình: // *Completing the cycle*, // hoặc *..., at which point the cycle repeats itself*. //  
+Dùng cụm lặp lại vòng đời: // *..., at which point the cycle repeats itself*. //  
 
 `[Click: Hiện khối 2]`  
-Như câu mẫu trên màn hình: //  
-khi ong trưởng thành, // chu trình sinh sản lại bắt đầu một vòng đời mới."
+Như câu ví dụ trên màn hình: // ong trưởng thành lại tiếp tục đẻ trứng bắt đầu vòng đời mới."
 
 ---
 
@@ -255,45 +234,43 @@ khi ong trưởng thành, // chu trình sinh sản lại bắt đầu một vòn
 #### 🟢 SLIDE 17: ⚙️ 06. PASSIVE VOICE IN MAN-MADE PROCESS
 `[Bấm chuyển Slide 17]`
 
-"Bây giờ mình cùng chốt lại **Quy tắc thể bị động trong quy trình sản xuất**: //  
+"Chốt lại quy tắc thể bị động trong sản xuất: //  
 
 `[Click: Hiện khối 1]`  
-Công thức cốt lõi là *be + V3/ed*. //  
-Vì bài thi tập trung vào nguyên liệu chịu tác động, // chứ không quan tâm ai là người bấm máy. //  
+Công thức là *be + V3/ed*. //  
+Vì mình nhấn mạnh vào nguyên liệu chứ không quan tâm người làm. //  
 
 `[Click: Hiện khối 2]`  
-Như 2 ví dụ trên slide: //  
-hỗn hợp được ép vào khuôn, // hay gạch được nung trong lò."
+Như ví dụ trên slide: hỗn hợp được đúc khuôn // và gạch được nung trong lò."
 
 ---
 
 #### 🟢 SLIDE 18: 🐝 06. ACTIVE VOICE IN NATURAL PROCESS
 `[Bấm chuyển Slide 18]`
 
-"Trái lại, // trong vòng đời sinh học tự nhiên: //  
+"Trái lại, trong vòng đời sinh học: //  
 
 `[Click: Hiện khối 1]`  
-Mình dùng 100% **Thể chủ động thì Hiện tại đơn**. //  
-Vì sinh vật tự lớn lên và tự lột xác theo bản năng sinh học. //  
+Dùng 100% **Thể chủ động thì Hiện tại đơn**. //  
+Vì sinh vật tự lớn lên theo tự nhiên. //  
 
 `[Click: Hiện khối 2]`  
-Như các bạn thấy trên màn hình: //  
-trứng tự nở ra con non, // và côn trùng tự lột bỏ lớp da ngoài."
+Như trên màn hình: trứng tự nở // và côn trùng tự lột xác."
 
 ---
 
 #### 🟢 SLIDE 19: ⚙️ 06. DANGEROUS PITFALL: DO NOT MIX VOICES
 `[Bấm chuyển Slide 19]`
 
-"Chỗ này có một lỗi sai kinh điển mà rất nhiều bạn dính phải: //  
+"Lỗi sai chí mạng cần tránh: //  
 
 `[Click: Hiện khối 1]`  
-Tuyệt đối không bao giờ viết nhầm: // 'con ong được đẻ' // hay 'đất sét tự đào bới'. //  
+Không bao giờ viết 'ong được đẻ' hay 'đất sét tự đào'. //  
 
 `[Click: Hiện khối 2]`  
-Nhớ kỹ công thức này nha: //  
-Quy trình nhân tạo = 100% Bị động; //  
-Chu trình tự nhiên = 100% Chủ động. // Cứ phân định rạch ròi là không bao giờ mất điểm ngớ ngẩn!"
+Nhớ kỹ công thức trên slide nha: //  
+Nhân tạo = 100% Bị động; //  
+Tự nhiên = 100% Chủ động!"
 
 ---
 
@@ -302,56 +279,52 @@ Chu trình tự nhiên = 100% Chủ động. // Cứ phân định rạch ròi l
 #### 🟢 SLIDE 20: 💡 07. ADVANCED GRAMMAR #1: ONCE / HAVING BEEN + V3
 `[Bấm chuyển Slide 20]`
 
-"Bây giờ là **4 cấu trúc ngữ pháp giúp bài viết đạt Band 7.5+**: //  
+"Cấu trúc ăn điểm số 1: // **Rút gọn điều kiện thời gian**: //  
 
 `[Click: Hiện khối 1]`  
-Cấu trúc 1 là **Mệnh đề rút gọn chỉ điều kiện hoàn thành**: // *Once + V3/ed* // hoặc *Having been + V3/ed*. //  
+Dùng *Once + V3/ed* // hoặc *Having been + V3/ed*. //  
 
 `[Click: Hiện khối 2]`  
-Như câu mẫu trên slide nè: //  
-sau khi được cắt tạo hình, // gạch được chuyển ngay vào lò sấy. // Viết kiểu này câu văn rất gọn và thoát ý."
+Như câu mẫu trên slide: sau khi được cắt tạo hình, // gạch được đưa ngay vào lò sấy."
 
 ---
 
 #### 🟢 SLIDE 21: 💡 07. ADVANCED GRAMMAR #2: RELATIVE CLAUSE 'WHICH IS THEN...'
 `[Bấm chuyển Slide 21]`
 
-"Cấu trúc 2 là **Dùng mệnh đề quan hệ nối tiếp hai công đoạn**: //  
+"Cấu trúc số 2: // **Mệnh đề quan hệ nối tiếp hai bước**: //  
 
 `[Click: Hiện khối 1]`  
 Công thức: *hành động 1, which is then followed by hành động 2*. //  
 
 `[Click: Hiện khối 2]`  
-Áp dụng như trên slide các bạn thấy nè: //  
-đất sét được trộn với cát và nước, // sau đó được đúc thành các khối gạch chữ nhật. // Hai bước nối vào nhau cực kỳ mượt mà."
+Áp dụng như trên slide nè: // đất sét trộn với cát, // sau đó được đúc thành từng viên gạch."
 
 ---
 
 #### 🟢 SLIDE 22: 💡 07. ADVANCED GRAMMAR #3: PASSIVE + PURPOSE CLAUSE
 `[Bấm chuyển Slide 22]`
 
-"Cấu trúc 3 là **Câu bị động kết hợp giải thích mục đích**: //  
+"Cấu trúc số 3: // **Bị động kết hợp chỉ mục đích kỹ thuật**: //  
 
 `[Click: Hiện khối 1]`  
-Mình thêm cụm *in order to*, // *so as to*, // hoặc *with the aim of* vào sau câu bị động. //  
+Thêm cụm *in order to* // hoặc *so as to* vào sau vế bị động. //  
 
 `[Click: Hiện khối 2]`  
-Như câu ví dụ trên màn hình: //  
-gạch được giữ trong buồng làm mát // nhằm ngăn ngừa nguy cơ nứt vỡ cấu trúc. // Giám khảo đọc vào thấy rất am hiểu kỹ thuật."
+Như câu ví dụ trên màn hình: giữ gạch trong buồng mát để chống nứt vỡ cấu trúc."
 
 ---
 
 #### 🟢 SLIDE 23: 💡 07. ADVANCED GRAMMAR #4: NOMINALIZATION
 `[Bấm chuyển Slide 23]`
 
-"Cấu trúc 4 là **Danh từ hóa công đoạn sản xuất**: //  
+"Cấu trúc số 4: // **Danh từ hóa công đoạn**: //  
 
 `[Click: Hiện khối 1]`  
-Thay vì lúc nào cũng dùng động từ, // các bạn biến công đoạn thành một danh từ học thuật. //  
+Biến động từ thành danh từ học thuật để đa dạng ngữ pháp. //  
 
 `[Click: Hiện khối 2]`  
-Như câu mẫu trên slide nè: //  
-sự thoát ẩm của gạch diễn ra trong suốt 48 giờ bên trong lò sấy. // Câu văn nghe đậm chất khoa học luôn."
+Như trên slide các bạn thấy nè: // sự thoát ẩm của gạch diễn ra trong 48 giờ."
 
 ---
 
@@ -360,39 +333,39 @@ sự thoát ẩm của gạch diễn ra trong suốt 48 giờ bên trong lò s�
 #### 🟢 SLIDE 24: 🔤 08. VOCABULARY: MECHANICAL PROCESSING
 `[Bấm chuyển Slide 24]`
 
-"Tiếp theo là **Bộ từ vựng cơ học cho khâu sơ chế**: //  
+"Từ vựng cơ học cho khâu sơ chế: //  
 
 `[Click: Hiện khối 1]`  
-Khâu đào và lọc tạp chất: // mình dùng *excavate*, // và *filter through a metal grid*. //  
+Đào và lọc tạp chất dùng: *excavate*, // và *filter through a metal grid*. //  
 
 `[Click: Hiện khối 2]`  
-Khâu nghiền và tạo hình: // các bạn dùng *crush with a roller*, // và *mould or slice with a wire cutter* như trên màn hình."
+Nghiền và tạo hình dùng: *crush with a roller*, // và *mould or slice with a wire cutter*."
 
 ---
 
 #### 🟢 SLIDE 25: 🔤 08. VOCABULARY: THERMAL TREATMENT
 `[Bấm chuyển Slide 25]`
 
-"Bộ từ vựng cho **Khâu xử lý nhiệt và phân phối**: //  
+"Từ vựng xử lý nhiệt và phân phối: //  
 
 `[Click: Hiện khối 1]`  
-Khâu nung nhiệt: // mình dùng *undergo heat treatment*, // và *fire in a specialized kiln*. //  
+Nung nhiệt dùng: *undergo heat treatment*, // và *fire in a specialized kiln*. //  
 
 `[Click: Hiện khối 2]`  
-Khâu làm mát và vận chuyển: // các bạn dùng *cooling chamber*, // và *package and deliver to customers* như trên slide nha."
+Làm mát và giao hàng dùng: *cooling chamber*, // và *package and deliver to customers*."
 
 ---
 
 #### 🟢 SLIDE 26: 🔤 08. VOCABULARY: BIOLOGICAL METAMORPHOSIS
 `[Bấm chuyển Slide 26]`
 
-"Còn đây là **Bộ từ vựng sinh học cho vòng đời sinh vật**: //  
+"Từ vựng sinh học cho vòng đời: //  
 
 `[Click: Hiện khối 1]`  
-Giai đoạn trứng và ấu trùng: // mình dùng *lay eggs*, // và *hatch into a nymph*. //  
+Trứng và ấu trùng dùng: *lay eggs*, // và *hatch into a nymph*. //  
 
 `[Click: Hiện khối 2]`  
-Giai đoạn lột xác và trưởng thành: // các bạn dùng *shed skin*, // *moult at regular intervals*, // và *reach full maturity*."
+Lột xác và trưởng thành dùng: *shed skin*, // *moult at regular intervals*, // và *reach maturity*."
 
 ---
 
@@ -401,60 +374,55 @@ Giai đoạn lột xác và trưởng thành: // các bạn dùng *shed skin*, /
 #### 🟢 SLIDE 27: 🧱 09. REAL EXAM #1: BRICK – INTRO & OVERVIEW
 `[Bấm chuyển Slide 27]`
 
-"Bây giờ mình cùng ráp toàn bộ kiến thức vào **Giải đề thi thật số 1: Quy trình sản xuất gạch Cambridge 8**: //  
+"Ráp vào giải đề thi thật gạch Cambridge 8: //  
 
 `[Click: Hiện khối 1]`  
-Đoạn Mở bài và Tổng quan viết đúng như trên slide nè: //  
-Mở bài nêu rõ quy trình sản xuất gạch thương mại trong 1 câu; //  
-Tổng quan chỉ ra quy trình gồm 7 bước tuyến tính, // từ đào đất sét đến giao hàng hoàn thiện."
+Mở bài và Tổng quan viết đúng như trên slide nè: //  
+chỉ rõ quy trình tuyến tính 7 bước, // từ đào đất sét đến giao thành phẩm."
 
 ---
 
 #### 🟢 SLIDE 28: 🧱 09. REAL EXAM #1: BRICK – STAGE 1: DIGGING & FILTERING
 `[Bấm chuyển Slide 28]`
 
-"Vào Body 1, // mình tả 4 công đoạn đầu tiên: //  
+"Body 1 với khâu chuẩn bị: //  
 
 `[Click: Hiện khối 1]`  
 Như 2 câu mẫu trên màn hình: //  
-đầu tiên đất sét thô được đào lên bằng máy xúc cơ học lớn; //  
-sau đó được lọc qua lưới kim loại và nghiền thành bột mịn bằng máy cán."
+đất sét được đào lên bằng máy xúc, // sau đó lọc qua lưới kim loại và cán mịn thành bột."
 
 ---
 
 #### 🟢 SLIDE 29: 🧱 09. REAL EXAM #1: BRICK – STAGE 2: SHAPING & DRYING
 `[Bấm chuyển Slide 29]`
 
-"Tiếp tục với công đoạn tạo hình và sấy khô: //  
+"Khâu tạo hình và sấy khô: //  
 
 `[Click: Hiện khối 1]`  
-Các bạn nhìn 2 câu trên slide nè: //  
-bột đất sét được trộn với cát và nước rồi tạo hình bằng máy cắt dây hoặc khuôn; //  
-sau đó các viên gạch ướt được đưa vào lò sấy trong 24 đến 48 giờ để rút bớt nước."
+Như trên slide các bạn thấy nè: //  
+trộn đất với cát và nước rồi cắt khuôn; // sau đó sấy trong lò từ 24 đến 48 giờ."
 
 ---
 
 #### 🟢 SLIDE 30: 🧱 09. REAL EXAM #1: BRICK – STAGE 3: KILN FIRING
 `[Bấm chuyển Slide 30]`
 
-"Sang Body 2, // mình tả tiếp khâu nung nhiệt và hoàn thiện: //  
+"Sang Body 2 khâu nung nhiệt: //  
 
 `[Click: Hiện khối 1]`  
 Như trên màn hình miêu tả: //  
-gạch khô trải qua 2 mức nhiệt trong lò nung: //  
-mức vừa phải từ 200 đến 980 độ C, // sau đó nâng lên mức nhiệt cực cao từ 870 đến 1300 độ C."
+gạch trải qua 2 mức nhiệt trong lò nung: // mức vừa phải 200 đến 980 độ, // và mức cực cao lên đến 1300 độ C."
 
 ---
 
 #### 🟢 SLIDE 31: 🧱 09. REAL EXAM #1: BRICK – STAGE 4: COOLING & PACKAGING
 `[Bấm chuyển Slide 31]`
 
-"Và hai công đoạn cuối cùng: //  
+"Hai bước hoàn thiện cuối cùng: //  
 
 `[Click: Hiện khối 1]`  
 Như trên slide nè: //  
-gạch được chuyển vào buồng làm mát từ 48 đến 72 giờ; //  
-trước khi được đóng gói cẩn thận và chất lên xe tải giao đến tay khách hàng."
+làm mát từ 48 đến 72 giờ trong buồng mát; // rồi đóng gói và chở đi giao hàng."
 
 ---
 
@@ -464,8 +432,7 @@ trước khi được đóng gói cẩn thận và chất lên xe tải giao đ�
 "Nhìn lại toàn bộ bài mẫu sản xuất gạch: //  
 
 `[Click: Hiện khối 1]`  
-Bài viết chia đoạn cực kỳ cân đối giữa khâu chuẩn bị và khâu nung nhiệt; //  
-100% câu dùng thể bị động chuẩn xác // mà không bị lặp lại từ nối. // Một bài mẫu Band 8.0 hoàn hảo!"
+Chia đoạn cân đối, // 100% câu bị động chuẩn xác, // đa dạng hóa từ nối chỉ bước. // Chuẩn Band 8.0 luôn!"
 
 ---
 
@@ -474,82 +441,76 @@ Bài viết chia đoạn cực kỳ cân đối giữa khâu chuẩn bị và kh
 #### 🟢 SLIDE 33: 🐝 10. REAL EXAM #2: HONEY BEE – INTRO & OVERVIEW
 `[Bấm chuyển Slide 33]`
 
-"Bây giờ mình cùng qua **Đề thi thật số 2: Vòng đời con ong mật trong Cambridge 16**: //  
+"Sang đề thi thật số 2: Vòng đời con ong Cambridge 16: //  
 
 `[Click: Hiện khối 1]`  
-Đoạn Mở bài và Tổng quan viết như trên slide nè: //  
-Mở bài nêu rõ quá trình phát triển tuần hoàn của con ong; //  
-Tổng quan chỉ ra chu trình tự nhiên kéo dài 34 đến 36 ngày qua 5 giai đoạn sinh trưởng."
+Mở bài và Tổng quan như trên slide nè: //  
+chu trình tự nhiên kéo dài 34 đến 36 ngày qua 5 giai đoạn sinh trưởng."
 
 ---
 
 #### 🟢 SLIDE 34: 🐝 10. REAL EXAM #2: HONEY BEE – STAGE 1: EGG LAYING
 `[Bấm chuyển Slide 34]`
 
-"Vào Body 1, // mình tả giai đoạn đầu tiên: //  
+"Vào Body 1 khâu đẻ trứng: //  
 
 `[Click: Hiện khối 1]`  
-Như trên màn hình: //  
-vòng đời bắt đầu khi ong cái trưởng thành đẻ từ 1 đến 2 quả trứng mỗi 3 ngày; //  
-những quả trứng này được bảo vệ an toàn trong tổ."
+Như câu mẫu trên màn hình: //  
+ong cái trưởng thành đẻ từ 1 đến 2 quả trứng mỗi 3 ngày bên trong tổ."
 
 ---
 
 #### 🟢 SLIDE 35: 🐝 10. REAL EXAM #2: HONEY BEE – STAGE 2: HATCHING & NYMPH
 `[Bấm chuyển Slide 35]`
 
-"Giai đoạn tiếp theo là ấp nở: //  
+"Giai đoạn ấp nở: //  
 
 `[Click: Hiện khối 1]`  
-Như câu mẫu trên slide các bạn thấy nè: //  
-sau 9 đến 10 ngày, // mỗi quả trứng nở thành một con nhộng non; //  
-và con nhộng này lập tức bước vào giai đoạn lớn nhanh như thổi."
+Như trên slide các bạn thấy nè: //  
+sau 9 đến 10 ngày trứng nở thành nhộng non và bắt đầu tăng trưởng nhanh."
 
 ---
 
 #### 🟢 SLIDE 36: 🐝 10. REAL EXAM #2: HONEY BEE – STAGE 3: 3 MOULTING INTERVALS
 `[Bấm chuyển Slide 36]`
 
-"Sang Body 2, // mình tả quá trình lột xác sinh học: //  
+"Sang Body 2 quá trình lột xác: //  
 
 `[Click: Hiện khối 1]`  
 Như trên slide miêu tả: //  
-nhộng non lột xác đúng 3 lần theo chu kỳ: // lần đầu sau 5 ngày, // lần hai sau 7 ngày, // và lần cuối sau 9 ngày // để liên tục mở rộng kích thước cơ thể."
+nhộng lột xác 3 lần theo chu kỳ 5 ngày, // 7 ngày, // và 9 ngày để lớn lên."
 
 ---
 
 #### 🟢 SLIDE 37: 🐝 10. REAL EXAM #2: HONEY BEE – STAGE 4: YOUNG ADULT EMERGENCE
 `[Bấm chuyển Slide 37]`
 
-"Giai đoạn xuất hiện ong non: //  
+"Khâu xuất hiện ong non: //  
 
 `[Click: Hiện khối 1]`  
-Các bạn nhìn câu mẫu trên màn hình nha: //  
-đúng 30 đến 31 ngày sau khi đẻ trứng, // một con ong non trưởng thành chui ra; //  
-và tiếp tục phát triển đôi cánh hoàn chỉnh."
+Như câu mẫu trên màn hình nè: //  
+đúng 30 đến 31 ngày sau khi đẻ trứng, // ong non chui ra và tiếp tục phát triển cánh."
 
 ---
 
 #### 🟢 SLIDE 38: 🐝 10. REAL EXAM #2: HONEY BEE – STAGE 5: MATURITY & CYCLE RESTART
 `[Bấm chuyển Slide 38]`
 
-"Và công đoạn khép lại chu trình: //  
+"Và bước khép lại chu trình: //  
 
 `[Click: Hiện khối 1]`  
-Như trên slide nè: //  
-mất thêm 4 ngày nữa để con ong đạt độ chín sinh học hoàn toàn; //  
-sau đó ong cái lại tiếp tục đẻ trứng, // kích hoạt lại vòng đời tự nhiên từ đầu."
+Như trên slide: //  
+thêm 4 ngày nữa để ong trưởng thành, // rồi lại tiếp tục đẻ trứng kích hoạt lại vòng đời."
 
 ---
 
 #### 🟢 SLIDE 39: 🐝 10. REAL EXAM #2: HONEY BEE – FULL BAND 8.0 ESSAY SUMMARY
 `[Bấm chuyển Slide 39]`
 
-"Điểm sáng nhất của bài viết này: //  
+"Điểm đắt giá nhất của bài mẫu này: //  
 
 `[Click: Hiện khối 1]`  
-Là áp dụng 100% động từ chủ động: // đẻ trứng, // ấp nở, // lột xác, // chui ra // và lặp lại; //  
-kết hợp phân đoạn phát triển sinh học cực kỳ mượt mà."
+Áp dụng 100% động từ chủ động, // phân đoạn phát triển sinh học cực kỳ logic và mượt mà!"
 
 ---
 
@@ -558,15 +519,14 @@ kết hợp phân đoạn phát triển sinh học cực kỳ mượt mà."
 #### 🟢 SLIDE 40: 🎉 THANK YOU FOR WATCHING (OUTRO & CALL TO ACTION)
 `[Bấm chuyển Slide 40]`
 
-"Vậy là chúng ta đã cùng nhau làm chủ trọn vẹn dạng bài Process và Diagram! //  
+"Vậy là chúng ta đã nắm trọn bộ bí quyết làm chủ bài Process! //  
 
 `[Click: Hiện khối 1]`  
-Nếu video này giúp các bạn hiểu rõ cách viết bài, // đừng quên để lại **1 Like và bấm Chia sẻ** cho bạn bè cùng luyện thi nha. //  
+Nếu video hữu ích, // các bạn bấm Like và Chia sẻ cho bạn bè cùng ôn thi nha. //  
 
 `[Click: Hiện khối 2]`  
-Và nhớ **bấm Đăng ký kênh, // bật chuông thông báo** để không bỏ lỡ các tập tiếp theo về Biểu đồ đường và Cột nhé. //  
+Và đừng quên bấm Đăng ký kênh, // bật chuông để đón xem các bài học tiếp theo. //  
 
 `[Click: Hiện khối 3]`  
-Toàn bộ file slide bài giảng, // kịch bản voiceover // và bài mẫu chi tiết // mình đều để link tải hoàn toàn miễn phí dưới phần mô tả. //  
-
-Cảm ơn các bạn rất nhiều, // và hẹn gặp lại các bạn trong những video tới!"
+Toàn bộ slide PowerPoint và bài mẫu chi tiết // mình để link tải miễn phí dưới phần mô tả nhé. //  
+Hẹn gặp lại các bạn trong những video tới!"
