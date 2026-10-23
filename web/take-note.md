@@ -1,7 +1,7 @@
 # 📌 TAKE-NOTE THI GIỮA KỲ MÔN WEB (IS207 - UIT)
-### TÀI LIỆU TRA CỨU NHANH: HTML5 • CSS3 • BOOTSTRAP 5 • JAVASCRIPT • JQUERY
+### TÀI LIỆU TRA CỨU NHANH: HTML5 • CSS3 • BOOTSTRAP 5 • JAVASCRIPT THUẦN (VANILLA JS)
 
-> **Mục đích:** Tài liệu cô đọng toàn bộ cú pháp, mẹo lý thuyết và khung code mẫu thực chiến để mang vào phòng thi giữa kỳ (viết code trên giấy hoặc trên máy).
+> **Mục đích:** Tài liệu cô đọng toàn bộ cú pháp, mẹo lý thuyết và khung code mẫu thực chiến **100% HTML + CSS + JavaScript thuần (không dùng jQuery)** để mang vào phòng thi giữa kỳ.
 
 ---
 
@@ -14,8 +14,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài Thi Giữa Kỳ IS207</title>
-  <!-- Nhúng jQuery (nếu đề dùng jQuery) -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 20px; }
@@ -39,12 +37,12 @@
 </head>
 <body>
   <div class="container">
-    <!-- NỘI DUNG BÀI THI -->
+    <!-- NỘI DUNG BÀI THI ĐẶT TẠI ĐÂY -->
   </div>
 
   <script>
-    $(document).ready(function() {
-      // CODE JQUERY / JS TẠI ĐÂY
+    document.addEventListener("DOMContentLoaded", function() {
+      // CODE JAVASCRIPT THUẦN TẠI ĐÂY
     });
   </script>
 </body>
@@ -87,13 +85,13 @@
   - `method="GET"` (dữ liệu nối lên URL, giới hạn độ dài) hoặc `method="POST"` (dữ liệu ẩn trong body, bảo mật, gửi file lớn).
   - `enctype="multipart/form-data"`: **Bắt buộc** khi form có `<input type="file">`.
 
-| Loại Control | Cú pháp chuẩn | Lưu ý quan trọng khi đi thi |
+| Loại Control | Cú pháp chuẩn | Cách đọc giá trị bằng JS thuần |
 | :--- | :--- | :--- |
-| **Ô nhập chữ** | `<input type="text" id="txtName" placeholder="..." required>` | Dùng `.val().trim()` hoặc `.value.trim()` để lấy chuỗi |
-| **Ô nhập số** | `<input type="number" id="qty" value="1" min="1" max="99" step="1">` | Nhớ ép kiểu `parseInt()` hoặc `parseFloat()` |
-| **Radio (Chọn 1)** | `<input type="radio" name="time" value="day" checked>` | Các radio cùng nhóm **bắt buộc trùng `name`** |
-| **Checkbox (Chọn nhiều)** | `<input type="checkbox" name="food" value="20000" data-name="Phở">` | Dùng `data-*` để lưu thêm tên món hoặc đơn giá |
-| **Dropdown (`select`)** | `<select id="cboTable"><option value="1">Bàn 1</option></select>` | Lấy text đang chọn: `$("#cbo option:selected").text()` |
+| **Ô nhập chữ** | `<input type="text" id="txtName" placeholder="..." required>` | `document.getElementById("txtName").value.trim()` |
+| **Ô nhập số** | `<input type="number" id="qty" value="1" min="1" max="99" step="1">` | `parseInt(document.getElementById("qty").value) \|\| 0` |
+| **Radio (Chọn 1)** | `<input type="radio" name="time" value="day" checked>` | `document.querySelector("input[name='time']:checked").value` |
+| **Checkbox (Chọn nhiều)** | `<input type="checkbox" name="food" value="20000" data-name="Phở">` | `document.querySelectorAll("input[name='food']:checked")` |
+| **Dropdown (`select`)** | `<select id="cboTable"><option value="1">Bàn 1</option></select>` | Giá trị: `cbo.value` \| Text: `cbo.options[cbo.selectedIndex].text` |
 | **Nút bấm** | `<button type="button" id="btn">Tính</button>` | Dùng `type="button"` nếu không muốn form tự reload! |
 
 ### 1.3. Lý thuyết HTML5 hay hỏi trắc nghiệm
@@ -170,7 +168,7 @@
   - Chuyển cảnh mượt: `transition: all 0.3s ease;`
   - Biến đổi: `transform: scale(1.05) translateY(-3px) rotate(5deg);`
 - **Bootstrap 5 (So với Bootstrap 4):**
-  - Bỏ hoàn toàn jQuery, dùng Vanilla JS.
+  - Bỏ phụ thuộc thư viện ngoài, dùng Vanilla JS thuần.
   - Đổi `ml-*` / `mr-*` $\rightarrow$ `ms-*` (margin-start) / `me-*` (margin-end); `pl-*` / `pr-*` $\rightarrow$ `ps-*` / `pe-*`.
   - Bỏ `.form-group` (dùng `.mb-3` thay thế), thêm breakpoint `xxl` ($\ge 1400\text{px}$).
   - Hệ thống lưới **12 cột**: `.container` > `.row` > `.col-12 .col-md-8` + `.col-12 .col-md-4` (Con trực tiếp của `.row` bắt buộc là `.col-*`).
@@ -205,7 +203,7 @@
 let qty   = parseInt(document.getElementById("qty").value) || 0;
 let price = parseFloat(document.getElementById("price").value) || 0;
 
-// 2. Định dạng tiền có dấu chấm phân cách hàng nghìn (VD: 120000 -> "120.000")
+// 2. Định dạng tiền có dấu chấm phân cách hàng nghìn (VD: 120000 -> "120.000 đ")
 let formatted = total.toLocaleString("vi-VN") + " đ";
 
 // 3. Ngược lại: Xóa dấu chấm/chữ để lấy lại số từ chuỗi "120.000 đ" -> 120000
@@ -245,33 +243,65 @@ Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `
 | **Mật khẩu mạnh** ($\ge 8$ ký tự, 1 hoa, 1 thường, 1 số) | `/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/` | Dùng positive lookahead `(?=...)` |
 | **Số nguyên dương** ($> 0$) | `/^[1-9]\d*$/` | Chữ số đầu từ 1-9, theo sau là các chữ số |
 
-### 3.5. Thao tác DOM & Sự kiện bằng Vanilla JS (Không dùng jQuery)
+---
+
+## 🛠️ 4. THAO TÁC DOM & SỰ KIỆN BẰNG JAVASCRIPT THUẦN (VANILLA JS)
+
+> **So sánh `DOMContentLoaded` vs `window.onload`:**
+> - `document.addEventListener("DOMContentLoaded", fn)`: Chạy ngay khi **cây DOM vừa dựng xong** (không cần đợi ảnh/video tải xong) $\rightarrow$ Nhanh hơn.
+> - `window.onload = fn`: Phải đợi **toàn bộ tài nguyên (ảnh, CSS, iframe)** tải xong 100%.
+
+### 4.1. Bảng Tra Cứu Nhanh Các Hàm DOM Thuần Thay Cho Mọi Thao Tác
+| Thao tác cần làm | Cú pháp JavaScript thuần (Vanilla JS) |
+| :--- | :--- |
+| **Tìm 1 phần tử theo ID** | `const el = document.getElementById("myId");` |
+| **Tìm 1 phần tử theo CSS Selector** | `const el = document.querySelector("#tbl tbody");` |
+| **Tìm tất cả phần tử khớp Selector** | `const list = document.querySelectorAll("input[name='mon']:checked");` |
+| **Duyệt qua danh sách phần tử** | `list.forEach(item => { ... });` |
+| **Tìm phần tử con bên trong 1 dòng `tr`** | `const qtyInput = row.querySelector(".qty");` |
+| **Tìm thẻ cha `<tr>` gần nhất (để xóa dòng)** | `const row = btn.closest("tr"); row.remove();` |
+| **Đọc / Ghi giá trị ô input, select** | `let v = el.value.trim();` / `el.value = "Mới";` |
+| **Đọc / Ghi nội dung chữ thuần** | `let t = el.textContent;` / `el.textContent = "120.000 đ";` |
+| **Đọc / Ghi mã HTML bên trong** | `el.innerHTML = "<tr><td>...</td></tr>";` (Xóa rỗng: `el.innerHTML = "";`) |
+| **Đọc / Ghi thuộc tính `data-*`** | `<td data-price="20000">` $\rightarrow$ `el.dataset.price` |
+| **Ẩn / Hiện phần tử** | `el.style.display = "none";` / `el.style.display = "block";` (hoặc `"table"`) |
+| **Thêm / Xóa / Đảo class CSS** | `el.classList.add("active");` / `.remove("active");` / `.toggle("active");` |
+
+### 4.2. Hai cách thêm dòng mới vào bảng `<table>`
+**Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Nhanh & ngắn gọn nhất khi thi)**
 ```javascript
-// 1. Truy xuất phần tử
-const el   = document.getElementById("myId");
-const item = document.querySelector(".my-class");       // Lấy phần tử đầu tiên khớp
-const list = document.querySelectorAll("input[name='food']:checked"); // Lấy NodeList
-
-// 2. Đọc / Ghi nội dung & thuộc tính
-el.textContent = "Chữ thuần (an toàn XSS)";
-el.innerHTML   = "<b>Chèn được thẻ HTML</b>";
-let val        = el.value.trim();                       // Dành cho input, select, textarea
-let price      = parseFloat(el.dataset.price);          // Đọc thuộc tính data-price="..."
-el.style.color = "red";
-el.classList.add("active"); el.classList.remove("active"); el.classList.toggle("active");
-
-// 3. Thêm dòng & ô vào bảng (<table> / <tbody>)
 const tbody = document.querySelector("#myTable tbody");
-const row   = tbody.insertRow();                        // Thêm <tr> vào cuối tbody
-row.insertCell(0).textContent = "Áo thun";              // Thêm <td> cột 0
-row.insertCell(1).textContent = "120.000 đ";            // Thêm <td> cột 1
-row.insertCell(2).innerHTML   = `<button onclick="this.closest('tr').remove()">Xóa</button>`;
+tbody.insertAdjacentHTML("beforeend", `
+  <tr>
+    <td>Áo thun</td>
+    <td class="text-right">120.000 đ</td>
+    <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
+  </tr>
+`);
 ```
 
-### 3.6. Event Bubbling & Event Loop (Bất đồng bộ)
+**Cách 2: Dùng API bảng `insertRow()` và `insertCell()`**
+```javascript
+const tbody = document.querySelector("#myTable tbody");
+const row = tbody.insertRow(); // Tạo <tr> ở cuối tbody
+row.insertCell(0).textContent = "Áo thun";
+row.insertCell(1).textContent = "120.000 đ";
+row.insertCell(2).innerHTML = `<button type="button" class="btn-del">Xóa</button>`;
+```
+
+### 4.3. Ủy quyền sự kiện (Event Delegation) trong JS thuần & Event Loop
+- **Ủy quyền sự kiện cho các nút "Xóa" hoặc ô số lượng mới sinh ra:**
+```javascript
+document.getElementById("myTable").addEventListener("click", function(e) {
+  if (e.target.classList.contains("btn-del")) {
+    e.target.closest("tr").remove(); // Xóa dòng chứa nút vừa bấm
+    capNhatTongTien();
+  }
+});
+```
 - **Event Bubbling (Nổi bọt - Mặc định):** Click vào thẻ con $\rightarrow$ chạy sự kiện thẻ con trước $\rightarrow$ nổi bọt lên thẻ cha $\rightarrow$ `body` $\rightarrow$ `html` $\rightarrow$ `document` $\rightarrow$ `window`.
   - Chặn nổi bọt lên thẻ cha: `e.stopPropagation()`.
-  - Chặn hành vi mặc định của trình duyệt (chặn reload khi submit form, chặn chuyển trang thẻ `<a>`): `e.preventDefault()`.
+  - Chặn hành vi mặc định của trình duyệt (chặn reload khi submit form): `e.preventDefault()`.
 - **Thứ tự ưu tiên Event Loop:**
   1. **Synchronous (Đồng bộ)** trong Call Stack chạy trước tiên.
   2. **Microtasks** (`Promise.then`, `catch`, `finally`, `async/await`) chạy ngay sau khi Call Stack rỗng.
@@ -279,40 +309,7 @@ row.insertCell(2).innerHTML   = `<button onclick="this.closest('tr').remove()">X
 
 ---
 
-## 💎 4. JQUERY THỰC CHIẾN TỐC KÝ
-
-> **So sánh `$(document).ready()` vs `window.onload`:**
-> - `$(document).ready(function(){ ... })` (viết tắt: `$(function(){ ... })`): Chạy ngay khi **cây DOM vừa dựng xong** (không cần đợi ảnh/video tải xong) $\rightarrow$ Nhanh hơn.
-> - `window.onload`: Phải đợi **toàn bộ tài nguyên (ảnh, CSS, iframe)** tải xong 100%.
-
-### 4.1. Bảng đối chiếu Selector & Phương thức jQuery hay dùng nhất
-| Thao tác | Cú pháp jQuery | Lưu ý thực chiến |
-| :--- | :--- | :--- |
-| **Chọn theo ID / Class** | `$("#id")` / `$(".class")` | Trả về đối tượng jQuery |
-| **Chọn các ô đã tích** | `$("input[name='food']:checked")` | Duyệt qua bằng `.each(function() { ... })` |
-| **Chọn dòng chẵn / lẻ** | `$("tr:even")` / `$("tr:odd")` | **Chỉ số tính từ 0** (`:even` là 0, 2, 4...) |
-| **Đọc / Gán giá trị input** | `$("#txt").val()` / `$("#txt").val("Mới")` | Nhớ `.trim()` khi kiểm tra chuỗi |
-| **Đọc / Gán text hoặc HTML** | `$("#kq").text("...")` / `$("#kq").html("<b>...</b>")` | Gọi không tham số là Đọc, có tham số là Ghi |
-| **Đọc thuộc tính `data-*`** | `$(this).data("price")` hoặc `$(this).attr("data-price")` | Đọc từ `data-price="150000"` |
-| **Thêm vào cuối / đầu** | `tbody.append("<tr>...</tr>")` / `tbody.prepend(...)` | Dùng Template Literal `` `<tr>...</tr>` `` rất nhanh |
-| **Xóa phần tử vs Làm rỗng** | `$(this).closest("tr").remove()` vs `tbody.empty()` | `.remove()` xóa cả thẻ đó; `.empty()` chỉ xóa ruột |
-| **Ẩn / Hiện / Hiệu ứng** | `.hide()`, `.show()`, `.toggle()`, `.fadeIn(300)`, `.slideToggle()` | Chuỗi hóa (Chaining): `$("#box").hide().fadeIn(400);` |
-| **Đổi CSS** | `$("#err").css("color", "red")` | Nhiều thuộc tính: `.css({ color: "red", fontWeight: "bold" })` |
-
-### 4.2. Ủy quyền sự kiện (Event Delegation) - BẮT BUỘC NHỚ!
-Khi thêm một dòng `<tr>` có nút `<button class="btn-del">Xóa</button>` bằng `.append()` sau khi trang đã tải xong, viết `$(".btn-del").click(...)` sẽ **KHÔNG CHẠY**. Phải gắn sự kiện thông qua thẻ cha cố định (`table` hoặc `tbody` hoặc `document`):
-
-```javascript
-// Chuẩn 100% cho mọi phần tử sinh động (Dynamic Elements):
-$("#myTable").on("click", ".btn-del", function() {
-  $(this).closest("tr").remove(); // Tìm lên thẻ <tr> gần nhất chứa nút này và xóa nó
-  capNhatTongTien();              // Gọi lại hàm tính tổng
-});
-```
-
----
-
-## 🏆 5. 4 MẪU CODE "CHÉP NHANH" CHO 4 DẠNG ĐỀ THI GIỮA KỲ UIT
+## 🏆 5. 4 MẪU CODE "CHÉP NHANH" BẰNG JS THUẦN CHO 4 DẠNG ĐỀ THI UIT
 
 ### 📌 DẠNG 1: FORM VALIDATION VỚI REGEX + THÊM VÀO BẢNG
 ```html
@@ -344,39 +341,44 @@ $("#myTable").on("click", ".btn-del", function() {
   <thead>
     <tr><th>MSSV</th><th>Họ tên</th><th>SĐT</th><th>Email</th><th>Xóa</th></tr>
   </thead>
-  <tbody></tbody>
+  <tbody id="tbodyDanhSach"></tbody>
 </table>
 
 <script>
-  $("#frmDangKy").on("submit", function(e) {
+  const frm = document.getElementById("frmDangKy");
+  const tbody = document.getElementById("tbodyDanhSach");
+
+  frm.addEventListener("submit", function(e) {
     e.preventDefault(); // 1. Chặn reload trang
-    $(".error").text(""); // 2. Xóa thông báo lỗi cũ
+
+    // 2. Xóa toàn bộ thông báo lỗi cũ
+    document.querySelectorAll(".error").forEach(el => el.textContent = "");
     let valid = true;
 
-    let mssv  = $("#mssv").val().trim();
-    let hoten = $("#hoten").val().trim();
-    let sdt   = $("#sdt").val().trim();
-    let email = $("#email").val().trim();
+    const mssv  = document.getElementById("mssv").value.trim();
+    const hoten = document.getElementById("hoten").value.trim();
+    const sdt   = document.getElementById("sdt").value.trim();
+    const email = document.getElementById("email").value.trim();
 
     if (!/^2\d{7}$/.test(mssv)) {
-      $("#errMssv").text("MSSV phải gồm 8 chữ số và bắt đầu bằng số 2!");
+      document.getElementById("errMssv").textContent = "MSSV phải gồm 8 chữ số và bắt đầu bằng số 2!";
       valid = false;
     }
     if (hoten === "") {
-      $("#errHoten").text("Họ tên không được để trống!");
+      document.getElementById("errHoten").textContent = "Họ tên không được để trống!";
       valid = false;
     }
     if (!/^0[35789]\d{8}$/.test(sdt)) {
-      $("#errSdt").text("SĐT không hợp lệ (10 số, đầu 03/05/07/08/09)!");
+      document.getElementById("errSdt").textContent = "SĐT không hợp lệ (10 số, đầu 03/05/07/08/09)!";
       valid = false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      $("#errEmail").text("Email không đúng định dạng!");
+      document.getElementById("errEmail").textContent = "Email không đúng định dạng!";
       valid = false;
     }
 
     if (valid) {
-      $("#tblDanhSach tbody").append(`
+      tbody.insertAdjacentHTML("beforeend", `
         <tr>
           <td>${mssv}</td>
           <td>${hoten}</td>
@@ -385,13 +387,15 @@ $("#myTable").on("click", ".btn-del", function() {
           <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
         </tr>
       `);
-      this.reset(); // Xóa trắng form sau khi thêm
+      frm.reset(); // Xóa trắng form sau khi thêm
     }
   });
 
-  // Xóa dòng động
-  $("#tblDanhSach").on("click", ".btn-del", function() {
-    $(this).closest("tr").remove();
+  // Ủy quyền sự kiện xóa dòng
+  tbody.addEventListener("click", function(e) {
+    if (e.target.classList.contains("btn-del")) {
+      e.target.closest("tr").remove();
+    }
   });
 </script>
 ```
@@ -419,7 +423,7 @@ $("#myTable").on("click", ".btn-del", function() {
   <thead>
     <tr><th>Món đã chọn</th><th class="text-right">Thành tiền</th></tr>
   </thead>
-  <tbody></tbody>
+  <tbody id="tbodyHoaDon"></tbody>
   <tfoot>
     <tr>
       <th>Tổng thanh toán:</th>
@@ -429,34 +433,47 @@ $("#myTable").on("click", ".btn-del", function() {
 </table>
 
 <script>
-  $("#btnTinhTien").click(function() {
-    let dsChon = $("input[name='mon']:checked");
+  document.getElementById("btnTinhTien").addEventListener("click", function() {
+    const dsChon = document.querySelectorAll("input[name='mon']:checked");
+    const tblHoaDon = document.getElementById("tblHoaDon");
+    const tbody = document.getElementById("tbodyHoaDon");
+
     if (dsChon.length === 0) {
       alert("Vui lòng chọn ít nhất 1 món!");
-      $("#tblHoaDon").hide();
+      tblHoaDon.style.display = "none";
       return;
     }
 
-    let tbody = $("#tblHoaDon tbody");
-    tbody.empty();
+    tbody.innerHTML = ""; // Xóa dữ liệu hóa đơn cũ
     let tong = 0;
 
-    dsChon.each(function() {
-      let ten = $(this).data("ten");
-      let gia = parseFloat($(this).val());
+    dsChon.forEach(function(item) {
+      const ten = item.dataset.ten;
+      const gia = parseFloat(item.value);
       tong += gia;
-      tbody.append(`<tr><td>${ten}</td><td class="text-right">${gia.toLocaleString('vi-VN')} đ</td></tr>`);
+      tbody.insertAdjacentHTML("beforeend", `
+        <tr>
+          <td>${ten}</td>
+          <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
+        </tr>
+      `);
     });
 
     // Kiểm tra phụ thu ban đêm 10%
-    if ($("input[name='buoi']:checked").val() === "dem") {
-      let phuThu = tong * 0.1;
+    const buoi = document.querySelector("input[name='buoi']:checked").value;
+    if (buoi === "dem") {
+      const phuThu = tong * 0.1;
       tong += phuThu;
-      tbody.append(`<tr><td><i>Phụ thu ban đêm (10%)</i></td><td class="text-right">${phuThu.toLocaleString('vi-VN')} đ</td></tr>`);
+      tbody.insertAdjacentHTML("beforeend", `
+        <tr>
+          <td><i>Phụ thu ban đêm (10%)</i></td>
+          <td class="text-right">${phuThu.toLocaleString("vi-VN")} đ</td>
+        </tr>
+      `);
     }
 
-    $("#lblTongTien").text(tong.toLocaleString('vi-VN') + " đ");
-    $("#tblHoaDon").fadeIn(300);
+    document.getElementById("lblTongTien").textContent = tong.toLocaleString("vi-VN") + " đ";
+    tblHoaDon.style.display = "table";
   });
 </script>
 ```
@@ -475,7 +492,7 @@ $("#myTable").on("click", ".btn-del", function() {
       <th>Xóa</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tbodyGioHang">
     <tr>
       <td>Áo thun UIT</td>
       <td><input type="number" class="qty" value="2" min="1"></td>
@@ -501,29 +518,40 @@ $("#myTable").on("click", ".btn-del", function() {
 </table>
 
 <script>
+  const tbodyGioHang = document.getElementById("tbodyGioHang");
+
   function tinhLaiGioHang() {
     let tongCong = 0;
-    $("#tblGioHang tbody tr").each(function() {
-      let sl  = parseInt($(this).find(".qty").val()) || 0;
-      let gia = parseFloat($(this).find(".price").data("price")) || 0;
-      let thanhTien = sl * gia;
+    const rows = tbodyGioHang.querySelectorAll("tr");
 
-      $(this).find(".subtotal").text(thanhTien.toLocaleString('vi-VN') + " đ");
+    rows.forEach(function(row) {
+      const qtyInput = row.querySelector(".qty");
+      let sl = parseInt(qtyInput.value) || 0;
+      if (sl < 1) { sl = 1; qtyInput.value = 1; }
+
+      const gia = parseFloat(row.querySelector(".price").dataset.price) || 0;
+      const thanhTien = sl * gia;
+
+      row.querySelector(".subtotal").textContent = thanhTien.toLocaleString("vi-VN") + " đ";
       tongCong += thanhTien;
     });
-    $("#grandTotal").text(tongCong.toLocaleString('vi-VN') + " đ");
+
+    document.getElementById("grandTotal").textContent = tongCong.toLocaleString("vi-VN") + " đ";
   }
 
-  // Khi gõ hoặc bấm mũi tên tăng/giảm số lượng
-  $("#tblGioHang").on("input change", ".qty", function() {
-    if ($(this).val() < 1) $(this).val(1);
-    tinhLaiGioHang();
+  // Lắng nghe khi gõ hoặc đổi số lượng
+  tbodyGioHang.addEventListener("input", function(e) {
+    if (e.target.classList.contains("qty")) {
+      tinhLaiGioHang();
+    }
   });
 
-  // Khi bấm nút Xóa dòng
-  $("#tblGioHang").on("click", ".btn-del", function() {
-    $(this).closest("tr").remove();
-    tinhLaiGioHang();
+  // Lắng nghe khi bấm nút Xóa dòng
+  tbodyGioHang.addEventListener("click", function(e) {
+    if (e.target.classList.contains("btn-del")) {
+      e.target.closest("tr").remove();
+      tinhLaiGioHang();
+    }
   });
 </script>
 ```
@@ -548,7 +576,7 @@ $("#myTable").on("click", ".btn-del", function() {
   <thead>
     <tr><th>Tên món</th><th>Số lượng</th><th class="text-right">Đơn giá</th><th class="text-right">Thành tiền</th><th>Xóa</th></tr>
   </thead>
-  <tbody></tbody>
+  <tbody id="tbodyBanAn"></tbody>
   <tfoot>
     <tr>
       <th colspan="3" class="text-right">Tổng tiền bàn:</th>
@@ -563,43 +591,46 @@ $("#myTable").on("click", ".btn-del", function() {
   function capNhatDongHo() {
     const thuArr = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
     const d = new Date();
-    const str = `${thuArr[d.getDay()]}, ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-    $("#dongHo").text(str);
+    const str = `${thuArr[d.getDay()]}, ${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    document.getElementById("dongHo").textContent = str;
   }
   capNhatDongHo();
+
+  const tbodyBanAn = document.getElementById("tbodyBanAn");
 
   // 2. Hàm cập nhật tổng tiền bàn
   function tinhTongBan() {
     let tong = 0;
-    $("#tblBanAn tbody tr").each(function() {
-      let sl  = parseInt($(this).find(".sl").text()) || 0;
-      let gia = parseFloat($(this).data("gia")) || 0;
-      let tt  = sl * gia;
-      $(this).find(".tt").text(tt.toLocaleString('vi-VN') + " đ");
+    tbodyBanAn.querySelectorAll("tr").forEach(function(row) {
+      const sl  = parseInt(row.querySelector(".sl").textContent) || 0;
+      const gia = parseFloat(row.dataset.gia) || 0;
+      const tt  = sl * gia;
+      row.querySelector(".tt").textContent = tt.toLocaleString("vi-VN") + " đ";
       tong += tt;
     });
-    $("#tongBan").text(tong.toLocaleString('vi-VN') + " đ");
+    document.getElementById("tongBan").textContent = tong.toLocaleString("vi-VN") + " đ";
   }
 
   // 3. Thêm món (Nếu món đã có trong bảng thì cộng dồn số lượng +1)
-  $("#btnThemMon").click(function() {
-    let opt   = $("#cboMon option:selected");
-    let idMon = opt.data("id");
-    let ten   = opt.text().split("(")[0].trim();
-    let gia   = parseFloat(opt.val());
+  document.getElementById("btnThemMon").addEventListener("click", function() {
+    const cbo   = document.getElementById("cboMon");
+    const opt   = cbo.options[cbo.selectedIndex];
+    const idMon = opt.dataset.id;
+    const ten   = opt.text.split("(")[0].trim();
+    const gia   = parseFloat(opt.value);
 
-    // Tìm xem dòng có data-id này đã tồn tại trong bảng chưa
-    let dongCu = $(`#tblBanAn tbody tr[data-id='${idMon}']`);
-    if (dongCu.length > 0) {
-      let slHienTai = parseInt(dongCu.find(".sl").text());
-      dongCu.find(".sl").text(slHienTai + 1);
+    // Kiểm tra xem dòng có data-id này đã tồn tại trong bảng chưa
+    const dongCu = tbodyBanAn.querySelector(`tr[data-id='${idMon}']`);
+    if (dongCu) {
+      const cellSl = dongCu.querySelector(".sl");
+      cellSl.textContent = parseInt(cellSl.textContent) + 1;
     } else {
-      $("#tblBanAn tbody").append(`
+      tbodyBanAn.insertAdjacentHTML("beforeend", `
         <tr data-id="${idMon}" data-gia="${gia}">
           <td>${ten}</td>
           <td class="text-center sl">1</td>
-          <td class="text-right">${gia.toLocaleString('vi-VN')} đ</td>
-          <td class="text-right tt">${gia.toLocaleString('vi-VN')} đ</td>
+          <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
+          <td class="text-right tt">${gia.toLocaleString("vi-VN")} đ</td>
           <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
         </tr>
       `);
@@ -607,21 +638,23 @@ $("#myTable").on("click", ".btn-del", function() {
     tinhTongBan();
   });
 
-  $("#tblBanAn").on("click", ".btn-del", function() {
-    $(this).closest("tr").remove();
-    tinhTongBan();
+  // 4. Xóa món khỏi bàn
+  tbodyBanAn.addEventListener("click", function(e) {
+    if (e.target.classList.contains("btn-del")) {
+      e.target.closest("tr").remove();
+      tinhTongBan();
+    }
   });
 </script>
 ```
 
 ---
 
-## 🚨 6. CHECKLIST 7 ĐIỂM KIỂM TRA TRƯỚC KHI NỘP BÀI
+## 🚨 6. CHECKLIST 6 ĐIỂM KIỂM TRA TRƯỚC KHI NỘP BÀI
 
-1. **Đã có `e.preventDefault()` trong sự kiện `submit` chưa?** (hoặc đổi nút bấm sang `type="button"` để trang không bị reload mất kết quả).
-2. **Đã bọc `parseInt()` / `parseFloat()` khi lấy `.val()` để tính toán chưa?** (Tránh lỗi `"10000" + "20000" = "1000020000"`).
+1. **Đã có `e.preventDefault()` trong sự kiện `submit` chưa?** (Hoặc đổi nút bấm sang `type="button"` để trang không bị reload mất kết quả).
+2. **Đã bọc `parseInt()` / `parseFloat()` khi lấy `.value` để tính toán chưa?** (Tránh lỗi `"10000" + "20000" = "1000020000"`).
 3. **Tháng trong `new Date().getMonth()` đã cộng thêm `1` chưa?**
-4. **Sự kiện click nút Xóa dòng mới thêm đã dùng `$("#table").on("click", ".btn-del", ...)` chưa?**
+4. **Sự kiện click nút Xóa dòng mới thêm đã dùng Event Delegation (`tbody.addEventListener("click", ...)`) và `e.target.closest("tr").remove()` chưa?**
 5. **Các nút `radio` cùng nhóm đã có chung thuộc tính `name="..."` chưa?**
 6. **Bảng gộp ô `colspan` / `rowspan` đã xóa bớt các thẻ `<td>` bị chiếm chỗ chưa?**
-7. **Đã nhúng `<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>` trước khi dùng `$()` chưa?**
