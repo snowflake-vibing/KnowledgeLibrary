@@ -1,14 +1,35 @@
 # 🎙️ RULE FOR SCRIPT (QUY ƯỚC SOẠN KỊCH BẢN THU ÂM ONE-TAKE CHUẨN THỰC CHIẾN)
 
 > **Mục tiêu cốt lõi**: Bộ quy ước chuẩn hóa cho việc biên soạn kịch bản video YouTube IELTS chuyên sâu.  
-> **Nguyên tắc bất biến**: Lời dẫn và giảng giải 100% bằng **Tiếng Việt văn nói bình dân, gần gũi**, không dùng từ sượng/đao to búa lớn, **KHÔNG ĐỌC CẢ CÂU TIẾNG ANH VÍ DỤ (chỉ đọc từ/cụm ngắn, câu dài nói "như trên slide")**, bẻ nhỏ thành các **vạch nhịp thở `//`** (4-7 từ) để chống hụt hơi, và đồng bộ 100% với hiệu ứng animation trên Slide.
+> **TRIẾT LÝ NỀN TẢNG (CORE PHILOSOPHY)**:  
+> - **Mục tiêu học cho bản thân là số 1 (Self-Mastery Band 8.0 - 8.5+), chia sẻ cho viewer là số 2**. Quá trình làm content là kỹ thuật học sâu Feynman của tác giả.  
+> - **Slide phải mang hàm lượng học thuật chuyên sâu (Deep Academic Rigor)**, còn **Script phải nói trong thời gian ngắn nhất (Ultra-Concise Delivery)**: Không cần nói chi tiết dài dòng những gì slide đã có sẵn, chỉ "điểm nhãn" 1–2 câu cô đọng, sắc bén, trúng tim đen của vấn đề nhưng vẫn trọn vẹn ý đắt giá!  
+> - Lời dẫn 100% bằng **Tiếng Việt văn nói bình dân, gần gũi**, **KHÔNG ĐỌC CẢ CÂU TIẾNG ANH VÍ DỤ**, bẻ nhỏ thành các **vạch nhịp thở `//`** (4-7 từ) chống hụt hơi.
 
 ---
 
-## 🗣️ 1. QUY TẮC NGÔN NGỮ & XỬ LÝ TIẾNG ANH - TIẾNG VIỆT
+## ⚡ 1. NGUYÊN TẮC NÓI TRONG THỜI GIAN NGẮN NHẤT (ULTRA-CONCISE / HIGH SIGNAL-TO-NOISE)
+
+> [!IMPORTANT]
+> **Quy tắc vàng của Voiceover**: "Slide chuyên sâu chi tiết – Lời thoại siêu ngắn, siêu đắt ý".  
+> Không bao giờ giải thích lại những gì mắt người xem đã tự đọc được trên slide!
+
+- **Thời lượng mục tiêu**: Chỉ từ **10 đến 25 giây / slide** (trung bình 15 giây).
+- **Không nói chi tiết, chỉ nói "Ý đắt giá nhất" (Key Takeaway)**:
+  - Slide đã có sẵn: Tiêu đề, câu ví dụ tiếng Anh học thuật C1-C2, dòng dịch nghĩa tiếng Việt in nghiêng, và công thức ngữ pháp.
+  - Người nói **TUYỆT ĐỐI KHÔNG** đọc lại slide hay giảng giải lòng vòng như một bài giảng trên lớp học truyền thống.
+  - Người nói chỉ cần làm 3 việc trong 1–2 câu ngắn:
+    1. **Chỉ ra bản chất tư duy** (*"Ở dạng này mấu chốt là..."*).
+    2. **Điều hướng mắt người xem** (*"Như trên slide các bạn thấy nè..."*).
+    3. **Cảnh báo lỗi sai chí mạng** (*"Đừng bao giờ để lẫn lộn chỗ này nha!"*).
+- **Ngắn gọn – Gãy gọn – Sắc bén**: Cắt bỏ 100% các từ râu ria, không giải thích dài dòng. Mỗi câu nói ra phải có trọng lượng cao, giàu năng lượng.
+
+---
+
+## 🗣️ 2. QUY TẮC NGÔN NGỮ & XỬ LÝ TIẾNG ANH - TIẾNG VIỆT
 
 ### A. Ngôn ngữ văn nói bình dân, thân thiện (Conversational YouTube Tone)
-- Toàn bộ kịch bản phải được viết như **hai người bạn đang ngồi trò chuyện, trao đổi kinh nghiệm thi**:
+- Toàn bộ kịch bản phải được viết như **hai người bạn đang ngồi trò chuyện, chia sẻ kinh nghiệm thi**:
   - Dùng đại từ thân thiện: *"mình – các bạn"*.
   - Dùng các từ đệm tự nhiên: *"nè", "nha", "nhé", "đúng không nào", "nhớ kỹ chỗ này nha", "mẹo cực hay ở đây là..."*.
 - 🚫 **NGHIÊM CẤM TỪ HÀN LÂM, SƯỢNG MIỆNG (LITERARY/ACADEMIC CLICHÉS)**:
@@ -20,7 +41,7 @@
 
 ### B. QUY TẮC BẮT BUỘC: KHÔNG ĐỌC NGUYÊN CÂU TIẾNG ANH VÍ DỤ
 - **Với từ vựng hoặc cụm collocation ngắn (1 – 3 từ)**:
-  - ✅ **Vẫn đọc tiếng Anh chuẩn xác**: *was constructed*, *were demolished*, *adjacent to*, *in the north*...
+  - ✅ **Vẫn đọc tiếng Anh chuẩn xác**: *is excavated*, *was constructed*, *adjacent to*, *in the north*...
 - **Với các CÂU VÍ DỤ TIẾNG ANH DÀI (10 – 15 từ)**:
   - 🚫 **TUYỆT ĐỐI KHÔNG ĐỌC CẢ CÂU TIẾNG ANH BẰNG LỜI NÓI**.
   - ✅ **Chỉ dùng câu điều hướng tự nhiên**:  
@@ -28,14 +49,13 @@
     - *"Các bạn nhìn vào câu mẫu trên màn hình nha..."*  
     - *"Câu này áp dụng y như trên slide..."*  
     - *"Như 2 câu ví dụ trên màn hình..."*
-- **Lý do sư phạm & kỹ thuật thu âm cốt lõi**:
-  1. **Slide đã hiển thị song ngữ đầy đủ**: Người xem nhìn mắt vào màn hình là tự động đọc được cả câu tiếng Anh in đậm lẫn tiếng Việt in nghiêng bên dưới.
-  2. **Giải phóng hoàn toàn hơi thở**: Việc đọc một câu tiếng Anh học thuật 15 từ đòi hỏi tập trung phát âm/trọng âm rất căng thẳng, khiến người nói vô thức nín thở và hụt hơi nghiêm trọng.
-  3. **Tăng tốc độ bài giảng**: Giữ nhịp video luôn nhanh, gãy gọn, tập trung vào tư duy làm bài thay vì "đọc diễn cảm hộ khán giả".
+- **Lý do cốt lõi**:
+  1. **Tối ưu tốc độ nói & hơi thở**: Giúp bài giảng lướt đi dứt khoát, không bị khựng lại hay nín thở khi đọc câu dài.
+  2. **Tránh trùng lặp thị giác**: Mắt người xem đã đọc chữ trên slide, tai chỉ cần nghe phân tích insight.
 
 ---
 
-## 🫁 2. VẠCH NHỊP THỞ `//` CHỐNG HỤT HƠI (SENSE UNITS 4 – 7 TỪ)
+## 🫁 3. VẠCH NHỊP THỞ `//` CHỐNG HỤT HƠI (SENSE UNITS 4 – 7 TỪ)
 
 > [!IMPORTANT]
 > **Quy tắc vàng chống hụt hơi**: Không bao giờ viết một câu dài quá 10 – 12 từ mà không có điểm ngắt hơi.
@@ -47,17 +67,17 @@
 
 ---
 
-## ⚡ 3. QUY TẮC MỞ ĐẦU 10 GIÂY (ZERO-FLUFF HOOK)
+## ⚡ 4. QUY TẮC MỞ ĐẦU 10 GIÂY (ZERO-FLUFF HOOK)
 
 - 🚫 **Nghiêm cấm tuyệt đối**:
   - Không chào hỏi lê thê (*"Chào mừng các bạn đã quay trở lại với kênh YouTube của mình..."*).
   - Không liệt kê danh mục mục lục dài dòng gây ngạt thở.
 - ✅ **Bắt buộc đi thẳng vào vấn đề trong 5 – 10 giây đầu**:
-  - *"Chào các bạn! // Trong video hôm nay, // mình sẽ cùng các bạn xử lý gọn gàng dạng bài Map và Floor Plan trong Task 1. //..."*
+  - *"Chào các bạn! // Trong video hôm nay, // mình sẽ cùng các bạn xử lý gọn gàng dạng bài... //..."*
 
 ---
 
-## 🎬 4. HỆ THỐNG KÝ HIỆU ĐỒNG BỘ SLIDE & ANIMATION
+## 🎬 5. HỆ THỐNG KÝ HIỆU ĐỒNG BỘ SLIDE & ANIMATION
 
 Mọi file script bắt buộc sử dụng hệ thống thẻ chuẩn xác sau:
 
@@ -70,7 +90,7 @@ Mọi file script bắt buộc sử dụng hệ thống thẻ chuẩn xác sau:
 
 ---
 
-## 💡 5. NGUYÊN TẮC THU ÂM ONE-TAKE (ONE-TAKE RECORDING MINDSET)
+## 💡 6. NGUYÊN TẮC THU ÂM ONE-TAKE (ONE-TAKE RECORDING MINDSET)
 
 - **Mẹo chống vấp**: Nếu trong lúc đọc bạn phát âm sai hoặc vấp một từ/cụm:
   - **TUYỆT ĐỐI KHÔNG BẤM DỪNG QUAY**.
@@ -79,7 +99,7 @@ Mọi file script bắt buộc sử dụng hệ thống thẻ chuẩn xác sau:
 
 ---
 
-## 🏗️ 6. CẤU TRÚC KỊCH BẢN 3 PHẦN ĐỒNG BỘ BỘ SLIDE
+## 🏗️ 7. CẤU TRÚC KỊCH BẢN 3 PHẦN ĐỒNG BỘ BỘ SLIDE
 
 Kịch bản voiceover One-take được phân chia thành 3 phần rõ ràng tương ứng với cấu trúc 3 phần của bộ Slide:
 
@@ -88,18 +108,18 @@ Kịch bản voiceover One-take được phân chia thành 3 phần rõ ràng t�
 ```
 
 ### 1. Phần 1: Hook & Giới thiệu bài học (Ứng với Slide 01 - Thumbnail/Title)
-- **Thời lượng**: 15 – 25 giây.
+- **Thời lượng**: 10 – 15 giây.
 - **Nội dung**: Bắt đầu ngay với câu Hook trực diện ngắn gọn, chia nhịp thở rõ ràng.
 
 ### 2. Phần 2: Thân bài Giảng giải Thực chiến (Ứng với Slides 02 đến N-1)
-- **Thời lượng**: 25 – 40 giây / slide.
+- **Thời lượng**: **10 – 25 giây / slide** (nói ngắn gọn, đắt ý, không giải thích chi tiết).
 - **Nội dung**: 
-  - Toàn bộ phân tích, hướng dẫn tư duy diễn đạt bằng Tiếng Việt đàm thoại bình dân.
+  - Đưa ra bản chất tư duy ngôn ngữ bằng Tiếng Việt đàm thoại bình dân.
   - Từ vựng ngắn đọc tiếng Anh; câu ví dụ dài nói "như trên slide nè".
   - Đánh dấu đầy đủ `[Bấm chuyển Slide X]` và `[Click: Hiện khối Y]`.
 
 ### 3. Phần 3: Kêu gọi hành động & Chào kết thúc (Ứng với Slide N - Outro CTA)
-- **Thời lượng**: 20 – 30 giây.
+- **Thời lượng**: 15 – 20 giây.
 - **Nội dung**:
   - `[Click: Like & Share]`: Bấm Thích & Chia sẻ.
   - `[Click: Subscribe]`: Đăng ký kênh & Bật chuông.
@@ -109,6 +129,7 @@ Kịch bản voiceover One-take được phân chia thành 3 phần rõ ràng t�
 
 ## 📋 CHECKLIST KIỂM DUYỆT SCRIPT TRƯỚC KHI BÀN GIAO:
 
+- [ ] Lời thoại có nói trong thời gian ngắn nhất (10-25s/slide), không giải thích chi tiết dài dòng mà chỉ chốt ý đắt giá không?
 - [ ] Lời thoại có dùng văn phong bình dân, gần gũi (mình - các bạn, nè, nha) không?
 - [ ] Đã loại bỏ 100% các từ sượng/đao to búa lớn ("bất di bất dịch", "khóa cố định"...) chưa?
 - [ ] Các câu ví dụ tiếng Anh dài có được thay bằng câu điều hướng "như trên slide nè" không?

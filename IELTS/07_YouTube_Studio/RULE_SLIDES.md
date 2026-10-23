@@ -1,7 +1,27 @@
 # 🎨 RULE FOR SLIDES (QUY ƯỚC THIẾT KẾ SLIDE MINIMAL SONG NGỮ CHUẨN THỰC CHIẾN)
 
 > **Mục tiêu cốt lõi**: Bộ quy ước thiết kế Slide tối giản (Minimalist), tinh tế, chuẩn xác về mặt thị giác cho video giáo dục IELTS chất lượng cao.  
-> **Nguyên tắc bất biến**: Trình bày song ngữ (English chính + Vietnamese phụ chú in nghiêng nhạt màu), cỡ chữ vừa phải dễ chịu, không dùng card đóng khung, 100% trắng sáng, thanh quote dọc ôm trọn nội dung, tuyệt đối không tràn viền và tích hợp sẵn animation xuất hiện theo nhịp kịch bản.
+> **TRIẾT LÝ NỀN TẢNG (CORE PHILOSOPHY)**:  
+> - **Mục tiêu học cho bản thân là số 1 (Self-Mastery Band 8.0 - 8.5+), chia sẻ cho viewer là số 2**.  
+> - Mọi nội dung trên Slide **bắt buộc phải qua nghiên cứu học thuật chuyên sâu (Deep Academic Research)**, bám sát Cambridge Official và IELTS Scoring Criteria. Slide phải có hàm lượng chuyên môn cao, cấu trúc ngữ pháp C1-C2, collocations chuẩn xác, phục vụ ôn tập lâu dài.  
+> - **Nguyên tắc bất biến**: Trình bày song ngữ (English chính + Vietnamese phụ chú in nghiêng nhạt màu), cỡ chữ vừa phải dễ chịu, không dùng card đóng khung, 100% trắng sáng, thanh quote dọc ôm trọn nội dung, tuyệt đối không tràn viền và tích hợp sẵn animation xuất hiện theo nhịp kịch bản.
+
+---
+
+## 📚 0. NGUYÊN TẮC NGHIÊN CỨU HỌC THUẬT CHUYÊN SÂU (DEEP ACADEMIC RESEARCH)
+
+> [!IMPORTANT]
+> **Không làm content bề nổi hay mẹo vặt nông cạn!** Mỗi khi chuẩn bị slide và nội dung cho bất kỳ chủ đề nào, AI bắt buộc phải thực hiện nghiên cứu học thuật chuyên sâu.
+
+1. **Nguồn tư liệu chuẩn hóa quốc tế**:
+   - 100% đề thi, hình vẽ, sơ đồ và biểu đồ phải trích xuất từ bộ **Cambridge IELTS Official** (Cam 5 đến Cam 19) hoặc các tài liệu chính thống của Cambridge Assessment English / British Council / IDP.
+   - Tham chiếu các chuyên gia học thuật hàng đầu: Pauline Cullen (*The Official Cambridge Guide to IELTS*, *Cambridge Grammar/Vocabulary for IELTS*), Simon Corcoran (Ex-IELTS Examiner).
+2. **Hàm lượng học thuật Band 8.0 – 8.5+ trên Slide**:
+   - **Lexical Resource (LR)**: Không dạy từ đơn lẻ; bắt buộc cung cấp **Collocation tự nhiên**, **Topic-specific technical vocabulary** (từ vựng chuyên ngành cơ học, nhiệt luyện, sinh học...) và **Nominalization** (danh từ hóa).
+   - **Grammatical Range & Accuracy (GRA)**: Cung cấp đầy đủ các cấu trúc câu nâng cao thực chiến: *Participle clauses (Mệnh đề phân từ rút gọn)*, *Spatial inversion (Đảo ngữ vị trí)*, *Purpose clauses (Mệnh đề chỉ mục đích)*, *Passive with modals*.
+   - **Tư duy giám khảo (Examiner's Mindset)**: Phân tích bản chất vì sao câu viết đạt Band 8.0 và chỉ ra các lỗi sai "tử huyệt" khiến thí sinh kẹt ở Band 6.0 – 6.5.
+3. **Giá trị lưu trữ lâu dài**:
+   - Slide là kho tri thức (Knowledge Base) cá nhân bền vững. Mọi câu ví dụ tiếng Anh và bản dịch tiếng Việt in nghiêng phải chỉn chu, gãy gọn, không có lỗi ngữ pháp để có thể tái sử dụng tra cứu ôn thi bất cứ lúc nào.
 
 ---
 

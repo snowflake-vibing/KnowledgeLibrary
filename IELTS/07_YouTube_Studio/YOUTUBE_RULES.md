@@ -5,9 +5,16 @@
 
 ---
 
+## 🧭 TRIẾT LÝ NỀN TẢNG: HỌC SÂU CHO MÌNH – CHIA SẺ CHO NGƯỜI
+- **Mục tiêu số 1 là Self-Mastery (Tự học sâu để đạt Band 8.0 - 8.5+)**: Quá trình làm video là áp dụng **Kỹ thuật học sâu Feynman**. Vì vậy, nội dung không bao giờ được hời hợt hay chỉ dừng lại ở mẹo vặt cơ bản.
+- **Nội dung & Slide = Học thuật chuyên sâu (Deep Academic Rigor)**: Tra cứu từ nguồn Cambridge chính thống, Band Descriptors thực tế, collocations C1-C2, ngữ pháp phức hợp, cấu trúc phân tích bản chất logic.
+- **Lời thoại Script = Siêu tinh gọn (Ultra-Concise Delivery 10–25s/slide)**: Không giảng giải lại những gì slide đã có sẵn, chỉ "điểm nhãn" những ý đắt giá nhất, nói ít nhưng trúng đích, nhịp nói dứt khoát, giàu năng lượng.
+
+---
+
 ## 🏛️ ĐIỀU 1: BỘ TÀI LIỆU ĐẦU RA BẮT BUỘC (MANDATORY DELIVERABLES)
 
-Mỗi khi người dùng yêu cầu soạn một video bài học mới (ví dụ: Task 1 Process, Task 2 Opinion, Reading T/F/NG...), AI **BẮT BUỘC** phải tạo trọn bộ tài nguyên:
+Mỗi khi người dùng yêu cầu soạn một video bài học mới (ví dụ: Task 1 Process, Task 2 Opinion, Reading T/F/NG...), AI **BẮT BUỘC** phải tạo trọn bộ tài nguyên đóng gói theo thư mục `video_[XX]`:
 
 ### 1. File 1: `[Số]_Slide_Content_Canva.md` (Dàn ý nội dung & bố cục)
 - **Chức năng**: Dùng để tham chiếu nội dung, copy-paste vào Canva hoặc kiểm tra logic bài giảng.
@@ -18,27 +25,27 @@ Mỗi khi người dùng yêu cầu soạn một video bài học mới (ví d�
 
 ### 2. File 2: `[Số]_Video_Script_Voiceover.md` (Kịch bản đọc thu âm One-Take)
 - **Chức năng**: Dùng để người dùng mở trên điện thoại/màn hình phụ vừa chiếu slide vừa đọc thu âm.
-- **Quy tắc nội dung**:
-  - Lời dẫn và phân tích viết bằng **văn nói Tiếng Việt tự nhiên**, đối thoại trực tiếp với người xem (*"Chào các bạn...", "Các bạn nhìn vào câu mẫu trên màn hình..."*).
-  - **QUY TẮC ĐỌC TIẾNG ANH KHÔNG DỊCH NGHĨA**: Khi đọc đến các câu ví dụ, từ vựng hoặc công thức Tiếng Anh trên slide, **chỉ đọc chuẩn Tiếng Anh và KHÔNG dịch lại sang Tiếng Việt** (vì slide đã có sẵn dòng dịch Tiếng Việt in nghiêng nhạt màu).
-  - Bắt buộc có đánh dấu thời điểm chuyển slide: `[Bấm chuyển Slide X]`.
-  - Bắt buộc có đánh dấu click chuột xuất hiện nội dung animation: `[Click: Hiện khối 1]`, `[Click: Hiện khối 2]`.
-  - Có đánh dấu nhịp thở lấy hơi: `[nghỉ 1s]`.
-  - **In đậm** các từ trọng tâm cần nhấn giọng để người đọc truyền cảm hứng tự nhiên.
+- **Quy tắc nội dung (Tuân thủ `RULE_SCRIPT.md`)**:
+  - **Siêu súc tích (10–25s/slide)**: Không giải thích chi tiết dài dòng, chỉ chốt ý đắt giá và bản chất tư duy.
+  - Lời dẫn và phân tích viết bằng **văn nói bình dân, thân thiện**, dùng đại từ *"mình – các bạn"*, thêm *"nè", "nha", "đúng không nào"*.
+  - **CẤM TỪ SƯỢNG/HÀN LÂM**: Tuyệt đối tránh *"nguyên tắc bất di bất dịch"*, *"khóa cố định"*, *"đặc trưng sống còn"*.
+  - **KHÔNG ĐỌC CẢ CÂU TIẾNG ANH DÀI**: Chỉ nói *"như trên slide các bạn thấy nè..."*, *"như 2 câu mẫu trên màn hình..."*.
+  - Có vạch ngắt nhịp thở `//` sau mỗi 4–7 từ để người nói lấy hơi vi mô bằng mũi, chống hụt hơi tuyệt đối.
+  - Bắt buộc có đánh dấu: `[Bấm chuyển Slide X]`, `[Click: Hiện khối 1]`, `[Click: Hiện khối 2]`.
 
 ### 3. File 3: `[Số]_Slides_[Chủ đề].pptx` (File PowerPoint trình chiếu chuẩn)
 - **Chức năng**: File slide sẵn sàng bấm F5 để quay video ngay lập tức.
-- **Quy tắc thiết kế**: Bắt buộc tuân thủ 100% [**`RULE_SLIDES.md`**](RULE_SLIDES.md):
+- **Quy tắc thiết kế (Tuân thủ `RULE_SLIDES.md`)**:
+  - Slide 01: Thiết kế đẹp làm Thumbnail (Badge Band 7.5+, Title, Subtitle, Ảnh đề thi viền nét; Animations = 0).
   - 100% nền trắng thuần `#FFFFFF`.
-  - Trình bày song ngữ: English chính đậm (`#0F172A`, 14.5-15pt) + Vietnamese phụ chú ngay bên dưới (*in nghiêng*, xám nhạt `#64748B`, 12pt).
+  - Trình bày song ngữ: English chính đậm (`#0F172A`, 14-15pt) + Vietnamese phụ chú ngay bên dưới (*in nghiêng*, xám nhạt `#64748B`, 11.5-12pt).
   - 1 Emoji trước mỗi Heading đề mục (24-26pt bold).
   - 1 Màu Accent duy nhất trên mỗi slide (Đỏ, Tím, Cam, Hồng) cho Heading & Thanh dọc Quote.
-  - Thanh dọc Quote (`4.0pt`) kéo dài trọn vẹn từ đầu tiêu đề đến hết dòng cuối cùng của cả phần Tiếng Anh và Tiếng Việt.
+  - Thanh dọc Quote (`4.0pt`) kéo dài trọn vẹn từ đầu tiêu đề đến hết dòng cuối cùng.
   - Line-spacing $1.25\text{x}$ với font Montserrat.
   - Hiệu ứng chuyển slide Fade (0.5s) và hiệu ứng từng khối Fade on-click đồng bộ với Script.
   - **Zero Overflow**: Tách slide khi nhiều ý, mọi phần tử cách mép đáy màn hình $> 50\text{pt}$.
-  - Hiệu ứng chuyển slide Fade (0.5s) và hiệu ứng từng khối Fade on-click đồng bộ với Script.
-  - **Zero Overflow**: Tách slide khi nhiều ý, mọi phần tử cách mép đáy màn hình $> 50\text{pt}$.
+  - Slide cuối cùng: Outro CTA (Like, Share, Subscribe, Free Resources).
 
 ---
 
