@@ -54,13 +54,24 @@
 </html>
 ```
 
+#### 📖 Bảng giải thích các thẻ và thuộc tính trong Template trên:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `<!DOCTYPE html>` | Khai báo chuẩn tài liệu là **HTML5** (nếu thiếu trình duyệt sẽ chạy ở chế độ cũ Quirks Mode và bị trừ `0.25đ`). |
+| `<html lang="vi">` | Thẻ gốc bao bọc toàn bộ trang web; `lang="vi"` báo ngôn ngữ trang là Tiếng Việt. |
+| `<meta charset="UTF-8">` | Khai báo bảng mã **Unicode (UTF-8)** giúp hiển thị tiếng Việt có dấu không bị lỗi font. |
+| `<meta name="viewport" content="width=device-width, initial-scale=1.0">` | Giúp giao diện hiển thị đúng tỷ lệ kích thước thật trên cả màn hình máy tính và điện thoại. |
+| `<title>...</title>` | Tiêu đề hiển thị trên **thanh Tab của trình duyệt** (cần ghi đúng từng chữ theo hình chụp đề bài). |
+| `* { box-sizing: border-box; }` | `*` là chọn mọi thẻ; `border-box` ép tổng chiều rộng thẻ luôn bằng đúng `width` đã khai báo (tự trừ `padding` và `border` vào trong, chống vỡ khung). |
+| `margin: 20px auto;` | Cách trên/dưới `20px`, trái/phải `auto` (tự động đẩy khối `.container` ra **chính giữa màn hình** theo chiều ngang). |
+| `border-collapse: collapse;` | Gộp 2 đường viền kép mặc định của bảng HTML thành **1 đường kẻ đơn** sắc nét. |
+| `DOMContentLoaded` | Sự kiện kích hoạt ngay khi trình duyệt vừa đọc và dựng xong cây HTML (đảm bảo gọi `getElementById` không bị `null`). |
+
 ---
 
 ## 🧱 1. HTML & HTML5 TỐC KÝ
 
 ### 1.1. Bảng biểu (`<table>`) & Gộp ô (`colspan`, `rowspan`)
-- `colspan="N"`: Gộp **N cột ngang** trên cùng 1 hàng (hàng đó sẽ giảm đi $N-1$ thẻ `<td>`).
-- `rowspan="M"`: Gộp **M hàng dọc** trên cùng 1 cột (các hàng bên dưới sẽ giảm đi 1 thẻ `<td>` ở vị trí cột đó).
 
 ```html
 <table border="1" cellspacing="0" cellpadding="8">
@@ -84,20 +95,58 @@
 </table>
 ```
 
-### 1.2. Form & Các thẻ nhập liệu (`<form>`)
-- Thuộc tính thẻ `<form>`:
-  - `action="url"`: Địa chỉ nhận dữ liệu.
-  - `method="GET"` (dữ liệu nối lên URL, giới hạn độ dài) hoặc `method="POST"` (dữ liệu ẩn trong body, bảo mật, gửi file lớn).
-  - `enctype="multipart/form-data"`: **Bắt buộc** khi form có `<input type="file">`.
+#### 📖 Bảng giải thích các thẻ và thuộc tính của `<table>`:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `border="1"` | Kẻ đường viền bao quanh bảng và các ô với độ dày `1px` (nếu viết bằng CSS thì dùng `border: 1px solid #333;`). |
+| `cellspacing="0"` | **Khoảng cách giữa các ô (Cell Spacing)**: Đặt bằng `0` để triệt tiêu khe hở giữa các ô cạnh nhau (tương đương `border-collapse: collapse` trong CSS). |
+| `cellpadding="8"` | **Khoảng đệm bên trong ô (Cell Padding)**: Tạo khoảng trống `8px` từ chữ bên trong ra tới 4 cạnh viền của ô để chữ không bị dính sát viền (tương đương `padding: 8px` trên thẻ `th, td`). |
+| `<thead>`, `<tbody>`, `<tfoot>` | Chia bảng thành 3 vùng ngữ nghĩa: **Phần đầu tiêu đề cột** (`thead`), **Phần thân chứa dữ liệu** (`tbody` - rất quan trọng để JS chèn/xóa dòng mà không xóa nhầm dòng tiêu đề), và **Phần chân tổng kết** (`tfoot`). |
+| `<tr>` (*Table Row*) | Định nghĩa **1 hàng ngang** trong bảng. |
+| `<th>` (*Table Header*) | Ô tiêu đề cột: chữ bên trong mặc định được **in đậm và căn giữa**. |
+| `<td>` (*Table Data*) | Ô dữ liệu thông thường: chữ bên trong mặc định **in thường và căn trái**. |
+| `colspan="2"` (*Column Span*) | **Gộp 2 cột liên tiếp theo chiều ngang** trên cùng 1 hàng (hàng đó sẽ giảm bớt $2 - 1 = 1$ thẻ `<th>`/`<td>`). |
+| `rowspan="2"` (*Row Span*) | **Gộp 2 hàng liên tiếp theo chiều dọc** trên cùng 1 cột (hàng ngay bên dưới sẽ bị chiếm chỗ nên phải **bỏ đi 1 thẻ `<th>`/`<td>`** ở cột đó). |
 
-| Loại Control | Cú pháp chuẩn | Cách đọc giá trị bằng JS thuần |
+---
+
+### 1.2. Các loại Form Control & Giải thích toàn bộ thuộc tính (`<form>`, `<input>`, `<select>`, `<textarea>`)
+
+#### A. Bảng giải thích các thuộc tính (Attributes) trong Form & Input
+| Thuộc tính (Attribute) | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `action="GroupInfo.php"` | Đường dẫn file phía Server sẽ nhận và xử lý dữ liệu khi bấm nút Submit form. |
+| `method="post"` / `"get"` | Phương thức gửi dữ liệu: **`GET`** nối dữ liệu lên thanh địa chỉ URL (`?name=A`); **`POST`** đóng gói dữ liệu ẩn trong thân bản tin HTTP (bảo mật hơn, gửi được dữ liệu lớn/file). |
+| `enctype="multipart/form-data"` | Thuộc tính đặt trong `<form>`, **bắt buộc phải có** khi trong form có ô chọn file `<input type="file">`. |
+| `id="txtName"` | Định danh duy nhất của thẻ trên trang, dùng để: **(1)** JS gọi `document.getElementById("txtName")`, và **(2)** liên kết với `<label for="txtName">`. |
+| `name="food"` | Tên biến gửi lên Server VÀ dùng để **gom nhóm các nút `radio` hoặc `checkbox`**. Các nút `radio` cùng 1 câu hỏi bắt buộc phải có **cùng `name`** thì mới chỉ chọn được 1! |
+| `for="txtName"` | Đặt trong thẻ `<label for="txtName">`. Khi người dùng bấm chuột vào chữ của Label, con trỏ sẽ tự động nhảy vào ô input có `id="txtName"` (trong barem chấm thi UIT chiếm `0.5đ`). |
+| `value="20000"` | Giá trị thực sự của ô nhập/lựa chọn (lấy ra bằng `.value` trong JS). |
+| `placeholder="Nhập họ tên..."` | Dòng chữ gợi ý mờ nằm bên trong ô input, tự biến mất khi người dùng bắt đầu gõ. |
+| `required` | Bắt buộc người dùng không được để trống ô này khi bấm nút Submit. |
+| `readonly` vs `disabled` | **`readonly`**: Chỉ xem, không sửa được nhưng **vẫn gửi dữ liệu đi** khi submit. **`disabled`**: Khóa xám hoàn toàn, không bấm được và **không gửi dữ liệu đi**. |
+| `checked` | Đặt mặc định tích chọn sẵn cho ô `radio` hoặc `checkbox` ngay khi mở trang. |
+| `selected` | Đặt mặc định chọn sẵn cho 1 dòng `<option>` bên trong thẻ `<select>`. |
+| `min="0" max="100" step="10"` | Giới hạn giá trị nhỏ nhất (`min`), lớn nhất (`max`) và bước nhảy mỗi lần tăng/giảm (`step`) cho `type="number"` hoặc thanh trượt `type="range"`. |
+| `rows="4" cols="30"` | Quy định chiều cao (số dòng `rows`) và chiều rộng (`cols`) cho ô văn bản nhiều dòng `<textarea>`. |
+| `data-price="120000"` | Thuộc tính tùy chỉnh (`data-*`) giúp gắn kèm dữ liệu phụ (đơn giá, tên món, thời hạn mượn...) vào thẻ HTML. Trong JS đọc ra cực dễ bằng `el.dataset.price`. |
+
+#### B. Bảng tổng hợp tất cả các loại ô nhập liệu (Form Controls) & Cách đọc bằng JS
+| Loại Control | Cú pháp HTML chuẩn | Ý nghĩa hiển thị & Cách đọc giá trị bằng JS |
 | :--- | :--- | :--- |
-| **Ô nhập chữ** | `<input type="text" id="txtName" placeholder="..." required>` | `document.getElementById("txtName").value.trim()` |
-| **Ô nhập số** | `<input type="number" id="qty" value="1" min="1" max="99" step="1">` | `parseInt(document.getElementById("qty").value) \|\| 0` |
-| **Radio (Chọn 1)** | `<input type="radio" name="time" value="day" checked>` | `document.querySelector("input[name='time']:checked").value` |
-| **Checkbox (Chọn nhiều)** | `<input type="checkbox" name="food" value="20000" data-name="Phở">` | `document.querySelectorAll("input[name='food']:checked")` |
-| **Dropdown (`select`)** | `<select id="cboTable"><option value="1">Bàn 1</option></select>` | Giá trị: `cbo.value` \| Text: `cbo.options[cbo.selectedIndex].text` |
-| **Nút bấm** | `<button type="button" id="btn">Tính</button>` | Dùng `type="button"` nếu không muốn form tự reload! |
+| **Ô nhập chữ 1 dòng** | `<input type="text" id="hoten" placeholder="Nguyễn Văn A" required>` | Nhập văn bản ngắn.<br>JS: `document.getElementById("hoten").value.trim()` |
+| **Ô mật khẩu** | `<input type="password" id="matkhau" required>` | Tự động che ký tự gõ vào thành dấu chấm tròn `••••`.<br>JS: `document.getElementById("matkhau").value` |
+| **Ô Email / URL** | `<input type="email" id="mail">`<br>`<input type="url" id="web">` | Tự kiểm tra định dạng phải có `@` (email) hoặc `http://` / `https://` (url) khi submit. |
+| **Ô nhập số** | `<input type="number" id="sl" value="1" min="1" max="50" step="1">` | Chỉ cho nhập số, có nút mũi tên tăng/giảm.<br>JS: `parseInt(document.getElementById("sl").value) \|\| 0` |
+| **Thanh trượt (Slider)** | `<input type="range" id="mucdo" min="0" max="100" step="10" value="80">` | Thanh kéo mức độ từ `0` đến `100`, mỗi nấc nhảy `10` đơn vị (Đề CV Kỹ năng).<br>JS: `parseInt(document.getElementById("mucdo").value)` |
+| **Ô chọn Ngày / Tháng** | `<input type="date" id="ngay">`<br>`<input type="month" id="thang">` | Bật lịch chọn ngày/tháng/năm chuẩn HTML5.<br>JS: `new Date(document.getElementById("ngay").value)` |
+| **Ô chọn File ảnh** | `<input type="file" id="anh" accept="image/*">` | Nút `"Chọn tệp"` từ máy tính (`accept="image/*"` chỉ lọc file ảnh). |
+| **Radio (Chọn 1)** | `<input type="radio" name="buoi" value="ngay" checked> Ngày`<br>`<input type="radio" name="buoi" value="dem"> Đêm` | Nút tròn: chỉ được chọn **duy nhất 1** phương án trong cùng `name="buoi"`.<br>JS: `document.querySelector("input[name='buoi']:checked").value` |
+| **Checkbox (Chọn nhiều)** | `<input type="checkbox" name="mon" value="20000" data-ten="Phở">` | Ô vuông: tích chọn được **nhiều món cùng lúc**.<br>JS: `document.querySelectorAll("input[name='mon']:checked")` |
+| **Dropdown (`<select>`)** | `<select id="cbo"><option value="7 ngày">Nexus</option></select>` | Danh sách thả xuống.<br>JS lấy `value`: `cbo.value` \| Lấy chữ: `cbo.options[cbo.selectedIndex].text` |
+| **Ô chữ nhiều dòng** | `<textarea id="ghichu" rows="3" placeholder="Ghi chú..."></textarea>` | Khung nhập đoạn văn dài (Mô tả công việc, Ghi chú, Ý kiến). **Lưu ý:** Có thẻ đóng `</textarea>`! |
+| **Khung nhóm có tiêu đề trên viền** | `<fieldset><legend>Tiêu đề nhóm</legend> ... </fieldset>` | `<fieldset>` tạo khung viền bao quanh, `<legend>` tạo chữ nằm đè lên cạnh viền trên (Đề Form Nhóm). |
+| **3 loại Nút bấm (`<button>`)** | `<button type="submit">Đăng ký</button>`<br>`<button type="reset">Cancel</button>`<br>`<button type="button">Tính tiền</button>` | • `type="submit"`: Gửi form đi (kích hoạt sự kiện `submit`).<br>• `type="reset"`: Tự động xóa trắng toàn bộ form về ban đầu.<br>• `type="button"`: Nút bấm thường để chạy hàm JS mà không làm reload trang. |
 
 ### 1.3. Lý thuyết HTML5 hay hỏi trắc nghiệm
 - **Thẻ ngữ nghĩa (Semantic Tags):**
@@ -142,30 +191,43 @@
 6. **Universal** (`*`): **0 điểm**
 > *Lưu ý:* Nếu bằng điểm nhau $\rightarrow$ Quy tắc nào viết **sau cùng** sẽ được áp dụng.
 
-### 2.2. Thuộc tính `display`, CSS Box Model & `box-sizing`
-- **Phân biệt nhanh các giá trị `display`:**
-  - `block`: Chiếm trọn 1 hàng ngang, đặt được `width`, `height`, `margin`, `padding` (`div`, `p`, `h1`-`h6`, `form`, `table`).
-  - `inline`: Nằm trên cùng 1 dòng, **không** đặt được `width`, `height`, `margin-top/bottom` (`span`, `a`, `b`, `i`, `strong`).
-  - `inline-block`: Nằm trên cùng 1 dòng như `inline` nhưng **đặt được `width`, `height`, `padding`, `margin`** (rất hay dùng cho nút bấm, nhãn thời gian).
-  - `none`: Ẩn hoàn toàn phần tử khỏi trang (không chiếm chỗ). Khác với `visibility: hidden` (ẩn nhưng vẫn giữ nguyên khoảng trống).
-- **`box-sizing: content-box` (Mặc định):**
-  - $\text{Chiều rộng thực tế} = \text{width} + 2 \times \text{padding} + 2 \times \text{border}$
-  - *Ví dụ:* `width: 300px; padding: 20px; border: 5px solid;` $\Rightarrow 300 + 40 + 10 = 350\text{px}$.
-- **`box-sizing: border-box` (Khuyên dùng cho mọi bài):**
-  - $\text{Chiều rộng thực tế} = \text{width}$ (đã bao gồm cả `padding` và `border` bên trong, giúp `width: 100%` không bao giờ bị tràn khung).
-- **Căn giữa một khối block theo chiều ngang:** `width: 800px; margin: 0 auto;`
+### 2.2. Bảng Tra Cứu Toàn Bộ Thuộc Tính CSS Cơ Bản (Cột Code & Cột Giải Thích)
+
+| Thuộc tính / Cú pháp CSS | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `width: 480px;` / `width: 100%;` | Chiều rộng của phần tử (cố định `480px` hoặc chiếm `100%` chiều rộng của thẻ cha). |
+| `max-width: 800px;` | Chiều rộng tối đa `800px` (nếu màn hình nhỏ hơn `800px` thì tự co lại cho vừa màn hình). |
+| `height: 150px;` / `min-height: 40px;` | Chiều cao cố định (`height`) hoặc chiều cao tối thiểu (`min-height`). |
+| `box-sizing: border-box;` | Giữ tổng kích thước hộp đúng bằng `width` đã khai báo (tự động gói cả `padding` và `border` vào bên trong). Nếu để mặc định `content-box` thì $\text{Rộng thực tế} = \text{width} + 2\times\text{padding} + 2\times\text{border}$. |
+| `padding: 20px;` | **Khoảng đệm bên trong** (từ nội dung chữ đến đường viền `border`). Viết 2 số `padding: 8px 16px;` là trên/dưới `8px`, trái/phải `16px`. |
+| `margin: 15px;` | **Khoảng cách bên ngoài** (đẩy các phần tử xung quanh ra xa đường viền `border`). |
+| `margin: 0 auto;` (hoặc `margin: auto;`) | Tự động chia đều khoảng trống 2 bên trái/phải để **căn giữa khối block** ra giữa màn hình (bắt buộc khối đó phải có `width` nhỏ hơn 100%). |
+| `border: 2px solid darkcyan;` | Đường viền bao quanh: dày `2px`, nét liền `solid` (nét đứt là `dashed`, nét chấm là `dotted`), màu `darkcyan`. Xóa viền của nút bấm: `border: none;`. |
+| `border-radius: 8px;` | Bo tròn 4 góc của khung hoặc nút bấm (nếu đặt `50%` trên hình vuông sẽ tạo ra **hình tròn**). |
+| `background-color: darkorange;` | Màu nền của phần tử (có thể viết tắt là `background: #f4f6f9;`). |
+| `color: red;` / `color: #003366;` | Màu chữ văn bản bên trong phần tử. |
+| `font-family: Arial, sans-serif;` | Phông chữ không chân hiện đại (`Arial`). Nếu đề yêu cầu chữ có chân truyền thống thì dùng `"Times New Roman", serif`. |
+| `font-size: 22px;` | Cỡ chữ (`px`, `rem`, `em`). |
+| `font-weight: bold;` | Làm **in đậm** chữ (tương đương thẻ `<b>` hoặc `<strong>`). |
+| `font-style: italic;` | Làm *in nghiêng* chữ (tương đương thẻ `<i>`). |
+| `text-align: center;` / `right;` / `left;` | Căn lề văn bản hoặc các phần tử `inline`/`inline-block` (như `button`, `img`) vào **giữa** (`center`), **phải** (`right`) hoặc **trái** (`left`). |
+| `text-decoration: underline;` / `none;` | Gạch chân chữ (`underline`) hoặc bỏ gạch chân mặc định của thẻ `<a>` (`none`). |
+| `display: block;` | Biến phần tử thành khối riêng biệt chiếm 1 dòng (đặt trên `<label>` để đẩy `<input>` xuống dòng dưới). |
+| `display: inline-block;` | Cho phép các phần tử nằm cạnh nhau trên cùng 1 hàng nhưng vẫn chỉnh được `width`, `height`, `padding`. |
+| `display: none;` | Ẩn hoàn toàn phần tử khỏi giao diện (dùng khi ẩn bảng hóa đơn lúc chưa bấm nút "Tính tiền"). |
+| `cursor: pointer;` | Đổi con trỏ chuột thành **hình bàn tay** khi rê chuột vào nút bấm hoặc liên kết. |
+| `border-collapse: collapse;` | Đặt trên thẻ `table`: gộp các đường viền đôi của bảng thành **1 đường kẻ đơn**. |
+| `vertical-align: middle;` / `top;` | Đặt trên `td, th`: căn nội dung trong ô bảng nằm **chính giữa theo chiều dọc** (`middle`) hoặc sát mép trên (`top`). |
+| `object-fit: cover;` / `contain;` | Đặt trên `img`: giúp ảnh có `width`/`height` cố định không bị méo tỷ lệ (`cover` lấp đầy khung, `contain` hiển thị trọn vẹn bức ảnh). |
+
+---
 
 ### 2.3. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
-- `static`: Mặc định (không dùng được `top`, `bottom`, `left`, `right`, `z-index`).
-- `relative`: Dịch chuyển so với **vị trí ban đầu của chính nó**, vẫn giữ nguyên khoảng trống cũ. Thường dùng làm mốc tọa độ cho thẻ con `absolute`.
-- `absolute`: Tách khỏi luồng trang, định vị theo **phần tử cha/tổ tiên gần nhất có `position` khác `static`**. Nếu không có cha nào thỏa mãn, nó neo theo `<html>`.
-- `fixed`: Neo cố định theo **khung nhìn trình duyệt (viewport)**, cuộn trang không bị trôi (nút Back-to-top, menu nổi, popup modal).
-- `sticky`: Lai giữa `relative` và `fixed` (cuộn chạm mốc `top: 0` sẽ dính lại).
 
 ```css
 /* MẪU KINH ĐIỂN: Đặt Tên ứng viên hoặc Nhãn giảm giá (-20%) đè lên góc ảnh */
 .image-wrapper {
-  position: relative; /* Bắt buộc đặt trên thẻ cha bao quanh ảnh */
+  position: relative;
   width: 300px;
 }
 .image-wrapper img {
@@ -173,14 +235,25 @@
   display: block;
 }
 .overlay-text {
-  position: absolute; /* Định vị con theo .image-wrapper */
-  bottom: 12px;       /* Cách đáy ảnh 12px (nếu muốn góc trên phải thì dùng top: 10px; right: 10px;) */
+  position: absolute;
+  bottom: 12px;
   left: 16px;
   color: #000;
   font-size: 22px;
   font-weight: bold;
 }
 ```
+
+#### 📖 Bảng giải thích cơ chế `position` và đoạn code trên:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `position: static;` | Giá trị mặc định của mọi thẻ HTML (không thể dùng `top`, `bottom`, `left`, `right`). |
+| `position: relative;` | Đặt trên thẻ cha `.image-wrapper` để biến khung ảnh thành **mốc tọa độ gốc** cho các thẻ con bên trong (bản thân nó vẫn đứng yên tại chỗ). |
+| `position: absolute;` | Đặt trên thẻ con `.overlay-text` để tách chữ ra khỏi luồng bình thường và **trôi nổi đè lên trên ảnh**, căn vị trí theo thẻ cha `.image-wrapper` gần nhất có `position: relative`. |
+| `bottom: 12px; left: 16px;` | Neo dòng chữ cách cạnh đáy của ảnh `12px` và cách cạnh trái của ảnh `16px` (giống hệt tên `Nguyễn Văn C` trong đề thi CV). Nếu muốn đặt ở góc trên bên phải thì đổi thành `top: 10px; right: 10px;`. |
+| `position: fixed;` | Neo cố định theo **màn hình trình duyệt (viewport)**, khi cuộn chuột lên/xuống phần tử vẫn đứng yên. |
+
+---
 
 ### 2.4. Toàn bộ các mẫu Bố cục (Layout) bằng Flexbox & CSS Grid
 ```css
@@ -191,12 +264,12 @@
   align-items: flex-start;
 }
 .sidebar { width: 300px; }
-.content { flex: 1; } /* Chiếm toàn bộ phần rộng còn lại */
+.content { flex: 1; }
 
 /* 2. BỐ CỤC LƯỚI N CỘT ĐỀU NHAU (Đề Bán sách 4 cột / Đề Mượn sách 3 cột) */
 .grid-products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Đổi số 4 thành 2, 3, 5 tùy số cột đề vẽ */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   text-align: center;
 }
@@ -207,14 +280,8 @@
   align-items: center;
   margin-bottom: 12px;
 }
-.form-row label {
-  width: 140px;       /* Cố định độ rộng cột nhãn */
-  font-weight: bold;
-}
-.form-row input, .form-row select, .form-row textarea {
-  flex: 1;            /* Ô nhập tự giãn hết phần còn lại */
-  padding: 6px 8px;
-}
+.form-row label { width: 140px; font-weight: bold; }
+.form-row input, .form-row select { flex: 1; padding: 6px 8px; }
 
 /* 4. THANH TIẾN TRÌNH (PROGRESS BAR - Đề Kỹ năng CV) */
 .progress-bg {
@@ -230,9 +297,21 @@
   text-align: center;
   padding: 2px 0;
   border-radius: 12px;
-  /* Độ rộng gán động qua style="width: 80%;" */
 }
 ```
+
+#### 📖 Bảng giải thích các thuộc tính Flexbox, Grid & Progress Bar ở trên:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `display: flex;` | Bật chế độ **Flexbox** trên thẻ cha: tự động xếp tất cả các thẻ con trực tiếp bên trong nằm **ngang hàng nhau** từ trái sang phải. |
+| `gap: 20px;` | Tạo khoảng cách trống `20px` đều đặn giữa các cột hoặc các ô trong lưới (dùng được cho cả `flex` và `grid`). |
+| `align-items: flex-start;` | Căn các cột con bám sát mép trên cùng (không tự kéo giãn chiều cao cột ngắn bằng cột dài). |
+| `align-items: center;` | Căn các phần tử con trên cùng 1 dòng nằm **thẳng hàng chính giữa theo chiều dọc** (rất hữu ích khi xếp `label` ngang hàng với `input`). |
+| `justify-content: space-between;` | Đẩy phần tử đầu sát lề trái, phần tử cuối sát lề phải, các phần tử giữa chia đều khoảng cách (dùng cho thanh menu / header). |
+| `flex: 1;` | Đặt trên thẻ con (`.content` hoặc `input`): bảo phần tử đó **tự động phình ra chiếm hết toàn bộ chiều ngang còn trống** của hàng. |
+| `display: grid;` | Bật chế độ **CSS Grid** (hệ thống lưới 2 chiều gồm hàng và cột). |
+| `grid-template-columns: repeat(4, 1fr);` | Chia lưới thành **4 cột có chiều rộng bằng nhau** (`1fr` = 1 phần bằng nhau). Nếu đề yêu cầu 3 cột thì đổi số `4` thành `3`. Khi hết 4 phần tử trên 1 hàng, phần tử thứ 5 sẽ tự động xuống hàng tiếp theo! |
+| `overflow: hidden;` | Đặt trên `.progress-bg`: cắt gọn phần góc thừa của thanh màu xanh bên trong để không bị tràn ra ngoài khung bo tròn `border-radius: 12px`. |
 
 ### 2.5. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`), CSS3 & Bootstrap 5
 - **Bảng biểu có đường viền đơn sắc nét:**
@@ -289,6 +368,17 @@ let formatted = total.toLocaleString("vi-VN") + " đ";
 let rawNumber = parseFloat(str.replace(/\./g, "").replace(/[^\d]/g, "")) || 0;
 ```
 
+#### 📖 Bảng giải thích các hàm Ép kiểu & Định dạng số ở trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `parseInt(str)` | Chuyển chuỗi `str` sang **số nguyên** (VD: `"15"` $\rightarrow$ `15`). Dùng cho Số lượng, Tuổi, Số ngày. |
+| `parseFloat(str)` | Chuyển chuỗi `str` sang **số thực** (giữ cả phần thập phân, VD: `"12.5"` $\rightarrow$ `12.5`). Dùng cho Đơn giá, Điểm số. |
+| `... \|\| 0` | Nếu người dùng để trống ô input thì `parseInt("")` sẽ trả về `NaN` (làm hỏng phép cộng). Thêm `\|\| 0` giúp tự động biến `NaN` thành số `0`. |
+| `total.toLocaleString("vi-VN")` | Tự động chèn dấu chấm phân cách hàng nghìn theo chuẩn Việt Nam (VD: số `1250000` $\rightarrow$ chuỗi `"1.250.000"`). |
+| `str.replace(/\./g, "")` | Xóa toàn bộ dấu chấm `.` trong chuỗi tiền tệ (`g` là *global* - xóa tất cả các dấu chấm chứ không chỉ dấu đầu tiên). |
+
+---
+
 ### 3.3. Đối tượng `Date` (Lấy Ngày Giờ Hệ Thống & Tính Số Ngày Thuê/Mượn)
 > **Bẫy chết người:** `now.getMonth()` trả về từ **0 đến 11** $\rightarrow$ Bắt buộc phải **`+ 1`**! `now.getDay()` trả về từ **0 (Chủ Nhật) đến 6 (Thứ Bảy)**.
 
@@ -316,32 +406,34 @@ if (soNgay <= 0) {
 }
 ```
 
+#### 📖 Bảng giải thích các phương thức của `Date` ở trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `new Date()` | Lấy thời điểm ngày giờ hiện tại của máy tính (nếu truyền chuỗi `"2026-10-25"` vào trong ngoặc thì tạo mốc ngày đó). |
+| `now.getDay()` | Lấy **Thứ trong tuần**, trả về số từ `0` đến `6` (`0` là Chủ Nhật, `1` là Thứ 2, ..., `6` là Thứ 7). |
+| `now.getDate()` | Lấy **Ngày trong tháng** (`1` đến `31`). |
+| `now.getMonth() + 1` | Lấy **Tháng trong năm**: vì JS đánh số tháng từ `0` (tháng 1) đến `11` (tháng 12) nên bắt buộc phải cộng thêm `1`. |
+| `now.getFullYear()` | Lấy **Năm** đầy đủ 4 chữ số (VD: `2026`). |
+| `now.getHours()`, `getMinutes()`, `getSeconds()` | Lấy Giờ (`0-23`), Phút (`0-59`), Giây (`0-59`). |
+| `.padStart(2, "0")` | Nếu chuỗi chỉ có 1 ký tự (VD: ngày `"5"`), tự động đệm thêm số `"0"` vào bên trái thành `"05"`. |
+| `(d2 - d1) / (1000 * 60 * 60 * 24)` | Phép trừ 2 đối tượng `Date` trả về độ lệch tính bằng **mili-giây (ms)**. Chia cho `1000 * 60 * 60 * 24` ($= 86.400.000\text{ ms}$) để đổi từ mili-giây ra **số ngày**. |
+| `Math.ceil(x)` | Làm tròn lên số nguyên gần nhất (VD: thuê `1.2` ngày tính thành `2` ngày). |
+
+---
+
 ### 3.4. Bảng Tổng Hợp Các Hàm Xử Lý Mảng (Array) & Chuỗi (String) Cốt Lõi
 ```javascript
-// --- 1. CÁC HÀM MẢNG (ARRAY) DÙNG CHO GIỎ HÀNG / DANH SÁCH ---
+// --- CÁC HÀM MẢNG (ARRAY) DÙNG CHO GIỎ HÀNG / DANH SÁCH ---
 let list = JSON.parse(localStorage.getItem("data")) || [];
 
-// Thêm phần tử vào cuối mảng:
 list.push({ id: "SP1", name: "Áo", price: 120000, qty: 1 });
-
-// Tìm 1 phần tử (để kiểm tra trùng lặp -> cộng dồn số lượng):
 let found = list.find(item => item.id === "SP1");
 if (found) found.qty += 1;
-
-// Xóa 1 phần tử tại vị trí index:
 list.splice(index, 1);
-
-// Lọc danh sách (Tìm kiếm theo tên hoặc lọc theo loại):
 let ketQuaLoc = list.filter(item => item.name.toLowerCase().includes(tuKhoa.toLowerCase()));
-
-// Sắp xếp mảng (Tăng dần theo giá / theo tên tiếng Việt):
-list.sort((a, b) => a.price - b.price);                 // Giảm dần: b.price - a.price
-list.sort((a, b) => a.name.localeCompare(b.name, "vi"));
-
-// Tính tổng tiền toàn bộ mảng bằng reduce:
+list.sort((a, b) => a.price - b.price);
 let tongTien = list.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-// Biến mảng thành chuỗi HTML để chèn vào bảng:
 tbody.innerHTML = list.map((item, idx) => `
   <tr data-index="${idx}">
     <td>${item.name}</td>
@@ -350,18 +442,61 @@ tbody.innerHTML = list.map((item, idx) => `
 `).join("");
 ```
 
-### 3.5. Bảng Tra Cứu Biểu Thức Chính Quy (Regex) Thông Dụng
-Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `true` / `false`).
+#### 📖 Bảng giải thích từng hàm Mảng (Array) & Chuỗi (String) ở trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `list.push(phanTuMoi)` | Thêm 1 phần tử mới vào **cuối mảng** `list`. |
+| `list.find(item => điều_kiện)` | Tìm và trả về **phần tử đầu tiên** trong mảng thỏa mãn điều kiện (nếu không có trả về `undefined`). Rất tiện để kiểm tra món hàng đã có trong giỏ chưa để cộng dồn `qty += 1`. |
+| `list.splice(index, 1)` | Xóa phần tử tại vị trí thứ `index`, số lượng xóa là `1` phần tử (dùng khi bấm nút `"Xóa"` dòng thứ `index`). |
+| `list.filter(item => điều_kiện)` | Lọc và trả về một **mảng mới** chỉ chứa các phần tử thỏa mãn điều kiện. |
+| `str.toLowerCase().includes(sub)` | Đổi chuỗi về chữ thường rồi kiểm tra xem có chứa chuỗi con `sub` bên trong không (trả về `true`/`false`). |
+| `list.sort((a, b) => a.price - b.price)` | Sắp xếp mảng số **tăng dần** theo `price` (nếu muốn sắp xếp **giảm dần** thì lấy `b.price - a.price`). |
+| `list.reduce((sum, item) => sum + ..., 0)` | Duyệt qua toàn bộ mảng để cộng dồn thành **1 con số tổng duy nhất** (`sum` khởi đầu từ `0`). |
+| `list.map(...).join("")` | `.map()` biến mỗi phần tử trong mảng thành 1 chuỗi `<tr>...</tr>`, sau đó `.join("")` nối tất cả các chuỗi đó lại liền mạch (không có dấu phẩy ngăn cách) để gán vào `tbody.innerHTML`. |
 
-| Yêu cầu kiểm tra | Biểu thức Regex chuẩn | Giải thích nhanh |
+---
+
+### 3.5. Giải Thích Chi Tiết Biểu Thức Chính Quy (Regex) Từ Cơ Bản Đến Thực Chiến
+
+Cú pháp kiểm tra một chuỗi có khớp mẫu Regex hay không:
+```javascript
+const regex = /^2\d{7}$/;
+let isHopLe = regex.test(chuoiCanKiemTra); // Trả về true nếu hợp lệ, false nếu sai
+```
+
+#### A. Bảng từ điển giải nghĩa từng ký hiệu cấu tạo nên Regex (1 cột Ký hiệu - 1 cột Giải thích)
+| Ký hiệu trong Regex | Giải thích chi tiết ý nghĩa & Ví dụ minh họa |
+| :--- | :--- |
+| `/ ... /` | Cặp dấu gạch chéo bao bọc ở 2 đầu để báo cho JavaScript biết đây là một biểu thức Regex. |
+| `^` (Đặt ở đầu mẫu) | **Neo bắt đầu chuỗi**: Bắt buộc chuỗi phải bắt đầu ngay bằng ký tự đứng sau dấu `^` (VD: `/^2/` nghĩa là ký tự đầu tiên bắt buộc là số `2`). |
+| `$` (Đặt ở cuối mẫu) | **Neo kết thúc chuỗi**: Bắt buộc chuỗi phải kết thúc ngay tại đây, không được thừa thêm ký tự nào phía sau. **Lưu ý:** Kiểm tra Form luôn phải có cả `^` ở đầu và `$` ở cuối! |
+| `\d` (*Digit*) | Đại diện cho **1 chữ số bất kỳ từ `0` đến `9`** (viết tắt của `[0-9]`). Ngược lại `\D` là ký tự **không** phải chữ số. |
+| `\w` (*Word*) | Đại diện cho **1 ký tự chữ cái không dấu, chữ số hoặc dấu gạch dưới `_`** (`[a-zA-Z0-9_]`). |
+| `\s` (*Space*) | Đại diện cho **1 khoảng trắng** (dấu cách, phím Tab, xuống dòng). Ngược lại `\S` là ký tự **không** phải khoảng trắng. |
+| `.` (Dấu chấm) | Đại diện cho **1 ký tự bất kỳ** (trừ ký tự xuống dòng). |
+| `\.` (Có gạch chéo ngược) | Vì dấu `.` có ý nghĩa đặc biệt nên khi muốn kiểm tra **dấu chấm thật** (như trong `.com`, `.edu.vn`), phải thêm `\` phía trước thành `\.`. |
+| `[abc]` hoặc `[35789]` | **Tập hợp lựa chọn (1 ký tự)**: Khớp với **1 ký tự** nằm trong ngoặc vuông. VD: `[35789]` nghĩa là chỉ chấp nhận 1 số là `3`, `5`, `7`, `8` hoặc `9`. |
+| `[a-z]`, `[A-Z]`, `[0-9]` | **Dải ký tự**: `[a-z]` là 1 chữ thường; `[A-Z]` là 1 chữ hoa; `[a-zA-ZÀ-ỹ\s]` là chữ cái tiếng Việt (cả hoa, thường, có dấu) và dấu cách. |
+| `[^abc]` (`^` trong `[]`) | **Phủ định (Loại trừ)**: Khi dấu `^` nằm **bên trong** ngoặc vuông `[...]`, nó có nghĩa là **"KHÔNG được chứa"**. VD: `[^\s@]` nghĩa là 1 ký tự bất kỳ miễn không phải khoảng trắng `\s` và không phải `@`. |
+| `{n}` (VD: `\d{7}`) | **Số lượng chính xác**: Ký tự đứng ngay trước nó phải lặp lại **đúng `n` lần** (VD: `\d{7}` là đúng 7 chữ số liên tiếp). |
+| `{n,m}` (VD: `\d{8,10}`) | **Số lượng trong khoảng**: Lặp lại **từ `n` đến tối đa `m` lần** (VD: từ 8 đến 10 chữ số). |
+| `{n,}` (VD: `.{8,}`) | **Số lượng tối thiểu**: Lặp lại **ít nhất `n` lần trở lên** (VD: `.{8,}` là độ dài từ 8 ký tự trở lên). |
+| `+` | Lặp lại **từ 1 lần trở lên** (tương đương `{1,}`). VD: `\d+` là có ít nhất 1 chữ số. |
+| `*` | Lặp lại **từ 0 lần trở lên** (có cũng được, không có cũng được – tương đương `{0,}`). |
+| `?` | Xuất hiện **0 hoặc 1 lần** (tùy chọn có hoặc không – tương đương `{0,1}`). |
+| `(A\|B)` | Toán tử **HOẶC**: khớp với mẫu `A` hoặc mẫu `B` (VD: `/^(Nam\|Nữ)$/`). |
+| `(?=.*[A-Z])` | **Kiểm tra điều kiện nhìn trước (Lookahead)**: Yêu cầu trong chuỗi bắt buộc phải có xuất hiện ít nhất 1 chữ cái in hoa `[A-Z]` ở vị trí bất kỳ. |
+
+#### B. Bảng phân tích từng cụm trong các mẫu Regex thường gặp nhất
+| Yêu cầu kiểm tra | Biểu thức Regex chuẩn | Giải thích chi tiết từng thành phần ghép lại |
 | :--- | :--- | :--- |
-| **MSSV UIT** (8 chữ số, bắt đầu bằng số 2) | `/^2\d{7}$/` | `^2` (đầu là 2) + `\d{7}` (7 số tiếp theo) |
-| **Mã khách hàng** (Ví dụ: `KH` + 4 chữ số) | `/^KH\d{4}$/` | Bắt đầu bằng `KH`, theo sau đúng 4 chữ số |
-| **SĐT Việt Nam** (10 số, đầu 03, 05, 07, 08, 09) | `/^0[35789]\d{8}$/` | Số `0` + 1 số thuộc `[35789]` + 8 chữ số |
-| **Email chuẩn** | `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` | Có chữ trước `@`, tên miền và dấu `.` |
-| **Chỉ chứa chữ cái & khoảng trắng** (Họ tên) | `/^[a-zA-ZÀ-ỹ\s]+$/` | Hỗ trợ cả tiếng Việt có dấu |
-| **Mật khẩu mạnh** ($\ge 8$ ký tự, 1 hoa, 1 thường, 1 số) | `/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/` | Dùng positive lookahead `(?=...)` |
-| **Số nguyên dương** ($> 0$) | `/^[1-9]\d*$/` | Chữ số đầu từ 1-9, theo sau là các chữ số |
+| **MSSV UIT** (8 chữ số, bắt đầu bằng số 2) | `/^2\d{7}$/` | • `^`: Bắt đầu chuỗi<br>• `2`: Ký tự đầu tiên bắt buộc là số `2`<br>• `\d{7}`: Theo sau là đúng `7` chữ số nữa (tổng cộng $1 + 7 = 8$ số)<br>• `$`: Kết thúc chuỗi |
+| **Mã khách hàng / Mã hóa đơn** (`KH` + 4 chữ số, VD: `KH0125`) | `/^KH\d{4}$/` | • `^KH`: Bắt đầu bằng đúng 2 chữ in hoa `KH`<br>• `\d{4}`: Theo sau là đúng `4` chữ số từ 0-9<br>• `$`: Kết thúc chuỗi |
+| **Số điện thoại Việt Nam** (10 số, đầu 03, 05, 07, 08, 09) | `/^0[35789]\d{8}$/` | • `^0`: Bắt đầu bằng số `0`<br>• `[35789]`: Chữ số thứ 2 phải là `3`, `5`, `7`, `8` hoặc `9`<br>• `\d{8}`: Theo sau là đúng `8` chữ số nữa (tổng $1 + 1 + 8 = 10$ số)<br>• `$`: Kết thúc chuỗi |
+| **Địa chỉ Email chuẩn** (VD: `sv@uit.edu.vn`) | `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` | • `^[^\s@]+`: Phần tên trước `@` có ít nhất 1 ký tự (không chứa khoảng trắng và `@`)<br>• `@`: Phải có ký tự `@`<br>• `[^\s@]+`: Tên miền sau `@` có ít nhất 1 ký tự<br>• `\.`: Phải có dấu chấm `.`<br>• `[^\s@]+$`: Đuôi tên miền (`com`, `vn`) ở cuối |
+| **Họ và tên tiếng Việt** (Chỉ chứa chữ cái & khoảng trắng) | `/^[a-zA-ZÀ-ỹ\s]+$/` | • `[a-zA-ZÀ-ỹ\s]+`: Chỉ cho phép các chữ cái không dấu (`a-z`, `A-Z`), chữ cái tiếng Việt có dấu (`À-ỹ`) và dấu cách (`\s`), xuất hiện từ 1 ký tự trở lên (`+`). Không cho phép số hay ký tự đặc biệt! |
+| **Mật khẩu mạnh** ($\ge 8$ ký tự, gồm ít nhất 1 thường, 1 hoa, 1 số) | `/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/` | • `(?=.*[a-z])`: Phải có ít nhất 1 chữ thường<br>• `(?=.*[A-Z])`: Phải có ít nhất 1 chữ hoa<br>• `(?=.*\d)`: Phải có ít nhất 1 chữ số<br>• `.{8,}`: Tổng độ dài từ `8` ký tự trở lên |
+| **Số nguyên dương** ($> 0$) | `/^[1-9]\d*$/` | • `^[1-9]`: Chữ số đầu tiên phải từ `1` đến `9` (không được bắt đầu bằng `0`)<br>• `\d*$`: Theo sau là 0 hoặc nhiều chữ số bất kỳ |
 
 ---
 
@@ -410,6 +545,16 @@ row.insertCell(0).textContent = "Áo thun";
 row.insertCell(1).textContent = "120.000 đ";
 row.insertCell(2).innerHTML = `<button type="button" class="btn-del">Xóa</button>`;
 ```
+
+#### 📖 Bảng giải thích các hàm chèn bảng ở trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `insertAdjacentHTML("beforeend", html)` | Chèn thêm đoạn mã `html` vào **ngay cuối bên trong** `tbody` mà không làm mất hay reset dữ liệu của các dòng đang có sẵn trước đó. |
+| `` `<tr><td>${ten}</td></tr>` `` | **Template Literal** (cặp dấu huyền `` ` `` nằm dưới phím Esc): cho phép viết HTML nhiều dòng và nhúng trực tiếp biến vào bên trong `${...}`. |
+| `tbody.insertRow()` | Hàm chuyên dụng của bảng HTML: tự động tạo và chèn 1 thẻ `<tr>` mới vào cuối `tbody`. |
+| `row.insertCell(0)` | Tự động tạo và chèn 1 ô `<td>` ở vị trí cột `0` (cột đầu tiên) bên trong dòng `row`. |
+
+---
 
 ### 4.3. Năm mẫu kỹ thuật "Mảnh ghép" giải quyết các dạng đề biến tấu mới
 
@@ -479,6 +624,18 @@ window.location.href = "trang2.html"; // Hoặc dùng thẻ <a href="trang2.html
 const data = JSON.parse(localStorage.getItem("savedData")) || [];
 ```
 
+#### 📖 Bảng giải thích các thuộc tính & hàm trong 5 mẫu kỹ thuật trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `blocks[0].cloneNode(true)` | Nhân bản (sao chép) phần tử `blocks[0]`. Tham số **`true`** bắt buộc phải có để sao chép toàn bộ các thẻ con (`input`, `option`, `td`...) nằm bên trong nó. |
+| `container.appendChild(newBlock)` | Gắn phần tử vừa nhân bản `newBlock` vào vị trí cuối cùng bên trong `container`. |
+| `this.options[this.selectedIndex]` | Lấy ra đúng thẻ `<option>` đang được người dùng chọn bên trong `<select>`. Từ đó đọc được cả `.value`, `.text` và `.dataset.*` của `<option>` đó. |
+| `e.target.files[0]` | Lấy ra file đầu tiên mà người dùng vừa chọn từ hộp thoại `<input type="file">`. |
+| `reader.readAsDataURL(file)` | Dùng đối tượng `FileReader` biến file ảnh thành chuỗi mã hóa Base64 (`data:image/png;base64,...`) để vừa gán được vào `<img src="...">` vừa lưu được vào `localStorage`. |
+| `JSON.stringify(obj)` | Biến Mảng hoặc Object trong JS thành **chuỗi JSON** (vì `localStorage` chỉ lưu được kiểu chuỗi String). |
+| `JSON.parse(str)` | Biến chuỗi JSON đọc từ `localStorage` ngược trở lại thành **Mảng hoặc Object** ban đầu để sử dụng. |
+| `window.location.href = "trang2.html"` | Lệnh chuyển hướng trình duyệt sang trang `trang2.html` bằng JavaScript. |
+
 ### 4.4. Ủy quyền sự kiện (Event Delegation) trong JS thuần & Event Loop
 - **Ủy quyền sự kiện cho các nút "Xóa" hoặc ô số lượng mới sinh ra:**
 ```javascript
@@ -489,6 +646,17 @@ document.getElementById("myTable").addEventListener("click", function(e) {
   }
 });
 ```
+
+#### 📖 Bảng giải thích cơ chế Ủy quyền sự kiện (Event Delegation) ở trên:
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `e` (Event Object) | Đối tượng sự kiện được trình duyệt tự động truyền vào hàm mỗi khi người dùng click hoặc gõ phím. |
+| `e.target` | Chính là **phần tử HTML cụ thể mà chuột vừa bấm trúng** (ví dụ: nút `<button class="btn-del">` nằm bên trong bảng). |
+| `e.target.classList.contains("btn-del")` | Kiểm tra xem phần tử vừa bị bấm trúng có mang class `"btn-del"` (nút Xóa) hay không. |
+| `e.target.closest("tr")` | Từ nút Xóa vừa bấm, tìm ngược lên cha/ông gần nhất là thẻ dòng `<tr>` đang chứa nút đó. |
+| `.remove()` | Xóa bỏ hoàn toàn dòng `<tr>` đó khỏi bảng HTML. |
+| `e.preventDefault()` | Chặn hành vi mặc định của trình duyệt (ngăn form tự tải lại trang khi bấm nút `type="submit"`). |
+| `e.stopPropagation()` | Chặn sự kiện nổi bọt (`Event Bubbling`) không cho lan tiếp lên các thẻ cha bên ngoài. |
 - **Event Bubbling (Nổi bọt - Mặc định):** Click vào thẻ con $\rightarrow$ chạy sự kiện thẻ con trước $\rightarrow$ nổi bọt lên thẻ cha $\rightarrow$ `body` $\rightarrow$ `html` $\rightarrow$ `document` $\rightarrow$ `window`.
   - Chặn nổi bọt lên thẻ cha: `e.stopPropagation()`.
   - Chặn hành vi mặc định của trình duyệt (chặn reload khi submit form): `e.preventDefault()`.
@@ -590,6 +758,14 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 </script>
 ```
 
+#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 1:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `e.preventDefault()` | Bắt buộc đặt ở dòng đầu tiên của hàm `submit` để ngăn trình duyệt tự reload lại trang làm mất dữ liệu vừa thêm vào bảng. |
+| `document.querySelectorAll(".error").forEach(el => el.textContent = "")` | Xóa sạch toàn bộ các dòng chữ báo lỗi màu đỏ của lần bấm trước đó trước khi kiểm tra lại từ đầu. |
+| `!/^2\d{7}$/.test(mssv)` | Dấu `!` là phủ định: Nếu chuỗi `mssv` **KHÔNG** khớp với mẫu Regex (bắt đầu bằng số `2` và theo sau là `7` chữ số) thì báo lỗi và gán `valid = false`. |
+| `frm.reset()` | Xóa trắng toàn bộ các ô input trong form sau khi đã thêm sinh viên vào bảng thành công. |
+
 ---
 
 ### 📌 DẠNG 2: THỰC ĐƠN CHỌN MÓN (CHECKBOX + RADIO NGÀY/ĐÊM PHỤ THU 10%)
@@ -668,6 +844,15 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 </script>
 ```
 
+#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 2:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `value="20000" data-ten="Bún bò"` | Lưu đơn giá vào `value` (để lấy bằng `item.value`) và lưu tên món ăn vào thuộc tính `data-ten` (để lấy bằng `item.dataset.ten`). |
+| `name="buoi"` (trên cả 2 nút Radio) | Đặt chung `name="buoi"` cho cả "Ban ngày" và "Ban đêm" để người dùng chỉ có thể tích chọn 1 trong 2 thời điểm. |
+| `style="display:none;"` (trên `#tblHoaDon`) | Ẩn bảng hóa đơn đi khi mới mở trang; sau khi tính tiền xong dùng `tblHoaDon.style.display = "table"` để hiện bảng lên. |
+| `document.querySelectorAll("input[name='mon']:checked")` | Lấy ra danh sách tất cả các ô `checkbox` có `name="mon"` đang được người dùng tích chọn. Nếu `.length === 0` tức là chưa chọn món nào. |
+| `tbody.innerHTML = ""` | Xóa sạch các dòng hóa đơn của lần bấm "Tính Tiền" trước đó để không bị in trùng lặp. |
+
 ---
 
 ### 📌 DẠNG 3: BẢNG GIỎ HÀNG ĐỘNG (ĐỔI SỐ LƯỢNG TỰ TÍNH TIỀN & XÓA DÒNG)
@@ -745,6 +930,14 @@ document.getElementById("myTable").addEventListener("click", function(e) {
   });
 </script>
 ```
+
+#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 3:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `<input type="number" class="qty" value="2" min="1">` | Ô nhập số lượng nằm ngay trong ô bảng, giá trị mặc định là `2`, nhỏ nhất là `1` (`min="1"`). |
+| `<td class="price" data-price="120000">120.000 đ</td>` | Chữ hiển thị cho đẹp là `"120.000 đ"`, còn số nguyên `120000` được cất trong `data-price` để JS lấy ra nhân trực tiếp (`row.querySelector(".price").dataset.price`) mà không cần cắt chuỗi. |
+| `<th colspan="3">Tổng cộng:</th>` | Gộp 3 cột đầu tiên ở dòng chân bảng (`tfoot`) để chữ "Tổng cộng:" nằm sát ngay bên trái cột tổng tiền. |
+| `tbodyGioHang.addEventListener("input", ...)` | Sự kiện `"input"` kích hoạt **ngay lập tức** mỗi khi người dùng gõ số mới hoặc bấm nút mũi tên tăng/giảm trên ô số lượng `.qty`. |
 
 ---
 
@@ -837,6 +1030,13 @@ document.getElementById("myTable").addEventListener("click", function(e) {
   });
 </script>
 ```
+
+#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 4:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `<option value="20000" data-id="M1">Bún bò (20.000đ)</option>` | Lưu đơn giá vào `value` và mã định danh món ăn vào `data-id="M1"` để dễ kiểm tra xem món này đã có trong bàn chưa. |
+| `opt.text.split("(")[0].trim()` | Cắt chuỗi `"Bún bò (20.000đ)"` tại dấu mở ngoặc `"("`, lấy phần tử đầu tiên `[0]` là `"Bún bò"`. |
+| ``tbodyBanAn.querySelector(`tr[data-id='${idMon}']`)`` | Tìm trong bảng xem đã có dòng `<tr>` nào mang thuộc tính `data-id` trùng với món vừa chọn chưa. Nếu đã có (`dongCu` khác `null`), chỉ cần tăng ô số lượng `.sl` lên `+ 1`. |
 
 ---
 
@@ -1016,6 +1216,15 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 </body>
 </html>
 ```
+
+#### 📖 Bảng giải thích các thuộc tính trong Bài tập Form Thông tin liên hệ nhóm:
+| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `<form action="GroupInfo.php" method="post">` | Khi bấm nút Submit, dữ liệu các ô có thuộc tính `name` sẽ được gửi ngầm bằng giao thức `POST` đến file `GroupInfo.php`. |
+| `<label for="groupName">` & `<input id="groupName">` | Cặp `for` của `<label>` và `id` của `<input>` giống hệt nhau để liên kết nhãn với ô nhập (bấm vào chữ "Tên nhóm" thì con trỏ nhảy vào ô nhập). |
+| `<fieldset>` & `<legend>` | Tạo khung viền bao quanh nhóm "Trang web giới thiệu đồ án của nhóm" với dòng tiêu đề nằm đè lên cạnh viền trên cùng. |
+| `<input type="url" id="websiteUrl" required>` | Kiểu `type="url"` bắt buộc người dùng phải nhập đúng định dạng địa chỉ trang web (có `http://` hoặc `https://`). |
+| `<button type="reset"><strong>Cancel</strong></button>` | Nút `type="reset"` giúp xóa trắng toàn bộ nội dung vừa gõ trong form khi bấm vào nút Cancel. |
 
 ---
 
