@@ -513,7 +513,7 @@ input:focus { border-color: #007bff; outline: none; }
 | `grid-template-columns: repeat(4, 1fr);` | Chia lưới thành **4 cột có chiều rộng bằng nhau** (`1fr` = 1 phần bằng nhau). Nếu đề yêu cầu 3 cột thì đổi số `4` thành `3`. Khi hết 4 phần tử trên 1 hàng, phần tử thứ 5 sẽ tự động xuống hàng tiếp theo! |
 | `overflow: hidden;` | Đặt trên `.progress-bg`: cắt gọn phần góc thừa của thanh màu xanh bên trong để không bị tràn ra ngoài khung bo tròn `border-radius: 12px`. |
 
-### 2.5. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`), CSS3 & Bootstrap 5
+### 2.5. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`) & Hiệu ứng CSS3
 - **Bảng biểu có đường viền đơn sắc nét:**
   - `table { width: 100%; border-collapse: collapse; }` (Gộp viền đôi thành viền đơn).
   - `th, td { border: 1px solid #333; padding: 8px; vertical-align: middle; }`
@@ -525,11 +525,235 @@ input:focus { border-color: #007bff; outline: none; }
   - Đổ bóng hộp: `box-shadow: 0 4px 10px rgba(0,0,0,0.15);`
   - Chuyển cảnh mượt: `transition: all 0.3s ease;`
   - Biến đổi: `transform: scale(1.05) translateY(-3px) rotate(5deg);`
-- **Bootstrap 5 (So với Bootstrap 4):**
-  - Bỏ phụ thuộc thư viện ngoài, dùng Vanilla JS thuần.
-  - Đổi `ml-*` / `mr-*` $\rightarrow$ `ms-*` (margin-start) / `me-*` (margin-end); `pl-*` / `pr-*` $\rightarrow$ `ps-*` / `pe-*`.
-  - Bỏ `.form-group` (dùng `.mb-3` thay thế), thêm breakpoint `xxl` ($\ge 1400\text{px}$).
-  - Hệ thống lưới **12 cột**: `.container` > `.row` > `.col-12 .col-md-8` + `.col-12 .col-md-4` (Con trực tiếp của `.row` bắt buộc là `.col-*`).
+
+---
+
+### 2.6. Các Đơn Vị Đo Lường Trong CSS (`px`, `em`, `rem`, `%`, `vw`, `vh`, `fr`)
+> **Quy ước mặc định của trình duyệt:** Nếu không chỉnh sửa gì ở thẻ gốc `<html>`, kích thước chữ mặc định luôn là **`16px`** (tức là `1rem = 16px`).
+
+| Đơn vị / Cú pháp Code | Giải thích chi tiết ý nghĩa, Cách quy đổi & Khi nào nên dùng |
+| :--- | :--- |
+| `px` (*Pixels*) | **Đơn vị tuyệt đối (Cố định)**: 1 điểm ảnh trên màn hình (`10px`, `200px`). Kích thước cố định, không tự co giãn theo cỡ chữ của người dùng. Thường dùng cho độ dày viền (`border: 1px`), bo góc (`border-radius: 8px`), hoặc khoảng cách nhỏ cố định. |
+| `em` (*Element*) | **Đơn vị tương đối theo phần tử CHA trực tiếp** (hoặc chính nó): `1em` bằng đúng `font-size` của phần tử cha chứa nó.<br>• *Ví dụ:* Thẻ `<div style="font-size: 20px">` chứa thẻ `<p style="font-size: 1.5em">` $\rightarrow$ Cỡ chữ của `<p>` sẽ là $1.5 \times 20\text{px} = 30\text{px}$.<br>• **Bẫy cộng dồn (Compounding):** Nếu lồng nhiều thẻ `div` dùng `em` vào nhau, cỡ chữ sẽ bị nhân dồn liên tiếp rất dễ vỡ giao diện! |
+| `rem` (*Root em*) | **Đơn vị tương đối theo phần tử GỐC `<html>`** (*lưu ý: thường bị gõ nhầm thành `fem`*): `1rem` luôn bằng `font-size` của thẻ `<html>` (mặc định là **`16px`**), bất kể lồng sâu bao nhiêu cấp thẻ cha.<br>• *Cách quy đổi nhanh:* `0.5rem = 8px` \| `0.75rem = 12px` \| `1rem = 16px` \| `1.25rem = 20px` \| `1.5rem = 24px` \| `2rem = 32px`.<br>• **Khuyên dùng:** Chuẩn hiện đại để đặt `font-size`, `padding`, `margin` đồng bộ trên toàn trang web. |
+| `%` (*Phần trăm*) | **Đơn vị tương đối theo kích thước của THẺ CHA chứa nó**:<br>• `width: 50%;` $\rightarrow$ Chiều rộng bằng một nửa chiều rộng của thẻ cha.<br>• `width: 100%;` $\rightarrow$ Trải rộng kín hết chiều ngang của thẻ cha. |
+| `vw` (*Viewport Width*) | **Phần trăm chiều rộng MÀN HÌNH trình duyệt**: `1vw` = 1% chiều rộng cửa sổ trình duyệt; `100vw` = toàn bộ chiều ngang màn hình (không phụ thuộc thẻ cha). |
+| `vh` (*Viewport Height*) | **Phần trăm chiều cao MÀN HÌNH trình duyệt**: `1vh` = 1% chiều cao cửa sổ trình duyệt; `100vh` = cao kín hết chiều dọc màn hình (rất hay dùng để căn giữa form đăng nhập giữa màn hình: `min-height: 100vh;`). |
+| `fr` (*Fraction*) | **Phần bằng nhau của khoảng trống còn lại (Chỉ dùng trong CSS Grid)**:<br>• `grid-template-columns: 1fr 2fr 1fr;` $\rightarrow$ Chia hàng thành 4 phần: cột 1 chiếm 1 phần (25%), cột 2 chiếm 2 phần (50%), cột 3 chiếm 1 phần (25%). |
+| `calc(...)` | **Hàm tính toán kết hợp nhiều đơn vị khác nhau**:<br>• *Ví dụ:* `width: calc(100% - 250px);` (Lấy toàn bộ chiều ngang trừ đi 250px của thanh Sidebar cố định). Nhớ bắt buộc phải có **dấu cách** ở 2 bên dấu `+` hoặc `-`! |
+
+#### 💻 Ví dụ code minh họa: Sự khác biệt giữa `px`, `em`, `rem`, `%`, `vh` và `calc()`
+```html
+<style>
+  /* 1. Đặt cỡ chữ gốc cho thẻ html: 1rem = 16px */
+  html {
+    font-size: 16px;
+  }
+
+  /* 2. Dùng vh và % để tạo khung chiếm trọn chiều cao màn hình */
+  .page-wrapper {
+    width: 90%;             /* Chiếm 90% chiều ngang của thẻ body */
+    min-height: 100vh;      /* Cao tối thiểu bằng 100% màn hình thiết bị */
+    margin: 0 auto;
+  }
+
+  /* 3. So sánh rem (theo gốc html) và em (nhân theo thẻ cha) */
+  .parent-box {
+    font-size: 20px;        /* Cỡ chữ của cha là 20px */
+    padding: 1.5rem;        /* 1.5 * 16px (gốc html) = 24px */
+    border: 2px solid #333; /* Dùng px cố định cho đường viền */
+  }
+  .child-em {
+    font-size: 1.5em;       /* Nhân theo cha: 1.5 * 20px = 30px */
+  }
+  .child-rem {
+    font-size: 1.5rem;      /* Nhân theo gốc html: 1.5 * 16px = 24px (không bị ảnh hưởng bởi 20px của cha) */
+  }
+
+  /* 4. Dùng calc() để chia cột Sidebar cố định (220px) + Nội dung tự co giãn */
+  .main-content {
+    width: calc(100% - 220px);
+  }
+</style>
+
+<div class="page-wrapper">
+  <div class="parent-box">
+    Chữ trong thẻ cha (20px)
+    <p class="child-em">Chữ dùng 1.5em -> Thành 30px (nhân theo cha 20px)</p>
+    <p class="child-rem">Chữ dùng 1.5rem -> Thành 24px (nhân theo gốc html 16px)</p>
+  </div>
+</div>
+```
+
+---
+
+### 2.7. Thay Đổi Bố Cục & Vị Trí Trang Web Theo Thiết Bị (Responsive Web Design & Media Queries)
+Để một trang web tự động **đổi số cột, đổi kích thước hoặc đảo vị trí các khối** khi xem trên **Máy tính (Desktop)**, **Máy tính bảng (Tablet)** và **Điện thoại (Mobile)**, ta kết hợp **Thẻ Meta Viewport** và **`@media` (Media Queries)**:
+
+#### A. Bảng các kỹ thuật Responsive & Đảo vị trí theo thiết bị (1 cột Code - 1 cột Giải thích)
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `<meta name="viewport" content="width=device-width, initial-scale=1.0">` | Đặt trong `<head>`: Bắt buộc phải có để trình duyệt điện thoại nhận diện đúng chiều rộng thực tế của màn hình (`device-width`), nếu thiếu thẻ này thì `@media` trên điện thoại sẽ không hoạt động! |
+| `@media (max-width: 992px) { ... }` | **Desktop-first (Viết cho máy tính trước, thu nhỏ dần)**: Áp dụng CSS bên trong khi chiều rộng màn hình **nhỏ hơn hoặc bằng `992px`** (Máy tính bảng / Tablet). |
+| `@media (max-width: 576px) { ... }` | Áp dụng CSS bên trong khi chiều rộng màn hình **nhỏ hơn hoặc bằng `576px`** (Điện thoại / Mobile). |
+| `@media (min-width: 768px) { ... }` | **Mobile-first (Viết cho điện thoại trước, mở rộng dần)**: Áp dụng CSS bên trong khi màn hình **từ `768px` trở lên**. |
+| `flex-direction: column;` | Đặt trong `@media`: Chuyển các cột đang nằm ngang (`row` trên máy tính) thành **xếp chồng dọc từ trên xuống dưới** khi xem trên điện thoại. |
+| `flex-direction: column-reverse;` | Xếp chồng dọc nhưng **đảo ngược thứ tự từ dưới lên trên** (VD: đưa khối phải lên nằm trên khối trái khi xuống màn hình điện thoại). |
+| `order: 1;` / `order: 2;` / `order: -1;` | **Đảo vị trí bất kỳ phần tử con nào trong Flexbox hoặc Grid** mà không cần sửa thứ tự HTML! Mặc định mọi phần tử có `order: 0`. Phần tử nào có số **`order` nhỏ hơn sẽ đứng trước (lên trên / sang trái)**, số lớn hơn sẽ bị đẩy ra sau (xuống dưới / sang phải). |
+| `grid-template-columns: repeat(2, 1fr);` | Trong `@media (max-width: 992px)`: Giảm lưới sản phẩm từ **4 cột** (trên máy tính) xuống còn **2 cột** (trên Tablet) và `1fr` (**1 cột** trên điện thoại). |
+| `display: none;` (trong `@media`) | Ẩn bớt các thành phần phụ (như banner quảng cáo, cột phụ bên phải) khi màn hình quá nhỏ trên điện thoại. |
+
+#### 💻 Ví dụ code minh họa: Thay đổi số cột & Đảo vị trí Sidebar / Nội dung khi đổi từ Máy tính sang Điện thoại
+```html
+<style>
+  /* --- GIAO DIỆN MẶC ĐỊNH TRÊN MÁY TÍNH (DESKTOP > 992px) --- */
+  .page-layout {
+    display: flex;
+    gap: 20px;
+  }
+  .sidebar-left {
+    width: 280px;
+    background: #e3f2fd;
+    padding: 16px;
+    order: 1; /* Trên máy tính: Cột Danh mục đứng bên trái (số 1) */
+  }
+  .main-articles {
+    flex: 1;
+    background: #fff8e1;
+    padding: 16px;
+    order: 2; /* Trên máy tính: Nội dung chính đứng bên phải (số 2) */
+  }
+
+  /* Lưới sản phẩm: Mặc định trên máy tính hiển thị 4 cột */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .product-item {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+  }
+
+  /* --- KHI XEM TRÊN MÁY TÍNH BẢNG (TABLET <= 992px) --- */
+  @media (max-width: 992px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr); /* Giảm từ 4 cột xuống 2 cột */
+    }
+  }
+
+  /* --- KHI XEM TRÊN ĐIỆN THOẠI (MOBILE <= 576px) --- */
+  @media (max-width: 576px) {
+    .page-layout {
+      flex-direction: column; /* Chuyển từ 2 cột ngang thành xếp chồng dọc */
+    }
+    .sidebar-left {
+      width: 100%;
+      order: 2; /* ĐẢO VỊ TRÍ: Đẩy Sidebar xuống dưới (order: 2) */
+    }
+    .main-articles {
+      width: 100%;
+      order: 1; /* ĐẢO VỊ TRÍ: Đưa Nội dung chính lên đầu trang (order: 1) */
+    }
+    .product-grid {
+      grid-template-columns: 1fr; /* Giảm xuống còn 1 cột duy nhất */
+    }
+  }
+</style>
+
+<div class="page-layout">
+  <aside class="sidebar-left">Khối Sidebar (Trái ở PC -> Xuống dưới ở Mobile)</aside>
+  <main class="main-articles">Khối Nội dung chính (Phải ở PC -> Lên đầu ở Mobile)</main>
+</div>
+
+<div class="product-grid">
+  <div class="product-item">Sản phẩm 1</div>
+  <div class="product-item">Sản phẩm 2</div>
+  <div class="product-item">Sản phẩm 3</div>
+  <div class="product-item">Sản phẩm 4</div>
+</div>
+```
+
+---
+
+### 2.8. Toàn Tập Bootstrap 5 (Hệ Thống Lưới 12 Cột, Responsive & Đảo Vị Trí Bằng Class)
+
+> **Quy tắc cốt lõi của hệ thống lưới Bootstrap (Grid System):**
+> - Một hàng (`.row`) luôn được chia thành tối đa **12 phần bằng nhau** (12 cột).
+> - Cấu trúc chuẩn bắt buộc: `.container` (hoặc `.container-fluid`) $\rightarrow$ `.row` $\rightarrow$ `.col-*`.
+> - Nếu tổng số cột trong `.row` vượt quá 12, cột bị dư sẽ tự động rớt xuống hàng mới.
+
+#### A. Bảng 6 mốc kích thước màn hình (Breakpoints) trong Bootstrap 5
+| Tiền tố Class | Tên thiết bị tương ứng | Kích thước màn hình | Ví dụ Class chia cột |
+| :--- | :--- | :--- | :--- |
+| `.col-*` (Không có chữ giữa) | **Extra small (`xs`)** – Điện thoại nhỏ | $< 576\text{px}$ (Mặc định từ nhỏ nhất trở lên) | `.col-12` (Chiếm trọn 12/12 phần = 1 cột toàn màn hình) |
+| `.col-sm-*` | **Small (`sm`)** – Điện thoại ngang | $\ge 576\text{px}$ | `.col-sm-6` (12 / 6 = **2 cột** đều nhau) |
+| `.col-md-*` | **Medium (`md`)** – Máy tính bảng (Tablet) | $\ge 768\text{px}$ | `.col-md-4` (12 / 4 = **3 cột** đều nhau) |
+| `.col-lg-*` | **Large (`lg`)** – Laptop / Máy tính | $\ge 992\text{px}$ | `.col-lg-3` (12 / 3 = **4 cột** đều nhau) |
+| `.col-xl-*` | **Extra large (`xl`)** – Màn hình lớn | $\ge 1200\text{px}$ | `.col-xl-2` (12 / 2 = **6 cột** đều nhau) |
+| `.col-xxl-*` | **Extra extra large (`xxl`)** – Màn hình 2K/4K (Mới ở BS5) | $\ge 1400\text{px}$ | `.col-xxl-2` |
+
+#### B. Bảng tra cứu các Class Bootstrap 5 quan trọng nhất (Chia cột, Đảo vị trí, Ẩn/Hiện, Form, Bảng)
+| Class trong Bootstrap 5 | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `.container` vs `.container-fluid` | • `.container`: Khung căn giữa màn hình, có chừa khoảng trống 2 bên lề.<br>• `.container-fluid`: Khung rộng tràn kín `100%` chiều ngang màn hình. |
+| `class="col-12 col-md-6 col-lg-3"` | **Tự động đổi số cột theo thiết bị**:<br>• Trên Điện thoại (`col-12`): Mỗi ô chiếm 12/12 phần $\rightarrow$ **1 cột/hàng**.<br>• Trên Tablet (`col-md-6`): Mỗi ô chiếm 6/12 phần $\rightarrow$ **2 cột/hàng**.<br>• Trên Máy tính (`col-lg-3`): Mỗi ô chiếm 3/12 phần $\rightarrow$ **4 cột/hàng**. |
+| `order-1` đến `order-5`, `order-first`, `order-last` | **Đảo vị trí cột theo từng thiết bị** (kết hợp với `sm`, `md`, `lg`):<br>• *Ví dụ:* `class="col-12 col-md-4 order-2 order-md-1"` $\rightarrow$ Trên điện thoại bị đẩy xuống vị trí số 2 (`order-2`), nhưng lên Tablet/PC thì nhảy lên đứng đầu (`order-md-1`). |
+| `d-none d-md-block` | **Ẩn / Hiện phần tử theo thiết bị**:<br>• `d-none`: Ẩn hoàn toàn trên Điện thoại.<br>• `d-md-block`: Tự động hiện lại khi màn hình đạt từ mức Tablet (`md` $\ge 768\text{px}$) trở lên. (Ngược lại `d-block d-md-none` là chỉ hiện trên điện thoại, ẩn trên máy tính). |
+| `ms-*` / `me-*` / `ps-*` / `pe-*` | **Điểm mới của Bootstrap 5 so với Bootstrap 4**:<br>• Đổi `ml-*` (margin-left) $\rightarrow$ `ms-*` (*margin-start*) và `mr-*` (margin-right) $\rightarrow$ `me-*` (*margin-end*).<br>• Đổi `pl-*` $\rightarrow$ `ps-*` (*padding-start*) và `pr-*` $\rightarrow$ `pe-*` (*padding-end*).<br>• `mt-*` (top), `mb-*` (bottom), `mx-auto` (căn giữa ngang), `p-3` (padding 4 phía). |
+| `.d-flex`, `.justify-content-between`, `.align-items-center` | Bật Flexbox trực tiếp bằng class mà không cần viết file CSS riêng. |
+| `.form-label`, `.form-control`, `.form-select`, `.form-check-input` | Các class làm đẹp tự động cho Form trong Bootstrap 5 (lưu ý BS5 đã bỏ `.form-group` của BS4 và thay bằng `.mb-3` để tạo khoảng cách dưới mỗi dòng). |
+| `.table`, `.table-bordered`, `.table-striped`, `.table-hover` | Tạo bảng có kẻ khung viền chuẩn (`.table-bordered`), tô màu xen kẽ chẵn/lẻ (`.table-striped`) và đổi màu dòng khi rê chuột (`.table-hover`). |
+| `.btn`, `.btn-primary`, `.btn-success`, `.btn-danger`, `.btn-warning` | Tạo nút bấm có màu sắc chuẩn: Xanh dương (`primary`), Xanh lá (`success`), Đỏ (`danger` - nút Xóa), Vàng (`warning` - nút Sửa). |
+
+#### 💻 Ví dụ code minh họa: Giao diện Bootstrap 5 tự động đổi số cột & Đảo vị trí khối khi đổi thiết bị
+```html
+<!-- Nhúng link CSS Bootstrap 5 vào trong thẻ <head> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container my-4">
+  <!-- 1. DEMO ĐẢO VỊ TRÍ THEO THIẾT BỊ (ORDER) & ẨN/HIỆN THEO THIẾT BỊ -->
+  <div class="row g-3 mb-4">
+    <!-- Khối Sidebar: Ở Điện thoại nằm dưới (order-2), lên Máy tính (md) nhảy lên đứng trước bên trái (order-md-1) -->
+    <div class="col-12 col-md-4 order-2 order-md-1">
+      <div class="p-3 bg-light border rounded">
+        <h5>Danh mục (Sidebar)</h5>
+        <p class="mb-0">Chiếm 4/12 phần ở PC (bên trái), nhưng tự rớt xuống dưới ở Điện thoại.</p>
+        <!-- Banner chỉ hiện trên Máy tính (d-none d-lg-block), tự ẩn trên Điện thoại -->
+        <div class="alert alert-info mt-2 d-none d-lg-block mb-0">
+          Quảng cáo này chỉ hiện trên màn hình lớn (lg >= 992px)!
+        </div>
+      </div>
+    </div>
+
+    <!-- Khối Nội dung chính: Ở Điện thoại nằm trên đầu (order-1), lên Máy tính (md) đứng bên phải (order-md-2) -->
+    <div class="col-12 col-md-8 order-1 order-md-2">
+      <div class="p-3 bg-white border rounded">
+        <h5>Nội dung chính (Main Content)</h5>
+        <p class="mb-0">Chiếm 8/12 phần ở PC (bên phải), nhưng được ưu tiên đưa lên trên cùng khi xem bằng Điện thoại.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. DEMO LƯỚI SẢN PHẨM TỰ ĐỔI SỐ CỘT: Điện thoại 1 cột (col-12) -> Tablet 2 cột (col-sm-6) -> PC 4 cột (col-lg-3) -->
+  <div class="row g-3">
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card p-3 text-center">Sản phẩm 1</div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card p-3 text-center">Sản phẩm 2</div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card p-3 text-center">Sản phẩm 3</div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card p-3 text-center">Sản phẩm 4</div>
+    </div>
+  </div>
+</div>
+```
 
 ---
 
