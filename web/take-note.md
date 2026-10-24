@@ -1217,6 +1217,278 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ---
 
+### 4.5. Tổng Hợp Các Sự Kiện (Events) & Kịch Bản Tính Toán Thực Chiến Hay Ra Thi Nhất
+> Đây là các kịch bản tương tác động rất hay xuất hiện trong đề thi thực hành và lý thuyết: **tích chọn món mới hiện cột chọn Loại/Size**, **chọn Loại đổi đơn giá**, **phụ thu/giảm giá theo Radio/Checkbox**, và **bấm Submit để tính toán & in hóa đơn chi tiết**.
+
+#### A. Bảng từ điển các Sự kiện (Events) thường dùng trong Form & Tính toán
+| Tên Sự Kiện (`addEventListener`) | Khi nào sự kiện này kích hoạt & Ứng dụng trong đề thi |
+| :--- | :--- |
+| `"click"` | Khi người dùng **bấm chuột** vào nút `<button>`, đường link `<a>`, hoặc bấm nút `"Xóa"`, `"Thêm món"`, `"Tính tiền"`. |
+| `"submit"` | Đặt trên thẻ **`<form>`** khi bấm nút `<button type="submit">`. **Bắt buộc** gọi `e.preventDefault()` ở dòng đầu tiên để ngăn trang web tự tải lại (reload) làm mất hết hóa đơn vừa in! |
+| `"change"` | Khi giá trị của **`<select>` (Dropdown)**, **`checkbox`**, **`radio`**, hoặc **`<input type="date">`** bị thay đổi (ví dụ: tích vào món ăn để hiện cột chọn Loại Nóng/Đá, hoặc đổi Size S/M/L để cập nhật lại đơn giá). |
+| `"input"` | Kích hoạt **ngay lập tức mỗi khi gõ 1 phím hoặc bấm mũi tên tăng/giảm** trong ô `<input type="number">` / `<input type="text">`. Rất hợp để tính lại *Thành tiền = Số lượng × Đơn giá* theo thời gian thực hoặc tìm kiếm trực tiếp. |
+| `"blur"` / `"focus"` | • `"blur"`: Khi người dùng **nhấp chuột rời khỏi ô input** (dùng để kiểm tra Regex báo lỗi ngay sau khi nhập xong 1 ô).<br>• `"focus"`: Khi người dùng **bấm chuột vào trong ô input** (dùng để xóa dòng chữ báo lỗi màu đỏ trước đó). |
+| `"reset"` | Đặt trên thẻ `<form>` khi bấm nút `<button type="reset">`: ngoài việc xóa trắng các ô input, ta gắn thêm sự kiện này để ẩn lại các cột/khung hóa đơn về trạng thái ban đầu. |
+
+#### B. Bảng các công thức & kỹ thuật xử lý tính toán theo sự kiện
+| Yêu cầu trong đề thi | Cú pháp JavaScript giải quyết | Giải thích chi tiết cơ chế hoạt động |
+| :--- | :--- | :--- |
+| **1. Tích chọn món (`checkbox`) $\rightarrow$ Hiện ô chọn Loại / Số lượng của đúng dòng đó** | `const row = chk.closest("tr");`<br>`const boxLoai = row.querySelector(".loai-box");`<br>`boxLoai.style.display = chk.checked ? "block" : "none";` | Từ ô checkbox vừa tích (`chk`), dùng `.closest("tr")` để lấy dòng chứa món đó, rồi tìm phần tử `.loai-box` bên trong dòng đó. Nếu `chk.checked === true` thì hiện (`"block"` hoặc mở khóa `disabled = false`), bỏ tích thì ẩn đi (`"none"`). |
+| **2. Chọn Danh mục cha $\rightarrow$ Tự động đổ danh sách Loại con vào `<select>` thứ 2 (Cascading Dropdown)** | `cboLoai.innerHTML = ds[nhom].map(x =>`<br>`  '<option value="' + x.gia + '">' + x.ten + '</option>'`<br>`).join("");` | Khi chọn `<select id="cboNhom">` (VD: `"Đồ uống"` hay `"Đồ ăn"`), sự kiện `"change"` sẽ lấy mảng con tương ứng và ghi đè các thẻ `<option>` mới vào `<select id="cboLoai">`. |
+| **3. Tính phụ thu từ Radio (`name="loai"`) hoặc Checkbox** | `const rd = document.querySelector("input[name='loai']:checked");`<br>`let phuThu = rd ? parseFloat(rd.value) : 0;` | Tìm đúng nút Radio đang được chọn thông qua bộ chọn `:checked`. Nếu có chọn thì lấy `.value` ép kiểu sang số, nếu chưa chọn thì bằng `0`. |
+| **4. Tính chiết khấu / Giảm giá VIP hoặc Thuế VAT (%)** | `let giamGia = isVip ? tamTinh * 0.1 : 0;`<br>`let vat = (tamTinh - giamGia) * 0.08;`<br>`let tongCong = tamTinh - giamGia + vat;` | • Giảm 10% $\rightarrow$ nhân `0.1`.<br>• Thuế VAT 8% $\rightarrow$ nhân `0.08` (hoặc 10% $\rightarrow$ nhân `0.1`).<br>• Tổng thanh toán cuối cùng = Tạm tính $-$ Giảm giá $+$ Thuế VAT $+$ Phí giao hàng. |
+| **5. Bấm Submit $\rightarrow$ Gom các món đã chọn & In bảng Hóa đơn** | `frm.addEventListener("submit", function(e) {`<br>`  e.preventDefault();`<br>`  // Duyệt các dòng được tích & vẽ bảng hóa đơn`<br>`});` | Chặn tải lại trang bằng `e.preventDefault()`, duyệt qua `document.querySelectorAll(".chk-mon:checked")`, nối chuỗi HTML các dòng `<tr>` vào `tbody` của hóa đơn và bật `hoaDonBox.style.display = "block"`. |
+
+#### 💻 Ví dụ code minh họa 1: Chọn Danh mục tự động hiện Cột Loại tương ứng & Cập nhật Đơn giá
+```html
+<style>
+  .form-inline { display: flex; gap: 15px; align-items: flex-end; margin-bottom: 12px; }
+  .col-hidden  { display: none; } /* Ban đầu ẩn cột Loại và cột Đơn giá */
+</style>
+
+<div class="form-inline">
+  <!-- Bước 1: Chọn Nhóm món -->
+  <div>
+    <label><strong>1. Chọn nhóm món:</strong></label><br>
+    <select id="cboNhom">
+      <option value="">-- Chọn nhóm --</option>
+      <option value="cafe">Cà phê</option>
+      <option value="trasua">Trà sữa</option>
+    </select>
+  </div>
+
+  <!-- Bước 2: Cột Loại món (Chỉ hiện ra sau khi đã chọn Nhóm món!) -->
+  <div id="cotLoai" class="col-hidden">
+    <label><strong>2. Chọn loại chi tiết:</strong></label><br>
+    <select id="cboLoai"></select>
+  </div>
+
+  <!-- Bước 3: Cột Đơn giá & Số lượng (Tự động nhảy giá theo Loại) -->
+  <div id="cotGia" class="col-hidden">
+    <label><strong>Đơn giá:</strong></label><br>
+    <input type="text" id="txtDonGia" readonly style="width: 100px; background: #eee;">
+  </div>
+</div>
+
+<script>
+  // Dữ liệu các loại món tương ứng với từng nhóm
+  const menuData = {
+    cafe: [
+      { ten: "Cà phê Đen (Đá/Nóng)", gia: 25000 },
+      { ten: "Cà phê Sữa (Đá/Nóng)", gia: 30000 },
+      { ten: "Bạc xỉu đặc biệt",     gia: 35000 }
+    ],
+    trasua: [
+      { ten: "Trà sữa Truyền thống (Size M)", gia: 35000 },
+      { ten: "Trà sữa Truyền thống (Size L)", gia: 45000 },
+      { ten: "Trà sữa Kem trứng nướng",       gia: 50000 }
+    ]
+  };
+
+  const cboNhom   = document.getElementById("cboNhom");
+  const cotLoai   = document.getElementById("cotLoai");
+  const cboLoai   = document.getElementById("cboLoai");
+  const cotGia    = document.getElementById("cotGia");
+  const txtDonGia = document.getElementById("txtDonGia");
+
+  // SỰ KIỆN 1: Khi chọn Nhóm món -> Hiện cột Loại và đổ danh sách Loại tương ứng
+  cboNhom.addEventListener("change", function() {
+    const nhom = this.value;
+    if (!nhom) {
+      // Nếu quay về "-- Chọn nhóm --" thì ẩn lại cột Loại và cột Giá
+      cotLoai.style.display = "none";
+      cotGia.style.display  = "none";
+      return;
+    }
+
+    // Đổ các <option> của nhóm vừa chọn vào cboLoai
+    const danhSachLoai = menuData[nhom];
+    cboLoai.innerHTML = danhSachLoai.map(item =>
+      `<option value="${item.gia}">${item.ten}</option>`
+    ).join("");
+
+    // Hiện cột Loại và cột Giá lên màn hình
+    cotLoai.style.display = "block";
+    cotGia.style.display  = "block";
+
+    // Tự động hiển thị giá của loại đầu tiên
+    txtDonGia.value = danhSachLoai[0].gia.toLocaleString("vi-VN") + " đ";
+  });
+
+  // SỰ KIỆN 2: Khi đổi Loại chi tiết -> Tự động cập nhật lại ô Đơn giá
+  cboLoai.addEventListener("change", function() {
+    const gia = parseFloat(this.value) || 0;
+    txtDonGia.value = gia.toLocaleString("vi-VN") + " đ";
+  });
+</script>
+```
+
+#### 💻 Ví dụ code minh họa 2: Tích chọn món thì hiện cột Loại/Số lượng + Bấm Submit in Hóa Đơn tính tiền đầy đủ
+```html
+<style>
+  .tbl-menu, .tbl-bill { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+  .tbl-menu th, .tbl-menu td, .tbl-bill th, .tbl-bill td { border: 1px solid #333; padding: 8px; }
+  .tbl-menu th, .tbl-bill th { background: #e3f2fd; }
+  .an-khi-chua-chon { display: none; } /* Ẩn ô chọn Loại và Số lượng khi chưa tích checkbox */
+  #khungHoaDon { display: none; border: 2px solid #009688; padding: 16px; margin-top: 20px; background: #fafafa; }
+</style>
+
+<form id="frmDatMon">
+  <div style="margin-bottom: 10px;">
+    <label><strong>Tên khách hàng:</strong></label>
+    <input type="text" id="tenKhach" placeholder="Nhập họ tên khách..." required>
+    <label style="margin-left: 20px;">
+      <input type="checkbox" id="chkTheVip"> Có thẻ thành viên VIP (Giảm 10%)
+    </label>
+  </div>
+
+  <!-- BẢNG THỰC ĐƠN: Tích vào món nào thì cột Loại và Số lượng của dòng đó mới hiện ra -->
+  <table class="tbl-menu">
+    <thead>
+      <tr>
+        <th>Chọn</th>
+        <th>Tên món</th>
+        <th>Đơn giá gốc</th>
+        <th>Chọn Loại (Hiện khi tích chọn)</th>
+        <th>Số lượng (Hiện khi tích chọn)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-name="Cà phê Sữa" data-price="30000">
+        <td style="text-align: center;"><input type="checkbox" class="chk-mon"></td>
+        <td>Cà phê Sữa</td>
+        <td>30.000 đ</td>
+        <td>
+          <select class="cbo-loai an-khi-chua-chon">
+            <option value="0">Uống Nóng (+0 đ)</option>
+            <option value="5000">Uống Đá - Ly lớn (+5.000 đ)</option>
+          </select>
+        </td>
+        <td>
+          <input type="number" class="txt-sl an-khi-chua-chon" value="1" min="1" style="width: 60px;">
+        </td>
+      </tr>
+      <tr data-name="Trà Đào Cam Sả" data-price="40000">
+        <td style="text-align: center;"><input type="checkbox" class="chk-mon"></td>
+        <td>Trà Đào Cam Sả</td>
+        <td>40.000 đ</td>
+        <td>
+          <select class="cbo-loai an-khi-chua-chon">
+            <option value="0">Size M tiêu chuẩn (+0 đ)</option>
+            <option value="10000">Size L thêm đào (+10.000 đ)</option>
+          </select>
+        </td>
+        <td>
+          <input type="number" class="txt-sl an-khi-chua-chon" value="1" min="1" style="width: 60px;">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="submit">Thanh Toán & In Hóa Đơn</button>
+</form>
+
+<!-- KHUNG HÓA ĐƠN (Chỉ hiện ra sau khi bấm nút Submit) -->
+<div id="khungHoaDon">
+  <h3 style="margin-top: 0; color: #009688; text-align: center;">HÓA ĐƠN THANH TOÁN</h3>
+  <p><strong>Khách hàng:</strong> <span id="billKhach"></span> | <strong>Ngày lập:</strong> <span id="billNgay"></span></p>
+  <table class="tbl-bill">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên món & Loại</th>
+        <th>Số lượng</th>
+        <th>Đơn giá (gồm phụ thu)</th>
+        <th>Thành tiền</th>
+      </tr>
+    </thead>
+    <tbody id="billBody"></tbody>
+  </table>
+  <p style="text-align: right; margin: 4px 0;">Tạm tính: <strong id="billTamTinh">0 đ</strong></p>
+  <p style="text-align: right; margin: 4px 0; color: green;">Giảm giá VIP (10%): <strong id="billGiamGia">0 đ</strong></p>
+  <h4 style="text-align: right; margin: 8px 0; color: #d32f2f;">TỔNG THANH TOÁN: <span id="billTongCong">0 đ</span></h4>
+</div>
+
+<script>
+  // 1. SỰ KIỆN KHI TÍCH CHỌN MÓN: Tích dòng nào thì hiện cột Loại (.cbo-loai) và Số lượng (.txt-sl) của dòng đó
+  document.querySelectorAll(".chk-mon").forEach(function(chk) {
+    chk.addEventListener("change", function() {
+      const row     = this.closest("tr"); // Lấy đúng dòng <tr> vừa tích
+      const cboLoai = row.querySelector(".cbo-loai");
+      const txtSl   = row.querySelector(".txt-sl");
+
+      if (this.checked) {
+        cboLoai.style.display = "inline-block"; // Hiện ô chọn Loại
+        txtSl.style.display   = "inline-block"; // Hiện ô nhập Số lượng
+      } else {
+        cboLoai.style.display = "none";         // Bỏ tích -> Ẩn lại
+        txtSl.style.display   = "none";
+        txtSl.value = 1;                        // Reset số lượng về 1
+      }
+    });
+  });
+
+  // 2. SỰ KIỆN KHI BẤM SUBMIT FORM: Tính toán tiền và In ra Hóa Đơn
+  document.getElementById("frmDatMon").addEventListener("submit", function(e) {
+    e.preventDefault(); // BẮT BUỘC: Chặn form tải lại trang
+
+    const cacMonDaChon = document.querySelectorAll(".chk-mon:checked");
+    if (cacMonDaChon.length === 0) {
+      alert("Vui lòng tích chọn ít nhất 1 món trước khi in hóa đơn!");
+      return;
+    }
+
+    let tamTinh = 0;
+    let htmlRows = "";
+
+    // Duyệt qua từng món đã được tích chọn
+    cacMonDaChon.forEach(function(chk, index) {
+      const row      = chk.closest("tr");
+      const tenMon   = row.dataset.name;
+      const giaGoc   = parseFloat(row.dataset.price) || 0;
+
+      // Đọc Loại đang chọn (lấy cả tên Loại và tiền phụ thu)
+      const cboLoai  = row.querySelector(".cbo-loai");
+      const tenLoai  = cboLoai.options[cboLoai.selectedIndex].text;
+      const phuThu   = parseFloat(cboLoai.value) || 0;
+
+      // Đọc số lượng và tính thành tiền của dòng
+      const soLuong  = parseInt(row.querySelector(".txt-sl").value) || 1;
+      const donGia   = giaGoc + phuThu;
+      const thanhTien = donGia * soLuong;
+      tamTinh += thanhTien;
+
+      htmlRows += `
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td>${tenMon} <br><small style="color: #555;">(${tenLoai})</small></td>
+          <td style="text-align: center;">${soLuong}</td>
+          <td style="text-align: right;">${donGia.toLocaleString("vi-VN")} đ</td>
+          <td style="text-align: right;">${thanhTien.toLocaleString("vi-VN")} đ</td>
+        </tr>
+      `;
+    });
+
+    // Tính giảm giá VIP 10% (nếu có tích chọn thẻ VIP)
+    const isVip    = document.getElementById("chkTheVip").checked;
+    const giamGia  = isVip ? tamTinh * 0.1 : 0;
+    const tongCong = tamTinh - giamGia;
+
+    // Đổ dữ liệu vào Khung Hóa Đơn và hiển thị lên màn hình
+    document.getElementById("billKhach").textContent    = document.getElementById("tenKhach").value.trim();
+    document.getElementById("billNgay").textContent     = new Date().toLocaleString("vi-VN");
+    document.getElementById("billBody").innerHTML       = htmlRows;
+    document.getElementById("billTamTinh").textContent  = tamTinh.toLocaleString("vi-VN") + " đ";
+    document.getElementById("billGiamGia").textContent  = "-" + giamGia.toLocaleString("vi-VN") + " đ";
+    document.getElementById("billTongCong").textContent = tongCong.toLocaleString("vi-VN") + " đ";
+
+    document.getElementById("khungHoaDon").style.display = "block";
+  });
+</script>
+```
+
+---
+
 ## 🏆 5. CÁC MẪU BÀI TẬP THỰC HÀNH TRỌNG TÂM (VANILLA JS)
 
 ### 📌 DẠNG 1: FORM VALIDATION VỚI REGEX + THÊM VÀO BẢNG
