@@ -120,7 +120,20 @@
 
 ## 🎨 2. CSS, CSS3 & BOOTSTRAP 5 TỐC KÝ
 
-### 2.1. Độ ưu tiên CSS (Specificity) - Từ cao xuống thấp
+### 2.1. Hệ thống Bộ chọn CSS (Selectors) & Độ ưu tiên (Specificity)
+
+#### A. Bảng các bộ chọn CSS quan trọng cần nhớ
+| Loại bộ chọn | Cú pháp | Ý nghĩa & Ứng dụng thực tế |
+| :--- | :--- | :--- |
+| **Con hậu duệ (Descendant)** | `A B` (VD: `.card p`) | Chọn **mọi** thẻ `B` nằm bên trong `A` (ở bất kỳ cấp nào) |
+| **Con trực tiếp (Child)** | `A > B` (VD: `.cv-table > tbody > tr > td`) | Chỉ chọn `B` là **con ruột cấp 1** của `A` (tránh làm hỏng bảng con bên trong) |
+| **Anh em kế tiếp sát nhau** | `A + B` (VD: `label + input`) | Chọn thẻ `B` đứng **ngay sát sau** thẻ `A` (cùng cha) |
+| **Tất cả anh em phía sau** | `A ~ B` | Chọn tất cả thẻ `B` đứng sau `A` (cùng cha) |
+| **Theo thuộc tính** | `input[type="text"]`, `[data-id]` | Chọn chính xác loại ô input để định dạng mà không ảnh hưởng radio/checkbox |
+| **Trạng thái tương tác** | `:hover`, `:focus`, `:checked`, `:disabled` | Đổi màu khi rê chuột (`:hover`), khi đang gõ chữ (`:focus`), khi được tích (`:checked`) |
+| **Vị trí con trong danh sách** | `:first-child`, `:last-child`, `:nth-child(even/odd)` | Tô màu xen kẽ các dòng chẵn (`even`) / lẻ (`odd`) trong bảng `<table>` |
+
+#### B. Độ ưu tiên CSS (Specificity) - Từ cao xuống thấp
 1. `!important` (Thắng tuyệt đối)
 2. **Inline style** (`style="..."` trong thẻ HTML): **1000 điểm**
 3. **ID Selector** (`#id`): **100 điểm**
@@ -129,44 +142,105 @@
 6. **Universal** (`*`): **0 điểm**
 > *Lưu ý:* Nếu bằng điểm nhau $\rightarrow$ Quy tắc nào viết **sau cùng** sẽ được áp dụng.
 
-### 2.2. CSS Box Model & `box-sizing`
+### 2.2. Thuộc tính `display`, CSS Box Model & `box-sizing`
+- **Phân biệt nhanh các giá trị `display`:**
+  - `block`: Chiếm trọn 1 hàng ngang, đặt được `width`, `height`, `margin`, `padding` (`div`, `p`, `h1`-`h6`, `form`, `table`).
+  - `inline`: Nằm trên cùng 1 dòng, **không** đặt được `width`, `height`, `margin-top/bottom` (`span`, `a`, `b`, `i`, `strong`).
+  - `inline-block`: Nằm trên cùng 1 dòng như `inline` nhưng **đặt được `width`, `height`, `padding`, `margin`** (rất hay dùng cho nút bấm, nhãn thời gian).
+  - `none`: Ẩn hoàn toàn phần tử khỏi trang (không chiếm chỗ). Khác với `visibility: hidden` (ẩn nhưng vẫn giữ nguyên khoảng trống).
 - **`box-sizing: content-box` (Mặc định):**
   - $\text{Chiều rộng thực tế} = \text{width} + 2 \times \text{padding} + 2 \times \text{border}$
   - *Ví dụ:* `width: 300px; padding: 20px; border: 5px solid;` $\Rightarrow 300 + 40 + 10 = 350\text{px}$.
-- **`box-sizing: border-box` (Khuyên dùng):**
-  - $\text{Chiều rộng thực tế} = \text{width}$ (đã bao gồm cả `padding` và `border` bên trong).
+- **`box-sizing: border-box` (Khuyên dùng cho mọi bài):**
+  - $\text{Chiều rộng thực tế} = \text{width}$ (đã bao gồm cả `padding` và `border` bên trong, giúp `width: 100%` không bao giờ bị tràn khung).
 - **Căn giữa một khối block theo chiều ngang:** `width: 800px; margin: 0 auto;`
 
-### 2.3. Định vị (`position`)
+### 2.3. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
 - `static`: Mặc định (không dùng được `top`, `bottom`, `left`, `right`, `z-index`).
-- `relative`: Dịch chuyển so với **vị trí ban đầu của chính nó**, vẫn giữ nguyên khoảng trống cũ. Thường dùng làm mốc cho thẻ con `absolute`.
+- `relative`: Dịch chuyển so với **vị trí ban đầu của chính nó**, vẫn giữ nguyên khoảng trống cũ. Thường dùng làm mốc tọa độ cho thẻ con `absolute`.
 - `absolute`: Tách khỏi luồng trang, định vị theo **phần tử cha/tổ tiên gần nhất có `position` khác `static`**. Nếu không có cha nào thỏa mãn, nó neo theo `<html>`.
-- `fixed`: Neo cố định theo **khung nhìn trình duyệt (viewport)**, cuộn trang không bị trôi (nút Back-to-top, menu nổi).
+- `fixed`: Neo cố định theo **khung nhìn trình duyệt (viewport)**, cuộn trang không bị trôi (nút Back-to-top, menu nổi, popup modal).
 - `sticky`: Lai giữa `relative` và `fixed` (cuộn chạm mốc `top: 0` sẽ dính lại).
 
-### 2.4. Chia bố cục với Flexbox & Grid
 ```css
-/* Chia 2 cột trái - phải bằng Flexbox */
-.row-flex {
-  display: flex;
-  justify-content: space-between; /* Căn đều 2 đầu */
-  align-items: center;            /* Căn giữa dọc */
-  gap: 20px;                      /* Khoảng cách giữa các cột */
+/* MẪU KINH ĐIỂN: Đặt Tên ứng viên hoặc Nhãn giảm giá (-20%) đè lên góc ảnh */
+.image-wrapper {
+  position: relative; /* Bắt buộc đặt trên thẻ cha bao quanh ảnh */
+  width: 300px;
 }
-.col-left  { flex: 1; }           /* Chiếm 1 phần */
-.col-right { flex: 2; }           /* Chiếm 2 phần */
-
-/* Căn chính giữa tuyệt đối (Ngang + Dọc) */
-.center-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.image-wrapper img {
+  width: 100%;
+  display: block;
+}
+.overlay-text {
+  position: absolute; /* Định vị con theo .image-wrapper */
+  bottom: 12px;       /* Cách đáy ảnh 12px (nếu muốn góc trên phải thì dùng top: 10px; right: 10px;) */
+  left: 16px;
+  color: #000;
+  font-size: 22px;
+  font-weight: bold;
 }
 ```
 
-### 2.5. Pseudo-classes, CSS3 & Bootstrap 5
+### 2.4. Toàn bộ các mẫu Bố cục (Layout) bằng Flexbox & CSS Grid
+```css
+/* 1. BỐ CỤC 2 CỘT (Cột trái cố định + Cột phải tự co giãn - Đề CV / Tin tức) */
+.layout-2col {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.sidebar { width: 300px; }
+.content { flex: 1; } /* Chiếm toàn bộ phần rộng còn lại */
+
+/* 2. BỐ CỤC LƯỚI N CỘT ĐỀU NHAU (Đề Bán sách 4 cột / Đề Mượn sách 3 cột) */
+.grid-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Đổi số 4 thành 2, 3, 5 tùy số cột đề vẽ */
+  gap: 20px;
+  text-align: center;
+}
+
+/* 3. BỐ CỤC DÒNG FORM NGANG (Label bên trái, Input bên phải trên cùng 1 hàng) */
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.form-row label {
+  width: 140px;       /* Cố định độ rộng cột nhãn */
+  font-weight: bold;
+}
+.form-row input, .form-row select, .form-row textarea {
+  flex: 1;            /* Ô nhập tự giãn hết phần còn lại */
+  padding: 6px 8px;
+}
+
+/* 4. THANH TIẾN TRÌNH (PROGRESS BAR - Đề Kỹ năng CV) */
+.progress-bg {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.progress-fill {
+  background-color: #009688;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  padding: 2px 0;
+  border-radius: 12px;
+  /* Độ rộng gán động qua style="width: 80%;" */
+}
+```
+
+### 2.5. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`), CSS3 & Bootstrap 5
+- **Bảng biểu có đường viền đơn sắc nét:**
+  - `table { width: 100%; border-collapse: collapse; }` (Gộp viền đôi thành viền đơn).
+  - `th, td { border: 1px solid #333; padding: 8px; vertical-align: middle; }`
+- **Giữ tỷ lệ hình ảnh đồng đều không bị méo:**
+  - `img.thumb { width: 120px; height: 160px; object-fit: cover; }` (`cover`: lấp đầy khung; `contain`: thấy trọn vẹn ảnh).
 - **Thứ tự thẻ `<a>` bắt buộc (LVHA):** `:link` $\rightarrow$ `:visited` $\rightarrow$ `:hover` $\rightarrow$ `:active`.
-- **Chọn dòng chẵn/lẻ trong CSS:** `tr:nth-child(even)` (chẵn: 2, 4, 6...), `tr:nth-child(odd)` (lẻ: 1, 3, 5...).
 - **Hiệu ứng CSS3 thông dụng:**
   - Bo góc: `border-radius: 8px;` (hình tròn: `50%`).
   - Đổ bóng hộp: `box-shadow: 0 4px 10px rgba(0,0,0,0.15);`
@@ -215,10 +289,11 @@ let formatted = total.toLocaleString("vi-VN") + " đ";
 let rawNumber = parseFloat(str.replace(/\./g, "").replace(/[^\d]/g, "")) || 0;
 ```
 
-### 3.3. Đối tượng `Date` (Lấy Thứ, Ngày, Tháng, Năm, Giờ hệ thống)
+### 3.3. Đối tượng `Date` (Lấy Ngày Giờ Hệ Thống & Tính Số Ngày Thuê/Mượn)
 > **Bẫy chết người:** `now.getMonth()` trả về từ **0 đến 11** $\rightarrow$ Bắt buộc phải **`+ 1`**! `now.getDay()` trả về từ **0 (Chủ Nhật) đến 6 (Thứ Bảy)**.
 
 ```javascript
+// 1. Lấy Thứ, Ngày, Tháng, Năm, Giờ hiện tại
 function getVietnameseDateTime() {
   const days = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
   const now = new Date();
@@ -231,11 +306,51 @@ function getVietnameseDateTime() {
   const giay  = String(now.getSeconds()).padStart(2, "0");
   return `${thu}, ${ngay}/${thang}/${nam} - ${gio}:${phut}:${giay}`;
 }
-// Cập nhật đồng hồ mỗi giây:
-// setInterval(() => { document.getElementById("clock").textContent = getVietnameseDateTime(); }, 1000);
+
+// 2. Tính số ngày chênh lệch giữa 2 ô <input type="date"> (Đặt phòng khách sạn / Thuê xe / Mượn sách)
+const d1 = new Date(document.getElementById("ngayNhan").value);
+const d2 = new Date(document.getElementById("ngayTra").value);
+const soNgay = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+if (soNgay <= 0) {
+  alert("Ngày trả phải lớn hơn ngày nhận!");
+}
 ```
 
-### 3.4. Bảng Tra Cứu Biểu Thức Chính Quy (Regex) Thông Dụng
+### 3.4. Bảng Tổng Hợp Các Hàm Xử Lý Mảng (Array) & Chuỗi (String) Cốt Lõi
+```javascript
+// --- 1. CÁC HÀM MẢNG (ARRAY) DÙNG CHO GIỎ HÀNG / DANH SÁCH ---
+let list = JSON.parse(localStorage.getItem("data")) || [];
+
+// Thêm phần tử vào cuối mảng:
+list.push({ id: "SP1", name: "Áo", price: 120000, qty: 1 });
+
+// Tìm 1 phần tử (để kiểm tra trùng lặp -> cộng dồn số lượng):
+let found = list.find(item => item.id === "SP1");
+if (found) found.qty += 1;
+
+// Xóa 1 phần tử tại vị trí index:
+list.splice(index, 1);
+
+// Lọc danh sách (Tìm kiếm theo tên hoặc lọc theo loại):
+let ketQuaLoc = list.filter(item => item.name.toLowerCase().includes(tuKhoa.toLowerCase()));
+
+// Sắp xếp mảng (Tăng dần theo giá / theo tên tiếng Việt):
+list.sort((a, b) => a.price - b.price);                 // Giảm dần: b.price - a.price
+list.sort((a, b) => a.name.localeCompare(b.name, "vi"));
+
+// Tính tổng tiền toàn bộ mảng bằng reduce:
+let tongTien = list.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+// Biến mảng thành chuỗi HTML để chèn vào bảng:
+tbody.innerHTML = list.map((item, idx) => `
+  <tr data-index="${idx}">
+    <td>${item.name}</td>
+    <td>${item.price.toLocaleString("vi-VN")} đ</td>
+  </tr>
+`).join("");
+```
+
+### 3.5. Bảng Tra Cứu Biểu Thức Chính Quy (Regex) Thông Dụng
 Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `true` / `false`).
 
 | Yêu cầu kiểm tra | Biểu thức Regex chuẩn | Giải thích nhanh |
@@ -250,7 +365,7 @@ Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `
 
 ---
 
-## 🛠️ 4. THAO TÁC DOM & SỰ KIỆN BẰNG JAVASCRIPT THUẦN (VANILLA JS)
+## 🛠️ 4. THAO TÁC DOM, SỰ KIỆN & 5 KỸ THUẬT XỬ LÝ ĐỀ MỚI (VANILLA JS)
 
 > **So sánh `DOMContentLoaded` vs `window.onload`:**
 > - `document.addEventListener("DOMContentLoaded", fn)`: Chạy ngay khi **cây DOM vừa dựng xong** (không cần đợi ảnh/video tải xong) $\rightarrow$ Nhanh hơn.
@@ -266,11 +381,13 @@ Cú pháp kiểm tra: `let isHopLe = regex.test(chuoiCanKiemTra);` (Trả về `
 | **Tìm phần tử con bên trong 1 dòng `tr`** | `const qtyInput = row.querySelector(".qty");` |
 | **Tìm thẻ cha `<tr>` gần nhất (để xóa dòng)** | `const row = btn.closest("tr"); row.remove();` |
 | **Đọc / Ghi giá trị ô input, select** | `let v = el.value.trim();` / `el.value = "Mới";` |
+| **Kiểm tra 1 ô checkbox có được tích không** | `let isChecked = document.getElementById("chk").checked;` (`true`/`false`) |
 | **Đọc / Ghi nội dung chữ thuần** | `let t = el.textContent;` / `el.textContent = "120.000 đ";` |
 | **Đọc / Ghi mã HTML bên trong** | `el.innerHTML = "<tr><td>...</td></tr>";` (Xóa rỗng: `el.innerHTML = "";`) |
 | **Đọc / Ghi thuộc tính `data-*`** | `<td data-price="20000">` $\rightarrow$ `el.dataset.price` |
 | **Ẩn / Hiện phần tử** | `el.style.display = "none";` / `el.style.display = "block";` (hoặc `"table"`) |
 | **Thêm / Xóa / Đảo class CSS** | `el.classList.add("active");` / `.remove("active");` / `.toggle("active");` |
+| **Bật / Tắt khóa ô nhập hoặc nút bấm** | `el.disabled = true;` / `el.disabled = false;` |
 
 ### 4.2. Hai cách thêm dòng mới vào bảng `<table>`
 **Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Ngắn gọn & trực quan)**
@@ -294,7 +411,75 @@ row.insertCell(1).textContent = "120.000 đ";
 row.insertCell(2).innerHTML = `<button type="button" class="btn-del">Xóa</button>`;
 ```
 
-### 4.3. Ủy quyền sự kiện (Event Delegation) trong JS thuần & Event Loop
+### 4.3. Năm mẫu kỹ thuật "Mảnh ghép" giải quyết các dạng đề biến tấu mới
+
+#### Mẫu A: Nhân bản khối nhập liệu khi bấm nút "Thêm..." (Thêm sách, Thêm kỹ năng, Thêm thành viên)
+```javascript
+document.getElementById("btnAddBlock").addEventListener("click", function() {
+  const container = document.getElementById("blockContainer");
+  const blocks = container.querySelectorAll(".item-block");
+
+  // Nếu đề giới hạn số lượng tối đa (VD: tối đa 3 quyển sách)
+  if (blocks.length >= 3) {
+    alert("Chỉ được thêm tối đa 3 mục!");
+    return;
+  }
+
+  // Nhân bản khối đầu tiên và xóa trắng dữ liệu bên trong
+  const newBlock = blocks[0].cloneNode(true);
+  newBlock.querySelectorAll("input, textarea").forEach(el => el.value = "");
+  container.appendChild(newBlock);
+});
+```
+
+#### Mẫu B: Chọn Dropdown `<select>` tự động nhảy Đơn giá & Hình ảnh tương ứng
+```javascript
+// HTML: <select id="cboSP"><option value="150000" data-img="ao.jpg">Áo sơ mi</option></select>
+document.getElementById("cboSP").addEventListener("change", function() {
+  const opt = this.options[this.selectedIndex];
+  document.getElementById("txtDonGia").value = opt.value;
+  document.getElementById("imgPreview").src  = opt.dataset.img;
+});
+```
+
+#### Mẫu C: Đọc và hiển thị ảnh từ `<input type="file">` (Vừa xem trước vừa lưu vào `localStorage`)
+```javascript
+let avatarBase64 = "default.png";
+document.getElementById("fileInput").addEventListener("change", function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      avatarBase64 = evt.target.result; // Chuỗi Base64 lưu được vào localStorage
+      document.getElementById("imgPreview").src = avatarBase64;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+```
+
+#### Mẫu D: Tìm kiếm / Lọc các dòng trong bảng theo từ khóa gõ vào (`input` event)
+```javascript
+document.getElementById("txtSearch").addEventListener("input", function() {
+  const keyword = this.value.trim().toLowerCase();
+  document.querySelectorAll("#myTable tbody tr").forEach(function(row) {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(keyword) ? "" : "none";
+  });
+});
+```
+
+#### Mẫu E: Truyền dữ liệu từ Trang 1 sang Trang 2 bằng `localStorage`
+```javascript
+// Ở Trang 1 (Trước khi mở hoặc chuyển sang Trang 2):
+localStorage.setItem("savedData", JSON.stringify(myObjectOrArray));
+window.location.href = "trang2.html"; // Hoặc dùng thẻ <a href="trang2.html" target="_blank">
+
+// Ở Trang 2 (Khi vừa mở trang):
+const data = JSON.parse(localStorage.getItem("savedData")) || [];
+```
+
+### 4.4. Ủy quyền sự kiện (Event Delegation) trong JS thuần & Event Loop
 - **Ủy quyền sự kiện cho các nút "Xóa" hoặc ô số lượng mới sinh ra:**
 ```javascript
 document.getElementById("myTable").addEventListener("click", function(e) {
