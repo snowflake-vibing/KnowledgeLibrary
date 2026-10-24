@@ -148,6 +148,82 @@
 | **Khung nhóm có tiêu đề trên viền** | `<fieldset><legend>Tiêu đề nhóm</legend> ... </fieldset>` | `<fieldset>` tạo khung viền bao quanh, `<legend>` tạo chữ nằm đè lên cạnh viền trên (Đề Form Nhóm). |
 | **3 loại Nút bấm (`<button>`)** | `<button type="submit">Đăng ký</button>`<br>`<button type="reset">Cancel</button>`<br>`<button type="button">Tính tiền</button>` | • `type="submit"`: Gửi form đi (kích hoạt sự kiện `submit`).<br>• `type="reset"`: Tự động xóa trắng toàn bộ form về ban đầu.<br>• `type="button"`: Nút bấm thường để chạy hàm JS mà không làm reload trang. |
 
+#### 💻 Ví dụ code minh họa: Form tích hợp đầy đủ các loại Control & Cách đọc bằng JS
+```html
+<form id="demoForm" action="xuly.php" method="post" enctype="multipart/form-data">
+  <!-- 1. Ô nhập chữ + liên kết for-id -->
+  <label for="txtHoTen">Họ và tên:</label>
+  <input type="text" id="txtHoTen" name="hoten" placeholder="Nhập họ và tên..." required>
+
+  <!-- 2. Ô nhập số có giới hạn min, max, step -->
+  <label for="numSoLuong">Số lượng vé:</label>
+  <input type="number" id="numSoLuong" name="soluong" value="1" min="1" max="10" step="1">
+
+  <!-- 3. Thanh trượt (range) từ 0 đến 100, bước nhảy 10 -->
+  <label for="rngMucDo">Mức độ hài lòng (0 - 100%):</label>
+  <input type="range" id="rngMucDo" name="mucdo" min="0" max="100" step="10" value="80">
+
+  <!-- 4. Khung nhóm Fieldset & Legend chứa Radio + Checkbox + Select -->
+  <fieldset>
+    <legend><strong>Tùy chọn dịch vụ</strong></legend>
+
+    <!-- Radio: Cùng name="ca" để chỉ chọn được 1 -->
+    <label>Thời điểm:</label>
+    <label><input type="radio" name="ca" value="ngay" checked> Ban ngày</label>
+    <label><input type="radio" name="ca" value="dem"> Ban đêm (+10%)</label>
+    <br>
+
+    <!-- Checkbox: Chọn nhiều món kèm data-ten -->
+    <label>Dịch vụ thêm:</label>
+    <label><input type="checkbox" name="dichvu" value="30000" data-ten="Bắp rang"> Bắp rang (30k)</label>
+    <label><input type="checkbox" name="dichvu" value="20000" data-ten="Nước ngọt"> Nước ngọt (20k)</label>
+    <br>
+
+    <!-- Dropdown Select -->
+    <label for="cboRap">Chọn rạp:</label>
+    <select id="cboRap" name="rap">
+      <option value="R1" selected>CGV Thủ Đức</option>
+      <option value="R2">Lotte Cinema</option>
+    </select>
+  </fieldset>
+
+  <!-- 5. Ô chọn file & Ô văn bản nhiều dòng -->
+  <label for="fileAnh">Ảnh đính kèm:</label>
+  <input type="file" id="fileAnh" name="anh" accept="image/*">
+
+  <label for="txtGhiChu">Ghi chú thêm:</label>
+  <textarea id="txtGhiChu" name="ghichu" rows="3" placeholder="Nhập yêu cầu đặc biệt..."></textarea>
+
+  <!-- 6. Các nút bấm -->
+  <button type="submit">Xác nhận đặt vé</button>
+  <button type="reset">Nhập lại (Cancel)</button>
+</form>
+
+<script>
+  document.getElementById("demoForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Ngăn trang tự tải lại
+
+    const hoTen   = document.getElementById("txtHoTen").value.trim();
+    const soLuong = parseInt(document.getElementById("numSoLuong").value) || 1;
+    const mucDo   = parseInt(document.getElementById("rngMucDo").value) || 0;
+    const caChon  = document.querySelector("input[name='ca']:checked").value;
+
+    const cboRap  = document.getElementById("cboRap");
+    const maRap   = cboRap.value;
+    const tenRap  = cboRap.options[cboRap.selectedIndex].text;
+    const ghiChu  = document.getElementById("txtGhiChu").value.trim();
+
+    // Đọc danh sách các checkbox được tích chọn
+    const dsDichVu = [];
+    document.querySelectorAll("input[name='dichvu']:checked").forEach(chk => {
+      dsDichVu.push(`${chk.dataset.ten} (${chk.value}đ)`);
+    });
+
+    console.log({ hoTen, soLuong, mucDo, caChon, maRap, tenRap, dsDichVu, ghiChu });
+  });
+</script>
+```
+
 ### 1.3. Lý thuyết HTML5 hay hỏi trắc nghiệm
 - **Thẻ ngữ nghĩa (Semantic Tags):**
   - `<header>`: Đầu trang/đầu khối.
@@ -165,6 +241,45 @@
   - `localStorage`: Lưu **vĩnh viễn** cho đến khi xóa thủ công (`localStorage.setItem('k', 'v')`, `getItem('k')`, `removeItem('k')`, `clear()`).
   - `sessionStorage`: Tự động **mất sạch khi đóng tab/cửa sổ trình duyệt**.
 
+#### 💻 Ví dụ code minh họa: Cấu trúc Semantic HTML5 & Lưu/Đọc `localStorage`
+```html
+<!-- 1. Bố cục trang chuẩn Semantic HTML5 -->
+<header>
+  <h1>Cổng Thông Tin Thư Viện UIT</h1>
+  <nav>
+    <a href="index.html">Trang chủ</a> | <a href="giohang.html">Giỏ sách</a>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h2>Sách mới cập nhật</h2>
+    <article>
+      <h3>Giáo trình Phát triển ứng dụng Web</h3>
+      <p>Tài liệu học tập chính thức môn IS207...</p>
+    </article>
+  </section>
+  <aside>Thông báo lịch nghỉ lễ</aside>
+</main>
+
+<footer>&copy; 2026 Khoa HTTT - UIT</footer>
+
+<script>
+  // 2. Cách lưu và đọc một mảng đối tượng bằng localStorage
+  const danhSach = [
+    { mssv: "24520001", ten: "Nguyễn Văn A" },
+    { mssv: "24520002", ten: "Trần Thị B" }
+  ];
+
+  // Lưu mảng vào localStorage (phải chuyển sang chuỗi JSON)
+  localStorage.setItem("dsSinhVien", JSON.stringify(danhSach));
+
+  // Đọc mảng từ localStorage ra lại
+  const duLieuDocRa = JSON.parse(localStorage.getItem("dsSinhVien")) || [];
+  console.log(duLieuDocRa[0].ten); // In ra: "Nguyễn Văn A"
+</script>
+```
+
 ---
 
 ## 🎨 2. CSS, CSS3 & BOOTSTRAP 5 TỐC KÝ
@@ -181,6 +296,29 @@
 | **Theo thuộc tính** | `input[type="text"]`, `[data-id]` | Chọn chính xác loại ô input để định dạng mà không ảnh hưởng radio/checkbox |
 | **Trạng thái tương tác** | `:hover`, `:focus`, `:checked`, `:disabled` | Đổi màu khi rê chuột (`:hover`), khi đang gõ chữ (`:focus`), khi được tích (`:checked`) |
 | **Vị trí con trong danh sách** | `:first-child`, `:last-child`, `:nth-child(even/odd)` | Tô màu xen kẽ các dòng chẵn (`even`) / lẻ (`odd`) trong bảng `<table>` |
+
+#### 💻 Ví dụ code minh họa: Cách hoạt động của các Bộ chọn CSS trên
+```css
+/* 1. Con hậu duệ (A B): Chọn mọi thẻ p nằm trong .card */
+.card p { line-height: 1.5; }
+
+/* 2. Con trực tiếp (A > B): Chỉ kẻ viền các ô của bảng chính .cv-table, không ảnh hưởng bảng con bên trong */
+.cv-table > tbody > tr > td { border: 1px solid #000; padding: 8px; }
+
+/* 3. Anh em kế tiếp (A + B): Ô input nằm ngay sau label sẽ cách trên 4px */
+label + input { margin-top: 4px; }
+
+/* 4. Bộ chọn thuộc tính: Chỉ định dạng ô chữ và ô số, không làm ảnh hưởng nút radio/checkbox */
+input[type="text"], input[type="number"] { width: 100%; padding: 6px; }
+
+/* 5. Trạng thái tương tác (:hover, :focus) */
+.btn:hover { background-color: darkgreen; }
+input:focus { border-color: #007bff; outline: none; }
+
+/* 6. Tô màu dòng chẵn / lẻ trong bảng */
+#myTable tbody tr:nth-child(even) { background-color: #f9f9f9; }
+#myTable tbody tr:nth-child(odd)  { background-color: #ffffff; }
+```
 
 #### B. Độ ưu tiên CSS (Specificity) - Từ cao xuống thấp
 1. `!important` (Thắng tuyệt đối)
@@ -219,6 +357,68 @@
 | `border-collapse: collapse;` | Đặt trên thẻ `table`: gộp các đường viền đôi của bảng thành **1 đường kẻ đơn**. |
 | `vertical-align: middle;` / `top;` | Đặt trên `td, th`: căn nội dung trong ô bảng nằm **chính giữa theo chiều dọc** (`middle`) hoặc sát mép trên (`top`). |
 | `object-fit: cover;` / `contain;` | Đặt trên `img`: giúp ảnh có `width`/`height` cố định không bị méo tỷ lệ (`cover` lấp đầy khung, `contain` hiển thị trọn vẹn bức ảnh). |
+
+#### 💻 Ví dụ code minh họa: Kết hợp các thuộc tính CSS cơ bản để định dạng Khung, Bảng và Nút bấm
+```html
+<style>
+  /* Khung chứa rộng 500px, căn giữa màn hình, viền xanh đậm, đệm trong 20px */
+  .box-demo {
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid darkcyan;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Tiêu đề màu đỏ, in đậm, căn giữa */
+  .box-demo h2 {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  /* Bảng gộp viền đơn, rộng 100% khung */
+  .tbl-demo {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+  .tbl-demo th, .tbl-demo td {
+    border: 1px solid #333;
+    padding: 8px;
+    vertical-align: middle;
+  }
+
+  /* Nút bấm màu cam, không viền, con trỏ bàn tay */
+  .btn-orange {
+    display: inline-block;
+    width: 140px;
+    padding: 10px;
+    background-color: darkorange;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="box-demo">
+  <h2>THÔNG TIN ĐƠN HÀNG</h2>
+  <table class="tbl-demo">
+    <tr><th>Sản phẩm</th><th>Thành tiền</th></tr>
+    <tr><td>Sách Lập trình Web</td><td style="text-align: right;">120.000 đ</td></tr>
+  </table>
+  <div style="text-align: center;">
+    <button type="button" class="btn-orange">Thanh Toán</button>
+  </div>
+</div>
+```
 
 ---
 
@@ -354,6 +554,28 @@
   - `a || b`: Trả về `b` nếu `a` là **Falsy** (`false`, `0`, `""`, `null`, `undefined`, `NaN`).
   - `a ?? b`: Chỉ trả về `b` nếu `a` là **`null` hoặc `undefined`** (Số `0` và chuỗi rỗng `""` vẫn được giữ nguyên!).
   - *Ví dụ:* `0 || 100` $\rightarrow$ `100`, nhưng `0 ?? 100` $\rightarrow$ `0`.
+
+#### 💻 Ví dụ code minh họa: Phạm vi biến (`var` / `let` / `const`) và các bẫy toán tử
+```javascript
+// 1. Sự khác biệt về phạm vi (Scope) giữa var và let/const
+if (true) {
+  var bienVar = "Dùng được cả bên ngoài khối if (Function Scope)";
+  let bienLet = "Chỉ tồn tại bên trong cặp ngoặc nhọn {} (Block Scope)";
+  const PI = 3.14; // Hằng số, nếu gán lại PI = 3.15 sẽ báo lỗi TypeError
+}
+console.log(bienVar); // In ra bình thường
+// console.log(bienLet); // Lỗi ReferenceError: bienLet is not defined
+
+// 2. Bẫy cộng chuỗi (+) và trừ số (-)
+console.log("10" + 2);       // Kết quả: "102" (Nối chuỗi)
+console.log("10" - 2);       // Kết quả: 8     (Ép kiểu sang số để trừ)
+console.log("10" - 2 + "5"); // Kết quả: "85"  (10 - 2 = 8, sau đó 8 + "5" = "85")
+
+// 3. Kiểm tra NaN và phân biệt || với ??
+let diemThi = 0;
+console.log(diemThi || 10);  // Kết quả: 10 (Vì 0 bị coi là Falsy nên nhảy sang lấy 10 -> Sai logic điểm 0!)
+console.log(diemThi ?? 10);  // Kết quả: 0  (Vì ?? chỉ lấy 10 khi diemThi là null hoặc undefined)
+```
 
 ### 3.2. Ép kiểu & Định dạng tiền tệ Việt Nam
 ```javascript
@@ -498,6 +720,67 @@ let isHopLe = regex.test(chuoiCanKiemTra); // Trả về true nếu hợp lệ, 
 | **Mật khẩu mạnh** ($\ge 8$ ký tự, gồm ít nhất 1 thường, 1 hoa, 1 số) | `/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/` | • `(?=.*[a-z])`: Phải có ít nhất 1 chữ thường<br>• `(?=.*[A-Z])`: Phải có ít nhất 1 chữ hoa<br>• `(?=.*\d)`: Phải có ít nhất 1 chữ số<br>• `.{8,}`: Tổng độ dài từ `8` ký tự trở lên |
 | **Số nguyên dương** ($> 0$) | `/^[1-9]\d*$/` | • `^[1-9]`: Chữ số đầu tiên phải từ `1` đến `9` (không được bắt đầu bằng `0`)<br>• `\d*$`: Theo sau là 0 hoặc nhiều chữ số bất kỳ |
 
+#### 💻 Ví dụ code minh họa: Hàm kiểm tra dữ liệu Form (Validation) bằng Regex
+```html
+<form id="registerForm">
+  <div>
+    <label>MSSV (8 số, bắt đầu bằng số 2):</label>
+    <input type="text" id="mssv" placeholder="VD: 22520001">
+  </div>
+  <div>
+    <label>Họ và tên:</label>
+    <input type="text" id="hoten" placeholder="VD: Nguyễn Văn A">
+  </div>
+  <div>
+    <label>Số điện thoại:</label>
+    <input type="text" id="sdt" placeholder="VD: 0912345678">
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="text" id="email" placeholder="VD: sv@uit.edu.vn">
+  </div>
+  <p id="thongBaoLoi" style="color: red; font-weight: bold;"></p>
+  <button type="button" id="btnKiemTra">Kiểm tra hợp lệ</button>
+</form>
+
+<script>
+  document.getElementById("btnKiemTra").addEventListener("click", function() {
+    const mssv  = document.getElementById("mssv").value.trim();
+    const hoten = document.getElementById("hoten").value.trim();
+    const sdt   = document.getElementById("sdt").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const msgEl = document.getElementById("thongBaoLoi");
+
+    // Khai báo các mẫu Regex từ bảng trên
+    const reMSSV  = /^2\d{7}$/;
+    const reHoTen = /^[a-zA-ZÀ-ỹ\s]+$/;
+    const reSDT   = /^0[35789]\d{8}$/;
+    const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Kiểm tra lần lượt bằng hàm .test()
+    if (!reMSSV.test(mssv)) {
+      msgEl.textContent = "Lỗi: MSSV phải gồm đúng 8 chữ số và bắt đầu bằng số 2!";
+      return;
+    }
+    if (!reHoTen.test(hoten)) {
+      msgEl.textContent = "Lỗi: Họ tên chỉ được chứa chữ cái và khoảng trắng!";
+      return;
+    }
+    if (!reSDT.test(sdt)) {
+      msgEl.textContent = "Lỗi: Số điện thoại phải gồm 10 số (đầu 03, 05, 07, 08, 09)!";
+      return;
+    }
+    if (!reEmail.test(email)) {
+      msgEl.textContent = "Lỗi: Định dạng Email không hợp lệ!";
+      return;
+    }
+
+    msgEl.style.color = "green";
+    msgEl.textContent = "Tất cả thông tin đều hợp lệ!";
+  });
+</script>
+```
+
 ---
 
 ## 🛠️ 4. THAO TÁC DOM, SỰ KIỆN & 5 KỸ THUẬT XỬ LÝ ĐỀ MỚI (VANILLA JS)
@@ -523,6 +806,49 @@ let isHopLe = regex.test(chuoiCanKiemTra); // Trả về true nếu hợp lệ, 
 | **Ẩn / Hiện phần tử** | `el.style.display = "none";` / `el.style.display = "block";` (hoặc `"table"`) |
 | **Thêm / Xóa / Đảo class CSS** | `el.classList.add("active");` / `.remove("active");` / `.toggle("active");` |
 | **Bật / Tắt khóa ô nhập hoặc nút bấm** | `el.disabled = true;` / `el.disabled = false;` |
+
+#### 💻 Ví dụ code minh họa: Kết hợp các hàm DOM thuần để đọc dữ liệu, `dataset`, ẩn/hiện và xóa dòng
+```html
+<!-- Ô tích chọn để bật/tắt nút đặt hàng -->
+<label>
+  <input type="checkbox" id="chkDongY"> Tôi đồng ý với điều khoản
+</label>
+<button type="button" id="btnDatHang" disabled>Đặt hàng ngay</button>
+
+<!-- Bảng danh sách món có gắn thuộc tính data-price -->
+<table border="1" cellpadding="6" style="border-collapse: collapse; margin-top: 10px;">
+  <tbody id="dsMon">
+    <tr>
+      <td class="ten-mon">Cà phê sữa</td>
+      <td class="gia-mon" data-price="25000">25.000 đ</td>
+      <td><input type="number" class="qty" value="2" min="1"></td>
+      <td><button type="button" class="btn-xoa">Xóa</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tổng cộng: <strong id="ketQuaTong">50.000 đ</strong></p>
+
+<script>
+  // 1. Kiểm tra checkbox (.checked) để Bật / Tắt khóa nút bấm (.disabled)
+  const chkDongY = document.getElementById("chkDongY");
+  const btnDatHang = document.getElementById("btnDatHang");
+
+  chkDongY.addEventListener("change", function() {
+    btnDatHang.disabled = !this.checked; // Tích chọn -> mở khóa (disabled = false)
+    btnDatHang.classList.toggle("active", this.checked); // Thêm/bớt class .active
+  });
+
+  // 2. Tìm dòng <tr> gần nhất (.closest("tr")), đọc data-price (.dataset.price) và xóa dòng (.remove())
+  document.getElementById("dsMon").addEventListener("click", function(e) {
+    if (e.target.classList.contains("btn-xoa")) {
+      const row = e.target.closest("tr"); // Tìm đúng dòng <tr> chứa nút vừa bấm
+      row.remove();                       // Xóa dòng đó khỏi bảng
+      document.getElementById("ketQuaTong").textContent = "0 đ"; // Ghi lại chữ bằng .textContent
+    }
+  });
+</script>
+```
 
 ### 4.2. Hai cách thêm dòng mới vào bảng `<table>`
 **Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Ngắn gọn & trực quan)**
