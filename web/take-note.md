@@ -956,37 +956,86 @@ if (soNgay <= 0) {
 ---
 
 ### 3.4. Bảng Tổng Hợp Các Hàm Xử Lý Mảng (Array) & Chuỗi (String) Cốt Lõi
+
+Khi xử lý Giỏ hàng, Danh sách món ăn hoặc Bảng phiếu phân công, ta thường xuyên thao tác với Mảng đối tượng (`Array of Objects`). Dưới đây là từng hàm được tách thành **1 đoạn code ngắn riêng biệt** kèm **bảng giải thích chi tiết** ngay bên dưới:
+
+#### 1. Thêm phần tử mới vào cuối mảng (`push`)
 ```javascript
-// --- CÁC HÀM MẢNG (ARRAY) DÙNG CHO GIỎ HÀNG / DANH SÁCH ---
-let list = JSON.parse(localStorage.getItem("data")) || [];
+let gioHang = [];
+gioHang.push({ id: "SP1", name: "Áo sơ mi", price: 120000, qty: 1 });
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `gioHang.push(item)` | Đẩy đối tượng món hàng mới vào **vị trí cuối cùng** của mảng `gioHang`. |
 
-list.push({ id: "SP1", name: "Áo", price: 120000, qty: 1 });
-let found = list.find(item => item.id === "SP1");
-if (found) found.qty += 1;
-list.splice(index, 1);
-let ketQuaLoc = list.filter(item => item.name.toLowerCase().includes(tuKhoa.toLowerCase()));
-list.sort((a, b) => a.price - b.price);
-let tongTien = list.reduce((sum, item) => sum + item.price * item.qty, 0);
+#### 2. Tìm phần tử trong mảng theo điều kiện (`find`)
+```javascript
+let monCanTim = gioHang.find(item => item.id === "SP1");
+if (monCanTim) {
+  monCanTim.qty += 1; // Món đã có trong giỏ -> Chỉ tăng số lượng
+}
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `gioHang.find(...)` | Duyệt qua mảng và trả về **đối tượng đầu tiên** thỏa mãn điều kiện `item.id === "SP1"` (nếu không có trả về `undefined`). Rất hay dùng để kiểm tra xem món vừa bấm đã tồn tại trong giỏ chưa. |
 
-tbody.innerHTML = list.map((item, idx) => `
-  <tr data-index="${idx}">
+#### 3. Xóa một phần tử tại vị trí bất kỳ (`splice`)
+```javascript
+let viTriCanXoa = 2; // Ví dụ muốn xóa phần tử tại chỉ số index = 2
+gioHang.splice(viTriCanXoa, 1);
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `gioHang.splice(index, 1)` | Xóa phần tử tại vị trí thứ `index`, số lượng xóa là đúng `1` phần tử (dùng khi bấm nút "Xóa" một dòng trong bảng). |
+
+#### 4. Lọc danh sách theo từ khóa tìm kiếm (`filter` & `includes`)
+```javascript
+let tuKhoa = "cà phê";
+let ketQuaLoc = gioHang.filter(item => 
+  item.name.toLowerCase().includes(tuKhoa.toLowerCase())
+);
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `item.name.toLowerCase()` | Chuyển toàn bộ tên món về chữ thường để không bị phân biệt chữ hoa - chữ thường khi tìm. |
+| `.includes(tuKhoa)` | Kiểm tra xem trong tên món có chứa chuỗi con `tuKhoa` hay không (trả về `true` hoặc `false`). |
+| `gioHang.filter(...)` | Lọc và trả về một **mảng mới** chỉ chứa các phần tử thỏa mãn điều kiện. |
+
+#### 5. Sắp xếp mảng theo giá tiền tăng dần hoặc giảm dần (`sort`)
+```javascript
+// Sắp xếp tăng dần theo giá:
+gioHang.sort((a, b) => a.price - b.price);
+
+// Sắp xếp giảm dần theo giá:
+// gioHang.sort((a, b) => b.price - a.price);
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `(a, b) => a.price - b.price` | Nếu kết quả âm $\rightarrow$ `a` đứng trước `b` (sắp xếp tăng dần). Nếu muốn giảm dần thì đảo ngược thành `b.price - a.price`. |
+
+#### 6. Tính tổng tiền toàn bộ giỏ hàng (`reduce`)
+```javascript
+let tongTien = gioHang.reduce((sum, item) => sum + item.price * item.qty, 0);
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `reduce((sum, item) => ..., 0)` | Duyệt qua toàn bộ mảng để cộng dồn tiền từng món (`item.price * item.qty`) vào biến tích lũy `sum` (khởi đầu từ số `0`), trả về **1 con số tổng duy nhất**. |
+
+#### 7. Biến mảng thành các dòng bảng HTML để hiển thị (`map` & `join`)
+```javascript
+const tbody = document.getElementById("dsMon");
+tbody.innerHTML = gioHang.map((item, idx) => `
+  <tr>
     <td>${item.name}</td>
     <td>${item.price.toLocaleString("vi-VN")} đ</td>
+    <td>${item.qty}</td>
   </tr>
 `).join("");
 ```
-
-#### 📖 Bảng giải thích từng hàm Mảng (Array) & Chuỗi (String) ở trên:
-| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `list.push(phanTuMoi)` | Thêm 1 phần tử mới vào **cuối mảng** `list`. |
-| `list.find(item => điều_kiện)` | Tìm và trả về **phần tử đầu tiên** trong mảng thỏa mãn điều kiện (nếu không có trả về `undefined`). Rất tiện để kiểm tra món hàng đã có trong giỏ chưa để cộng dồn `qty += 1`. |
-| `list.splice(index, 1)` | Xóa phần tử tại vị trí thứ `index`, số lượng xóa là `1` phần tử (dùng khi bấm nút `"Xóa"` dòng thứ `index`). |
-| `list.filter(item => điều_kiện)` | Lọc và trả về một **mảng mới** chỉ chứa các phần tử thỏa mãn điều kiện. |
-| `str.toLowerCase().includes(sub)` | Đổi chuỗi về chữ thường rồi kiểm tra xem có chứa chuỗi con `sub` bên trong không (trả về `true`/`false`). |
-| `list.sort((a, b) => a.price - b.price)` | Sắp xếp mảng số **tăng dần** theo `price` (nếu muốn sắp xếp **giảm dần** thì lấy `b.price - a.price`). |
-| `list.reduce((sum, item) => sum + ..., 0)` | Duyệt qua toàn bộ mảng để cộng dồn thành **1 con số tổng duy nhất** (`sum` khởi đầu từ `0`). |
-| `list.map(...).join("")` | `.map()` biến mỗi phần tử trong mảng thành 1 chuỗi `<tr>...</tr>`, sau đó `.join("")` nối tất cả các chuỗi đó lại liền mạch (không có dấu phẩy ngăn cách) để gán vào `tbody.innerHTML`. |
+| `gioHang.map(...)` | Biến mỗi phần tử trong mảng thành một chuỗi mã HTML `<tr>...</tr>`. |
+| `.join("")` | Nối tất cả các chuỗi `<tr>` lại với nhau thành 1 chuỗi dài duy nhất (không có dấu phẩy ngăn cách) để gán vào `tbody.innerHTML`. |
 
 ---
 
@@ -1101,66 +1150,99 @@ let isHopLe = regex.test(chuoiCanKiemTra); // Trả về true nếu hợp lệ, 
 > - `document.addEventListener("DOMContentLoaded", fn)`: Chạy ngay khi **cây DOM vừa dựng xong** (không cần đợi ảnh/video tải xong) $\rightarrow$ Nhanh hơn.
 > - `window.onload = fn`: Phải đợi **toàn bộ tài nguyên (ảnh, CSS, iframe)** tải xong 100%.
 
-### 4.1. Bảng Tra Cứu Nhanh Các Hàm DOM Thuần Thay Cho Mọi Thao Tác
-| Thao tác cần làm | Cú pháp JavaScript thuần (Vanilla JS) |
-| :--- | :--- |
-| **Tìm 1 phần tử theo ID** | `const el = document.getElementById("myId");` |
-| **Tìm 1 phần tử theo CSS Selector** | `const el = document.querySelector("#tbl tbody");` |
-| **Tìm tất cả phần tử khớp Selector** | `const list = document.querySelectorAll("input[name='mon']:checked");` |
-| **Duyệt qua danh sách phần tử** | `list.forEach(item => { ... });` |
-| **Tìm phần tử con bên trong 1 dòng `tr`** | `const qtyInput = row.querySelector(".qty");` |
-| **Tìm thẻ cha `<tr>` gần nhất (để xóa dòng)** | `const row = btn.closest("tr"); row.remove();` |
-| **Đọc / Ghi giá trị ô input, select** | `let v = el.value.trim();` / `el.value = "Mới";` |
-| **Kiểm tra 1 ô checkbox có được tích không** | `let isChecked = document.getElementById("chk").checked;` (`true`/`false`) |
-| **Đọc / Ghi nội dung chữ thuần** | `let t = el.textContent;` / `el.textContent = "120.000 đ";` |
-| **Đọc / Ghi mã HTML bên trong** | `el.innerHTML = "<tr><td>...</td></tr>";` (Xóa rỗng: `el.innerHTML = "";`) |
-| **Đọc / Ghi thuộc tính `data-*`** | `<td data-price="20000">` $\rightarrow$ `el.dataset.price` |
-| **Ẩn / Hiện phần tử** | `el.style.display = "none";` / `el.style.display = "block";` (hoặc `"table"`) |
-| **Thêm / Xóa / Đảo class CSS** | `el.classList.add("active");` / `.remove("active");` / `.toggle("active");` |
-| **Bật / Tắt khóa ô nhập hoặc nút bấm** | `el.disabled = true;` / `el.disabled = false;` |
+### 4.1. Từng Thao Tác DOM Cốt Lõi (Code Ngắn Gọn & Bảng Giải Thích Chi Tiết)
 
-#### 💻 Ví dụ code minh họa: Kết hợp các hàm DOM thuần để đọc dữ liệu, `dataset`, ẩn/hiện và xóa dòng
-```html
-<!-- Ô tích chọn để bật/tắt nút đặt hàng -->
-<label>
-  <input type="checkbox" id="chkDongY"> Tôi đồng ý với điều khoản
-</label>
-<button type="button" id="btnDatHang" disabled>Đặt hàng ngay</button>
+Thay vì phải nhớ một khối code lớn, dưới đây là **từng thao tác DOM cụ thể** được tách thành các mẫu ngắn gọn nhất:
 
-<!-- Bảng danh sách món có gắn thuộc tính data-price -->
-<table border="1" cellpadding="6" style="border-collapse: collapse; margin-top: 10px;">
-  <tbody id="dsMon">
-    <tr>
-      <td class="ten-mon">Cà phê sữa</td>
-      <td class="gia-mon" data-price="25000">25.000 đ</td>
-      <td><input type="number" class="qty" value="2" min="1"></td>
-      <td><button type="button" class="btn-xoa">Xóa</button></td>
-    </tr>
-  </tbody>
-</table>
+#### 1. Tìm phần tử trong trang web (`getElementById`, `querySelector`, `querySelectorAll`)
+```javascript
+// Tìm 1 phần tử theo ID duy nhất:
+const elId = document.getElementById("myInput");
 
-<p>Tổng cộng: <strong id="ketQuaTong">50.000 đ</strong></p>
+// Tìm 1 phần tử theo CSS Selector:
+const elSelector = document.querySelector("#tbl tbody");
 
-<script>
-  // 1. Kiểm tra checkbox (.checked) để Bật / Tắt khóa nút bấm (.disabled)
-  const chkDongY = document.getElementById("chkDongY");
-  const btnDatHang = document.getElementById("btnDatHang");
-
-  chkDongY.addEventListener("change", function() {
-    btnDatHang.disabled = !this.checked; // Tích chọn -> mở khóa (disabled = false)
-    btnDatHang.classList.toggle("active", this.checked); // Thêm/bớt class .active
-  });
-
-  // 2. Tìm dòng <tr> gần nhất (.closest("tr")), đọc data-price (.dataset.price) và xóa dòng (.remove())
-  document.getElementById("dsMon").addEventListener("click", function(e) {
-    if (e.target.classList.contains("btn-xoa")) {
-      const row = e.target.closest("tr"); // Tìm đúng dòng <tr> chứa nút vừa bấm
-      row.remove();                       // Xóa dòng đó khỏi bảng
-      document.getElementById("ketQuaTong").textContent = "0 đ"; // Ghi lại chữ bằng .textContent
-    }
-  });
-</script>
+// Tìm TẤT CẢ các checkbox đang được tích chọn:
+const dsChecked = document.querySelectorAll("input[name='mon']:checked");
 ```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `document.getElementById("myInput")` | Tìm và trả về phần tử có `id="myInput"` (tốc độ nhanh nhất). |
+| `document.querySelector("#tbl tbody")` | Tìm phần tử đầu tiên khớp với chuỗi CSS Selector (ở đây là thẻ `<tbody>` nằm trong bảng `#tbl`). |
+| `document.querySelectorAll("...")` | Tìm và trả về danh sách toàn bộ các phần tử khớp điều kiện (rất tiện để duyệt bằng `.forEach()`). |
+
+#### 2. Đọc và Ghi giá trị ô nhập liệu (`.value`) & nội dung chữ (`.textContent`)
+```javascript
+// Đọc dữ liệu từ ô input / select:
+let giaTri = document.getElementById("txtHoTen").value.trim();
+
+// Ghi đè chữ mới vào ô input:
+document.getElementById("txtHoTen").value = "Nguyễn Văn A";
+
+// Đọc và Ghi nội dung chữ thuần của thẻ <td>, <p>, <span>:
+let chuCu = document.getElementById("tongTien").textContent;
+document.getElementById("tongTien").textContent = "150.000 đ";
+```
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `el.value.trim()` | Đọc chuỗi người dùng đã nhập trong `<input>` hoặc `<select>`, hàm `.trim()` cắt bỏ khoảng trắng thừa ở 2 đầu. |
+| `el.textContent = "..."` | Ghi chữ thuần túy vào thẻ (an toàn, không sợ dính lỗi bảo mật XSS như `.innerHTML`). |
+
+#### 3. Đọc dữ liệu từ thuộc tính tùy chỉnh (`dataset`)
+```javascript
+// HTML: <td id="oGia" data-price="25000">25.000 đ</td>
+const oGia = document.getElementById("oGia");
+let donGiaSo = parseFloat(oGia.dataset.price) || 0; // Lấy ra số 25000
+```
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `el.dataset.price` | Truy cập trực tiếp vào thuộc tính `data-price` của thẻ HTML (tự động bỏ tiền tố `data-`). Kết hợp `parseFloat(...) \|\| 0` để lấy con số phục vụ tính toán tiền. |
+
+#### 4. Ẩn / Hiện phần tử & Thêm / Xóa class CSS
+```javascript
+const thongBao = document.getElementById("msgLoi");
+
+// Ẩn / Hiện bằng style trực tiếp:
+thongBao.style.display = "block"; // Hiện ra
+thongBao.style.display = "none";  // Ẩn đi
+
+// Thêm / Xóa / Đảo class CSS:
+thongBao.classList.add("active");    // Gắn thêm class .active
+thongBao.classList.remove("active"); // Gỡ bỏ class .active
+thongBao.classList.toggle("active"); // Nếu có thì xóa, nếu chưa có thì thêm
+```
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `el.style.display = "none"` | Ẩn biến mất phần tử khỏi giao diện. |
+| `el.classList.toggle("active", dieuKien)` | Rất tiện để bật/tắt class theo điều kiện logic (VD: `btn.classList.toggle("active", chk.checked)`). |
+
+#### 5. Khóa hoặc Mở khóa nút bấm / ô nhập (`.disabled`)
+```javascript
+const btnSubmit = document.getElementById("btnSubmit");
+
+btnSubmit.disabled = true;  // Khóa nút (chuột hiện biển cấm, không click được)
+btnSubmit.disabled = false; // Mở khóa nút
+```
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `el.disabled = true / false` | Điều khiển trạng thái bật/tắt của nút `<button>` hoặc ô `<input>` dựa vào checkbox đồng ý điều khoản. |
+
+#### 6. Xóa một dòng `<tr>` khỏi bảng (`.closest` & `.remove`)
+```javascript
+// HTML nút bấm trong bảng: <button type="button" onclick="xoaDong(this)">Xóa</button>
+function xoaDong(btn) {
+  const row = btn.closest("tr"); // Dò ngược lên tìm dòng <tr> chứa nút vừa bấm
+  if (row) {
+    row.remove(); // Xóa hoàn toàn dòng <tr> đó khỏi bảng
+  }
+}
+```
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `btn.closest("tr")` | Từ nút bấm hiện tại, tìm ngược lên cây DOM để lấy đúng thẻ cha `<tr>` đang bao bọc nó. |
+| `row.remove()` | Lệnh xóa sạch phần tử HTML đó ra khỏi trang web. |
+
+---
 
 ### 4.2. Hai cách thêm dòng mới vào bảng `<table>`
 **Cách 1: Dùng `insertAdjacentHTML("beforeend", ...)` (Ngắn gọn & trực quan)**
