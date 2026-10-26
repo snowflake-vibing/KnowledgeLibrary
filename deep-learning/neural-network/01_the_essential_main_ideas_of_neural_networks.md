@@ -127,7 +127,90 @@ Làm thế nào để 2 nơ-ron ẩn kết hợp lại tạo thành một đồ 
 
 ---
 
-## 6. Dự đoán trên dữ liệu mới: Lan truyền xuôi (Forward Pass)
+## 6. Ví dụ thực hành tính toán bằng số cụ thể (Step-by-Step Numerical Walkthrough)
+
+Để thấy rõ cơ chế hoạt động thực tế của **Tầng ẩn (Hidden Layer)** mà không bị bỡ ngỡ bởi các công thức trừu tượng, chúng ta hãy cùng tính toán bằng tay một mô hình với **các con số nguyên/thập phân cực kỳ đơn giản** (có thể tự nhẩm được).
+
+### 6.1. Thiết lập bài toán & Thông số mạng
+
+- **Đầu vào ($x$):** Liều lượng thuốc từ $0$ đến $1$.
+- **Mục tiêu ($y$):** Hiệu quả đạt $1$ ở liều vừa ($x = 0.5$), và bằng $0$ ở liều thấp ($x = 0$) hoặc liều cao ($x = 1.0$).
+- **Hàm kích hoạt tại tầng ẩn:** Dùng hàm **ReLU** để số tính ra tròn đẹp:
+  $$f(z) = \max(0, z) \quad (\text{nếu } z \le 0 \text{ thì bằng } 0\text{; nếu } z > 0 \text{ thì giữ nguyên } z)$$
+
+```
+                  ┌── [Nơ-ron ẩn 1]: z₁ = 2x      ──> a₁ = ReLU(z₁) ──┐ (nhân trọng số w₃ = +1)
+                  │                                                   ▼
+Đầu vào x ────────┤                                                [Đầu ra ŷ] = 1·a₁ - 1·a₂
+                  │                                                   ▲
+                  └── [Nơ-ron ẩn 2]: z₂ = 4x - 2  ──> a₂ = ReLU(z₂) ──┘ (nhân trọng số w₄ = -1)
+```
+
+**Các tham số đã được huấn luyện sẵn của mạng:**
+- **Nơ-ron ẩn 1 ($N_1$):** Trọng số $w_1 = 2$, Bias $b_1 = 0 \implies z_1 = 2x$
+- **Nơ-ron ẩn 2 ($N_2$):** Trọng số $w_2 = 4$, Bias $b_2 = -2 \implies z_2 = 4x - 2$
+- **Tầng đầu ra (Output Layer):** Lấy $N_1$ trừ đi $N_2$ với trọng số $w_3 = 1$, $w_4 = -1$, bias $b_{out} = 0$:
+  $$\hat{y} = 1 \cdot a_1 - 1 \cdot a_2$$
+
+---
+
+### 6.2. Tính toán chi tiết cho 3 trường hợp bệnh nhân
+
+#### 🧪 Trường hợp 1: Uống liều thấp ($x = 0.0$)
+1. **Tại Nơ-ron ẩn 1 ($N_1$):**
+   - $z_1 = 2 \times 0.0 + 0 = 0$
+   - $a_1 = \text{ReLU}(0) = \mathbf{0}$
+2. **Tại Nơ-ron ẩn 2 ($N_2$):**
+   - $z_2 = 4 \times 0.0 - 2 = -2$
+   - $a_2 = \text{ReLU}(-2) = \mathbf{0}$ *(Giá trị âm bị ReLU triệt tiêu về 0)*
+3. **Tại Tầng đầu ra:**
+   - $\hat{y} = 1 \times a_1 - 1 \times a_2 = 1 \times 0 - 1 \times 0 = \mathbf{0}$  
+   👉 **Kết quả:** $\hat{y} = 0 \rightarrow$ Thuốc chưa đủ liều, chưa có tác dụng.
+
+---
+
+#### 🧪 Trường hợp 2: Uống liều vừa ($x = 0.5$) — Liều tối ưu
+1. **Tại Nơ-ron ẩn 1 ($N_1$):**
+   - $z_1 = 2 \times 0.5 + 0 = 1.0$
+   - $a_1 = \text{ReLU}(1.0) = \mathbf{1.0}$ *(Nơ-ron 1 được kích hoạt mạnh)*
+2. **Tại Nơ-ron ẩn 2 ($N_2$):**
+   - $z_2 = 4 \times 0.5 - 2 = 2.0 - 2 = 0$
+   - $a_2 = \text{ReLU}(0) = \mathbf{0}$ *(Nơ-ron 2 vẫn đang "ngủ", chưa bị kích hoạt)*
+3. **Tại Tầng đầu ra:**
+   - $\hat{y} = 1 \times a_1 - 1 \times a_2 = 1 \times 1.0 - 1 \times 0 = \mathbf{1.0}$  
+   👉 **Kết quả:** $\hat{y} = 1 \rightarrow$ Bệnh nhân đạt hiệu quả tối đa (khỏi bệnh).
+
+---
+
+#### 🧪 Trường hợp 3: Uống liều cao ($x = 1.0$) — Quá liều gây độc
+1. **Tại Nơ-ron ẩn 1 ($N_1$):**
+   - $z_1 = 2 \times 1.0 + 0 = 2.0$
+   - $a_1 = \text{ReLU}(2.0) = \mathbf{2.0}$ *(Nơ-ron 1 vẫn tiếp tục tăng lên)*
+2. **Tại Nơ-ron ẩn 2 ($N_2$):**
+   - $z_2 = 4 \times 1.0 - 2 = 2.0$
+   - $a_2 = \text{ReLU}(2.0) = \mathbf{2.0}$ *(Lúc này nơ-ron 2 bừng tỉnh vì vượt ngưỡng bias -2, phát tín hiệu mạnh = 2.0)*
+3. **Tại Tầng đầu ra:**
+   - $\hat{y} = 1 \times a_1 - 1 \times a_2 = 1 \times 2.0 - 1 \times 2.0 = \mathbf{0}$  
+   👉 **Kết quả:** $\hat{y} = 0 \rightarrow$ Tín hiệu âm từ Nơ-ron 2 đã **triệt tiêu hoàn toàn** Nơ-ron 1, kéo hiệu quả tụt về 0 (thuốc bị độc, mất tác dụng điều trị).
+
+---
+
+### 6.3. Bảng tổng kết số liệu qua từng tầng
+
+| Mức liều ($x$) | Giá trị vào $N_1$ ($z_1$) | Đầu ra $N_1$ ($a_1$) | Giá trị vào $N_2$ ($z_2$) | Đầu ra $N_2$ ($a_2$) | Dự đoán cuối ($\hat{y} = a_1 - a_2$) | Trạng thái thực tế |
+|:---:|:---:|:---:|:---:|:---:|:---:|---|
+| **$0.0$** (Thấp) | $0.0$ | $0.0$ | $-2.0$ | $0.0$ | **$0.0$** | Không tác dụng |
+| **$0.5$** (Vừa) | $1.0$ | $1.0$ | $0.0$ | $0.0$ | **$1.0$** | **Khỏi bệnh hoàn toàn** |
+| **$1.0$** (Cao) | $2.0$ | $2.0$ | $2.0$ | $2.0$ | **$0.0$** | **Quá liều gây độc** |
+
+> 🔑 **Bài học cốt lõi rút ra:**
+> - **Nơ-ron 1** đảm nhận vai trò: *"Kéo đường dự đoán đi lên khi bắt đầu tăng liều lượng"*.
+> - **Nơ-ron 2** (nhờ có bias âm $b_2 = -2$) đảm nhận vai trò: *"Ngủ yên khi liều còn thấp hoặc vừa, nhưng hễ vượt quá liều an toàn ($x > 0.5$) là kích hoạt để kéo tụt giá trị xuống"*.
+> - Chính sự phân vai này của **Tầng ẩn (Hidden Layer)** đã tạo ra khả năng uốn lượn phi tuyến (lên rồi xuống) mà không một mô hình tuyến tính đơn lẻ nào có thể làm được!
+
+---
+
+## 7. Dự đoán trên dữ liệu mới: Lan truyền xuôi (Forward Pass)
 
 Khi mạng đã có đầy đủ các thông số trọng số và bias tối ưu, việc đưa một điểm dữ liệu mới vào để dự đoán được gọi là quá trình **Lan truyền xuôi (Forward Propagation / Forward Pass)**:
 
@@ -141,7 +224,7 @@ Khi mạng đã có đầy đủ các thông số trọng số và bias tối ư
 
 ---
 
-## 7. Các trọng số và bias được tìm ra như thế nào? (Preview Phần 2)
+## 8. Các trọng số và bias được tìm ra như thế nào? (Preview Phần 2)
 
 Trong video Phần 1, Josh Starmer giả định trước các trọng số và bias đã được tinh chỉnh sẵn để minh họa cơ chế hoạt động. Tuy nhiên trong thực tế:
 - Ban đầu, các trọng số ($w$) và bias ($b$) được **khởi tạo ngẫu nhiên**.
@@ -153,7 +236,7 @@ Trong video Phần 1, Josh Starmer giả định trước các trọng số và 
 
 ---
 
-## 8. Tóm tắt các thuật ngữ cốt lõi (Key Takeaways)
+## 9. Tóm tắt các thuật ngữ cốt lõi (Key Takeaways)
 
 | Thuật ngữ | Tiếng Anh | Ý nghĩa trong Mạng Nơ-ron |
 |-----------|-----------|---------------------------|
@@ -166,7 +249,7 @@ Trong video Phần 1, Josh Starmer giả định trước các trọng số và 
 
 ---
 
-## 9. Bài tập suy ngẫm & Ôn tập
+## 10. Bài tập suy ngẫm & Ôn tập
 
 1. Nếu một mạng nơ-ron có nhiều tầng ẩn nhưng **không sử dụng bất kỳ hàm kích hoạt phi tuyến nào**, đầu ra của mạng sẽ có dạng gì?  
    *(Gợi ý: Tích của các ma trận tuyến tính vẫn là một phép biến đổi tuyến tính $\rightarrow$ chỉ là một đường thẳng/mặt phẳng).*
