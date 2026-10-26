@@ -329,7 +329,84 @@ input:focus { border-color: #007bff; outline: none; }
 6. **Universal** (`*`): **0 điểm**
 > *Lưu ý:* Nếu bằng điểm nhau $\rightarrow$ Quy tắc nào viết **sau cùng** sẽ được áp dụng.
 
-### 2.2. Bảng Tra Cứu Toàn Bộ Thuộc Tính CSS Cơ Bản (Cột Code & Cột Giải Thích)
+### 2.2. Màu Sắc Trong CSS (Color Formats, RGB, RGBA, HSL, HEX & Bảng Màu Hay Dùng)
+
+CSS hỗ trợ nhiều cách biểu diễn màu sắc khác nhau. Hiểu rõ từng định dạng giúp bạn linh hoạt khi thiết kế giao diện, làm đổ bóng `box-shadow`, hoặc làm lớp phủ mờ (overlay/backdrop).
+
+#### A. Bảng so sánh 5 định dạng biểu diễn màu sắc trong CSS
+| Định dạng màu | Cú pháp ví dụ | Giải thích chi tiết ý nghĩa & Đặc điểm |
+| :--- | :--- | :--- |
+| **Color Names (Tên màu chuẩn)** | `color: red;`<br>`background: darkcyan;` | Dùng tên tiếng Anh có sẵn của màu (CSS hỗ trợ 140 tên màu chuẩn như `red`, `blue`, `green`, `orange`, `purple`, `darkcyan`, `gold`, `gray`, `transparent`...). Rất nhanh gọn trong phòng thi khi đề chỉ yêu cầu màu cơ bản. |
+| **Hex Color (`#RRGGBB` / `#RGB`)** | `color: #ff0000;`<br>`color: #f00;`<br>`color: #006699;` | Hệ đếm cơ số 16 (Hexadecimal: `0-9`, `a-f`). Gồm 3 cặp số đại diện cho **Red - Green - Blue** từ `00` (tối nhất) đến `ff` (sáng nhất, tương đương `255`).<br>• Dạng rút gọn 3 ký tự: `#f00` tương đương `#ff0000` (đỏ), `#fff` là trắng, `#000` là đen. |
+| **RGB (`rgb(r, g, b)`)** | `color: rgb(255, 0, 0);`<br>`background: rgb(0, 102, 153);` | Hàm trộn 3 kênh màu ánh sáng: **Đỏ (Red), Xanh lá (Green), Xanh dương (Blue)**. Mỗi kênh nhận giá trị từ **`0` đến `255`**.<br>• `rgb(0, 0, 0)` là màu Đen tuyệt đối.<br>• `rgb(255, 255, 255)` là màu Trắng tinh. |
+| **RGBA (`rgba(r, g, b, a)`)** | `background: rgba(0, 0, 0, 0.5);`<br>`box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);` | **Mở rộng của RGB kèm thêm kênh Alpha (`a`) quy định ĐỘ TRONG SUỐT (Opacity)**:<br>• `a` nhận giá trị số thực từ **`0.0` (trong suốt hoàn toàn - vô hình)** đến **`1.0` (đậm đặc 100% - không trong suốt)**.<br>• *Ví dụ cực hay dùng trong thi cử:*<br>  - `rgba(0, 0, 0, 0.5)`: Màn phủ mờ màu đen 50% cho cửa sổ Modal Popup.<br>  - `rgba(255, 255, 255, 0.8)`: Nền trắng mờ nhìn xuyên thấu nhẹ phía sau.<br>  - `rgba(0, 0, 0, 0.15)`: Màu bóng đổ mềm mại, tự nhiên cho `box-shadow`.<br>• *Điểm khác biệt sống còn giữa `rgba()` và `opacity`:* `rgba()` **chỉ làm trong suốt màu nền** (chữ bên trong vẫn sắc nét, rõ ràng), trong khi thuộc tính `opacity: 0.5;` sẽ làm mờ **toàn bộ khối kể cả chữ và ảnh con bên trong**! |
+| **HSL / HSLA (`hsl(h, s, l)`)** | `color: hsl(200, 100%, 50%);`<br>`color: hsla(200, 100%, 50%, 0.5);` | Mô hình màu trực quan theo mắt người:<br>• **H (Hue - Vòng tròn màu)**: Từ `0` đến `360` (`0`: Đỏ, `120`: Xanh lá, `240`: Xanh dương).<br>• **S (Saturation - Độ bão hòa/độ tươi)**: `0%` (xám xịt) đến `100%` (rực rỡ nhất).<br>• **L (Lightness - Độ sáng)**: `0%` (đen thui), `50%` (chuẩn màu), `100%` (trắng toát).<br>• Kênh `a` trong `hsla`: độ trong suốt từ `0.0` đến `1.0`. |
+
+#### B. Bảng các mã màu thực chiến hay dùng nhất trong đề thi và lập trình web
+| Tên màu / Vai trò giao diện | Mã HEX (`#...`) | Mã RGB (`rgb(...)`) | Mã RGBA tương ứng (Độ mờ trong suốt) |
+| :--- | :--- | :--- | :--- |
+| **Màu đen (Văn bản chính)** | `#000000` / `#212529` | `rgb(0, 0, 0)` | `rgba(0, 0, 0, 0.5)` *(Màn phủ Modal)* |
+| **Màu trắng (Nền khối/thẻ)** | `#ffffff` | `rgb(255, 255, 255)` | `rgba(255, 255, 255, 0.8)` *(Nền kính mờ)* |
+| **Xám nhạt (Nền trang web / Viền)** | `#f8f9fa` / `#e9ecef` | `rgb(248, 249, 250)` | `rgba(0, 0, 0, 0.08)` *(Viền mờ nhẹ)* |
+| **Xanh dương chính (Primary / Link)** | `#0066cc` / `#007bff` | `rgb(0, 102, 204)` | `rgba(0, 102, 204, 0.2)` *(Viền focus ô input)* |
+| **Xanh lá (Success / Đặt hàng thành công)** | `#28a745` / `#059669` | `rgb(40, 167, 69)` | `rgba(40, 167, 69, 0.15)` *(Nền thông báo xanh)* |
+| **Đỏ (Danger / Lỗi / Nút Xóa)** | `#dc3545` / `#ef4444` | `rgb(220, 53, 69)` | `rgba(220, 53, 69, 0.1)` *(Nền nút Xóa hover)* |
+| **Vàng cam (Warning / Chú ý / Nút Cam)** | `#ff9900` / `#f59e0b` | `rgb(255, 153, 0)` | `rgba(255, 153, 0, 0.25)` *(Đổ bóng nút cam)* |
+| **Xanh mòng két (Darkcyan - Đề IS207)** | `#008b8b` | `rgb(0, 139, 139)` | `rgba(0, 139, 139, 0.3)` |
+
+#### 💻 Ví dụ code minh họa: Phân biệt `rgba()` (chỉ mờ nền) và `opacity` (mờ cả chữ) + Lớp phủ Modal
+```html
+<style>
+  /* 1. LỚP PHỦ MODAL DÙNG RGBA: Nền đen mờ 50%, nhìn thấy mờ mờ trang web phía sau */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Đen mờ 50% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 2. HỘP THÔNG BÁO DÙNG BOX-SHADOW RGBA: Bóng đổ màu đen trong suốt 20% rất tự nhiên */
+  .modal-content {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    text-align: center;
+  }
+
+  /* 3. SO SÁNH RGBA VS OPACITY:
+     - .box-rgba: Chỉ có màu nền là mờ 20%, chữ "Chữ này vẫn đen đậm 100%" hiển thị rõ nét!
+     - .box-opacity: Cả nền VÀ chữ đều bị mờ nhạt đi 50%.
+  */
+  .box-rgba {
+    background-color: rgba(220, 53, 69, 0.15); /* Nền đỏ mờ 15% */
+    color: #dc3545;                             /* Chữ đỏ đậm nét 100% */
+    padding: 10px;
+    border: 1px solid #dc3545;
+    margin-bottom: 10px;
+  }
+  .box-opacity {
+    background-color: #dc3545;
+    color: #ffffff;
+    opacity: 0.5; /* MỜ TOÀN BỘ CẢ NỀN LẪN CHỮ */
+    padding: 10px;
+  }
+</style>
+
+<div class="box-rgba">
+  <strong>Dùng RGBA:</strong> Nền đỏ mờ nhẹ nhưng chữ đỏ vẫn đậm và sắc nét!
+</div>
+<div class="box-opacity">
+  <strong>Dùng Opacity:</strong> Cả khối và chữ bị mờ đục 50%.
+</div>
+```
+
+---
+
+### 2.3. Bảng Tra Cứu Toàn Bộ Thuộc Tính CSS Cơ Bản (Cột Code & Cột Giải Thích)
 
 | Thuộc tính / Cú pháp CSS | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
@@ -422,7 +499,7 @@ input:focus { border-color: #007bff; outline: none; }
 
 ---
 
-### 2.3. Cú Pháp Viết Ngắn Gọn Trong CSS (Shorthand Properties)
+### 2.4. Cú Pháp Viết Ngắn Gọn Trong CSS (Shorthand Properties)
 
 CSS Shorthand cho phép gộp nhiều thuộc tính liên quan (như `padding`, `margin`, `border`, `background`, `font`, `transition`, `overflow`,...) vào một dòng lệnh duy nhất, giúp code gọn gàng, giảm tối đa thời gian gõ trong phòng thi và tránh lỗi cú pháp.
 
@@ -491,7 +568,7 @@ CSS Shorthand cho phép gộp nhiều thuộc tính liên quan (như `padding`, 
 
 ---
 
-### 2.4. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
+### 2.5. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
 
 ```css
 /* MẪU KINH ĐIỂN: Đặt Tên ứng viên hoặc Nhãn giảm giá (-20%) đè lên góc ảnh */
@@ -524,7 +601,7 @@ CSS Shorthand cho phép gộp nhiều thuộc tính liên quan (như `padding`, 
 
 ---
 
-### 2.5. Thuộc Tính `display` Trong CSS & Các Mẫu Bố Cục (Layout) Cốt Lõi
+### 2.6. Thuộc Tính `display` Trong CSS & Các Mẫu Bố Cục (Layout) Cốt Lõi
 
 Thuộc tính `display` xác định kiểu hiển thị của một phần tử trên trang web, quyết định cách phần tử đó tương tác với các phần tử xung quanh và cách nó quản lý các phần tử con bên trong.
 
@@ -603,7 +680,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 | `grid-template-columns: repeat(4, 1fr);` | Chia lưới thành **4 cột có chiều rộng bằng nhau** (`1fr` = 1 phần bằng nhau). Nếu đề yêu cầu 3 cột thì đổi số `4` thành `3`. Khi hết 4 phần tử trên 1 hàng, phần tử thứ 5 sẽ tự động xuống hàng tiếp theo! |
 | `overflow: hidden;` | Đặt trên `.progress-bg`: cắt gọn phần góc thừa của thanh màu xanh bên trong để không bị tràn ra ngoài khung bo tròn `border-radius: 12px`. |
 
-### 2.6. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`) & Hiệu ứng CSS3
+### 2.7. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`) & Hiệu ứng CSS3
 - **Bảng biểu có đường viền đơn sắc nét:**
   - `table { width: 100%; border-collapse: collapse; }` (Gộp viền đôi thành viền đơn).
   - `th, td { border: 1px solid #333; padding: 8px; vertical-align: middle; }`
@@ -618,7 +695,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 
 ---
 
-### 2.7. Các Đơn Vị Đo Lường Trong CSS (`px`, `em`, `rem`, `%`, `vw`, `vh`, `fr`)
+### 2.8. Các Đơn Vị Đo Lường Trong CSS (`px`, `em`, `rem`, `%`, `vw`, `vh`, `fr`)
 > **Quy ước mặc định của trình duyệt:** Nếu không chỉnh sửa gì ở thẻ gốc `<html>`, kích thước chữ mặc định luôn là **`16px`** (tức là `1rem = 16px`).
 
 | Đơn vị / Cú pháp Code | Giải thích chi tiết ý nghĩa, Cách quy đổi & Khi nào nên dùng |
@@ -677,7 +754,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 
 ---
 
-### 2.8. Thay Đổi Bố Cục & Vị Trí Trang Web Theo Thiết Bị (Responsive Web Design & Media Queries)
+### 2.9. Thay Đổi Bố Cục & Vị Trí Trang Web Theo Thiết Bị (Responsive Web Design & Media Queries)
 Để một trang web tự động **đổi số cột, đổi kích thước hoặc đảo vị trí các khối** khi xem trên **Máy tính (Desktop)**, **Máy tính bảng (Tablet)** và **Điện thoại (Mobile)**, ta kết hợp **Thẻ Meta Viewport** và **`@media` (Media Queries)**:
 
 #### A. Bảng các kỹ thuật Responsive & Đảo vị trí theo thiết bị (1 cột Code - 1 cột Giải thích)
