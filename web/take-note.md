@@ -1276,28 +1276,35 @@ row.insertCell(2).innerHTML = `<button type="button" class="btn-del">Xóa</butto
 
 ---
 
-### 4.3. Năm mẫu kỹ thuật "Mảnh ghép" giải quyết các dạng đề biến tấu mới
+### 4.3. Năm Mẫu Kỹ Thuật "Mảnh Ghép" Giải Quyết Các Dạng Đề Biến Tấu Mới
 
-#### Mẫu A: Nhân bản khối nhập liệu khi bấm nút "Thêm..." (Thêm sách, Thêm kỹ năng, Thêm thành viên)
+Dưới đây là 5 mẫu chức năng JavaScript thường gặp nhất trong các đề thi Web UIT, mỗi mẫu được trình bày gồm **đoạn code ngắn gọn** và **bảng giải thích chi tiết từng câu lệnh** ngay bên dưới:
+
+#### Mẫu A: Nhân bản khối nhập liệu khi bấm nút "Thêm..." (Thêm sách, kỹ năng, thành viên)
 ```javascript
 document.getElementById("btnAddBlock").addEventListener("click", function() {
   const container = document.getElementById("blockContainer");
   const blocks = container.querySelectorAll(".item-block");
 
-  // Nếu đề giới hạn số lượng tối đa (VD: tối đa 3 quyển sách)
+  // Chặn nếu đã đạt số lượng tối đa (VD: tối đa 3 mục)
   if (blocks.length >= 3) {
     alert("Chỉ được thêm tối đa 3 mục!");
     return;
   }
 
-  // Nhân bản khối đầu tiên và xóa trắng dữ liệu bên trong
+  // Nhân bản khối đầu tiên, xóa trắng chữ và gắn vào cuối
   const newBlock = blocks[0].cloneNode(true);
   newBlock.querySelectorAll("input, textarea").forEach(el => el.value = "");
   container.appendChild(newBlock);
 });
 ```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `blocks[0].cloneNode(true)` | Sao chép nguyên vẹn khối phần tử đầu tiên. Tham số **`true`** bắt buộc phải có để sao chép toàn bộ các thẻ con (`input`, `<label>`, `<select>`...) bên trong nó. |
+| `newBlock.querySelectorAll(...).forEach(el => el.value = "")` | Duyệt qua tất cả các ô nhập liệu bên trong khối mới vừa nhân bản và gán rỗng `el.value = ""` để người dùng nhập thông tin mới (tránh bị dính dữ liệu của khối cũ). |
+| `container.appendChild(newBlock)` | Gắn khối mới `newBlock` vào vị trí cuối cùng bên trong khung `container`. |
 
-#### Mẫu B: Chọn Dropdown `<select>` tự động nhảy Đơn giá & Hình ảnh tương ứng
+#### Mẫu B: Chọn Dropdown `<select>` tự động nhảy Đơn giá & Ảnh tương ứng
 ```javascript
 // HTML: <select id="cboSP"><option value="150000" data-img="ao.jpg">Áo sơ mi</option></select>
 document.getElementById("cboSP").addEventListener("change", function() {
@@ -1306,8 +1313,12 @@ document.getElementById("cboSP").addEventListener("change", function() {
   document.getElementById("imgPreview").src  = opt.dataset.img;
 });
 ```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `this.options[this.selectedIndex]` | Lấy ra đúng thẻ `<option>` đang được người dùng bấm chọn bên trong danh sách thả xuống `<select>`. |
+| `opt.value` & `opt.dataset.img` | Đọc giá tiền từ `.value` gán vào ô nhập đơn giá, và đọc tên file ảnh từ `data-img` gán vào thuộc tính `.src` của thẻ `<img>` để đổi ảnh ngay lập tức. |
 
-#### Mẫu C: Đọc và hiển thị ảnh từ `<input type="file">` (Vừa xem trước vừa lưu vào `localStorage`)
+#### Mẫu C: Đọc và hiển thị ảnh từ `<input type="file">` (Xem trước & lưu Base64)
 ```javascript
 let avatarBase64 = "default.png";
 document.getElementById("fileInput").addEventListener("change", function(e) {
@@ -1315,15 +1326,20 @@ document.getElementById("fileInput").addEventListener("change", function(e) {
   if (file) {
     const reader = new FileReader();
     reader.onload = function(evt) {
-      avatarBase64 = evt.target.result; // Chuỗi Base64 lưu được vào localStorage
+      avatarBase64 = evt.target.result; // Chuỗi Base64
       document.getElementById("imgPreview").src = avatarBase64;
     };
     reader.readAsDataURL(file);
   }
 });
 ```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `e.target.files[0]` | Lấy ra file đầu tiên mà người dùng vừa chọn từ hộp thoại máy tính. |
+| `reader.readAsDataURL(file)` | Đọc file ảnh và mã hóa thành một chuỗi văn bản dài dạng Base64 (`data:image/png;base64,...`). |
+| `avatarBase64 = evt.target.result` | Lấy chuỗi Base64 vừa tạo gán vào `.src` của ảnh xem trước và có thể lưu thẳng vào `localStorage` mà không cần upload lên máy chủ. |
 
-#### Mẫu D: Tìm kiếm / Lọc các dòng trong bảng theo từ khóa gõ vào (`input` event)
+#### Mẫu D: Tìm kiếm / Lọc danh sách trong bảng theo từ khóa gõ vào (`input` event)
 ```javascript
 document.getElementById("txtSearch").addEventListener("input", function() {
   const keyword = this.value.trim().toLowerCase();
@@ -1333,57 +1349,61 @@ document.getElementById("txtSearch").addEventListener("input", function() {
   });
 });
 ```
-
-#### Mẫu E: Truyền dữ liệu từ Trang 1 sang Trang 2 bằng `localStorage`
-```javascript
-// Ở Trang 1 (Trước khi mở hoặc chuyển sang Trang 2):
-localStorage.setItem("savedData", JSON.stringify(myObjectOrArray));
-window.location.href = "trang2.html"; // Hoặc dùng thẻ <a href="trang2.html" target="_blank">
-
-// Ở Trang 2 (Khi vừa mở trang):
-const data = JSON.parse(localStorage.getItem("savedData")) || [];
-```
-
-#### 📖 Bảng giải thích các thuộc tính & hàm trong 5 mẫu kỹ thuật trên:
-| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `blocks[0].cloneNode(true)` | Nhân bản (sao chép) phần tử `blocks[0]`. Tham số **`true`** bắt buộc phải có để sao chép toàn bộ các thẻ con (`input`, `option`, `td`...) nằm bên trong nó. |
-| `container.appendChild(newBlock)` | Gắn phần tử vừa nhân bản `newBlock` vào vị trí cuối cùng bên trong `container`. |
-| `this.options[this.selectedIndex]` | Lấy ra đúng thẻ `<option>` đang được người dùng chọn bên trong `<select>`. Từ đó đọc được cả `.value`, `.text` và `.dataset.*` của `<option>` đó. |
-| `e.target.files[0]` | Lấy ra file đầu tiên mà người dùng vừa chọn từ hộp thoại `<input type="file">`. |
-| `reader.readAsDataURL(file)` | Dùng đối tượng `FileReader` biến file ảnh thành chuỗi mã hóa Base64 (`data:image/png;base64,...`) để vừa gán được vào `<img src="...">` vừa lưu được vào `localStorage`. |
-| `JSON.stringify(obj)` | Biến Mảng hoặc Object trong JS thành **chuỗi JSON** (vì `localStorage` chỉ lưu được kiểu chuỗi String). |
-| `JSON.parse(str)` | Biến chuỗi JSON đọc từ `localStorage` ngược trở lại thành **Mảng hoặc Object** ban đầu để sử dụng. |
-| `window.location.href = "trang2.html"` | Lệnh chuyển hướng trình duyệt sang trang `trang2.html` bằng JavaScript. |
+| `this.value.trim().toLowerCase()` | Lấy từ khóa đang gõ trong ô tìm kiếm, cắt khoảng trắng và đổi về chữ thường. |
+| `row.textContent.toLowerCase()` | Lấy toàn bộ nội dung chữ có trong cả dòng `<tr>` đó. |
+| `row.style.display = text.includes(...) ? "" : "none"` | Nếu trong dòng có chứa từ khóa $\rightarrow$ giữ nguyên hiển thị (`""`), nếu không chứa $\rightarrow$ ẩn dòng đó đi (`"none"`). |
 
-### 4.4. Ủy quyền sự kiện (Event Delegation) trong JS thuần & Event Loop
-- **Ủy quyền sự kiện cho các nút "Xóa" hoặc ô số lượng mới sinh ra:**
+#### Mẫu E: Truyền dữ liệu giữa 2 trang web độc lập bằng `localStorage`
 ```javascript
+// 1. Ở TRANG 1 (Lưu dữ liệu trước khi chuyển trang):
+localStorage.setItem("savedData", JSON.stringify(dsSinhVien));
+window.location.href = "trang2.html";
+
+// 2. Ở TRANG 2 (Đọc lại dữ liệu ngay khi vừa tải trang):
+const dsDocLai = JSON.parse(localStorage.getItem("savedData")) || [];
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `JSON.stringify(dsSinhVien)` | Biến mảng hoặc đối tượng JavaScript thành **chuỗi ký tự JSON** (bắt buộc vì `localStorage` chỉ chấp nhận lưu dạng chuỗi). |
+| `localStorage.setItem("key", str)` | Lưu chuỗi vào bộ nhớ trình duyệt dưới nhãn `"key"`. Dữ liệu vẫn tồn tại kể cả khi đóng trình duyệt hoặc chuyển sang file HTML khác. |
+| `JSON.parse(localStorage.getItem("key"))` | Đọc chuỗi JSON từ bộ nhớ và chuyển đổi ngược lại thành **Mảng / Đối tượng JavaScript ban đầu** để sử dụng. |
+
+---
+
+### 4.4. Cơ Chế Ủy Quyền Sự Kiện (Event Delegation) & Vòng Lặp Sự Kiện (Event Loop)
+
+#### 1. Đoạn code Ủy quyền sự kiện cho các nút "Xóa" hoặc ô số lượng mới sinh ra:
+```javascript
+// Gắn 1 sự kiện duy nhất lên thẻ cha <tbody id="myTable">
 document.getElementById("myTable").addEventListener("click", function(e) {
+  // Kiểm tra xem chuột có bấm trúng phần tử mang class .btn-del không
   if (e.target.classList.contains("btn-del")) {
-    e.target.closest("tr").remove(); // Xóa dòng chứa nút vừa bấm
-    capNhatTongTien();
+    const row = e.target.closest("tr"); // Dò ngược lên dòng <tr> chứa nút
+    if (row) {
+      row.remove(); // Xóa dòng
+      capNhatTongTien(); // Tính lại tổng tiền
+    }
   }
 });
 ```
-
-#### 📖 Bảng giải thích cơ chế Ủy quyền sự kiện (Event Delegation) ở trên:
 | Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `e` (Event Object) | Đối tượng sự kiện được trình duyệt tự động truyền vào hàm mỗi khi người dùng click hoặc gõ phím. |
-| `e.target` | Chính là **phần tử HTML cụ thể mà chuột vừa bấm trúng** (ví dụ: nút `<button class="btn-del">` nằm bên trong bảng). |
-| `e.target.classList.contains("btn-del")` | Kiểm tra xem phần tử vừa bị bấm trúng có mang class `"btn-del"` (nút Xóa) hay không. |
-| `e.target.closest("tr")` | Từ nút Xóa vừa bấm, tìm ngược lên cha/ông gần nhất là thẻ dòng `<tr>` đang chứa nút đó. |
-| `.remove()` | Xóa bỏ hoàn toàn dòng `<tr>` đó khỏi bảng HTML. |
-| `e.preventDefault()` | Chặn hành vi mặc định của trình duyệt (ngăn form tự tải lại trang khi bấm nút `type="submit"`). |
-| `e.stopPropagation()` | Chặn sự kiện nổi bọt (`Event Bubbling`) không cho lan tiếp lên các thẻ cha bên ngoài. |
-- **Event Bubbling (Nổi bọt - Mặc định):** Click vào thẻ con $\rightarrow$ chạy sự kiện thẻ con trước $\rightarrow$ nổi bọt lên thẻ cha $\rightarrow$ `body` $\rightarrow$ `html` $\rightarrow$ `document` $\rightarrow$ `window`.
-  - Chặn nổi bọt lên thẻ cha: `e.stopPropagation()`.
-  - Chặn hành vi mặc định của trình duyệt (chặn reload khi submit form): `e.preventDefault()`.
-- **Thứ tự ưu tiên Event Loop:**
-  1. **Synchronous (Đồng bộ)** trong Call Stack chạy trước tiên.
-  2. **Microtasks** (`Promise.then`, `catch`, `finally`, `async/await`) chạy ngay sau khi Call Stack rỗng.
-  3. **Macrotasks** (`setTimeout`, `setInterval`) chạy cuối cùng.
+| `e` (Event Object) | Đối tượng sự kiện chứa thông tin về hành động click chuột của người dùng. |
+| `e.target` | Chính là **phần tử HTML cụ thể mà chuột vừa chạm trúng** (ví dụ thẻ `<button class="btn-del">`). |
+| `e.target.classList.contains("btn-del")` | Kiểm tra xem phần tử vừa click có class `"btn-del"` hay không. Nhờ cơ chế này, dù có thêm 100 dòng mới sau này thì nút Xóa vẫn hoạt động tốt mà không cần gán lại sự kiện. |
+| `e.target.closest("tr")` | Tìm thẻ cha `<tr>` gần nhất bao quanh nút Xóa. |
+| `row.remove()` | Lệnh xóa sạch thẻ `<tr>` đó khỏi cây DOM của trang web. |
+
+#### 2. Hai lệnh kiểm soát sự kiện quan trọng:
+- `e.preventDefault()`: **Chặn hành vi mặc định** của trình duyệt (chặn form tự động tải lại trang khi bấm submit).
+- `e.stopPropagation()`: **Chặn sự kiện nổi bọt** (Event Bubbling) không cho sự kiện lan tiếp lên các thẻ cha bên ngoài.
+
+#### 3. Thứ tự ưu tiên trong Vòng lặp sự kiện (Event Loop):
+1. **Call Stack (Đồng bộ - Synchronous):** Các câu lệnh bình thường, vòng lặp `for`, phép tính toán sẽ chạy trước tiên.
+2. **Microtasks Queue:** Các tác vụ bất đồng bộ ưu tiên cao (`Promise.then()`, `catch()`, `async/await`) chạy ngay khi Call Stack vừa rỗng.
+3. **Macrotasks Queue:** Các sự kiện hẹn giờ (`setTimeout`, `setInterval`) chạy sau cùng.
 
 ---
 
@@ -1661,7 +1681,13 @@ document.getElementById("myTable").addEventListener("click", function(e) {
 
 ## 🏆 5. CÁC MẪU BÀI TẬP THỰC HÀNH TRỌNG TÂM (VANILLA JS)
 
+Dưới đây là 4 dạng bài tập thực hành kinh điển nhất trong các đề thi Web IS207. Mỗi dạng bài được chia tách cụ thể thành **khung HTML giao diện**, **từng hàm xử lý JavaScript ngắn gọn** và **bảng giải thích chi tiết ý nghĩa từng dòng code**:
+
+---
+
 ### 📌 DẠNG 1: FORM VALIDATION VỚI REGEX + THÊM VÀO BẢNG
+
+#### 1. Khung HTML giao diện Form & Bảng danh sách:
 ```html
 <form id="frmDangKy">
   <div class="form-group">
@@ -1693,74 +1719,87 @@ document.getElementById("myTable").addEventListener("click", function(e) {
   </thead>
   <tbody id="tbodyDanhSach"></tbody>
 </table>
-
-<script>
-  const frm = document.getElementById("frmDangKy");
-  const tbody = document.getElementById("tbodyDanhSach");
-
-  frm.addEventListener("submit", function(e) {
-    e.preventDefault(); // 1. Chặn reload trang
-
-    // 2. Xóa toàn bộ thông báo lỗi cũ
-    document.querySelectorAll(".error").forEach(el => el.textContent = "");
-    let valid = true;
-
-    const mssv  = document.getElementById("mssv").value.trim();
-    const hoten = document.getElementById("hoten").value.trim();
-    const sdt   = document.getElementById("sdt").value.trim();
-    const email = document.getElementById("email").value.trim();
-
-    if (!/^2\d{7}$/.test(mssv)) {
-      document.getElementById("errMssv").textContent = "MSSV phải gồm 8 chữ số và bắt đầu bằng số 2!";
-      valid = false;
-    }
-    if (hoten === "") {
-      document.getElementById("errHoten").textContent = "Họ tên không được để trống!";
-      valid = false;
-    }
-    if (!/^0[35789]\d{8}$/.test(sdt)) {
-      document.getElementById("errSdt").textContent = "SĐT không hợp lệ (10 số, đầu 03/05/07/08/09)!";
-      valid = false;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      document.getElementById("errEmail").textContent = "Email không đúng định dạng!";
-      valid = false;
-    }
-
-    if (valid) {
-      tbody.insertAdjacentHTML("beforeend", `
-        <tr>
-          <td>${mssv}</td>
-          <td>${hoten}</td>
-          <td>${sdt}</td>
-          <td>${email}</td>
-          <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
-        </tr>
-      `);
-      frm.reset(); // Xóa trắng form sau khi thêm
-    }
-  });
-
-  // Ủy quyền sự kiện xóa dòng
-  tbody.addEventListener("click", function(e) {
-    if (e.target.classList.contains("btn-del")) {
-      e.target.closest("tr").remove();
-    }
-  });
-</script>
 ```
 
-#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 1:
-| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+#### 2. Các hàm JavaScript xử lý logic:
+
+##### A. Hàm bắt sự kiện Submit, kiểm tra Regex và thêm dòng vào bảng
+```javascript
+const frm = document.getElementById("frmDangKy");
+const tbody = document.getElementById("tbodyDanhSach");
+
+frm.addEventListener("submit", function(e) {
+  e.preventDefault(); // 1. Chặn reload trang mặc định
+
+  // 2. Xóa thông báo lỗi cũ
+  document.querySelectorAll(".error").forEach(el => el.textContent = "");
+  let valid = true;
+
+  // 3. Đọc dữ liệu các ô
+  const mssv  = document.getElementById("mssv").value.trim();
+  const hoten = document.getElementById("hoten").value.trim();
+  const sdt   = document.getElementById("sdt").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  // 4. Kiểm tra từng điều kiện Regex
+  if (!/^2\d{7}$/.test(mssv)) {
+    document.getElementById("errMssv").textContent = "MSSV phải gồm 8 chữ số và bắt đầu bằng số 2!";
+    valid = false;
+  }
+  if (hoten === "") {
+    document.getElementById("errHoten").textContent = "Họ tên không được để trống!";
+    valid = false;
+  }
+  if (!/^0[35789]\d{8}$/.test(sdt)) {
+    document.getElementById("errSdt").textContent = "SĐT không hợp lệ (10 số, đầu 03/05/07/08/09)!";
+    valid = false;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById("errEmail").textContent = "Email không đúng định dạng!";
+    valid = false;
+  }
+
+  // 5. Nếu hợp lệ -> Chèn dòng mới vào bảng và xóa trắng form
+  if (valid) {
+    tbody.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td>${mssv}</td>
+        <td>${hoten}</td>
+        <td>${sdt}</td>
+        <td>${email}</td>
+        <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
+      </tr>
+    `);
+    frm.reset();
+  }
+});
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `e.preventDefault()` | Bắt buộc đặt ở dòng đầu tiên của hàm `submit` để ngăn trình duyệt tự reload lại trang làm mất dữ liệu vừa thêm vào bảng. |
-| `document.querySelectorAll(".error").forEach(el => el.textContent = "")` | Xóa sạch toàn bộ các dòng chữ báo lỗi màu đỏ của lần bấm trước đó trước khi kiểm tra lại từ đầu. |
-| `!/^2\d{7}$/.test(mssv)` | Dấu `!` là phủ định: Nếu chuỗi `mssv` **KHÔNG** khớp với mẫu Regex (bắt đầu bằng số `2` và theo sau là `7` chữ số) thì báo lỗi và gán `valid = false`. |
-| `frm.reset()` | Xóa trắng toàn bộ các ô input trong form sau khi đã thêm sinh viên vào bảng thành công. |
+| `e.preventDefault()` | Chặn trình duyệt gửi form đi và không tự tải lại trang (nếu thiếu dòng này dữ liệu vừa thêm sẽ mất ngay lập tức). |
+| `document.querySelectorAll(".error").forEach(el => el.textContent = "")` | Dọn sạch tất cả dòng chữ báo lỗi màu đỏ của lần bấm trước đó. |
+| `!/^2\d{7}$/.test(mssv)` | Dấu `!` là phủ định: Nếu MSSV không khớp đúng 8 số bắt đầu bằng số 2 thì in lỗi và đánh dấu `valid = false`. |
+| `tbody.insertAdjacentHTML("beforeend", ...)` | Nối trực tiếp mã HTML dòng `<tr>` vào cuối `tbody` mà không làm mất các dòng sinh viên đã thêm trước đó. |
+| `frm.reset()` | Đưa toàn bộ các ô nhập liệu trong `<form>` về rỗng sau khi đã thêm thành công. |
+
+##### B. Hàm xóa dòng sinh viên khỏi bảng (Event Delegation)
+```javascript
+tbody.addEventListener("click", function(e) {
+  if (e.target.classList.contains("btn-del")) {
+    e.target.closest("tr").remove(); // Xóa đúng dòng chứa nút vừa bấm
+  }
+});
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `tbody.addEventListener("click", ...)` | Lắng nghe sự kiện click trên toàn bộ bảng `tbody` (áp dụng được cho cả những dòng sinh viên mới sinh ra sau). |
+| `e.target.closest("tr").remove()` | Từ nút Xóa vừa click, tìm ngược lên thẻ cha dòng `<tr>` và xóa sổ khỏi trang web. |
 
 ---
 
-### 📌 DẠNG 2: THỰC ĐƠN CHỌN MÓN (CHECKBOX + RADIO NGÀY/ĐÊM PHỤ THU 10%)
+### 📌 DẠNG 2: THỰC ĐƠN CHỌN MÓN (CHECKBOX + RADIO PHỤ THU BAN ĐÊM 10%)
+
+#### 1. Khung HTML giao diện:
 ```html
 <form id="frmMenu">
   <div class="form-group">
@@ -1789,65 +1828,70 @@ document.getElementById("myTable").addEventListener("click", function(e) {
     </tr>
   </tfoot>
 </table>
-
-<script>
-  document.getElementById("btnTinhTien").addEventListener("click", function() {
-    const dsChon = document.querySelectorAll("input[name='mon']:checked");
-    const tblHoaDon = document.getElementById("tblHoaDon");
-    const tbody = document.getElementById("tbodyHoaDon");
-
-    if (dsChon.length === 0) {
-      alert("Vui lòng chọn ít nhất 1 món!");
-      tblHoaDon.style.display = "none";
-      return;
-    }
-
-    tbody.innerHTML = ""; // Xóa dữ liệu hóa đơn cũ
-    let tong = 0;
-
-    dsChon.forEach(function(item) {
-      const ten = item.dataset.ten;
-      const gia = parseFloat(item.value);
-      tong += gia;
-      tbody.insertAdjacentHTML("beforeend", `
-        <tr>
-          <td>${ten}</td>
-          <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
-        </tr>
-      `);
-    });
-
-    // Kiểm tra phụ thu ban đêm 10%
-    const buoi = document.querySelector("input[name='buoi']:checked").value;
-    if (buoi === "dem") {
-      const phuThu = tong * 0.1;
-      tong += phuThu;
-      tbody.insertAdjacentHTML("beforeend", `
-        <tr>
-          <td><i>Phụ thu ban đêm (10%)</i></td>
-          <td class="text-right">${phuThu.toLocaleString("vi-VN")} đ</td>
-        </tr>
-      `);
-    }
-
-    document.getElementById("lblTongTien").textContent = tong.toLocaleString("vi-VN") + " đ";
-    tblHoaDon.style.display = "table";
-  });
-</script>
 ```
 
-#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 2:
-| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+#### 2. Hàm JavaScript tính tiền hóa đơn & phụ thu:
+```javascript
+document.getElementById("btnTinhTien").addEventListener("click", function() {
+  const dsChon = document.querySelectorAll("input[name='mon']:checked");
+  const tblHoaDon = document.getElementById("tblHoaDon");
+  const tbody = document.getElementById("tbodyHoaDon");
+
+  // 1. Kiểm tra nếu chưa chọn món nào thì cảnh báo
+  if (dsChon.length === 0) {
+    alert("Vui lòng chọn ít nhất 1 món!");
+    tblHoaDon.style.display = "none";
+    return;
+  }
+
+  tbody.innerHTML = ""; // Xóa dữ liệu cũ
+  let tong = 0;
+
+  // 2. Duyệt qua từng món được tích chọn để in dòng và cộng dồn tiền
+  dsChon.forEach(function(item) {
+    const ten = item.dataset.ten;
+    const gia = parseFloat(item.value);
+    tong += gia;
+
+    tbody.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td>${ten}</td>
+        <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
+      </tr>
+    `);
+  });
+
+  // 3. Kiểm tra nút radio: nếu chọn "Ban đêm" thì cộng phụ thu 10%
+  const buoi = document.querySelector("input[name='buoi']:checked").value;
+  if (buoi === "dem") {
+    const phuThu = tong * 0.1;
+    tong += phuThu;
+    tbody.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td><i>Phụ thu ban đêm (10%)</i></td>
+        <td class="text-right">${phuThu.toLocaleString("vi-VN")} đ</td>
+      </tr>
+    `);
+  }
+
+  // 4. Cập nhật số tiền tổng cộng và hiển thị bảng hóa đơn lên
+  document.getElementById("lblTongTien").textContent = tong.toLocaleString("vi-VN") + " đ";
+  tblHoaDon.style.display = "table";
+});
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `value="20000" data-ten="Bún bò"` | Lưu đơn giá vào `value` (để lấy bằng `item.value`) và lưu tên món ăn vào thuộc tính `data-ten` (để lấy bằng `item.dataset.ten`). |
-| `name="buoi"` (trên cả 2 nút Radio) | Đặt chung `name="buoi"` cho cả "Ban ngày" và "Ban đêm" để người dùng chỉ có thể tích chọn 1 trong 2 thời điểm. |
-| `style="display:none;"` (trên `#tblHoaDon`) | Ẩn bảng hóa đơn đi khi mới mở trang; sau khi tính tiền xong dùng `tblHoaDon.style.display = "table"` để hiện bảng lên. |
-| `document.querySelectorAll("input[name='mon']:checked")` | Lấy ra danh sách tất cả các ô `checkbox` có `name="mon"` đang được người dùng tích chọn. Nếu `.length === 0` tức là chưa chọn món nào. |
-| `tbody.innerHTML = ""` | Xóa sạch các dòng hóa đơn của lần bấm "Tính Tiền" trước đó để không bị in trùng lặp. |
+| `querySelectorAll("input[name='mon']:checked")` | Lấy ra toàn bộ các checkbox món ăn đang được tích chọn. Nếu độ dài `.length === 0` thì cảnh báo và dừng lại. |
+| `tbody.innerHTML = ""` | Xóa sạch bảng hóa đơn cũ trước khi in các món mới (tránh bị in lặp dồn khi người dùng bấm nút Tính tiền nhiều lần). |
+| `item.dataset.ten` & `parseFloat(item.value)` | Đọc Tên món từ thuộc tính `data-ten` và đọc Đơn giá từ thuộc tính `value` của checkbox. |
+| `querySelector("input[name='buoi']:checked").value` | Lấy giá trị của nút Radio thời điểm đang được chọn (`"ngay"` hoặc `"dem"`). |
+| `tblHoaDon.style.display = "table"` | Đổi kiểu hiển thị từ `none` (ẩn) sang `table` để hiện khung hóa đơn ra giữa màn hình. |
 
 ---
 
-### 📌 DẠNG 3: BẢNG GIỎ HÀNG ĐỘNG (ĐỔI SỐ LƯỢNG TỰ TÍNH TIỀN & XÓA DÒNG)
+### 📌 DẠNG 3: BẢNG GIỎ HÀNG ĐỘNG (SỬA SỐ LƯỢNG TỰ NHẢY TIỀN & XÓA DÒNG)
+
+#### 1. Khung HTML giao diện bảng giỏ hàng:
 ```html
 <table id="tblGioHang">
   <thead>
@@ -1883,57 +1927,70 @@ document.getElementById("myTable").addEventListener("click", function(e) {
     </tr>
   </tfoot>
 </table>
-
-<script>
-  const tbodyGioHang = document.getElementById("tbodyGioHang");
-
-  function tinhLaiGioHang() {
-    let tongCong = 0;
-    const rows = tbodyGioHang.querySelectorAll("tr");
-
-    rows.forEach(function(row) {
-      const qtyInput = row.querySelector(".qty");
-      let sl = parseInt(qtyInput.value) || 0;
-      if (sl < 1) { sl = 1; qtyInput.value = 1; }
-
-      const gia = parseFloat(row.querySelector(".price").dataset.price) || 0;
-      const thanhTien = sl * gia;
-
-      row.querySelector(".subtotal").textContent = thanhTien.toLocaleString("vi-VN") + " đ";
-      tongCong += thanhTien;
-    });
-
-    document.getElementById("grandTotal").textContent = tongCong.toLocaleString("vi-VN") + " đ";
-  }
-
-  // Lắng nghe khi gõ hoặc đổi số lượng
-  tbodyGioHang.addEventListener("input", function(e) {
-    if (e.target.classList.contains("qty")) {
-      tinhLaiGioHang();
-    }
-  });
-
-  // Lắng nghe khi bấm nút Xóa dòng
-  tbodyGioHang.addEventListener("click", function(e) {
-    if (e.target.classList.contains("btn-del")) {
-      e.target.closest("tr").remove();
-      tinhLaiGioHang();
-    }
-  });
-</script>
 ```
 
-#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 3:
-| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+#### 2. Các hàm JavaScript xử lý logic:
+
+##### A. Hàm tính lại Thành tiền từng dòng và Tổng cộng toàn bộ giỏ hàng
+```javascript
+const tbodyGioHang = document.getElementById("tbodyGioHang");
+
+function tinhLaiGioHang() {
+  let tongCong = 0;
+  const rows = tbodyGioHang.querySelectorAll("tr");
+
+  rows.forEach(function(row) {
+    const qtyInput = row.querySelector(".qty");
+    let sl = parseInt(qtyInput.value) || 0;
+    // Chặn số lượng không được nhỏ hơn 1
+    if (sl < 1) { sl = 1; qtyInput.value = 1; }
+
+    const gia = parseFloat(row.querySelector(".price").dataset.price) || 0;
+    const thanhTien = sl * gia;
+
+    // Cập nhật ô Thành tiền của riêng dòng này
+    row.querySelector(".subtotal").textContent = thanhTien.toLocaleString("vi-VN") + " đ";
+    tongCong += thanhTien;
+  });
+
+  // Cập nhật ô Tổng cộng ở chân bảng
+  document.getElementById("grandTotal").textContent = tongCong.toLocaleString("vi-VN") + " đ";
+}
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `<input type="number" class="qty" value="2" min="1">` | Ô nhập số lượng nằm ngay trong ô bảng, giá trị mặc định là `2`, nhỏ nhất là `1` (`min="1"`). |
-| `<td class="price" data-price="120000">120.000 đ</td>` | Chữ hiển thị cho đẹp là `"120.000 đ"`, còn số nguyên `120000` được cất trong `data-price` để JS lấy ra nhân trực tiếp (`row.querySelector(".price").dataset.price`) mà không cần cắt chuỗi. |
-| `<th colspan="3">Tổng cộng:</th>` | Gộp 3 cột đầu tiên ở dòng chân bảng (`tfoot`) để chữ "Tổng cộng:" nằm sát ngay bên trái cột tổng tiền. |
-| `tbodyGioHang.addEventListener("input", ...)` | Sự kiện `"input"` kích hoạt **ngay lập tức** mỗi khi người dùng gõ số mới hoặc bấm nút mũi tên tăng/giảm trên ô số lượng `.qty`. |
+| `tbodyGioHang.querySelectorAll("tr")` | Lấy tất cả các dòng sản phẩm hiện có trong bảng. |
+| `if (sl < 1) { sl = 1; qtyInput.value = 1; }` | Chặn người dùng cố tình gõ số âm hoặc số 0 vào ô số lượng. |
+| `row.querySelector(".price").dataset.price` | Đọc con số nguyên gốc lưu trong `data-price` của ô giá (VD: `120000`) để nhân tiền chính xác. |
+| `row.querySelector(".subtotal").textContent = ...` | Ghi trực tiếp số tiền đã tính vào cột Thành tiền của dòng tương ứng. |
+
+##### B. Bắt sự kiện người dùng gõ số lượng (`input`) và bấm nút Xóa (`click`)
+```javascript
+// Khi gõ hoặc bấm mũi tên tăng/giảm số lượng
+tbodyGioHang.addEventListener("input", function(e) {
+  if (e.target.classList.contains("qty")) {
+    tinhLaiGioHang();
+  }
+});
+
+// Khi bấm nút Xóa dòng
+tbodyGioHang.addEventListener("click", function(e) {
+  if (e.target.classList.contains("btn-del")) {
+    e.target.closest("tr").remove();
+    tinhLaiGioHang(); // Tính lại tiền ngay sau khi xóa
+  }
+});
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `addEventListener("input", ...)` | Sự kiện `"input"` phản hồi ngay lập tức theo từng phím gõ của người dùng, giúp tổng tiền tự động nhảy theo thời gian thực. |
+| `e.target.closest("tr").remove()` | Xóa bỏ hoàn toàn dòng sản phẩm đó khỏi bảng rồi gọi lại hàm `tinhLaiGioHang()`. |
 
 ---
 
 ### 📌 DẠNG 4: CHỌN MÓN VÀO BÀN (CỘNG DỒN NẾU TRÙNG MÓN + ĐỒNG HỒ HỆ THỐNG)
+
+#### 1. Khung HTML giao diện:
 ```html
 <div>Thời gian hệ thống: <b id="dongHo"></b></div>
 
@@ -1960,75 +2017,102 @@ document.getElementById("myTable").addEventListener("click", function(e) {
     </tr>
   </tfoot>
 </table>
-
-<script>
-  // 1. Hiển thị đồng hồ ngày giờ hệ thống
-  function capNhatDongHo() {
-    const thuArr = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
-    const d = new Date();
-    const str = `${thuArr[d.getDay()]}, ${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-    document.getElementById("dongHo").textContent = str;
-  }
-  capNhatDongHo();
-
-  const tbodyBanAn = document.getElementById("tbodyBanAn");
-
-  // 2. Hàm cập nhật tổng tiền bàn
-  function tinhTongBan() {
-    let tong = 0;
-    tbodyBanAn.querySelectorAll("tr").forEach(function(row) {
-      const sl  = parseInt(row.querySelector(".sl").textContent) || 0;
-      const gia = parseFloat(row.dataset.gia) || 0;
-      const tt  = sl * gia;
-      row.querySelector(".tt").textContent = tt.toLocaleString("vi-VN") + " đ";
-      tong += tt;
-    });
-    document.getElementById("tongBan").textContent = tong.toLocaleString("vi-VN") + " đ";
-  }
-
-  // 3. Thêm món (Nếu món đã có trong bảng thì cộng dồn số lượng +1)
-  document.getElementById("btnThemMon").addEventListener("click", function() {
-    const cbo   = document.getElementById("cboMon");
-    const opt   = cbo.options[cbo.selectedIndex];
-    const idMon = opt.dataset.id;
-    const ten   = opt.text.split("(")[0].trim();
-    const gia   = parseFloat(opt.value);
-
-    // Kiểm tra xem dòng có data-id này đã tồn tại trong bảng chưa
-    const dongCu = tbodyBanAn.querySelector(`tr[data-id='${idMon}']`);
-    if (dongCu) {
-      const cellSl = dongCu.querySelector(".sl");
-      cellSl.textContent = parseInt(cellSl.textContent) + 1;
-    } else {
-      tbodyBanAn.insertAdjacentHTML("beforeend", `
-        <tr data-id="${idMon}" data-gia="${gia}">
-          <td>${ten}</td>
-          <td class="text-center sl">1</td>
-          <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
-          <td class="text-right tt">${gia.toLocaleString("vi-VN")} đ</td>
-          <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
-        </tr>
-      `);
-    }
-    tinhTongBan();
-  });
-
-  // 4. Xóa món khỏi bàn
-  tbodyBanAn.addEventListener("click", function(e) {
-    if (e.target.classList.contains("btn-del")) {
-      e.target.closest("tr").remove();
-      tinhTongBan();
-    }
-  });
-</script>
 ```
 
-#### 📖 Bảng giải thích các thuộc tính & lệnh quan trọng trong Dạng 4:
-| Thuộc tính / Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+#### 2. Các hàm JavaScript xử lý logic:
+
+##### A. Hàm hiển thị Thứ, Ngày Tháng Năm & Giờ Phút hệ thống
+```javascript
+function capNhatDongHo() {
+  const thuArr = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+  const d = new Date();
+  const thu   = thuArr[d.getDay()];
+  const ngay  = String(d.getDate()).padStart(2, "0");
+  const thang = String(d.getMonth() + 1).padStart(2, "0"); // Bắt buộc + 1
+  const nam   = d.getFullYear();
+  const gio   = String(d.getHours()).padStart(2, "0");
+  const phut  = String(d.getMinutes()).padStart(2, "0");
+
+  document.getElementById("dongHo").textContent = `${thu}, ${ngay}/${thang}/${nam} ${gio}:${phut}`;
+}
+capNhatDongHo();
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
 | :--- | :--- |
-| `<option value="20000" data-id="M1">Bún bò (20.000đ)</option>` | Lưu đơn giá vào `value` và mã định danh món ăn vào `data-id="M1"` để dễ kiểm tra xem món này đã có trong bàn chưa. |
-| `opt.text.split("(")[0].trim()` | Cắt chuỗi `"Bún bò (20.000đ)"` tại dấu mở ngoặc `"("`, lấy phần tử đầu tiên `[0]` là `"Bún bò"`. |
-| ``tbodyBanAn.querySelector(`tr[data-id='${idMon}']`)`` | Tìm trong bảng xem đã có dòng `<tr>` nào mang thuộc tính `data-id` trùng với món vừa chọn chưa. Nếu đã có (`dongCu` khác `null`), chỉ cần tăng ô số lượng `.sl` lên `+ 1`. |
+| `thuArr[d.getDay()]` | Lấy tên Thứ bằng tiếng Việt từ chỉ số `0` (Chủ Nhật) đến `6` (Thứ 7). |
+| `d.getMonth() + 1` | Vì tháng trong JavaScript đánh số từ `0` (tháng 1) đến `11` (tháng 12) nên phải cộng thêm `1`. |
+| `.padStart(2, "0")` | Tự động chèn số `0` vào trước nếu số chỉ có 1 chữ số (VD: số `5` thành `"05"`). |
+
+##### B. Hàm tính tổng tiền toàn bàn
+```javascript
+const tbodyBanAn = document.getElementById("tbodyBanAn");
+
+function tinhTongBan() {
+  let tong = 0;
+  tbodyBanAn.querySelectorAll("tr").forEach(function(row) {
+    const sl  = parseInt(row.querySelector(".sl").textContent) || 0;
+    const gia = parseFloat(row.dataset.gia) || 0;
+    const tt  = sl * gia;
+    row.querySelector(".tt").textContent = tt.toLocaleString("vi-VN") + " đ";
+    tong += tt;
+  });
+  document.getElementById("tongBan").textContent = tong.toLocaleString("vi-VN") + " đ";
+}
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `parseInt(row.querySelector(".sl").textContent)` | Đọc số lượng hiện tại đang hiển thị trong ô `.sl` của dòng. |
+| `row.dataset.gia` | Đọc đơn giá món ăn được gắn ngầm trên thuộc tính `data-gia` của dòng `<tr>`. |
+
+##### C. Hàm thêm món (Cộng dồn số lượng nếu món đã tồn tại, chèn dòng mới nếu chưa có)
+```javascript
+document.getElementById("btnThemMon").addEventListener("click", function() {
+  const cbo   = document.getElementById("cboMon");
+  const opt   = cbo.options[cbo.selectedIndex];
+  const idMon = opt.dataset.id;
+  const ten   = opt.text.split("(")[0].trim();
+  const gia   = parseFloat(opt.value);
+
+  // 1. Kiểm tra xem trong bảng đã có dòng tr mang data-id này chưa
+  const dongCu = tbodyBanAn.querySelector(`tr[data-id='${idMon}']`);
+
+  if (dongCu) {
+    // Nếu ĐÃ CÓ: chỉ cộng dồn số lượng thêm 1
+    const cellSl = dongCu.querySelector(".sl");
+    cellSl.textContent = parseInt(cellSl.textContent) + 1;
+  } else {
+    // Nếu CHƯA CÓ: tạo một dòng tr mới chèn vào cuối bảng
+    tbodyBanAn.insertAdjacentHTML("beforeend", `
+      <tr data-id="${idMon}" data-gia="${gia}">
+        <td>${ten}</td>
+        <td class="text-center sl">1</td>
+        <td class="text-right">${gia.toLocaleString("vi-VN")} đ</td>
+        <td class="text-right tt">${gia.toLocaleString("vi-VN")} đ</td>
+        <td class="text-center"><button type="button" class="btn-del">Xóa</button></td>
+      </tr>
+    `);
+  }
+
+  // 2. Cập nhật lại tổng tiền bàn
+  tinhTongBan();
+});
+
+// Xóa món khỏi bàn
+tbodyBanAn.addEventListener("click", function(e) {
+  if (e.target.classList.contains("btn-del")) {
+    e.target.closest("tr").remove();
+    tinhTongBan();
+  }
+});
+```
+| Câu lệnh | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `opt.dataset.id` | Lấy mã định danh duy nhất của món ăn (VD: `M1`, `M2`). |
+| `opt.text.split("(")[0].trim()` | Tách chuỗi `"Bún bò (20.000đ)"` tại dấu `(` và lấy phần đầu tiên là `"Bún bò"`. |
+| `tbodyBanAn.querySelector("tr[data-id='...']")` | Kỹ thuật tìm kiếm cực nhanh: kiểm tra xem trong bảng đã có dòng `<tr>` nào có thuộc tính `data-id` trùng khớp chưa. |
+| `cellSl.textContent = parseInt(...) + 1` | Nếu đã có món trong bàn, chỉ việc tăng số lượng lên `+ 1` mà không tạo dòng mới lộn xộn. |
+
+---
 
 ---
 
