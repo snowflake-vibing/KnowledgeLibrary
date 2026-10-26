@@ -33,3 +33,10 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 - **[Đề cương & Cẩm nang ôn thi giữa kỳ thực chiến](web/De_Cuong_On_Thi_Giua_Ky.md)** ([Hướng dẫn thực chiến](web/doc/Huong_Dan_On_Thi_Giua_Ky_Thuc_Chien.md))
 - **[Chương 2: Công nghệ Web phía Client (HTML5, CSS3, Bootstrap)](web/De_Muc_On_Tap_Chuong_2.md)**
 - **[Chương 3: Lập trình phía Client (JavaScript ES6+, DOM, jQuery)](web/De_Muc_On_Tap_Chuong_3.md)**
+
+---
+
+### 5. [Deep Learning – Học Sâu](deep-learning/neural-network/README.md)
+- **[Mạng Nơ-ron Nhân tạo (Neural Networks)](deep-learning/neural-network/README.md)**
+  1. [Bên trong "Hộp đen" - Khái niệm cốt lõi của Neural Network (StatQuest Part 1)](deep-learning/neural-network/01_the_essential_main_ideas_of_neural_networks.md)
+
