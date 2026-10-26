@@ -4,6 +4,8 @@
 > 🏷️ **Chủ đề:** Các khái niệm cốt lõi của Mạng Nơ-ron (The Essential Main Ideas of Neural Networks)  
 > 🔗 **Mục lục:** [⬅ Quay lại Danh mục Neural Network](README.md)
 
+![StatQuest: The Essential Main Ideas of Neural Networks](images/00_statquest_thumbnail.jpg)
+
 ---
 
 ## 1. Giới thiệu: Xóa bỏ định kiến về "Hộp đen" (Black Box)
@@ -26,32 +28,26 @@ Giả sử ta thử nghiệm một loại thuốc với các mức liều lượ
 - **Liều lượng vừa phải (Medium Dose):** Bệnh nhân khỏi bệnh $\rightarrow$ Hiệu quả = **1**.
 - **Liều lượng cao (High Dose):** Thuốc gây độc tính cho cơ thể $\rightarrow$ Hiệu quả = **0**.
 
-```
-Hiệu quả (Effectiveness)
-   1 |          ● (Medium Dose: Hiệu quả)
-     |
-     |
-   0 |   ●                         ● (High Dose: Độc hại)
-     | (Low Dose: Không tác dụng)
-     +------------------------------------ Liều lượng (Dosage)
-```
+![Bài toán Liều lượng thuốc: Vì sao đường thẳng thất bại](images/01_drug_dosage_problem.png)
 
 ### 2.2. Sự bất lực của Hồi quy Tuyến tính & Hồi quy Logistic
 
 1. **Hồi quy tuyến tính (Linear Regression):** 
-   - Chỉ vẽ được một **đường thẳng** $y = ax + b$. 
+   - Chỉ vẽ được một **đường thẳng** $y = ax + b$ (đường nét đứt màu đỏ trên đồ thị). 
    - Một đường thẳng không thể vừa đi lên ở giữa lại vừa đi xuống ở hai đầu.
 2. **Hồi quy Logistic (Logistic Regression):** 
-   - Tạo ra đường cong chữ S (Sigmoid curve).
+   - Tạo ra đường cong chữ S (Sigmoid curve - đường chấm màu vàng cam).
    - Tuy nhiên, hàm sigmoid có tính chất **đơn điệu** (chỉ tăng dần hoặc chỉ giảm dần), do đó cũng không thể mô tả được mối quan hệ "lên rồi lại xuống" của liều lượng thuốc.
 
-👉 **Nhu cầu cấp thiết:** Ta cần một mô hình có khả năng uốn cong linh hoạt để tạo ra một đường "gợn sóng" (Squiggle) đi qua các điểm dữ liệu. Đó chính là lý do **Mạng nơ-ron nhân tạo** ra đời!
+👉 **Nhu cầu cấp thiết:** Ta cần một mô hình có khả năng uốn cong linh hoạt để tạo ra một đường "gợn sóng" (**Squiggle** - đường màu xanh dương) đi qua các điểm dữ liệu. Đó chính là lý do **Mạng nơ-ron nhân tạo** ra đời!
 
 ---
 
 ## 3. Kiến trúc cơ bản của Mạng Nơ-ron trong bài giảng
 
 Mạng nơ-ron giải quyết bài toán trên gồm 3 tầng:
+
+![Kiến trúc Mạng Nơ-ron Trong Bài Giảng StatQuest](images/02_neural_network_structure.png)
 
 ```mermaid
 flowchart LR
@@ -98,19 +94,11 @@ Nếu chỉ dừng lại ở phép tính $w \cdot x + b$, mạng nơ-ron dù sâ
 Trong video, Josh Starmer sử dụng hàm **Softplus**:
 $$\text{Softplus}(z) = \ln(1 + e^z)$$
 
-> 🔍 **So sánh Softplus và ReLU:**
-> - **ReLU (Rectified Linear Unit):** $f(z) = \max(0, z)$ — bẻ gập đường thẳng đột ngột tại điểm $0$ tạo thành góc nhọn.
-> - **Softplus:** Là phiên bản làm mịn (smooth approximation) của ReLU. Thay vì gập góc nhọn, Softplus uốn cong mượt mà quanh điểm 0 và luôn có đạo hàm liên tục, tránh hiện tượng "chết nơ-ron" (dying ReLU).
+![So sánh Hàm kích hoạt Softplus và ReLU](images/03_activation_softplus_vs_relu.png)
 
-```
-Giá trị sau kích hoạt
-      ^
-      |         /  (Tiệm cận đường thẳng y = z khi z > 0)
-      |        /
-      |      _´
-      |   _.-
-   0  +--´---------> Trục z (z = wx + b)
-```
+> 🔍 **So sánh Softplus và ReLU:**
+> - **ReLU (Rectified Linear Unit):** $f(z) = \max(0, z)$ — bẻ gập đường thẳng đột ngột tại điểm $0$ tạo thành góc nhọn (đường nét đứt đỏ).
+> - **Softplus:** Là phiên bản làm mịn (smooth approximation) của ReLU. Thay vì gập góc nhọn, Softplus uốn cong mượt mà quanh điểm 0 (đường liền màu xanh) và luôn có đạo hàm liên tục, tránh hiện tượng "chết nơ-ron" (dying ReLU).
 
 ---
 
@@ -130,14 +118,7 @@ Làm thế nào để 2 nơ-ron ẩn kết hợp lại tạo thành một đồ 
    - Cộng hai đường cong lại cùng với một độ lệch $b_{out}$:
      $$\hat{y} = w_3 \cdot a_1 + w_4 \cdot a_2 + b_{out}$$
 
-```
-   Đường cong 1 (a₁ · w₃):      Đường cong 2 (a₂ · w₄):         Tổng hợp tại Output (ŷ):
-         ^                            ^                                    ^
-         |      _.-´                  |                                    |       .--.
-         |   _.-                      |                                    |      /    \
-         +--´--------> x              +--------._                          +-----´      `-----> x
-                                                 `-._                      (Thấp - Cao - Thấp)
-```
+![Quy trình ghép các đường cong thành Squiggle](images/04_combining_curves_into_squiggle.png)
 
 🎉 **Kết quả:** Sự kết hợp của hai đường cong (một đi lên và một đi xuống bị trừ bớt) đã tạo thành một **đường vồng hình chuông mượt mà** khớp hoàn hảo với 3 điểm dữ liệu:
 - Liều thấp $\rightarrow$ $\hat{y} \approx 0$
