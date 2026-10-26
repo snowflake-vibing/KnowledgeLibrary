@@ -210,6 +210,57 @@ Làm thế nào để 2 nơ-ron ẩn kết hợp lại tạo thành một đồ 
 
 ---
 
+### 6.4. Giải mã bộ thông số thực tế trong video StatQuest của Josh Starmer
+
+Trong video gốc, Josh Starmer không dùng số nguyên tự bịa mà dùng **bộ tham số thực nghiệm thu được sau khi huấn luyện mô hình bằng Backpropagation**. Nếu bạn xem video và thấy phép tính `0.1 × (-34.4) + 2.14` cùng hàm `log(1 + e^x)`, thì đây là lời giải thích chi tiết:
+
+#### 1. Đính chính cấu trúc: "2 tầng ẩn" hay "1 tầng ẩn có 2 nơ-ron"?
+- Trong video **chỉ có 1 tầng ẩn duy nhất (1 Hidden Layer)**, nhưng tầng này chứa **2 nơ-ron (2 Nodes)**:
+  - **Nơ-ron trên (Top Node):** phụ trách tạo ra đường cong màu xanh dương.
+  - **Nơ-ron dưới (Bottom Node):** phụ trách tạo ra đường cong màu cam.
+
+#### 2. Phép tính `0.1 × (-34.4) + 2.14` là gì?
+Đây chính là bước **Biến đổi tuyến tính ($z = w \cdot x + b$)** tại nơ-ron trên:
+- **$0.1$:** Là giá trị **Liều lượng thử nghiệm ($x = \text{Dosage} = 0.1$)**. Josh thử tăng liều từ $0$ lên $0.1$ để xem nơ-ron phản ứng ra sao.
+- **$-34.4$:** Là **Trọng số ($w_1$ - Weight)** của kết nối từ Input vào Nơ-ron trên.
+- **$+2.14$:** Là **Độ lệch ($b_1$ - Bias)** của Nơ-ron trên.
+$$\implies z_1 = (-34.4) \times 0.1 + 2.14 = -1.30$$
+Giá trị $-1.30$ này chính là **tọa độ trục hoành (x-axis)** đưa vào hàm kích hoạt.
+
+#### 3. Hàm `log(1 + e^x)` là gì?
+- Đây chính là hàm kích hoạt **Softplus**:
+  $$f(z) = \ln(1 + e^z)$$
+  *(Trong khoa học máy tính, thống kê và thư viện lập trình, ký hiệu $\log$ mặc định mang nghĩa là logarit tự nhiên $\ln$ cơ số $e$)*.
+- Khi đưa giá trị $z_1 = -1.30$ vào hàm Softplus, ta thu được tọa độ trục tung (đầu ra của nơ-ron):
+  $$a_1 = \ln\left(1 + e^{-1.30}\right) \approx \ln(1 + 0.2725) \approx \mathbf{0.24}$$
+  *(Đây chính là điểm chấm tròn xanh ở mức $0.24$ trên đồ thị của Josh).*
+
+#### 4. Bảng toàn bộ thông số thực tế trong video của Josh Starmer:
+
+| Vị trí | Ký hiệu | Giá trị thực tế | Ý nghĩa |
+|---|:---:|:---:|---|
+| **Nơ-ron trên (Top Node)** | $w_1$ (Weight) | **$-34.4$** | Độ dốc cực dốc để cắt nhanh qua khoảng liều thấp |
+| | $b_1$ (Bias) | **$+2.14$** | Tịnh tiến đường biểu diễn |
+| | $w_3$ (Trọng số ra) | **$-1.30$** | Co giãn và lật ngược đường cong xanh |
+| **Nơ-ron dưới (Bottom Node)** | $w_2$ (Weight) | **$-2.52$** | Độ dốc vừa phải cho khoảng liều cao |
+| | $b_2$ (Bias) | **$+1.29$** | Ngưỡng kích hoạt cho liều cao |
+| | $w_4$ (Trọng số ra) | **$+2.28$** | Phóng to đường cong cam |
+| **Tầng đầu ra (Output)** | $b_{out}$ (Bias ra) | **$-0.58$** | Hạ toàn bộ đường cong Squiggle xuống để khớp dữ liệu |
+
+#### 5. Thử nghiệm dự đoán khi liều lượng $x = 0.5$ (Liều vừa chuẩn):
+1. **Tại Nơ-ron trên:**
+   $$z_1 = (-34.4) \times 0.5 + 2.14 = -15.06 \implies a_1 = \ln\left(1 + e^{-15.06}\right) \approx \mathbf{0.0}$$
+2. **Tại Nơ-ron dưới:**
+   $$z_2 = (-2.52) \times 0.5 + 1.29 = 0.03 \implies a_2 = \ln\left(1 + e^{0.03}\right) \approx \mathbf{0.708}$$
+3. **Tại Tầng đầu ra:**
+   $$\hat{y} = w_3 \cdot a_1 + w_4 \cdot a_2 + b_{out} = (-1.30) \times 0.0 + (2.28) \times 0.708 - 0.58$$
+   $$\hat{y} = 1.614 - 0.58 = \mathbf{1.034}$$
+
+👉 **Kết luận từ Josh:** Vì $\hat{y} = 1.034$ rất sát với $1$ (và cách xa $0$), mô hình kết luận liều lượng $0.5$ là **cực kỳ hiệu quả (Effective)! Double BAM!** 💥💥
+
+
+---
+
 ## 7. Dự đoán trên dữ liệu mới: Lan truyền xuôi (Forward Pass)
 
 Khi mạng đã có đầy đủ các thông số trọng số và bias tối ưu, việc đưa một điểm dữ liệu mới vào để dự đoán được gọi là quá trình **Lan truyền xuôi (Forward Propagation / Forward Pass)**:
