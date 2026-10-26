@@ -5,6 +5,23 @@
 
 ---
 
+## 🔑 NGUYÊN LÝ CỐT LÕI: CƠ CHẾ LIÊN KẾT & TRUYỀN DỮ LIỆU TỪ CÂU 1 SANG CÂU 2
+
+Cả 2 đề thi đều được thiết kế gồm **2 trang web liên kết mật thiết với nhau**:
+- **Trang 1 (`index.html` - Câu 1):** Người dùng nhập form $\rightarrow$ bấm nút Đăng ký/Tạo công việc $\rightarrow$ dữ liệu được lưu vào bộ nhớ trình duyệt `localStorage` $\rightarrow$ hiển thị thẻ tóm tắt có **tên người (dạng link `<a>`)** ở phía dưới form.
+- **Cơ chế chuyển giao giữa 2 trang:** Khi người dùng click vào một link `<a>` tên người bất kỳ ở Trang 1, JavaScript bắt sự kiện click, lưu chỉ số `index` (hoặc `id`) của người đó vào `localStorage`, rồi trình duyệt mở trang mới `chitiet.html`.
+- **Trang 2 (`chitiet.html` - Câu 2):** Khi vừa mở lên, JavaScript tự động đọc lại danh sách từ `localStorage`, lấy đúng dữ liệu chi tiết của người vừa được click ở Trang 1, lặp qua danh sách các dịch vụ/công việc mà người đó đã chọn để vẽ thành bảng và tính ra `Tổng tiền`.
+
+```
+[Trang 1: index.html]                          [Trang 2: chitiet.html]
+1. Nhập Form & chọn DV/Công việc               1. Đọc lại 'dsPhieu' & 'selectedIndex'
+2. Bấm nút -> Lưu mảng vào localStorage        2. Lấy đúng dữ liệu của khách đó
+3. Render tên người thành <a href="chitiet.html" data-index="...">
+4. Click vào tên -> Lưu 'selectedIndex' -------> 3. Đổ vào Bảng & Tính Tổng tiền
+```
+
+---
+
 # 🏛️ ĐỀ SỐ 1: ĐỀ THI GIỮA KỲ HK1 (2025 - 2026) - LỚP IS207.Q11
 **Chủ đề:** Quản Lý Thuê Phòng Hội Thảo (`index.html` & `chitiet.html`)
 
@@ -371,9 +388,22 @@ renderDanhSachPhieu();
 
 ---
 
-### 🔹 CHỨC NĂNG 6: Trang Chi Tiết Thuê Phòng & Tính Tổng Tiền (`chitiet.html` - Câu 2)
+### 🔹 CHỨC NĂNG 5 & 6: Cơ Chế Chuyển Dữ Liệu Sang Câu 2 & Trang Chi Tiết Thuê Phòng (`chitiet.html`)
 
-#### 1. Đoạn code hoàn chỉnh của trang `chitiet.html`:
+> **Điểm mấu chốt nối giữa Câu 1 và Câu 2:**
+> 1. Ở Trang 1, mỗi tên khách hàng là một thẻ liên kết: `<a href="chitiet.html" class="link-khach" data-index="${index}">${item.hoTen}</a>`.
+> 2. Khi người dùng click vào tên khách hàng nào (ví dụ click vào `Lê Trần H`), hàm sau sẽ chặn lại 1 khoảnh khắc để ghi vị trí `index` của khách đó vào `localStorage`:
+> ```javascript
+> document.getElementById("khuVucHienThi").addEventListener("click", function(e) {
+>   if (e.target.classList.contains("link-khach")) {
+>     const idx = e.target.dataset.index; // Lấy vị trí của khách vừa bấm
+>     localStorage.setItem("selectedBookingIndex", idx); // Lưu vào bộ nhớ
+>   }
+> });
+> ```
+> 3. Trình duyệt chuyển sang `chitiet.html` (Câu 2). Tại đây, JavaScript đọc `selectedBookingIndex`, lấy đúng thông tin của `Lê Trần H` (gồm loại phòng Seminar 3.500.000, dịch vụ Thiết bị 500.000 và Tea break 1.000.000) để đổ vào bảng và tính ra `Tổng tiền = 5.000.000`.
+
+#### 1. Đoạn code hoàn chỉnh của trang `chitiet.html` (Câu 2):
 ```html
 <!DOCTYPE html>
 <html lang="vi">
@@ -785,9 +815,21 @@ renderDanhSachPhanCong();
 
 ---
 
-### 🔹 CHỨC NĂNG 5: Trang Chi Tiết Công Việc & Tính Tổng Tiền (`chitiet.html` - Câu 2)
+### 🔹 CHỨC NĂNG 4 & 5: Cơ Chế Chuyển Dữ Liệu Sang Câu 2 & Trang Chi Tiết Công Việc (`chitiet.html`)
 
-#### 1. Đoạn code hoàn chỉnh của trang `chitiet.html`:
+> **Điểm mấu chốt nối giữa Câu 1 và Câu 2:**
+> 1. Ở Trang 1, mỗi người phụ trách là một thẻ liên kết: `<a href="chitiet.html" class="link-nguoi" data-index="${index}">${item.nguoiPhuTrach}</a>`.
+> 2. Khi người dùng click vào tên người nào (ví dụ click vào `Nguyễn C`), sự kiện sau sẽ ghi `index` của người đó vào `localStorage`:
+> ```javascript
+> document.getElementById("khuVucPhanCong").addEventListener("click", function(e) {
+>   if (e.target.classList.contains("link-nguoi")) {
+>     localStorage.setItem("selectedTaskIndex", e.target.dataset.index);
+>   }
+> });
+> ```
+> 3. Trình duyệt chuyển sang `chitiet.html` (Câu 2). Tại đây, JavaScript đọc `selectedTaskIndex`, lấy đúng thông tin đã lưu của `Nguyễn C` (Mức lương 1.200.000, Địa chỉ abc, Ngày bắt đầu/kết thúc, Ghi chú, và danh sách các việc đã chọn: Vệ sinh máy lạnh 200.000 + Dọn dẹp phòng 500.000) để vẽ bảng và tính ra `Tổng tiền = 700.000`.
+
+#### 1. Đoạn code hoàn chỉnh của trang `chitiet.html` (Câu 2):
 ```html
 <!DOCTYPE html>
 <html lang="vi">
