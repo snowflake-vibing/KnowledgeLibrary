@@ -455,7 +455,28 @@ input:focus { border-color: #007bff; outline: none; }
 
 ---
 
-### 2.4. Toàn bộ các mẫu Bố cục (Layout) bằng Flexbox & CSS Grid
+### 2.4. Thuộc Tính `display` Trong CSS & Các Mẫu Bố Cục (Layout) Cốt Lõi
+
+Thuộc tính `display` xác định kiểu hiển thị của một phần tử trên trang web, quyết định cách phần tử đó tương tác với các phần tử xung quanh và cách nó quản lý các phần tử con bên trong.
+
+#### A. Bảng từ điển chi tiết các giá trị của `display` (1 cột Cú pháp - 1 cột Giải thích)
+| Cú pháp Code | Giải thích chi tiết ý nghĩa & Tác dụng |
+| :--- | :--- |
+| `display: block;` | **Khối độc lập**: Phần tử luôn **bắt đầu trên 1 dòng mới** và tự động chiếm **100% chiều ngang** của thẻ cha. Thiết lập được `width`, `height`, `padding`, `margin` (kể cả trên/dưới). Mặc định trên các thẻ: `<div>`, `<p>`, `<h1>`-`<h6>`, `<form>`, `<header>`, `<footer>`, `<section>`,... |
+| `display: inline;` | **Nội dòng**: Phần tử nằm **chung hàng với các chữ và phần tử khác**, chỉ chiếm chiều ngang vừa khít với nội dung bên trong, **không xuống dòng**. **Đặc biệt lưu ý:** **KHÔNG THỂ** chỉnh được `width`, `height`, và `margin-top` / `margin-bottom`! Mặc định trên các thẻ: `<span>`, `<a>`, `<strong>`, `<em>`, `<label>`,... |
+| `display: inline-block;` | **Lai giữa Inline và Block**: Vừa nằm **ngang hàng** với các phần tử khác trên cùng một dòng (như `inline`), nhưng **VẪN THIẾT LẬP ĐƯỢC** `width`, `height`, `padding`, `margin` (như `block`). Rất hay dùng cho thẻ `<a>` muốn biến thành nút bấm có kích thước cố định (`width: 140px; padding: 10px;`). |
+| `display: none;` | **Ẩn hoàn toàn phần tử**: Phần tử bị gỡ bỏ khỏi luồng hiển thị của trang web như thể nó không hề tồn tại (không chiếm bất kỳ khoảng trống nào). Dùng nhiều nhất trong JavaScript để ẩn Form, ẩn Modal, hoặc ẩn hàng trong bảng (`el.style.display = "none"`). |
+| `display: flex;` | **Bố cục Flexbox 1 chiều (theo hàng hoặc theo cột)**: Biến thẻ cha thành khung Flex Container, các thẻ con trực tiếp bên trong sẽ tự động dàn thành hàng ngang và căn chỉnh khoảng cách linh hoạt bằng `gap`, `justify-content`, `align-items`. |
+| `display: inline-flex;` | Giống như `flex`, nhưng bản thân khung cha hiển thị như một phần tử `inline` thay vì chiếm trọn 100% bề ngang. |
+| `display: grid;` | **Bố cục CSS Grid 2 chiều (gồm cả hàng và cột)**: Cho phép chia lưới thành các cột có độ rộng bằng nhau hoặc linh hoạt (`grid-template-columns: repeat(4, 1fr)`). |
+| `display: table;` / `table-cell;` | Hiển thị phần tử theo hành vi của thẻ `<table>` hoặc `<td>` (hữu ích khi muốn căn giữa chữ theo chiều dọc bằng `vertical-align: middle`). |
+
+#### ⚠️ So sánh 3 cách ẩn phần tử trong CSS:
+- `display: none;`: Ẩn mất tích, **KHÔNG** chiếm chỗ trống trên trang web.
+- `visibility: hidden;`: Ẩn đi nhưng **VẪN GIỮ NGUYÊN** khoảng trống kích thước của phần tử trên trang web.
+- `opacity: 0;`: Phần tử chỉ trở nên trong suốt 100%, **vẫn chiếm chỗ** và **vẫn click chuột trúng được**.
+
+#### B. Các mẫu Bố cục (Layout) thực chiến bằng Flexbox & CSS Grid
 ```css
 /* 1. BỐ CỤC 2 CỘT (Cột trái cố định + Cột phải tự co giãn - Đề CV / Tin tức) */
 .layout-2col {
