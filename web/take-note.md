@@ -422,7 +422,76 @@ input:focus { border-color: #007bff; outline: none; }
 
 ---
 
-### 2.3. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
+### 2.3. Cú Pháp Viết Ngắn Gọn Trong CSS (Shorthand Properties)
+
+CSS Shorthand cho phép gộp nhiều thuộc tính liên quan (như `padding`, `margin`, `border`, `background`, `font`, `transition`, `overflow`,...) vào một dòng lệnh duy nhất, giúp code gọn gàng, giảm tối đa thời gian gõ trong phòng thi và tránh lỗi cú pháp.
+
+> **Quy tắc chiều kim đồng hồ (Clockwise Rule) kinh điển:** Khi viết 4 giá trị số cách nhau bằng dấu cách, thứ tự luôn là: **TRÊN $\rightarrow$ PHẢI $\rightarrow$ DƯỚI $\rightarrow$ TRÁI** (*Top $\rightarrow$ Right $\rightarrow$ Bottom $\rightarrow$ Left*).
+
+#### A. Bảng từ điển các cú pháp viết tắt CSS (Shorthand) từ cơ bản đến nâng cao
+| Thuộc tính Shorthand | Cú pháp viết tắt & Số lượng tham số | Giải thích chi tiết ý nghĩa & Tương đương viết dài |
+| :--- | :--- | :--- |
+| **`margin`** (Khoảng cách ngoài) | • `margin: 10px;`<br>• `margin: 10px 20px;`<br>• `margin: 10px 20px 30px;`<br>• `margin: 10px 20px 30px 40px;`<br>• `margin: 0 auto;` | • **1 giá trị**: Cả 4 phía đều cách `10px`.<br>• **2 giá trị**: [Trên-Dưới: `10px`] [Trái-Phải: `20px`].<br>• **3 giá trị**: [Trên: `10px`] [Trái-Phải: `20px`] [Dưới: `30px`].<br>• **4 giá trị (Kim đồng hồ)**: [Trên `10px`] [Phải `20px`] [Dưới `30px`] [Trái `40px`].<br>• `0 auto`: Trên-Dưới `0px`, Trái-Phải tự động chia đều $\rightarrow$ **Căn giữa khung ra giữa màn hình**! |
+| **`padding`** (Đệm khoảng cách trong) | • `padding: 8px;`<br>• `padding: 6px 12px;`<br>• `padding: 10px 15px 20px;`<br>• `padding: 5px 10px 15px 20px;` | Tương tự `margin` theo đúng thứ tự kim đồng hồ nhưng là tạo khoảng đệm trống **bên trong** đường viền của phần tử (như ô `<td>` bảng hoặc nút `<button>`). |
+| **`border`** (Đường viền 4 phía) | `border: 1px solid #333;` | Gộp 3 thuộc tính: `border-width` (`1px`) + `border-style` (`solid`, `dashed`, `dotted`, `none`) + `border-color` (`#333`).<br>• Viết tắt từng cạnh: `border-bottom: 2px solid red;` (chỉ kẻ viền dưới). |
+| **`border-radius`** (Bo tròn góc) | • `border-radius: 8px;`<br>• `border-radius: 50%;`<br>• `border-radius: 10px 20px 30px 40px;` | • `8px`: Bo tròn đều 4 góc.<br>• `50%`: Bo tròn thành **hình tròn hoặc oval** (dùng cho ảnh đại diện avatar).<br>• 4 giá trị: [Góc trên-trái] [Góc trên-phải] [Góc dưới-phải] [Góc dưới-trái]. |
+| **`font`** (Định dạng chữ tổng hợp) | `font: italic bold 16px/1.5 Arial, sans-serif;` | Gộp: `font-style` (`italic`) + `font-weight` (`bold`) + `font-size/line-height` (`16px/1.5`) + `font-family` (`Arial, sans-serif`).<br>• *Lưu ý:* `font-size` và `font-family` là 2 giá trị bắt buộc phải có khi dùng shorthand `font`! |
+| **`background`** (Hình & màu nền) | `background: #f8f9fa url('bg.png') no-repeat center / cover fixed;` | Gộp: `background-color` + `background-image` + `background-repeat` (`no-repeat` không lặp) + `background-position / background-size` (`center / cover`) + `background-attachment` (`fixed` cố định khi cuộn).<br>• Viết màu đơn giản: `background: #ffffff;` (thay vì viết dài `background-color: #ffffff;`). |
+| **`outline`** (Viền ngoài không chiếm diện tích) | `outline: 2px solid blue;` hoặc `outline: none;` | Gộp: `outline-width` + `outline-style` + `outline-color`. Rất hay dùng `outline: none;` để xóa viền xanh mặc định khi click chuột vào ô input. |
+| **`box-shadow`** (Đổ bóng khối hộp) | `box-shadow: 0 4px 10px rgba(0,0,0,0.15);` | Gộp: `offset-x` (`0px` lệch ngang) + `offset-y` (`4px` lệch dọc xuống) + `blur-radius` (`10px` độ mờ nhòe) + `color` (`rgba(...)` màu bóng trong suốt). |
+| **`text-shadow`** (Đổ bóng chữ) | `text-shadow: 1px 1px 2px #888;` | Gộp: `offset-x` + `offset-y` + `blur-radius` + `color`. |
+| **`overflow`** (Xử lý nội dung tràn khung) | • `overflow: hidden;`<br>• `overflow: auto;`<br>• `overflow: scroll;` | Gộp cả `overflow-x` (ngang) và `overflow-y` (dọc).<br>• `hidden`: Cắt bỏ phần thừa ra ngoài khung.<br>• `auto`: Tự động hiện thanh cuộn chỉ khi nội dung vượt quá kích thước. |
+| **`transition`** (Hiệu ứng chuyển động mượt) | `transition: all 0.3s ease-in-out;` | Gộp: `transition-property` (`all` hoặc `background-color`) + `transition-duration` (`0.3s` thời gian chạy) + `transition-timing-function` (`ease`, `linear`, `ease-in-out`). |
+| **`flex`** (Co giãn trong Flexbox) | `flex: 1;` hoặc `flex: 0 0 250px;` | Gộp: `flex-grow` (độ dãn) + `flex-shrink` (độ co) + `flex-basis` (kích thước gốc ban đầu). `flex: 1;` là viết tắt của `flex: 1 1 0%;` (chiếm hết khoảng trống còn lại). |
+| **`list-style`** (Dấu đầu dòng danh sách `<ul>`) | `list-style: none;` | Viết tắt xóa sạch chấm tròn mặc định của thẻ `<ul>` và `<li>` (gộp của `list-style-type`, `list-style-position`, `list-style-image`). |
+
+#### 💻 Ví dụ code minh họa: So sánh viết dài (Longhand) vs viết ngắn gọn (Shorthand)
+```html
+<style>
+  /* CÁCH 1: VIẾT DÀI DÒNG (LONGHAND) - TỐN THỜI GIAN TRONG PHÒNG THI */
+  .card-longhand {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+    padding-top: 15px;
+    padding-right: 25px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #006699;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  /* CÁCH 2: VIẾT NGẮN GỌN (SHORTHAND) - CHỈ VỎN VẸN 6 DÒNG! */
+  .card-shorthand {
+    margin: 20px auto;                     /* Trên-Dưới: 20px | Trái-Phải: Tự căn giữa */
+    padding: 15px 25px;                    /* Trên-Dưới: 15px | Trái-Phải: 25px */
+    border: 2px solid #006699;             /* Độ dày: 2px | Kiểu viền: Liền | Màu: Xanh */
+    border-radius: 8px;                    /* Bo tròn đều 4 góc */
+    background: #ffffff;                   /* Màu nền trắng */
+    font: bold 15px/1.5 Arial, sans-serif; /* Đậm, cỡ 15px, giãn dòng 1.5, phông Arial */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);/* Đổ bóng nhẹ phía dưới */
+  }
+</style>
+
+<div class="card-shorthand">
+  Khung này được định dạng hoàn toàn bằng các thuộc tính CSS Shorthand siêu ngắn gọn!
+</div>
+```
+
+---
+
+### 2.4. Định vị (`position`) & Mẫu chữ/nhãn đè lên ảnh
 
 ```css
 /* MẪU KINH ĐIỂN: Đặt Tên ứng viên hoặc Nhãn giảm giá (-20%) đè lên góc ảnh */
@@ -455,7 +524,7 @@ input:focus { border-color: #007bff; outline: none; }
 
 ---
 
-### 2.4. Thuộc Tính `display` Trong CSS & Các Mẫu Bố Cục (Layout) Cốt Lõi
+### 2.5. Thuộc Tính `display` Trong CSS & Các Mẫu Bố Cục (Layout) Cốt Lõi
 
 Thuộc tính `display` xác định kiểu hiển thị của một phần tử trên trang web, quyết định cách phần tử đó tương tác với các phần tử xung quanh và cách nó quản lý các phần tử con bên trong.
 
@@ -534,7 +603,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 | `grid-template-columns: repeat(4, 1fr);` | Chia lưới thành **4 cột có chiều rộng bằng nhau** (`1fr` = 1 phần bằng nhau). Nếu đề yêu cầu 3 cột thì đổi số `4` thành `3`. Khi hết 4 phần tử trên 1 hàng, phần tử thứ 5 sẽ tự động xuống hàng tiếp theo! |
 | `overflow: hidden;` | Đặt trên `.progress-bg`: cắt gọn phần góc thừa của thanh màu xanh bên trong để không bị tràn ra ngoài khung bo tròn `border-radius: 12px`. |
 
-### 2.5. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`) & Hiệu ứng CSS3
+### 2.6. Định dạng Bảng biểu (`<table>`), Hình ảnh (`<img>`) & Hiệu ứng CSS3
 - **Bảng biểu có đường viền đơn sắc nét:**
   - `table { width: 100%; border-collapse: collapse; }` (Gộp viền đôi thành viền đơn).
   - `th, td { border: 1px solid #333; padding: 8px; vertical-align: middle; }`
@@ -549,7 +618,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 
 ---
 
-### 2.6. Các Đơn Vị Đo Lường Trong CSS (`px`, `em`, `rem`, `%`, `vw`, `vh`, `fr`)
+### 2.7. Các Đơn Vị Đo Lường Trong CSS (`px`, `em`, `rem`, `%`, `vw`, `vh`, `fr`)
 > **Quy ước mặc định của trình duyệt:** Nếu không chỉnh sửa gì ở thẻ gốc `<html>`, kích thước chữ mặc định luôn là **`16px`** (tức là `1rem = 16px`).
 
 | Đơn vị / Cú pháp Code | Giải thích chi tiết ý nghĩa, Cách quy đổi & Khi nào nên dùng |
@@ -608,7 +677,7 @@ Thuộc tính `display` xác định kiểu hiển thị của một phần tử
 
 ---
 
-### 2.7. Thay Đổi Bố Cục & Vị Trí Trang Web Theo Thiết Bị (Responsive Web Design & Media Queries)
+### 2.8. Thay Đổi Bố Cục & Vị Trí Trang Web Theo Thiết Bị (Responsive Web Design & Media Queries)
 Để một trang web tự động **đổi số cột, đổi kích thước hoặc đảo vị trí các khối** khi xem trên **Máy tính (Desktop)**, **Máy tính bảng (Tablet)** và **Điện thoại (Mobile)**, ta kết hợp **Thẻ Meta Viewport** và **`@media` (Media Queries)**:
 
 #### A. Bảng các kỹ thuật Responsive & Đảo vị trí theo thiết bị (1 cột Code - 1 cột Giải thích)
