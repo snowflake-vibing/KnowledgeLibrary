@@ -1,0 +1,158 @@
+/* ==============================================================================
+   TẬP HỢP CÁC TRUY VẤN MDX MẪU: SPECIFY THE CONTENTS OF A QUERY AXIS
+   Áp dụng cho: SQL Server Analysis Services (SSAS), Azure Analysis Services (AAS),
+                Power BI Premium / Microsoft Fabric (XMLA Endpoint)
+   Cơ sở dữ liệu mẫu: Adventure Works DW / Adventure Works Multidimensional
+   Tài liệu tham chiếu: Kho_Du_Lieu_OLAP/mdx/specify_the_contents_of_a_query_axis.md
+   ============================================================================== */
+
+
+-- ==============================================================================
+-- 1. TRUY VẤN CƠ BẢN DÙNG TÊN ĐỊNH DANH TRỤC (AXIS ALIASES: COLUMNS & ROWS)
+-- ==============================================================================
+-- Thống kê Doanh thu (Internet Sales Amount) theo từng Danh mục sản phẩm (Category)
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    { [Product].[Category].Members } ON ROWS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 2. TRUY VẤN DÙNG CHỈ SỐ NGUYÊN HOẶC HÀM AXIS(n)
+-- ==============================================================================
+-- Cách 2.1: Sử dụng số nguyên 0 (X-axis) và 1 (Y-axis)
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON 0,
+    { [Product].[Category].Members } ON 1
+FROM [Adventure Works];
+
+-- Cách 2.2: Sử dụng cú pháp hàm AXIS(0) và AXIS(1)
+SELECT 
+    { [Measures].[Internet Sales Amount], [Measures].[Internet Order Quantity] } ON AXIS(0),
+    { [Product].[Category].Members } ON AXIS(1)
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 3. TỐI ƯU TRỤC VỚI TỪ KHÓA 'NON EMPTY'
+-- ==============================================================================
+-- Loại bỏ các dòng toàn giá trị NULL (các quốc gia/vùng không phát sinh doanh số)
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    NON EMPTY [Customer].[Customer Geography].[Country].Members ON ROWS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 4. LỌC ĐIỀU KIỆN TRỰC TIẾP TRÊN TRỤC BẰNG MỆNH ĐỀ 'HAVING'
+-- ==============================================================================
+-- Lấy danh sách các năm có tổng doanh thu lớn hơn 5,000,000 USD
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    [Date].[Calendar].[Calendar Year].Members 
+        HAVING [Measures].[Internet Sales Amount] > 5000000 ON ROWS
+FROM [Adventure Works];
+
+-- Lọc kết hợp HAVING với nhiều độ đo: Doanh thu > 1,000,000 VÀ Số đơn hàng > 500
+SELECT 
+    { [Measures].[Internet Sales Amount], [Measures].[Internet Order Quantity] } ON COLUMNS,
+    [Product].[Subcategory].Members 
+        HAVING [Measures].[Internet Sales Amount] > 1000000 
+           AND [Measures].[Internet Order Quantity] > 500 ON ROWS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 5. PHỐI HỢP ĐA CHIỀU TRÊN CÙNG MỘT TRỤC (CROSSJOIN / TUPLES)
+-- ==============================================================================
+-- Hiển thị ma trận phân tích kết hợp giữa Danh mục sản phẩm và Quốc gia của khách hàng
+SELECT 
+    { [Measures].[Internet Sales Amount], [Measures].[Internet Order Quantity] } ON COLUMNS,
+    NON EMPTY CROSSJOIN(
+        [Product].[Category].Members,
+        [Customer].[Customer Geography].[Country].Members
+    ) ON ROWS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 6. TRUY XUẤT SIÊU DỮ LIỆU MỞ RỘNG VỚI 'DIMENSION PROPERTIES'
+-- ==============================================================================
+-- Yêu cầu trả về thêm thuộc tính định danh duy nhất (MEMBER_UNIQUE_NAME) và tên hiển thị
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    [Product].[Category].Members 
+        DIMENSION PROPERTIES 
+            MEMBER_UNIQUE_NAME, 
+            MEMBER_CAPTION, 
+            LEVEL_NUMBER ON ROWS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 7. TRUY VẤN VỚI 0 TRỤC (EMPTY SELECT CLAUSE - SINGLE CELL)
+-- ==============================================================================
+-- Khi không có Query Axis nào được khai báo, tất cả các chiều đóng vai trò là Slicer Dimensions
+-- Kết quả trả về đúng 1 ô duy nhất (Single Cell) đại diện cho giao điểm lọc
+SELECT 
+FROM [Adventure Works]
+WHERE (
+    [Measures].[Internet Sales Amount],
+    [Customer].[Customer Geography].[Country].[United States],
+    [Date].[Calendar Year].[CY 2023]
+);
+
+
+
+-- ==============================================================================
+-- 8. TRUY VẤN ĐA TRỤC NÂNG CAO (3 TRỤC: COLUMNS, ROWS, PAGES)
+-- ==============================================================================
+-- Axis 0: Measures (COLUMNS)
+-- Axis 1: Product Categories (ROWS)
+-- Axis 2: Calendar Years (PAGES - Tương ứng với từng trang lật báo cáo)
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    { [Product].[Category].Members } ON ROWS,
+    { [Date].[Calendar Year].[CY 2022], [Date].[Calendar Year].[CY 2023] } ON PAGES
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 9. QUY TẮC "NO SKIPPED AXES" (LỖI THƯỜNG GẶP & CÁCH SỬA)
+-- ==============================================================================
+
+-- [LỖI CÚ PHÁP] Không thể dùng ROWS (trục 1) mà bỏ qua COLUMNS (trục 0):
+/*
+SELECT 
+    [Product].[Category].Members ON ROWS
+FROM [Adventure Works];
+-- Parser Error: Axis numbers specified in a query must be contiguous starting from 0.
+*/
+
+-- [CÁCH SỬA ĐÚNG] Luôn bắt đầu từ trục 0 (COLUMNS):
+SELECT 
+    [Product].[Category].Members ON COLUMNS
+FROM [Adventure Works];
+
+
+
+-- ==============================================================================
+-- 10. PHÂN BIỆT QUERY AXIS (SELECT) VÀ SLICER AXIS (WHERE)
+-- ==============================================================================
+-- Query Axis (COLUMNS, ROWS) hiển thị trên tiêu đề bảng kết quả
+-- Slicer Axis (WHERE) cắt lát dữ liệu nền nhưng KHÔNG hiển thị trên tiêu đề bảng
+SELECT 
+    { [Measures].[Internet Sales Amount] } ON COLUMNS,
+    NON EMPTY [Product].[Category].Members ON ROWS
+FROM [Adventure Works]
+WHERE (
+    [Customer].[Gender].[F],
+    [Date].[Calendar Year].[CY 2023]
+);
