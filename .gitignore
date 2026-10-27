@@ -7,3 +7,7 @@
 # Scratch and temp files
 __pycache__/
 *.tmp
+
+# Cloned project sub-repositories
+ERP/project/NhutRangOdoo/
+
