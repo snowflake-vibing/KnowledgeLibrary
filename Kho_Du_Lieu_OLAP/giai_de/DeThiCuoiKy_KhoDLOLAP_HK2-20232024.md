@@ -199,7 +199,7 @@ erDiagram
 ### CÂU 2: [G2.2] (3.0 điểm) - ĐỀ XUẤT 03 TRUY VẤN MDX
 
 *Quy ước tên Cube phân tích:* `[Tour_DW]`.  
-*Yêu cầu đề bài:* 03 truy vấn không trùng với Câu 3, trong đó có ít nhất 01 truy vấn dùng `TopCount`/`Having`/`Filter`/`Generate`... và 01 truy vấn `Roll up` hoặc `Drill down` (ghi rõ theo yếu tố gì).
+*Nguyên tắc đồng nhất:* Tên các chiều (Dimension) và thuộc tính (Attribute/Hierarchy) được viết **khớp 100% theo đúng tên bảng và tên cột đã thiết kế ở Câu 1** (không chèn dấu cách space tùy tiện để đảm bảo tính nhất quán với thiết kế).
 
 ---
 
@@ -211,12 +211,12 @@ erDiagram
 SELECT 
     {[Measures].[DoanhThu], [Measures].[SoLuotKhach]} ON COLUMNS,
     FILTER(
-        [Dim Diem Den].[Ten Diem Den].[Ten Diem Den].Members,
+        [Dim_DiemDen].[TenDiemDen].Members,
         [Measures].[DoanhThu] > 30000000
     ) ON ROWS
 FROM [Tour_DW]
 ```
-- **Giải thích:** Hàm `FILTER(...)` lọc các thành viên trong cấp độ `Ten Diem Den` có giá trị `[Measures].[DoanhThu] > 30000000`.
+- **Giải thích:** Hàm `FILTER(...)` duyệt qua tập hợp các thành viên trong thuộc tính `TenDiemDen` của chiều `Dim_DiemDen` và lọc ra các điểm đến có `[Measures].[DoanhThu] > 30000000`.
 
 ---
 
@@ -224,19 +224,25 @@ FROM [Tour_DW]
 - **Nghiệp vụ:** Phân tích chi tiết doanh thu và số lượng tour tổ chức trong **năm 2023** được chi tiết xuống từng **Quý** trong năm.
 - **Yếu tố Drill down:** 
   - Chiều phân tích: `Dim_ThoiGian`.
-  - Cấp độ thao tác: Thực hiện **khoan sâu (Drill down)** từ cấp độ **Năm (Year)** `[Nam].[2023]` xuống cấp độ con trực tiếp là **Quý (Quarter)** `[Quy]`.
+  - Cấp độ thao tác: Thực hiện **khoan sâu (Drill down)** từ cấp độ **Năm** (`[Nam].[2023]`) xuống cấp độ con trực tiếp là **Quý** (`[Quy]`).
 - **Câu lệnh MDX:**
 ```mdx
 SELECT 
     {[Measures].[DoanhThu], [Measures].[SoLuongTour]} ON COLUMNS,
+    [Dim_ThoiGian].[Nam].[2023].Children ON ROWS
+FROM [Tour_DW]
+```
+*(Nếu viết theo cây phân cấp đầy đủ `Nam_Quy_Thang_Ngay`:)*
+```mdx
+SELECT 
+    {[Measures].[DoanhThu], [Measures].[SoLuongTour]} ON COLUMNS,
     DESCENDANTS(
-        [Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2023],
-        [Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Quy]
+        [Dim_ThoiGian].[Nam_Quy_Thang_Ngay].[Nam].[2023],
+        [Dim_ThoiGian].[Nam_Quy_Thang_Ngay].[Quy]
     ) ON ROWS
 FROM [Tour_DW]
 ```
-*(Hoặc có thể dùng cú pháp: `[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2023].Children ON ROWS`)*.
-- **Giải thích:** Hàm `DESCENDANTS` hoặc `.Children` mở rộng nút năm `2023` thành 4 quý (`Quy 1`, `Quy 2`, `Quy 3`, `Quy 4`), thể hiện chính xác thao tác Drill down trong OLAP.
+- **Giải thích:** Thuộc tính `.Children` (hoặc hàm `DESCENDANTS`) mở rộng nút năm `2023` thành các quý con (`Quy 1`, `Quy 2`, `Quy 3`, `Quy 4`), thể hiện chính xác thao tác Drill down từ cấp độ Năm xuống Quý trong OLAP.
 
 ---
 
@@ -248,12 +254,12 @@ FROM [Tour_DW]
 SELECT 
     {[Measures].[SoLuotKhach], [Measures].[DoanhThu]} ON COLUMNS,
     NON EMPTY CROSSJOIN(
-        [Dim Khach Du Lich].[Quoc Gia KDL].[Quoc Gia KDL].Members,
-        [Dim Loai Hinh Du Lich].[Ten Loai Hinh DL].[Ten Loai Hinh DL].Members
+        [Dim_KhachDuLich].[QuocGiaKDL].Members,
+        [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members
     ) ON ROWS
 FROM [Tour_DW]
 ```
-- **Giải thích:** Phép kết hợp chéo không gian (`CROSSJOIN`) giữa Quốc gia của khách và Loại hình du lịch giúp ban quản lý nhận biết xu hướng ưa chuộng thể loại du lịch của từng quốc gia. Từ khóa `NON EMPTY` loại bỏ các giao điểm không có dữ liệu thực tế.
+- **Giải thích:** Phép kết hợp chéo không gian (`CROSSJOIN`) giữa Quốc gia của khách và Loại hình du lịch giúp ban quản lý nhận biết xu hướng ưa chuộng thể loại du lịch của từng quốc gia. Từ khóa `NON EMPTY` tự động loại bỏ các giao điểm không phát sinh tour thực tế.
 
 ---
 
@@ -264,8 +270,8 @@ FROM [Tour_DW]
 #### Câu 3a: Với mỗi quý trong năm 2023, cho biết 02 loại hình du lịch có số tour du lịch nhiều nhất. (1.0 điểm)
 
 - **Phân tích yêu cầu:**
-  - Phạm vi thời gian: Các quý thuộc năm 2023 (`[Dim Thoi Gian].[Nam].[2023].Children`).
-  - Đối tượng thống kê: Loại hình du lịch (`[Dim Loai Hinh Du Lich].[Ten Loai Hinh DL]`).
+  - Phạm vi thời gian: Các quý thuộc năm 2023 (`[Dim_ThoiGian].[Nam].[2023].Children`).
+  - Đối tượng thống kê: Loại hình du lịch (`[Dim_LoaiHinhDuLich].[TenLoaiHinhDL]`).
   - Tiêu chí xếp hạng: Độ đo `[Measures].[SoLuongTour]`.
   - Nghiệp vụ "với mỗi X, lấy top N Y": Bắt buộc sử dụng hàm `GENERATE` kết hợp `TOPCOUNT`.
 - **Câu lệnh MDX chuẩn SSAS:**
@@ -273,11 +279,11 @@ FROM [Tour_DW]
 SELECT 
     {[Measures].[SoLuongTour]} ON COLUMNS,
     GENERATE(
-        [Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2023].Children,
+        [Dim_ThoiGian].[Nam].[2023].Children,
         CROSSJOIN(
-            {[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].CurrentMember},
+            {[Dim_ThoiGian].[Nam].CurrentMember},
             TOPCOUNT(
-                [Dim Loai Hinh Du Lich].[Ten Loai Hinh DL].[Ten Loai Hinh DL].Members,
+                [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,
                 2,
                 [Measures].[SoLuongTour]
             )
@@ -286,33 +292,32 @@ SELECT
 FROM [Tour_DW]
 ```
 - **Giải thích cơ chế thực thi:**
-  - `[Dim Thoi Gian]...[Nam].[2023].Children`: Trả về tập hợp các quý thuộc năm 2023 `{Quy 1, Quy 2, Quy 3, Quy 4}`.
-  - Hàm `GENERATE(Set1, Set2)`: Duyệt qua từng quý `CurrentMember` trong năm 2023, ứng với mỗi quý sẽ gọi hàm `TOPCOUNT` để chọn ra 2 thành viên loại hình du lịch có `[Measures].[SoLuongTour]` lớn nhất trong quý đó, sau đó ghép nối (`CROSSJOIN`) lại thành kết quả trên trục ROWS.
+  - `[Dim_ThoiGian].[Nam].[2023].Children`: Trả về tập hợp các quý thuộc năm 2023 `{Quy 1, Quy 2, Quy 3, Quy 4}`.
+  - Hàm `GENERATE(Set1, Set2)`: Lặp qua từng quý `CurrentMember` trong năm 2023, ứng với mỗi quý sẽ gọi hàm `TOPCOUNT` để chọn ra 2 loại hình du lịch có `[Measures].[SoLuongTour]` lớn nhất trong quý đó, sau đó ghép nối (`CROSSJOIN`) lại thành kết quả trên trục ROWS.
 
 ---
 
 #### Câu 3b: Liệt kê top 03 hướng dẫn viên hướng dẫn nhiều tour du lịch nhất trong cả hai năm 2022 và 2023. (1.0 điểm)
 
 - **Phân tích yêu cầu:**
-  - Đối tượng: Hướng dẫn viên (`[Dim Huong Dan Vien].[Ho Ten HDV]`).
+  - Đối tượng: Hướng dẫn viên (`[Dim_HuongDanVien].[HoTenHDV]`).
   - Tiêu chí: Lấy top 3 theo `[Measures].[SoLuongTour]`.
   - Điều kiện lọc thời gian: Cả hai năm 2022 và 2023 gộp lại.
 - **Cách viết tối ưu sử dụng Calculated Member / Tuple (hoặc Slice WHERE):**
 
 **Cách 1: Sử dụng `WITH MEMBER` để gộp 2 năm (Chuẩn mực và rõ ràng nhất):**
 ```mdx
-WITH MEMBER [Dim Thoi Gian].[Nam].[GiaiDoan2022_2023] AS
-    AGGREGATE({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022], 
-               [Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2023]})
+WITH MEMBER [Dim_ThoiGian].[Nam].[GiaiDoan2022_2023] AS
+    AGGREGATE({[Dim_ThoiGian].[Nam].[2022], [Dim_ThoiGian].[Nam].[2023]})
 SELECT 
     {[Measures].[SoLuongTour]} ON COLUMNS,
     TOPCOUNT(
-        [Dim Huong Dan Vien].[Ho Ten HDV].[Ho Ten HDV].Members,
+        [Dim_HuongDanVien].[HoTenHDV].Members,
         3,
-        ([Measures].[SoLuongTour], [Dim Thoi Gian].[Nam].[GiaiDoan2022_2023])
+        ([Measures].[SoLuongTour], [Dim_ThoiGian].[Nam].[GiaiDoan2022_2023])
     ) ON ROWS
 FROM [Tour_DW]
-WHERE ([Dim Thoi Gian].[Nam].[GiaiDoan2022_2023])
+WHERE ([Dim_ThoiGian].[Nam].[GiaiDoan2022_2023])
 ```
 
 **Cách 2: Sử dụng Tuple trong hàm TOPCOUNT và Set trong mệnh đề WHERE:**
@@ -320,13 +325,12 @@ WHERE ([Dim Thoi Gian].[Nam].[GiaiDoan2022_2023])
 SELECT 
     {[Measures].[SoLuongTour]} ON COLUMNS,
     TOPCOUNT(
-        [Dim Huong Dan Vien].[Ho Ten HDV].[Ho Ten HDV].Members,
+        [Dim_HuongDanVien].[HoTenHDV].Members,
         3,
         ([Measures].[SoLuongTour])
     ) ON ROWS
 FROM [Tour_DW]
-WHERE ({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022], 
-        [Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2023]})
+WHERE ({[Dim_ThoiGian].[Nam].[2022], [Dim_ThoiGian].[Nam].[2023]})
 ```
 - **Giải thích:** Cả hai cách đều xác định tổng số tour mà mỗi hướng dẫn viên đã phụ trách trong toàn bộ giai đoạn từ 2022 đến 2023 và sắp xếp giảm dần, cắt lấy 3 người đứng đầu.
 
@@ -425,7 +429,7 @@ WHERE ({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022],
 - Đà Nẵng (T03: 6tr + T07: 14tr) = 20,000,000 VNĐ (Không thỏa > 30tr)
 - Bangkok (T10: 24tr) = 24,000,000 VNĐ (Không thỏa > 30tr)
 
-| Ten Diem Den | DoanhThu (VNĐ) | SoLuotKhach |
+| TenDiemDen | DoanhThu (VNĐ) | SoLuotKhach |
 | :--- | :---: | :---: |
 | **Phú Quốc** | 61,500,000 | 7 |
 | **Sapa** | 38,000,000 | 7 |
@@ -445,7 +449,7 @@ WHERE ({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022],
 
 ##### Kết quả Truy vấn 2.3 (Thống kê theo Quốc tịch khách và Loại hình du lịch)
 
-| Quoc Gia KDL | Ten Loai Hinh DL | SoLuotKhach | DoanhThu (VNĐ) |
+| QuocGiaKDL | TenLoaiHinhDL | SoLuotKhach | DoanhThu (VNĐ) |
 | :--- | :--- | :---: | :---: |
 | **Mỹ** | Du lịch sinh thái *(T01)* | 1 | 5,000,000 |
 | **Mỹ** | Du lịch văn hóa - lịch sử *(T03)* | 1 | 6,000,000 |
@@ -469,7 +473,7 @@ WHERE ({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022],
 - **Quy 3/2023:** Tổ chức tour T08 (Nghỉ dưỡng) và T09 (Mạo hiểm) -> Mỗi loại hình có 1 tour.
 - **Quy 4/2023:** Tổ chức tour T10 (Ẩm thực) và T11 (Nghỉ dưỡng) -> Mỗi loại hình có 1 tour.
 
-| Quy | Ten Loai Hinh DL | SoLuongTour |
+| Quy | TenLoaiHinhDL | SoLuongTour |
 | :---: | :--- | :---: |
 | **Quy 1** | Du lịch sinh thái | 1 |
 | **Quy 1** | Du lịch nghỉ dưỡng | 1 |
@@ -489,7 +493,7 @@ WHERE ({[Dim Thoi Gian].[Nam - Quy - Thang - Ngay].[Nam].[2022],
 - **Lê Hoàng Cường:** Phụ trách 2 tour (`T06`, `T09`)
 - **John Smith:** 0 tour
 
-| Hạng | Ho Ten HDV | SoLuongTour (2022 - 2023) |
+| Hạng | HoTenHDV | SoLuongTour (2022 - 2023) |
 | :---: | :--- | :---: |
 | **1** | **Nguyễn Văn An** | **5** |
 | **2** | **Trần Thị Bích** | **4** |
