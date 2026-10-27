@@ -40,3 +40,13 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 - **[Mạng Nơ-ron Nhân tạo (Neural Networks)](deep-learning/neural-network/README.md)**
   1. [Bên trong "Hộp đen" - Khái niệm cốt lõi của Neural Network (StatQuest Part 1)](deep-learning/neural-network/01_the_essential_main_ideas_of_neural_networks.md)
 
+---
+
+### 6. [Kho Dữ Liệu & OLAP – Data Warehouse & OLAP](Kho_Du_Lieu_OLAP/README.md)
+- **[Giải chi tiết Đề thi cuối kỳ HK2 (2023 - 2024)](Kho_Du_Lieu_OLAP/giai_de/DeThiCuoiKy_KhoDLOLAP_HK2-20232024.md)**
+- **[Chuyên đề MDX & OLAP Fundamentals](Kho_Du_Lieu_OLAP/mdx/mdx_query_fundamentals.md)**
+- **[Đặc tả nội dung trục truy vấn trong MDX (Query Axes)](Kho_Du_Lieu_OLAP/mdx/specify_the_contents_of_a_query_axis.md)**
+- **[Kịch bản thực hành MDX Query Script (`query.mdx`)](Kho_Du_Lieu_OLAP/mdx/query.mdx)**
+- **[Web App trắc nghiệm tương tác MDX (18 câu)](Kho_Du_Lieu_OLAP/mdx/trac_nghiem_specify_query_axis.html)**
+
+
