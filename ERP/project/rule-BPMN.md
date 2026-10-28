@@ -1,191 +1,148 @@
 # Quy Chuẩn & Nguyên Tắc Thiết Kế BPMN 2.0 Cho Draw.io (XML Guideline)
-### *Đúc kết từ thực chiến Business Analyst & Bộ bài giảng BPMN Thinhnotes*
+### *Phiên bản 2.0: Chuẩn hóa Bố Cục Không Gian, Chống Đè Chữ & Triệt Tiêu Lỗi Dăng Màn Nhện*
 
 > **Tài liệu tham chiếu:**
 > 1. *BPMN và sự lợi hại của nó* - Thinhnotes
 > 2. *Giải ngố các ký hiệu BPMN (Bản đồ 6 cục chính)* - Thinhnotes
 > 3. *Quẩy tới bến với BPMN (Quy trình 3 bước & 5 cấp độ sai lầm kinh điển)* - Thinhnotes
-> 4. Chuẩn đặc tả quốc tế BPMN 2.0 của tổ chức **OMG (Object Management Group)**
+> 4. Đặc tả kỹ thuật mô hình đồ họa XML của Draw.io (`mxGraphModel`) & OMG BPMN 2.0
 
 ---
 
-## PHẦN 1: TƯ DUY & PHƯƠNG PHÁP TIẾP CẬN KHI VẼ BPMN
+## PHẦN 1: NGUYÊN NHÂN CỐT LÕI CỦA LỖI "ĐÈ CHỮ" & "BỐ CỤC DỞ" TRÊN DRAW.IO
 
-### 1.1. Bản chất và Mục tiêu của BPMN
-* **BPMN là gì:** *Business Process Model and Notation* - tập hợp ký hiệu chuẩn hóa quốc tế để mô hình hóa quy trình nghiệp vụ của doanh nghiệp.
-* **Sứ mệnh cốt lõi:** Chuyển hóa "một nùi công văn, giấy tờ lộn xộn, văn bản word 5-6 trang A4 hay các cuộc họp/ghi âm kéo dài" thành **một bức tranh trực quan, súc tích, đầy đủ và dễ hiểu**.
-* **Đa tầng độc giả:** Phục vụ cả cấp quản lý (**High-level**: nắm dòng chảy tổng quan, các bên liên quan, tài liệu đầu vào/đầu ra) và đội ngũ vận hành/kỹ thuật (**Lower-level / Developers**: nắm chi tiết logic rẽ nhánh, kiểm soát ngoại lệ và tích hợp hệ thống).
-* **BPMN vs UML:** UML tập trung vào thiết kế phần mềm hướng đối tượng (cho kỹ sư công nghệ); còn BPMN tập trung vào **dòng chảy giá trị và quy trình nghiệp vụ (Business Process)** cho nhà quản trị, BA và người vận hành.
+Khi vẽ BPMN trên Draw.io (đặc biệt khi sinh tự động bằng mã XML), người thiết kế rất dễ mắc phải 4 lỗi hình học nghiêm trọng khiến sơ đồ trở nên lộn xộn, chữ đè lên hình và dây nối chằng chịt:
 
-### 1.2. Quy trình 3 bước thực hành mô hình hóa (Thinhnotes Methodology)
-$$\textbf{Bước 1: Tóm Gọn} \quad\longrightarrow\quad \textbf{Bước 2: Phân Loại} \quad\longrightarrow\quad \textbf{Bước 3: Vẽ}$$
+### 1.1. Lỗi nhét chữ vào trong Gateway và Event (Nguyên nhân đè chữ số 1)
+* **Hiện tượng:** Cố nhét một câu hỏi điều kiện dài (ví dụ: *"Xưởng sản xuất có đáp ứng công suất & tiến độ giao hàng?"*) vào bên trong một hình thoi Gateway kích thước $50 \times 50\text{px}$, hoặc nhét tên sự kiện vào vòng tròn Event $40 \times 40\text{px}$.
+* **Hậu quả:** Chữ bị tràn ra 4 góc nhọn của hình thoi, đè nát biểu tượng cổng (`X`, `+`, `O`), đè lên các điểm kết nối mũi tên và che mất nhãn điều kiện của các nhánh rẽ.
+* **Quy chuẩn khắc phục:** Nhãn của Gateway và Event **BẮT BUỘC PHẢI ĐẶT Ở NGOÀI** hình khối (dùng `verticalLabelPosition=top` hoặc `verticalLabelPosition=bottom`), giữ hình thoi và vòng tròn hoàn toàn thông thoáng.
 
-1. **Tóm gọn (Elicit & Summarize):** Chắt lọc thông tin cốt lõi từ khảo sát hiện trạng (As-Is); loại bỏ từ ngữ rườm rà, xác định điểm bắt đầu, điểm kết thúc và đầu ra mong muốn.
-2. **Phân loại (Categorize):** Phân chia rõ ràng:
-   * Ai tham gia? (Các tổ chức ngoài $\rightarrow$ Pool; các phòng ban/vai trò nội bộ $\rightarrow$ Lane).
-   * Làm cái gì? (Tasks, Sub-processes, Transactions).
-   * Luồng đi và điều kiện rẽ nhánh là gì? (Gateways).
-   * Dữ liệu và chứng từ nào luân chuyển? (Data Objects, Data Stores).
-3. **Vẽ (Modeling):** Tiến hành dựng sơ đồ trên công cụ chuẩn (Draw.io), tuân thủ nghiêm ngặt bảng ký hiệu và nguyên tắc hình học.
+### 1.2. Lỗi nhãn đường nối (Edge Label) không có nền che vạch
+* **Hiện tượng:** Nhãn của các luồng (ví dụ: *"Gửi kiện hàng mẫu thử 0đ"*, *"Vượt hạn mức chiết khấu"*) không có nền che, hoặc đặt ngay giao điểm giao cắt giữa 2 đường nối.
+* **Hậu quả:** Đường kẻ nét liền/nét đứt đâm xuyên ngang qua giữa các con chữ, hoặc nhãn của 2 đường nối song song bị đè chồng lên nhau thành một đống mực đen không đọc được.
+* **Quy chuẩn khắc phục:** Toàn bộ nhãn trên đường nối bắt buộc phải có thuộc tính `labelBackgroundColor=#ffffff;labelBorderColor=none;` và được canh lệch vị trí (offset) tránh các điểm nút giao.
+
+### 1.3. Lỗi bố cục không phân chia Cột giai đoạn (Lỗi bố cục dở)
+* **Hiện tượng:** Các Task được đặt tự do theo cảm tính, bước trước và bước sau không thẳng hàng theo trục dọc lẫn trục ngang. Luồng đi lúc thì vọt lên, lúc thì đâm chéo xuống, cắt ngang qua mặt các Task khác.
+* **Quy chuẩn khắc phục:** Áp dụng **Hệ thống Lưới Cột Giai đoạn (Grid Column System)**: Toàn bộ quy trình phải chia thành các Cột mốc thời gian rõ rệt từ Trái sang Phải ($X$ tăng dần đều theo từng Block). Các bước trong cùng một giai đoạn phải nằm trong cùng một Cột thẳng đứng.
+
+### 1.4. Lỗi thứ tự Lane bất hợp lý làm dây nhợ cắt chéo
+* **Hiện tượng:** Sắp xếp các Lane không theo chuỗi tương tác, ví dụ: để Khách hàng ở trên cùng, sau đó là Marketing, rồi đến Sales, rồi đến Kho. Khi Kho muốn giao hàng cho Khách, đường nối phải đâm xuyên qua cả Sales và Marketing!
+* **Quy chuẩn khắc phục:** Tối ưu hóa thứ tự các Lane theo **tần suất tiếp xúc** để giảm thiểu tối đa các đường nối cắt chéo nhau (Minimize Edge Crossings).
 
 ---
 
-## PHẦN 2: BẢN ĐỒ "6 CỤC CHÍNH" TRONG BPMN 2.0
+## PHẦN 2: QUY CHUẨN ĐỊNH VỊ NHÃN & KÍCH THƯỚC HÌNH KHỐI (CHỐNG ĐÈ CHỮ)
 
-Theo Thinhnotes, nhìn sơ đồ BPMN có vẻ đồ sộ nhưng thực chất chỉ xoay quanh **6 khối thành phần cốt lõi**:
+Để đảm bảo không bao giờ bị đè chữ khi import vào Draw.io, toàn bộ thuộc tính `style` phải tuân thủ bảng sau:
 
+### 2.1. Gateway (Cổng điều kiện) - Nhãn luôn nằm NGOÀI
+```text
+rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;verticalLabelPosition=top;verticalAlign=bottom;labelBackgroundColor=#ffffff;
 ```
-BPMN 2.0 = [1. Swimlane] + [2. Activities] + [3. Flow] + [4. Gateways] + [5. Events] + [6. Information Artifacts]
+* **Kích thước:** Chiều rộng = **$50\text{px}$**, Chiều cao = **$50\text{px}$**.
+* **Vị trí nhãn:** Nằm **phía trên** đỉnh hình thoi (`verticalLabelPosition=top;verticalAlign=bottom`). Nhãn chữ nổi rõ ràng trên nền trắng, bên trong hình thoi chỉ chứa biểu tượng điều kiện (`X`, `+`, `O`).
+
+### 2.2. Start & End Event - Nhãn luôn nằm NGOÀI
+```text
+ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=1.5;verticalLabelPosition=bottom;verticalAlign=top;labelBackgroundColor=#ffffff;
 ```
+* **Kích thước:** Đường kính = **$40\text{px}$**.
+* **Vị trí nhãn:** Nằm **phía dưới** đáy vòng tròn (`verticalLabelPosition=bottom;verticalAlign=top`).
 
-### 2.1. Cục 1: Swimlane (Linh hồn của BPMN)
-Swimlane trả lời câu hỏi: **AI LÀ NGƯỜI LÀM?**
-* **Pool (Hồ bơi):** Đại diện cho một pháp nhân độc lập, một tổ chức đối tác bên ngoài hoặc một hệ thống riêng biệt.
-  * *Black-box Pool (Khách hàng B2B, Nhà cung cấp, Cơ quan thuế):* Chỉ thể hiện tương tác gửi/nhận thông điệp ở biên, **tuyệt đối không vẽ các bước nội bộ bên trong**.
-  * *White-box Pool (Doanh nghiệp Nhựt Rạng):* Thể hiện chi tiết dòng chảy nghiệp vụ nội bộ.
-* **Lane (Làn bơi):** Là các dải phân chia bên trong một Pool, thể hiện các phòng ban, bộ phận hoặc chức danh cụ thể (Marketing, Sales B2B, Xưởng Kỹ thuật, Kho mẫu, Giám đốc, Kế toán).
-
----
-
-### 2.2. Cục 2: Activities (Tác vụ / Hành động)
-Activities trả lời câu hỏi: **LÀM CÁI GÌ?**
-
-#### A. 4 Loại hình Activity chính:
-1. **Task:** Đơn vị công việc nguyên tử (atomic task), không thể chia nhỏ hơn trong ngữ cảnh hiện tại. Ký hiệu: Ô chữ nhật bo góc đơn (`rounded=1`).
-2. **Sub-Process:** Quy trình con chứa một chuỗi các task bên trong. Ký hiệu: Ô chữ nhật bo góc có dấu cộng `[+]` ở đáy giữa.
-3. **Transaction:** Chuỗi công việc mang tính giao dịch bắt buộc (thường liên quan thanh toán, tài chính). Có cơ chế kiểm soát cam kết hoàn tất hoặc hoàn tác (Commit / Rollback). Ký hiệu: Ô chữ nhật bo góc có **2 nét viền song song (Double-line border)**.
-4. **Call Activity:** Tác vụ gọi lại (triệu hồi) một quy trình chuẩn đã được định nghĩa độc lập ở nơi khác (tái sử dụng quy trình, ví dụ: quy trình kiểm tra hạn mức tín dụng). Ký hiệu: Ô chữ nhật bo góc có **nét viền rất đậm (Bold border)**.
-
-#### B. Activity Markers (Ký hiệu hành vi):
-* **Loop Task (Mũi tên vòng tròn):** Tác vụ lặp đi lặp lại tuần tự trên cùng một đối tượng cho đến khi thỏa điều kiện dừng (ví dụ: *Soạn thảo $\rightarrow$ Chỉnh sửa bản vẽ nháp lần 1, 2, n $\rightarrow$ Hoàn thiện*).
-* **Multi-Instance Task (3 vạch dọc `|||` hoặc 3 vạch ngang `≡`):** Tác vụ lặp lại đồng thời (song song) hoặc tuần tự trên **nhiều bản ghi dữ liệu khác nhau** thuộc cùng một tập hợp (Data Set). Ví dụ: Giám đốc duyệt đồng loạt 5 báo cáo tuần gửi lên từ 5 Trưởng xưởng.
-* **Compensation Task (`<<`):** Tác vụ bù trừ/đền bù khi có sự cố hủy ngang.
-
-#### C. Task Types (Biểu tượng góc trên bên trái):
-* **User Task (Hình người):** Người dùng thao tác trên giao diện phần mềm Odoo.
-* **Manual Task (Hình bàn tay):** Thao tác thủ công ngoài đời thực, không chạm vào hệ thống (ví dụ: bốc xếp hàng mẫu, cắt mẫu băng keo thực nghiệm).
-* **Service Task (Hình 2 bánh răng):** Hệ thống Odoo chạy xử lý ngầm tự động (ví dụ: tự động tính giá theo Pricelist, tự động gửi email thông báo).
-* **Send Task / Receive Task (Phong bì đen / trắng):** Gửi hoặc nhận thông điệp qua mạng/email.
-* **Business Rule Task (Bảng bảng tính):** Hệ thống đánh giá dựa trên bảng quy tắc logic.
-
----
-
-### 2.3. Cục 3: Flow (Dòng chảy & Kết nối)
-Flow trả lời câu hỏi: **LUỒNG ĐI NHƯ THẾ NÀO?**
-
-* **Sequence Flow (Nét liền, mũi tên tam giác đặc):**
-  * Diễn tả thứ tự thực thi các bước **BÊN TRONG CÙNG MỘT POOL**.
-  * Sequence Flow có thể băng qua các Swimlane khác nhau trong cùng 1 Pool.
-  * **Cấm kỵ:** Tuyệt đối không bao giờ nối Sequence Flow xuyên từ Pool này sang Pool khác!
-* **Message Flow (Nét đứt, gốc tròn rỗng, đầu mũi tên rỗng):**
-  * Diễn tả sự trao đổi thông điệp/dữ liệu **GIỮA HAI POOL KHÁC NHAU**.
-  * **Cấm kỵ:** Tuyệt đối không dùng Message Flow để nối 2 bước trong cùng 1 Pool!
-* **Association (Nét chấm chấm, đầu mũi tên hở hoặc không đầu):**
-  * Dùng để liên kết Data Object (chứng từ) hoặc Text Annotation (ghi chú) vào một Task.
-* **Default Flow (Gạch chéo ở gốc `\`):**
-  * Nhánh thoát mặc định từ Gateway khi không có điều kiện nào khác được thỏa mãn.
-
----
-
-### 2.4. Cục 4: Gateways (Cổng rẽ nhánh & Hợp nhất)
-Gateways trả lời câu hỏi: **ĐIỀU KIỆN ĐỔI LUỒNG LÀ GÌ?**
-
-1. **Exclusive Gateway (XOR - Ký hiệu `X` hoặc rỗng):** Chỉ duy nhất **1 nhánh** được chọn dựa trên điều kiện (Ví dụ: Mẫu đạt chất lượng? $\rightarrow$ [Đạt] hoặc [Không đạt]).
-2. **Inclusive Gateway (OR - Ký hiệu vòng tròn `O`):** Cho phép **1, 2 hoặc nhiều nhánh** cùng kích hoạt tùy thuộc điều kiện thỏa mãn. Lưu ý: Khi merge, cổng Inclusive phải đợi tất cả các nhánh đã kích hoạt hoàn tất mới được đi tiếp.
-3. **Parallel Gateway (AND - Ký hiệu dấu `+`):** **Tất cả các nhánh đều chạy song song đồng thời**. Khi hợp nhất (Join), hệ thống bắt buộc đợi tất cả các nhánh song song xong hết mới mở luồng tiếp theo.
-4. **Event-Driven Gateway (Ký hiệu ngũ giác lồng):** Việc rẽ nhánh phụ thuộc vào **sự kiện nào phát sinh trước** (Ví dụ: Nhận được thanh toán trước hay Hết hạn thời gian 24h trước).
-
----
-
-### 2.5. Cục 5: Events (Sự kiện diễn ra)
-Events trả lời câu hỏi: **SỰ VIỆC GÌ XẢY RA?** (Mang tính khách quan, kích hoạt hoặc kết thúc).
-
-* **Theo 3 giai đoạn vòng đời:**
-  * **Start Event (1 vòng tròn nét mỏng):** Điểm khởi nguồn của quy trình.
-  * **Intermediate Event (2 vòng tròn lồng nhau):** Sự việc diễn ra ở giữa quy trình (chờ đợi hoặc phát tín hiệu).
-  * **End Event (1 vòng tròn viền dày đậm):** Điểm kết thúc quy trình.
-* **2 Loại Event thông dụng nhất:**
-  * **Timer Event (Hình mặt đồng hồ):** Chờ đợi một khoảng thời gian (delay) hoặc kích hoạt theo lịch định kỳ.
-  * **Message Event (Hình phong bì):** Khởi động khi nhận tin, gửi tin trung gian, hoặc kết thúc bằng việc bắn thông báo.
-* **Boundary Events (Sự kiện gắn trên viền Task):**
-  * **Interrupting (Viền liền):** Khi sự kiện xảy ra $\rightarrow$ Ngắt ngay lập tức tác vụ đang chạy để đi theo nhánh ngoại lệ (ví dụ: Quá hạn 48h không duyệt $\rightarrow$ Hủy đơn).
-  * **Non-Interrupting (Viền đứt):** Khi sự kiện xảy ra $\rightarrow$ Tác vụ chính vẫn tiếp tục chạy bình thường, đồng thời kích hoạt một nhánh phụ song song (ví dụ: Bắn tin nhắc nhở lần 1).
-
----
-
-### 2.6. Cục 6: Information Artifacts (Dữ liệu & Tài liệu đính kèm)
-* **Data Object (Hình tờ giấy gấp góc):** Tài liệu/dữ liệu sinh ra hoặc nạp vào task (Ví dụ: `Báo giá nháp`, `Phiếu xuất mẫu 0đ`, `Hợp đồng ký`).
-* **Data Store (Hình thùng phuy/Database):** Nơi lưu trữ bền vững (Ví dụ: `Odoo Database`, `Bảng giá sỉ B2B`).
-* **Text Annotation (Dấu ngoặc vuông mở `[`):** Ghi chú, giải thích thêm thông tin nghiệp vụ.
-* **Group (Hình chữ nhật nét đứt bo tròn):** Gom nhóm trực quan các tác vụ có tính chất liên quan mà không làm đổi logic luồng.
-
----
-
-## PHẦN 3: BỘ 5 CẤP ĐỘ SAI LẦM KINH ĐIỂN CẦN TRÁNH TUYỆT ĐỐI (THINHNOTES)
-
-| Cấp độ | Tên sai lầm | Hiện tượng vi phạm | Cách khắc phục chuẩn |
-| :---: | :--- | :--- | :--- |
-| **Cấp độ 1** | **Chuyện đặt tên** | Đặt tên Task thiếu thành phần, chỉ có động từ (ví dụ: `Kiểm tra`, `Xử lý`, `Assign`) hoặc ghi tên chức danh vào Task (`Kế toán duyệt`). | Luôn theo cấu trúc **`VERB + OBJECT`** (ví dụ: `Kiểm tra độ dính màng keo`, `Phê duyệt báo giá vượt hạn mức`). Không ghi tên người làm vì Lane đã định danh. |
-| **Cấp độ 2** | **Lạm dụng Subprocess** | Bạ đâu cũng quất Subprocess khiến quy trình phân mảnh, lan man, người đọc mất phương hướng. | Chỉ tạo Subprocess khi tác vụ đó có thể phân rã thành **nhiều bước con có ý nghĩa độc lập**, có thể tái sử dụng hoặc phục vụ một phân hệ riêng. |
-| **Cấp độ 3** | **Dùng sai Flow** | Dùng Sequence Flow (nét liền) nối giữa 2 Pool khác nhau; hoặc dùng Message Flow nối trong cùng 1 Pool. | **Khắc cốt ghi tâm:** Trong 1 Pool = **Sequence Flow (nét liền)**. Giữa 2 Pool = **Message Flow (nét đứt, đầu tròn rỗng)**. |
-| **Cấp độ 4** | **Đặt Task sai vị trí ("Vừa ăn cơm vừa ăn phở")** | Đặt một Task nằm đè lên vạch ngăn cách giữa 2 Lane, không rõ ai chịu trách nhiệm. | Một Task **chỉ thuộc về 1 Lane duy nhất**. Nếu 2 bên cùng làm, phải tách làm 2 Task độc lập ở 2 Lane với liên kết rõ ràng. |
-| **Cấp độ 5 (Cuối)** | **"Anh như biến thành người nhện" (Dăng màn nhện)** | Sơ đồ kích thước lồi lõm, dây nhợ chéo nhau chằng chịt, đường kẻ đâm xuyên qua Task, góc rẽ ziczac. | Tuân thủ kích thước đều tăm tắp, khoảng cách $\ge 60\text{px}$, bẻ góc trực giao vuông vức, luồng chính đi thẳng mượt mà. |
-
----
-
-## PHẦN 4: QUY CHUẨN KỸ THUẬT DRAW.IO XML (`mxGraphModel`)
-
-Mọi đoạn mã XML khi sinh ra cho Draw.io phải tuân thủ chính xác các tham số kỹ thuật sau để đảm bảo nạp vào là đẹp ngay:
-
-### 4.1. Khung sườn cấu trúc XML
-```xml
-<mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
-  <root>
-    <mxCell id="0"/>
-    <mxCell id="1" parent="0"/>
-    <!-- Cấu trúc Pool, Lane, Elements, Connectors -->
-  </root>
-</mxGraphModel>
+### 2.3. Task / Activity - Kích thước thoải mái cho tiếng Việt
+```text
+rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=11;spacing=4;
 ```
+* **Kích thước chuẩn:** Chiều rộng = **$160\text{px} - 170\text{px}$**, Chiều cao = **$65\text{px} - 70\text{px}$**.
+* Chiều cao tối thiểu $65\text{px}$ đảm bảo chứa trọn vẹn 3 dòng chữ tiếng Việt có dấu mà không chạm sát mép viền.
 
-### 4.2. Bảng quy chuẩn Kích thước & Shape Style trong Draw.io
-* **Pool Ngang:** `shape=swimlane;horizontal=0;startSize=30;collapsible=0;` | Rộng: 1400 - 1800 px.
-* **Lane Ngang:** `shape=swimlane;horizontal=0;startSize=25;collapsible=0;` | Cao: 120 - 160 px.
-* **Task:** `rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.5;` | Rộng: **150 px**, Cao: **60 px**.
-* **Sub-process:** `rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.5;` có icon `+` đáy | Rộng: **160 px**, Cao: **70 px**.
-* **Gateway:** `rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;` | Rộng: **50 px**, Cao: **50 px**.
-* **Start Event:** `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=1.5;` | Đường kính: **40 px**.
-* **End Event:** `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=3;` | Đường kính: **40 px**.
-* **Data Object:** `shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;` | Rộng: **50 px**, Cao: **60 px**.
+### 2.4. Data Object (Chứng từ) & Data Store
+* **Data Object:** `shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=middle;align=center;` | Kích thước: **$80\text{px} \times 45\text{px}$**.
+* Đặt cách mép dưới của Task tối thiểu $25\text{px}$, nối bằng đường chấm `dashed=1;dashPattern=2 4;` không mũi tên.
 
-### 4.3. Bảng mã màu Pastel Chuẩn (Không gây chói mắt)
-* **Task người dùng (User Task):** `fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#1d3557;`
-* **Task hệ thống Odoo (Service Task):** `fillColor=#e1d5e7;strokeColor=#9673a6;fontColor=#4a154b;`
-* **Cổng điều kiện (Gateway):** `fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#7f6000;`
-* **Start Event:** `fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#274e13;`
-* **End Event thành công (Won):** `fillColor=#d5e8d4;strokeColor=#274e13;fontColor=#274e13;strokeWidth=3;`
-* **End Event thất bại (Lost/Hủy):** `fillColor=#f8cecc;strokeColor=#b85450;fontColor=#78281f;strokeWidth=3;`
-* **Pool/Lane Header:** `fillColor=#f8f9fa;strokeColor=#b3b3b3;fontColor=#333333;`
-
-### 4.4. Cấu hình Đường nối Orthogonal
+### 2.5. Đường nối & Nhãn điều kiện (Flow & Edge Labels)
 * **Sequence Flow:**
   ```text
-  edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#4a5568;strokeWidth=1.5;
+  edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#374151;strokeWidth=1.5;labelBackgroundColor=#ffffff;labelBorderColor=none;fontSize=10;fontColor=#1f2937;
   ```
 * **Message Flow:**
   ```text
-  edgeStyle=orthogonalEdgeStyle;dashed=1;dashPattern=6 6;html=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;strokeColor=#0284c7;strokeWidth=1.5;
+  edgeStyle=orthogonalEdgeStyle;dashed=1;dashPattern=6 6;html=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;strokeColor=#0284c7;strokeWidth=1.5;labelBackgroundColor=#ffffff;labelBorderColor=none;fontSize=10;fontColor=#0369a1;
   ```
-* **Nhãn điều kiện (Edge Label):** Bắt buộc gắn thuộc tính `background=#ffffff;` để chữ có nền trắng che vạch nối, giúp chữ hiển thị sắc nét và dễ đọc.
 
 ---
 
-## PHẦN 5: CHECKLIST TRƯỚC KHI XUẤT BẢN FILE DRAW.IO XML
+## PHẦN 3: HỆ THỐNG LƯỚI CỘT GIAI ĐOẠN & PHÂN CHIA BỐ CỤC KHÔNG GIAN
 
-Trước khi tạo hoặc bàn giao bất kỳ file XML BPMN nào, người thiết kế phải đối soát checklist 6 điểm:
-- [ ] 1. Mọi Task đều được đặt tên theo chuẩn **`[Động từ] + [Đối tượng]`**.
-- [ ] 2. Mọi Gateway đều kết thúc bằng dấu hỏi **`?`** và có nhãn điều kiện rõ ràng trên các nhánh ra.
-- [ ] 3. Không có bất kỳ Sequence Flow (nét liền) nào chạy xuyên giữa 2 Pool khác nhau.
-- [ ] 4. Không có bất kỳ Message Flow (nét đứt) nào được nối trong cùng 1 Pool.
-- [ ] 5. Không có Task nào nằm đè lên đường phân cách giữa 2 Lane.
-- [ ] 6. Không có hiện tượng "dăng màn nhện": các đường nối được bẻ góc 90 độ mượt mà, không đâm xuyên qua các hình khối khác.
+### 3.1. Nguyên tắc Hệ thống Cột Lưới (Grid Column System)
+Quy trình từ Trái sang Phải phải được chia thành các **Block Cột** với khoảng cách chuẩn $240\text{px} - 280\text{px}$ giữa các tâm tác vụ:
+
+```
+[Trục X]:  |--- Cột 1 ---|--- Cột 2 ---|--- Cột 3 ---|--- Cột 4 ---|--- Cột 5 ---|--- Cột 6 ---|
+Giai đoạn: | Tiếp nhận   | Xuất Mẫu    | Đánh giá    | Báo giá     | Xét duyệt   | Đơn hàng SO |
+Khoảng X:  | 100 - 300   | 400 - 650   | 750 - 1000  | 1100 - 1350 | 1450 - 1700 | 1800 - 2050 |
+```
+
+* Mọi Task thuộc cùng một bước logic phải có cùng tọa độ $X$.
+* Khi rẽ nhánh Gateway:
+  * **Nhánh chính (Happy Path):** Đi thẳng ngang theo trục $X$ ($Y$ giữ nguyên).
+  * **Nhánh phụ/Ngoại lệ:** Đi vuông góc theo trục $Y$ lệch lên hoặc xuống $\pm 80\text{px}$, sau đó mới bẻ góc $90^\circ$.
+
+### 3.2. Quy chuẩn Chiều cao và Thứ tự Sắp xếp Lane (Swimlane Division)
+Để tránh các đường nối cắt chéo, chiều cao các Lane được phân bổ dựa trên mật độ tác vụ bên trong:
+
+| Thứ tự Lane | Phòng ban / Vai trò | Chiều cao Lane ($H$) | Lý do phân bổ kích thước |
+| :---: | :--- | :---: | :--- |
+| **Pool 1 (Trên)** | **Khách hàng B2B (Thu Mua)** | **$120\text{px}$** | Black-box Pool chỉ chứa các điểm gửi/nhận thông điệp chính. |
+| **Lane 1 (Nội bộ)**| **Bộ phận Kinh doanh (Sales B2B)**| **$180\text{px} - 200\text{px}$** | Lane trung tâm giao tiếp nhiều nhất, có nhiều nhánh rẽ (Lost, Loopback) nên cần trần nhà cao để dây không đè lên Task. |
+| **Lane 2** | **Bộ phận Marketing** | **$130\text{px}$** | Khởi tạo Lead và chuyển giao, luồng đi thẳng đơn giản. |
+| **Lane 3** | **Bộ phận Kho (Inventory)** | **$130\text{px}$** | Đóng gói và xuất kho hàng mẫu. |
+| **Lane 4** | **Xưởng Kỹ thuật / Sản xuất** | **$150\text{px}$** | Thẩm định năng lực xưởng và tự động sinh Lệnh sản xuất (MO). |
+| **Lane 5 (Dưới)** | **Ban Giám Đốc** | **$150\text{px}$** | Phê duyệt hạn mức cấp cao, có 2 nhánh rẽ (Duyệt / Từ chối). |
+
+---
+
+## PHẦN 4: NGUYÊN TẮC HÀNH LANG ĐỊNH TUYẾN (ROUTING CHANNELS - CHỐNG DĂNG MÀN NHỆN)
+
+Để triệt tiêu lỗi cấp độ 5 *"Anh như biến thành người nhện"* trong bài giảng Thinhnotes:
+
+1. **Nguyên tắc "Hành lang trống" cho đường quay vòng (Loopback):**
+   * Khi bị từ chối đơn hàng hoặc xưởng quá tải cần quay lại đàm phán, đường nối **TUYỆT ĐỐI KHÔNG ĐƯỢC CHẠY XUYÊN NGANG QUA CÁC TASK Ở GIỮA**.
+   * Đường quay vòng phải đi ra ngoài mép biên (sát vách trên hoặc sát vách dưới của Lane), chạy dọc theo hành lang trống rồi mới bẻ góc đâm vào Task đích.
+2. **Quy định Điểm thoát (Exit) và Điểm vào (Entry):**
+   * Luồng chính: Luôn đi ra từ cạnh Phải (`exitX=1;exitY=0.5`) $\rightarrow$ Đi vào cạnh Trái của task kế tiếp (`entryX=0;entryY=0.5`).
+   * Luồng ngoại lệ/Rẽ nhánh: Đi ra từ đỉnh Trên (`exitX=0.5;exitY=0`) hoặc đáy Dưới (`exitX=0.5;exitY=1`).
+3. **Khoảng cách đệm an toàn (Clearance Spacing):**
+   * Khoảng cách giữa 2 Task cạnh nhau: tối thiểu $\ge 70\text{px}$.
+   * Khoảng cách giữa đường nối song song với Task: tối thiểu $\ge 25\text{px}$.
+
+---
+
+## PHẦN 5: BẢNG MÀU PASTEL CHUẨN DOANH NGHIỆP (CORPORATE PASTEL PALETTE)
+
+| Thành phần | Mã màu nền (`fillColor`) | Mã màu viền (`strokeColor`) | Mã màu chữ (`fontColor`) | Ý nghĩa thị giác |
+| :--- | :---: | :---: | :---: | :--- |
+| **Tác vụ Người dùng (User Task)** | `#dae8fc` | `#6c8ebf` | `#1d3557` | Xanh dương dịu, tượng trưng cho thao tác của nhân viên. |
+| **Tác vụ Tự động Odoo (Service Task)**| `#e1d5e7` | `#9673a6` | `#4a154b` | Tím pastel, tượng trưng cho xử lý ngầm của hệ thống ERP. |
+| **Tác vụ Thủ công (Manual Task)** | `#f5f5f5` | `#b3b3b3` | `#333333` | Xám nhạt, tượng trưng cho thao tác chân tay ngoài đời thực. |
+| **Cổng rẽ nhánh (Gateway)** | `#fff2cc` | `#d6b656` | `#7f6000` | Vàng hổ phách, tượng trưng cho điểm kiểm tra điều kiện. |
+| **Điểm bắt đầu (Start Event)** | `#d5e8d4` | `#82b366` | `#274e13` | Xanh lá cây tươi, khởi nguồn luồng nghiệp vụ. |
+| **Kết thúc thành công (Won End)** | `#d5e8d4` | `#274e13` (viền 3px) | `#274e13` | Xanh lá cây đậm, đạt được thỏa thuận hợp đồng. |
+| **Kết thúc thất bại (Lost End)** | `#f8cecc` | `#b85450` (viền 3px) | `#78281f` | Đỏ pastel, ghi nhận thất bại nhưng không gây gắt mắt. |
+| **Pool / Lane Headers** | `#f8f9fa` | `#b3b3b3` | `#111827` | Xám sáng phân tầng cấu trúc tổ chức rõ ràng. |
+
+---
+
+## PHẦN 6: CHECKLIST BẮT BUỘC TRƯỚC KHI XUẤT CODE XML
+
+Trước khi tạo bất kỳ đoạn mã XML nào cho Draw.io, người vẽ phải tự kiểm tra 8 câu hỏi sau:
+1. [ ] Mọi Gateway đã có thuộc tính `verticalLabelPosition=top` hoặc `bottom` chưa? (Tuyệt đối không để chữ trong hình thoi).
+2. [ ] Mọi Start/End Event đã đưa chữ ra ngoài vòng tròn chưa?
+3. [ ] Kích thước Task đã đạt tối thiểu $160 \times 65\text{px}$ để chứa chữ tiếng Việt thoải mái chưa?
+4. [ ] Mọi nhãn đường nối đã có `labelBackgroundColor=#ffffff;labelBorderColor=none;` chưa?
+5. [ ] Các Task trong cùng một công đoạn có cùng tọa độ $X$ thẳng hàng theo cột lưới chưa?
+6. [ ] Có đường Sequence Flow nào nối giữa 2 Pool khác nhau không? (Nếu có $\rightarrow$ Phải đổi ngay thành Message Flow).
+7. [ ] Có Task nào nằm đè lên vạch phân cách giữa 2 Lane không?
+8. [ ] Các đường Loopback (quay vòng) có chạy theo hành lang trống ở biên không, hay đang đâm xuyên qua bụng các Task khác?
