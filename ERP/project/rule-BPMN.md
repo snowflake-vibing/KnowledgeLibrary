@@ -128,10 +128,31 @@ Kích thước chuẩn: **`width="40" height="40"`**. Nhãn đặt ở dưới �
 
 ---
 
-## PHẦN 4: CHECKLIST KIỂM TRA TRƯỚC KHI XUẤT MÃ XML
+## PHẦN 4: BỐ CỤC BẬC THANG & QUY TẮC CHỐNG CHỮ ĐÈ LÊN BLOCK KHI KÉO MŨI TÊN
+
+1. **Quy tắc Bậc thang tiến tới theo trục $X$ (Staircase X-Progression):**
+   * Khi các Swimlane nằm ngang xếp chồng từ trên xuống dưới (`horizontal=0`, tiêu đề xoay dọc 90° ở bên trái giống chuẩn Thinhnotes), mỗi khi luồng nghiệp vụ chuyển từ Lane trên xuống Lane dưới (hoặc ngược lại), tọa độ $X$ của Block tiếp theo phải **tịnh tiến sang bên phải** (`x_next > x_current + width`).
+   * Nhờ đó, toàn bộ các đoạn dây thẳng đứng xuyên qua các Lane ở giữa luôn đi vào **cột không gian trống**, tuyệt đối không cắt ngang qua bất kỳ Block nào.
+2. **Quy tắc "Đỉnh Thứ 4 Trống" cho Nhãn Câu Hỏi của Gateway:**
+   * Mỗi Gateway hình thoi có 4 đỉnh (`Top`, `Bottom`, `Left`, `Right`), trong đó tối đa 3 đỉnh có mũi tên đi qua (1 luồng vào, 2 luồng rẽ nhánh ra).
+   * Nhãn câu hỏi của Gateway **bắt buộc phải đặt ở đỉnh thứ 4 (đỉnh hoàn toàn KHÔNG có mũi tên nào đi qua)**:
+     * Nếu đỉnh `Top` trống $\rightarrow$ dùng `verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;`
+     * Nếu đỉnh `Bottom` trống $\rightarrow$ dùng `verticalLabelPosition=bottom;verticalAlign=top;spacingTop=6;`
+     * Nếu đỉnh `Right` trống $\rightarrow$ dùng `labelPosition=right;verticalLabelPosition=middle;verticalAlign=middle;align=left;spacingLeft=8;`
+     * Nếu đỉnh `Left` trống $\rightarrow$ dùng `labelPosition=left;verticalLabelPosition=middle;verticalAlign=middle;align=right;spacingRight=8;`
+3. **Quy tắc Trung điểm Đường gấp khúc (`Polyline Midpoint + Offset`) cho Nhãn Mũi Tên (`Edge Label`):**
+   * Trong Draw.io, nhãn `value="..."` của một đường nối (`edge`) mặc định được đặt tại **trung điểm 50% tổng chiều dài toàn bộ đường gấp khúc (Polyline Midpoint)**.
+   * Khi kéo một mũi tên dài xuyên qua nhiều Swimlane (như `Message Flow` từ Kho lên Khách hàng, hoặc luồng `Từ chối` / `Trong hạn mức` từ Ban Giám Đốc lên Sales), trung điểm 50% của đường nối thường rơi vào giữa Lane khác và **đè trực tiếp lên Block nằm gần đó**.
+   * **Cách khắc phục triệt để:**
+     * Chừa một **hành lang trống 70px** (`y = 190..260`) giữa Pool Khách hàng và Pool Nội bộ Công ty, và dùng `<mxPoint as="offset" x="..." y="..."/>` đưa toàn bộ nhãn `Message Flow` nằm gọn trong hành lang trống này.
+     * Với mọi nhãn nhánh rẽ (`Đạt`, `Không đạt`, `Quá tải`, `Đáp ứng`, `Trong hạn mức`, `Từ chối`, `Đồng ý`), phải tính chính xác tọa độ `(mid_x + offset_x, mid_y + offset_y)` để nhãn luôn nằm cách xa mọi Block tối thiểu `10px`.
+
+---
+
+## PHẦN 5: CHECKLIST KIỂM TRA TRƯỚC KHI XUẤT MÃ XML
 
 - [ ] 1. Đã dùng đúng `shape=mxgraph.bpmn.task` và `shape=mxgraph.bpmn.shape` (có icon người, bánh răng, phong bì, dấu `X`, vòng tròn End đậm) chưa?
-- [ ] 2. Đã xóa bỏ `childLayout=stackLayout` để các Swimlane xếp chồng chuẩn theo **hàng dọc từ trên xuống dưới** chưa?
+- [ ] 2. Đã xóa bỏ `childLayout=stackLayout` và dùng `horizontal=0` để các Swimlane nằm ngang xếp chồng từ trên xuống dưới với tiêu đề xoay dọc 90° bên trái chưa?
 - [ ] 3. Đã xóa toàn bộ `fillColor`, `strokeColor`, `fontColor`, `labelBackgroundColor` để các block hoàn toàn **không màu (Monochrome)** chưa?
-- [ ] 4. Đã thêm `spacingLeft=18;` cho các BPMN Task để chữ không bị đè lên icon góc trái trên chưa?
-- [ ] 5. Đã kiểm tra tọa độ các điểm uốn `<Array as="points">` khớp chính xác với tọa độ tương đối trong Pool chưa?
+- [ ] 4. Đã thêm `spacingLeft=20;` cho các BPMN Task để chữ không bị đè lên icon góc trái trên chưa?
+- [ ] 5. Đã kiểm tra tự động đảm bảo **0 va chạm đường nối (Edge-to-Block)** và **0 va chạm nhãn chữ (Label-to-Block)** khi kéo mũi tên qua các Swimlane chưa?
