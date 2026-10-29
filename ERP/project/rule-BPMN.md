@@ -37,13 +37,13 @@
 ### 2.1. Pools & Swimlanes (Xếp theo hàng dọc từ trên xuống dưới)
 * **Pool (Hồ bơi):**
   ```text
-  swimlane;html=1;startSize=30;horizontal=0;collapsible=0;
+  swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;whiteSpace=wrap;
   ```
 * **Lane (Làn bơi con bên trong Pool):**
   ```text
-  swimlane;html=1;startSize=30;horizontal=0;collapsible=0;
+  swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;
   ```
-  *(Lưu ý: Tọa độ của từng Lane đặt tại `x="30"`, `y` cộng dồn từ trên xuống dưới, `width = Pool_Width - 30`).*
+  *(Lưu ý quan trọng chống tràn chữ tiêu đề dọc: Đặt `startSize=45` và ngắt dòng bằng `&#xa;` cho các tên Pool/Lane dài trên 15 ký tự như `KHÁCH HÀNG B2B&#xa;(Thu mua &amp; Kỹ thuật)` để chiều dài chuỗi chữ sau khi xoay dọc 90° luôn nhỏ hơn `height` của Pool/Lane).*
 
 ### 2.2. Các loại BPMN Tasks (`shape=mxgraph.bpmn.task`)
 Kích thước chuẩn: **`width="160" height="70"`** (đảm bảo icon góc trái không đè vào chữ tiếng Việt).

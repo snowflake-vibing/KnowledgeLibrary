@@ -25,47 +25,47 @@
 ## MÃ NGUỒN XML DRAW.IO
 
 ```xml
-<mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3050" pageHeight="1250" math="0" shadow="0">
+<mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3050" pageHeight="1300" math="0" shadow="0">
   <root>
     <mxCell id="0"/>
     <mxCell id="1" parent="0"/>
 
     <!-- ==================== POOL 1: KHÁCH HÀNG B2B ==================== -->
-    <mxCell id="pool_cust" value="KHÁCH HÀNG B2B (Phòng Thu mua &amp;amp; Kỹ thuật)" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=13;" vertex="1" parent="1">
-      <mxGeometry x="40" y="40" width="2920" height="150" as="geometry"/>
+    <mxCell id="pool_cust" value="KHÁCH HÀNG B2B&#xa;(Thu mua &amp;amp; Kỹ thuật)" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;whiteSpace=wrap;" vertex="1" parent="1">
+      <mxGeometry x="40" y="40" width="2935" height="180" as="geometry"/>
     </mxCell>
     <mxCell id="c_t1" value="Tiếp nhận khảo sát &amp;amp;&#xa;Cung cấp quy cách kỹ thuật" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=receive;" vertex="1" parent="pool_cust">
-      <mxGeometry x="580" y="40" width="175" height="70" as="geometry"/>
+      <mxGeometry x="595" y="55" width="175" height="70" as="geometry"/>
     </mxCell>
     <mxCell id="c_t2" value="Thử nghiệm độ dính &amp;amp;&#xa;Đánh giá chất lượng mẫu" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=manual;" vertex="1" parent="pool_cust">
-      <mxGeometry x="960" y="40" width="175" height="70" as="geometry"/>
+      <mxGeometry x="975" y="55" width="175" height="70" as="geometry"/>
     </mxCell>
     <mxCell id="c_t3" value="Xem xét Báo giá &amp;amp;&#xa;Ký kết Hợp đồng Bán hàng" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=user;" vertex="1" parent="pool_cust">
-      <mxGeometry x="2390" y="40" width="175" height="70" as="geometry"/>
+      <mxGeometry x="2405" y="55" width="175" height="70" as="geometry"/>
     </mxCell>
 
     <!-- ==================== POOL 2: CÔNG TY TNHH NHỰT RẠNG ==================== -->
-    <mxCell id="pool_nr" value="CÔNG TY TNHH NHỰT RẠNG (Hệ thống Odoo ERP)" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=13;" vertex="1" parent="1">
-      <mxGeometry x="40" y="260" width="2920" height="920" as="geometry"/>
+    <mxCell id="pool_nr" value="CÔNG TY TNHH NHỰT RẠNG&#xa;(Hệ thống Odoo ERP)" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;whiteSpace=wrap;" vertex="1" parent="1">
+      <mxGeometry x="40" y="290" width="2935" height="930" as="geometry"/>
     </mxCell>
 
-    <!-- LANE 1: BỘ PHẬN MARKETING (y=0, h=150) -->
-    <mxCell id="l_mkt" value="Bộ phận Marketing" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;" vertex="1" parent="pool_nr">
-      <mxGeometry x="30" y="0" width="2890" height="150" as="geometry"/>
+    <!-- LANE 1: BỘ PHẬN MARKETING (y=0, h=160) -->
+    <mxCell id="l_mkt" value="Bộ phận&#xa;Marketing" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;" vertex="1" parent="pool_nr">
+      <mxGeometry x="45" y="0" width="2890" height="160" as="geometry"/>
     </mxCell>
     <mxCell id="mkt_start" value="Phát hiện nhu cầu&#xa;thị trường B2B" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outline=standard;symbol=general;fontSize=10;spacingTop=6;" vertex="1" parent="l_mkt">
-      <mxGeometry x="60" y="45" width="40" height="40" as="geometry"/>
+      <mxGeometry x="60" y="50" width="40" height="40" as="geometry"/>
     </mxCell>
     <mxCell id="mkt_t1" value="Tìm kiếm thông tin Lead&#xa;tiềm năng (Google/Web)" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=user;" vertex="1" parent="l_mkt">
-      <mxGeometry x="150" y="30" width="170" height="70" as="geometry"/>
+      <mxGeometry x="150" y="35" width="170" height="70" as="geometry"/>
     </mxCell>
     <mxCell id="mkt_t2" value="Khởi tạo hồ sơ Lead&#xa;trên hệ thống Odoo CRM" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=user;" vertex="1" parent="l_mkt">
-      <mxGeometry x="360" y="30" width="170" height="70" as="geometry"/>
+      <mxGeometry x="360" y="35" width="170" height="70" as="geometry"/>
     </mxCell>
 
-    <!-- LANE 2: BỘ PHẬN KINH DOANH - SALES B2B (y=150, h=240) -->
-    <mxCell id="l_sales" value="Bộ phận Kinh doanh (Sales B2B)" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;" vertex="1" parent="pool_nr">
-      <mxGeometry x="30" y="150" width="2890" height="240" as="geometry"/>
+    <!-- LANE 2: BỘ PHẬN KINH DOANH - SALES B2B (y=160, h=240) -->
+    <mxCell id="l_sales" value="Bộ phận Kinh doanh&#xa;(Sales B2B)" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;" vertex="1" parent="pool_nr">
+      <mxGeometry x="45" y="160" width="2890" height="240" as="geometry"/>
     </mxCell>
     <mxCell id="sales_t1" value="Chuyển đổi Lead thành&#xa;Cơ hội (Opportunity)" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=user;" vertex="1" parent="l_sales">
       <mxGeometry x="360" y="35" width="170" height="70" as="geometry"/>
@@ -95,17 +95,17 @@
       <mxGeometry x="2360" y="35" width="175" height="70" as="geometry"/>
     </mxCell>
 
-    <!-- LANE 3: BỘ PHẬN KHO - INVENTORY (y=390, h=150) -->
-    <mxCell id="l_kho" value="Bộ phận Kho (Inventory)" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;" vertex="1" parent="pool_nr">
-      <mxGeometry x="30" y="390" width="2890" height="150" as="geometry"/>
+    <!-- LANE 3: BỘ PHẬN KHO - INVENTORY (y=400, h=150) -->
+    <mxCell id="l_kho" value="Bộ phận Kho&#xa;(Inventory)" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;" vertex="1" parent="pool_nr">
+      <mxGeometry x="45" y="400" width="2890" height="150" as="geometry"/>
     </mxCell>
     <mxCell id="kho_t1" value="Đóng gói cuộn mẫu &amp;amp;&#xa;Xuất kho gửi khách hàng" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=manual;" vertex="1" parent="l_kho">
       <mxGeometry x="740" y="40" width="175" height="70" as="geometry"/>
     </mxCell>
 
-    <!-- LANE 4: XƯỞNG KỸ THUẬT & SẢN XUẤT (y=540, h=180) -->
-    <mxCell id="l_sx" value="Xưởng Kỹ thuật &amp;amp; Sản xuất" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;" vertex="1" parent="pool_nr">
-      <mxGeometry x="30" y="540" width="2890" height="180" as="geometry"/>
+    <!-- LANE 4: XƯỞNG KỸ THUẬT & SẢN XUẤT (y=550, h=180) -->
+    <mxCell id="l_sx" value="Xưởng Kỹ thuật&#xa;&amp;amp; Sản xuất" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;" vertex="1" parent="pool_nr">
+      <mxGeometry x="45" y="550" width="2890" height="180" as="geometry"/>
     </mxCell>
     <mxCell id="sx_t1" value="Thẩm định công suất máy &amp;amp;&#xa;Định mức BOM (WC1-WC4)" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=user;" vertex="1" parent="l_sx">
       <mxGeometry x="1480" y="55" width="175" height="70" as="geometry"/>
@@ -120,9 +120,9 @@
       <mxGeometry x="2790" y="70" width="40" height="40" as="geometry"/>
     </mxCell>
 
-    <!-- LANE 5: BAN GIÁM ĐỐC (y=720, h=200) -->
-    <mxCell id="l_gd" value="Ban Giám Đốc" style="swimlane;html=1;startSize=30;horizontal=0;collapsible=0;fontStyle=1;fontSize=12;" vertex="1" parent="pool_nr">
-      <mxGeometry x="30" y="720" width="2890" height="200" as="geometry"/>
+    <!-- LANE 5: BAN GIÁM ĐỐC (y=730, h=200) -->
+    <mxCell id="l_gd" value="Ban Giám Đốc" style="swimlane;html=1;startSize=45;horizontal=0;collapsible=0;fontStyle=1;fontSize=11;whiteSpace=wrap;" vertex="1" parent="pool_nr">
+      <mxGeometry x="45" y="730" width="2890" height="200" as="geometry"/>
     </mxCell>
     <mxCell id="gd_rule" value="Kiểm tra Ma trận phê duyệt&#xa;(Hạn mức giá sàn &amp;amp; Công nợ)" style="shape=mxgraph.bpmn.task;html=1;whiteSpace=wrap;rectStyle=rounded;size=10;align=center;verticalAlign=middle;spacingLeft=20;spacingRight=8;fontSize=11;taskMarker=businessRule;" vertex="1" parent="l_gd">
       <mxGeometry x="1655" y="55" width="175" height="70" as="geometry"/>
@@ -156,7 +156,7 @@
     <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="pool_nr" source="sales_t2" target="kho_t1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="667" y="465"/>
+          <mxPoint x="682" y="475"/>
         </Array>
       </mxGeometry>
     </mxCell>
@@ -171,7 +171,7 @@
     <mxCell id="e_sample_fail" value="Không đạt" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="pool_nr" source="gw_sample" target="sales_t_lost">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1220" y="322"/>
+          <mxPoint x="1235" y="332"/>
         </Array>
         <mxPoint as="offset" x="42" y="-18"/>
       </mxGeometry>
@@ -184,7 +184,7 @@
     <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="pool_nr" source="sales_t4" target="sx_t1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1407" y="630"/>
+          <mxPoint x="1422" y="640"/>
         </Array>
       </mxGeometry>
     </mxCell>
@@ -194,8 +194,8 @@
     <mxCell id="e_cap_fail" value="Quá tải" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="pool_nr" source="gw_capacity" target="sales_renego">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1770" y="480"/>
-          <mxPoint x="1747" y="480"/>
+          <mxPoint x="1785" y="490"/>
+          <mxPoint x="1762" y="490"/>
         </Array>
         <mxPoint as="offset" x="28" y="-20"/>
       </mxGeometry>
@@ -208,7 +208,7 @@
     <mxCell id="e_loop_renego" value="Cập nhật Báo giá" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0;exitY=0.5;entryX=0.75;entryY=1;" edge="1" parent="pool_nr" source="sales_renego" target="sales_t4">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1451" y="322"/>
+          <mxPoint x="1466" y="332"/>
         </Array>
         <mxPoint as="offset" x="20" y="-12"/>
       </mxGeometry>
@@ -221,9 +221,9 @@
     <mxCell id="e_no_appr" value="Trong hạn mức (Tự động duyệt)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=1;entryX=0;entryY=0.75;" edge="1" parent="pool_nr" source="gw_appr_check" target="sales_t5">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1935" y="895"/>
-          <mxPoint x="2340" y="895"/>
-          <mxPoint x="2340" y="237"/>
+          <mxPoint x="1950" y="905"/>
+          <mxPoint x="2355" y="905"/>
+          <mxPoint x="2355" y="247"/>
         </Array>
         <mxPoint as="offset" x="-260" y="120"/>
       </mxGeometry>
@@ -239,7 +239,7 @@
     <mxCell id="e_gd_reject" value="Từ chối" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" parent="pool_nr" source="gw_gd_decision" target="sales_renego">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="2255" y="322"/>
+          <mxPoint x="2270" y="332"/>
         </Array>
         <mxPoint as="offset" x="28" y="-120"/>
       </mxGeometry>
@@ -247,8 +247,8 @@
     <mxCell id="e_gd_accept" value="Đồng ý" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" edge="1" parent="pool_nr" source="gw_gd_decision" target="sales_t5">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="2310" y="810"/>
-          <mxPoint x="2310" y="202"/>
+          <mxPoint x="2325" y="820"/>
+          <mxPoint x="2325" y="212"/>
         </Array>
         <mxPoint as="offset" x="28" y="-80"/>
       </mxGeometry>
@@ -258,7 +258,7 @@
     <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="pool_nr" source="sales_t5" target="sx_t2">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="2477" y="630"/>
+          <mxPoint x="2492" y="640"/>
         </Array>
       </mxGeometry>
     </mxCell>
@@ -269,35 +269,35 @@
     <!-- ==================== MESSAGE FLOWS (LIÊN POOL NÉT ĐỨT - QUA KHE TRỐNG GIỮA 2 POOL) ==================== -->
     <mxCell id="mf1" value="1. Khảo sát thông số" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=6 6;startArrow=oval;startFill=0;endArrow=block;endFill=0;fontSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="sales_t2" target="c_t1">
       <mxGeometry relative="1" as="geometry">
-        <mxPoint as="offset" x="55" y="-55"/>
+        <mxPoint as="offset" x="-62" y="-70"/>
       </mxGeometry>
     </mxCell>
     <mxCell id="mf2" value="2. Gửi kiện hàng mẫu (0đ)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=6 6;startArrow=oval;startFill=0;endArrow=block;endFill=0;fontSize=10;exitX=0.5;exitY=0;entryX=0.25;entryY=1;" edge="1" parent="1" source="kho_t1" target="c_t2">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="897" y="225"/>
-          <mxPoint x="1044" y="225"/>
+          <mxPoint x="912" y="255"/>
+          <mxPoint x="1059" y="255"/>
         </Array>
-        <mxPoint as="offset" x="-65" y="-140"/>
+        <mxPoint as="offset" x="-15" y="-128"/>
       </mxGeometry>
     </mxCell>
     <mxCell id="mf3" value="3. Kết quả thử mẫu" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=6 6;startArrow=oval;startFill=0;endArrow=block;endFill=0;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c_t2" target="sales_t3">
       <mxGeometry relative="1" as="geometry">
-        <mxPoint as="offset" x="52" y="-55"/>
+        <mxPoint as="offset" x="58" y="-70"/>
       </mxGeometry>
     </mxCell>
     <mxCell id="mf4" value="4. Báo giá &amp;amp; Dự thảo Hợp đồng" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=6 6;startArrow=oval;startFill=0;endArrow=block;endFill=0;fontSize=10;exitX=0.5;exitY=0;entryX=0.25;entryY=1;" edge="1" parent="1" source="sales_t4" target="c_t3">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="1447" y="225"/>
-          <mxPoint x="2474" y="225"/>
+          <mxPoint x="1462" y="255"/>
+          <mxPoint x="2489" y="255"/>
         </Array>
         <mxPoint as="offset" y="-12"/>
       </mxGeometry>
     </mxCell>
     <mxCell id="mf5" value="5. Hợp đồng đã ký" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=6 6;startArrow=oval;startFill=0;endArrow=block;endFill=0;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c_t3" target="sales_t5">
       <mxGeometry relative="1" as="geometry">
-        <mxPoint as="offset" x="52" y="-55"/>
+        <mxPoint as="offset" x="58" y="-70"/>
       </mxGeometry>
     </mxCell>
 
