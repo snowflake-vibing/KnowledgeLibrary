@@ -20,6 +20,7 @@
   - [2.3. Hard Margin và Soft Margin SVM](#23-hard-margin-và-soft-margin-svm)
     - 📖 *[Giải thích chi tiết: Hàm Mục tiêu Soft Margin](./explanation/Giai_thich_Ham_muc_tieu_Soft_Margin.md)*
   - [2.4. Kernel SVM – Xử lý dữ liệu phi tuyến](#24-kernel-svm--xử-lý-dữ-liệu-phi-tuyến)
+    - 📖 *[Giải thích chi tiết: Kernel Trick và Kernel SVM](./explanation/Giai_thich_Kernel_SVM.md)*
   - [2.5. Tối ưu hóa: Primal, Dual Lagrangian và Thuật toán SMO](#25-tối-ưu-hóa-primal-dual-lagrangian-và-thuật-toán-smo)
   - [2.6. Ví dụ giải tay chi tiết](#26-ví-dụ-giải-tay-chi-tiết)
     - [Ví dụ 1: Tuyến tính không sử dụng Kernel](#ví-dụ-1-tuyến-tính-không-sử-dụng-kernel)
@@ -234,20 +235,41 @@ $$
 
 ### 2.4. Kernel SVM – Xử lý dữ liệu phi tuyến
 
-Khi dữ liệu không thể phân tách tuyến tính trong không gian ban đầu, **Kernel Trick** thực hiện ánh xạ phi tuyến dữ liệu từ không gian đặc trưng $\mathbb{R}^d$ lên không gian mới nhiều chiều hơn $\mathcal{H}$ (Không gian Hilbert): $\mathbf{x} \mapsto \phi(\mathbf{x})$. Trong không gian mới này, dữ liệu trở nên phân tách tuyến tính được bởi một siêu phẳng phẳng.
+#### Bản chất và Ý tưởng hình học
+Khi dữ liệu không thể phân tách tuyến tính trong không gian ban đầu (ví dụ bài toán XOR, vòng tròn đồng tâm), việc tìm một siêu phẳng phẳng là bất khả thi.
+
+Dựa trên **Định lý Cover**, SVM áp dụng **Kernel Trick** để thực hiện ánh xạ phi tuyến dữ liệu từ không gian đặc trưng ban đầu $\mathbf{x} \in \mathbb{R}^d$ lên một không gian mới nhiều chiều hơn $\mathcal{H}$ (Không gian Hilbert):
+
+$$
+\mathbf{x} \mapsto \phi(\mathbf{x})
+$$
+
+Trong không gian mới này, dữ liệu bị uốn cong sẽ trở nên phân tách tuyến tính được bởi một siêu phẳng phẳng: $\mathbf{w}^T \phi(\mathbf{x}) + b = 0$.
 
 <div align="center">
   <img src="./images/kernel_trick_transformation.png" alt="Biến đổi không gian qua Kernel Trick" width="90%">
-  <p><em>Hình 7: Minh họa Kernel Trick: (a) Dữ liệu 2D phi tuyến $\implies$ (b) Thêm chiều thứ ba $z = x_1^2 + x_2^2$ tạo thành mặt paraboloid để phân tách bằng siêu phẳng $\implies$ (c) Chiếu ngược giao tuyến xuống không gian 2D tạo thành đường biên ellipse phân tách hai lớp.</em></p>
+  <p><em>Hình 7: Minh họa Kernel Trick: (a) Dữ liệu 2D phi tuyến $\implies$ (b) Thêm chiều thứ ba $z = x_1^2 + x_2^2$ tạo thành mặt paraboloid để phân tách bằng siêu phẳng phẳng $\implies$ (c) Chiếu ngược giao tuyến xuống không gian 2D tạo thành đường biên ellipse phân tách hoàn hảo hai lớp.</em></p>
 </div>
+
+#### Cơ chế Kernel Trick: Tránh thảm họa số chiều
+Thay vì phải tính toán tường minh tọa độ cực lớn (hoặc vô hạn chiều) của vector $\phi(\mathbf{x})$, **Hàm Kernel $K(\mathbf{x}, \mathbf{z})$** cho phép tính trực tiếp giá trị tích vô hướng giữa hai điểm trong không gian mới ngay từ không gian gốc:
+
+$$
+K(\mathbf{x}, \mathbf{z}) = \langle \phi(\mathbf{x}), \phi(\mathbf{z}) \rangle = \phi(\mathbf{x})^T \phi(\mathbf{z})
+$$
 
 <div align="center">
   <img src="./images/kernel_mapping_function.jpg" alt="Nguyên lý hàm Kernel" width="70%">
   <p><em>Hình 8: Hàm Kernel tính trực tiếp tích vô hướng $K(\mathbf{x}, \mathbf{z}) = \langle \phi(\mathbf{x}), \phi(\mathbf{z}) \rangle$ mà không cần tính tường minh tọa độ $\phi(\mathbf{x})$.</em></p>
 </div>
 
+> [!TIP]
+> 📖 **Đọc thêm bài giải thích chuyên sâu về Kernel SVM:**  
+> Bạn muốn hiểu vì sao một hàm đơn giản như RBF lại tương đương với không gian **vô hạn chiều**, cùng ví dụ chứng minh toán học đại số từng bước? Hãy xem tại:  
+> 👉 [**Giải thích Chi tiết: Kernel Trick và Kernel SVM**](./explanation/Giai_thich_Kernel_SVM.md)
+
 #### Điều kiện Mercer
-Hàm $K(\mathbf{x}, \mathbf{z})$ là một hàm Kernel hợp lệ khi thỏa mãn:
+Hàm $K(\mathbf{x}, \mathbf{z})$ là một hàm Kernel hợp lệ khi thỏa mãn định lý Mercer:
 1. **Tính đối xứng:** $K(\mathbf{x}, \mathbf{z}) = K(\mathbf{z}, \mathbf{x})$.
 2. **Ma trận Gram nửa xác định dương (Positive Semi-Definite – PSD):** Với mọi tập điểm, ma trận $K_{ij} = K(\mathbf{x}_i, \mathbf{x}_j)$ thỏa mãn:
 
@@ -255,16 +277,16 @@ $$
 \forall \mathbf{v} \in \mathbb{R}^N, \quad \mathbf{v}^T \mathbf{K} \mathbf{v} \ge 0
 $$
 
-Khi đó tồn tại một ánh xạ $\phi(\mathbf{x})$ vào không gian Hilbert sao cho $K(\mathbf{x}, \mathbf{z}) = \phi(\mathbf{x})^T \phi(\mathbf{z})$.
+Tính chất PSD đảm bảo bài toán tối ưu đối ngẫu của SVM luôn là **quy hoạch toàn phương lồi**, cam kết tìm được nghiệm cực trị toàn cục duy nhất (*Global Optimum*).
 
 #### Các hàm Kernel thông dụng
 
-| Loại Kernel | Công thức toán học $K(\mathbf{x}, \mathbf{z})$ | Ý nghĩa và Trường hợp sử dụng |
-| :--- | :--- | :--- |
-| **Linear (Tuyến tính)** | $\mathbf{x}^T \mathbf{z}$ | Không ánh xạ sang không gian khác. Phù hợp khi số chiều lớn (phân loại văn bản, ma trận từ thưa). Tốc độ tính toán nhanh nhất. |
-| **Polynomial (Đa thức)** | $(\gamma \mathbf{x}^T \mathbf{z} + r)^d$ | Mô hình hóa các tương tác phi tuyến bậc cao giữa các đặc trưng. Bậc $d$ càng cao thì mô hình càng phức tạp. |
-| **RBF / Gaussian** | $\exp\left(-\gamma \|\mathbf{x} - \mathbf{z}\|^2\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{z}\|^2}{2\sigma^2}\right)$ | **Phổ biến nhất**. Đo lường độ tương đồng giữa hai điểm. Nhạy cảm với tham số $\gamma$, cần tinh chỉnh cẩn thận. |
-| **Sigmoid** | $\tanh(\gamma \mathbf{x}^T \mathbf{z} + r)$ | Mô phỏng mạng nơ-ron đơn tầng. Cần lưu ý không phải lúc nào ma trận Gram cũng đảm bảo tính nửa xác định dương. |
+| Loại Kernel | Công thức toán học $K(\mathbf{x}, \mathbf{z})$ | Tham số chính | Đặc điểm & Trường hợp sử dụng |
+| :--- | :--- | :---: | :--- |
+| **Linear (Tuyến tính)** | $\mathbf{x}^T \mathbf{z}$ | Không có | Phù hợp khi số chiều lớn ($d \gg N$), ví dụ phân loại văn bản, text mining. Tốc độ tính toán nhanh nhất. |
+| **Polynomial (Đa thức)** | $(\gamma \mathbf{x}^T \mathbf{z} + r)^d$ | $d, \gamma, r$ | Mô hình hóa tương tác phi tuyến bậc cao giữa các đặc trưng. Bậc $d$ càng cao thì mô hình càng phức tạp và dễ overfitting. |
+| **RBF / Gaussian** | $\exp\left(-\gamma \|\mathbf{x} - \mathbf{z}\|^2\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{z}\|^2}{2\sigma^2}\right)$ | $\gamma$ (hoặc $\sigma$) | **Phổ biến nhất**. Ánh xạ sang không gian vô hạn chiều, đo lường độ tương đồng giữa hai điểm. Lựa chọn mặc định khi chưa rõ phân bố. |
+| **Sigmoid** | $\tanh(\gamma \mathbf{x}^T \mathbf{z} + r)$ | $\gamma, r$ | Mô phỏng mạng nơ-ron Perceptron đơn tầng. Hiệu quả không ổn định và ít được ưu tiên trong thực tế. |
 
 ---
 
