@@ -18,6 +18,7 @@
   - [2.1. Ý tưởng hình học và Siêu phẳng phân tách](#21-ý-tưởng-hình-học-và-siêu-phẳng-phân-tách)
   - [2.2. Khái niệm Margin và Support Vectors](#22-khái-niệm-margin-và-support-vectors)
   - [2.3. Hard Margin và Soft Margin SVM](#23-hard-margin-và-soft-margin-svm)
+    - 📖 *[Giải thích chi tiết: Hàm Mục tiêu Soft Margin](./explanation/Giai_thich_Ham_muc_tieu_Soft_Margin.md)*
   - [2.4. Kernel SVM – Xử lý dữ liệu phi tuyến](#24-kernel-svm--xử-lý-dữ-liệu-phi-tuyến)
   - [2.5. Tối ưu hóa: Primal, Dual Lagrangian và Thuật toán SMO](#25-tối-ưu-hóa-primal-dual-lagrangian-và-thuật-toán-smo)
   - [2.6. Ví dụ giải tay chi tiết](#26-ví-dụ-giải-tay-chi-tiết)
@@ -218,6 +219,11 @@ với các ràng buộc:
 $$
 y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \quad \xi_i \ge 0 \quad (\forall i = 1, 2, \dots, N)
 $$
+
+> [!TIP]
+> 📖 **Đọc thêm bài giải thích chuyên sâu về hàm này:**  
+> Nếu bạn muốn hiểu cặn kẽ bản chất toán học, ý nghĩa hình học của từng thành phần $\frac{1}{2}\|\mathbf{w}\|^2$, biến độ chùng $\xi_i$, hệ số phạt $C$ kèm ví dụ tính số cụ thể từng bước, hãy xem tài liệu:  
+> 👉 [**Giải thích Chi tiết Hàm Mục tiêu Soft Margin SVM**](./explanation/Giai_thich_Ham_muc_tieu_Soft_Margin.md)
 
 > [!TIP]
 > **Ý nghĩa của hằng số phạt $C > 0$:**
