@@ -46,7 +46,11 @@
 
 ### 1.1. Giới hạn của Perceptron và Logistic Regression
 
-Trong bài toán phân loại nhị phân có giám sát, giả sử tập huấn luyện gồm $N$ mẫu dữ liệu $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^N$, với $\mathbf{x}_i \in \mathbb{R}^d$ và nhãn $y_i \in \{-1, +1\}$:
+Trong bài toán phân loại nhị phân có giám sát, giả sử tập huấn luyện gồm $N$ mẫu dữ liệu:
+
+$$
+\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^N, \quad \text{với } \mathbf{x}_i \in \mathbb{R}^d \text{ và nhãn } y_i \in \{-1, +1\}
+$$
 
 1. **Thuật toán Perceptron (PLA):**
    - Nếu dữ liệu khả phân tuyến tính (*linearly separable*), PLA hội tụ và tìm được một siêu phẳng phân tách hai lớp.
@@ -119,7 +123,13 @@ $$
   <p><em>Hình 2.1: Trực giác hình học về khoảng cách từ một điểm tới siêu phẳng phân tách trong không gian đặc trưng.</em></p>
 </div>
 
-Vì dữ liệu phân tách đúng nên $y_i(\mathbf{w}^T \mathbf{x}_i + b) > 0$ với mọi $i$. Do đó:
+Vì tất cả các điểm dữ liệu đều được phân loại đúng nên:
+
+$$
+y_i(\mathbf{w}^T \mathbf{x}_i + b) > 0, \quad \forall i = 1, \dots, N
+$$
+
+Do đó:
 
 $$
 \gamma_i = \frac{y_i(\mathbf{w}^T \mathbf{x}_i + b)}{\|\mathbf{w}\|_2} \qquad (4)
@@ -171,7 +181,11 @@ $$
 
 ### 2.3. Bài toán đối ngẫu Lagrange (Dual Formulation)
 
-Để giải bài toán có ràng buộc (9), ta đưa vào các nhân tử Lagrange không âm $\alpha_i \ge 0$ ứng với từng ràng buộc $1 - y_i(\mathbf{w}^T \mathbf{x}_i + b) \le 0$.
+Để giải bài toán có ràng buộc (9), ta đưa vào các nhân tử Lagrange không âm $\alpha_i \ge 0$ ứng với từng ràng buộc:
+
+$$
+1 - y_i(\mathbf{w}^T \mathbf{x}_i + b) \le 0, \quad \forall i = 1, \dots, N
+$$
 
 Hàm Lagrange nguyên thủy:
 
@@ -233,8 +247,8 @@ $$
 > [!IMPORTANT]
 > **Ý nghĩa hình học của Điều kiện bù lỏng (15):**  
 > Đối với mỗi điểm mẫu thứ $i$, xảy ra một trong hai khả năng:
-> - **$\alpha_i^* = 0$:** Điểm dữ liệu thỏa mãn $y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) > 1$, tức là nằm an toàn phía ngoài lề. Điểm này **hoàn toàn không tham gia** vào việc xây dựng $\mathbf{w}^*$ (xem công thức 11).
-> - **$\alpha_i^* > 0$:** Bắt buộc $y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) = 1$, tức là điểm dữ liệu nằm **chính xác trên siêu phẳng lề**. Đây chính là các **Support Vectors**!
+> - **Khi $\alpha_i = 0$:** Điểm dữ liệu nằm an toàn ở phía ngoài lề: $y_i(\mathbf{w}^T \mathbf{x}_i + b) > 1$. Điểm này **hoàn toàn không tham gia** vào việc xác định vector $\mathbf{w}$ (xem công thức 11).
+> - **Khi $\alpha_i > 0$:** Điểm dữ liệu bắt buộc phải nằm chính xác trên siêu phẳng lề: $y_i(\mathbf{w}^T \mathbf{x}_i + b) = 1$. Đây chính là các **Support Vectors**!
 
 <div align="center">
   <img src="./images/svm_support_vectors_margin.jpg" alt="Support Vectors xác định siêu phẳng lề" width="75%">
@@ -248,7 +262,7 @@ $$
 \mathbf{w}^* = \sum_{i \in \text{SV}} \alpha_i^* y_i \mathbf{x}_i \qquad (16)
 $$
 
-- **Hệ số chệch $b^*$:** Lấy một điểm Support Vector $s \in \text{SV}$ bất kỳ (có $\alpha_s^* > 0$), do $y_s({\mathbf{w}^*}^T \mathbf{x}_s + b^*) = 1$ (nhân 2 vế với $y_s \in \{-1, +1\}$ vì $y_s^2 = 1$):
+- **Hệ số chệch $b^*$:** Lấy một điểm Support Vector $\mathbf{x}_s$ bất kỳ (có $\alpha_s > 0$). Vì điểm này nằm trên lề nên:
 
 $$
 b^* = y_s - {\mathbf{w}^*}^T \mathbf{x}_s = y_s - \sum_{i \in \text{SV}} \alpha_i^* y_i (\mathbf{x}_i^T \mathbf{x}_s) \qquad (17)
@@ -493,7 +507,11 @@ Vốn là bộ phân loại nhị phân nguyên bản, SVM xử lý bài toán $
 
 1. **One-vs-Rest (OvR / One-vs-All):**
    - Huấn luyện $K$ mô hình SVM nhị phân độc lập. Mô hình thứ $k$ phân biệt giữa Lớp $k$ với tất cả các lớp còn lại gộp lại.
-   - Khi dự báo: Chọn lớp có giá trị hàm quyết định lớn nhất: $\hat{y} = \arg\max_{k=1,\dots,K} (\mathbf{w}_k^T \mathbf{x} + b_k)$.
+   - Khi dự báo: Chọn lớp có giá trị hàm quyết định lớn nhất:
+
+$$
+\hat{y} = \arg\max_{k=1,\dots,K} (\mathbf{w}_k^T \mathbf{x} + b_k)
+$$
    - **Ưu điểm:** Cần ít mô hình ($K$ bộ phân loại), chạy nhanh.
 
 2. **One-vs-One (OvO):**
