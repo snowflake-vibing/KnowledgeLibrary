@@ -2,8 +2,13 @@
 
 > Hệ thống bài giảng chuyên đề môn **Học máy thống kê (Statistical Machine Learning)** – Trường ĐH Công nghệ Thông tin, ĐHQG TP.HCM (UIT).
 
-## Danh sách chương
+## Danh sách chương & Chuyên đề
 
+- **[Chuyên đề: Support Vector Machine (SVM)](SVM.md)**
+  - Phân loại biên cực đại (Maximum Margin Classifier)
+  - Hard-margin, Soft-margin, Hinge Loss, và Box Constraints
+  - Kỹ thuật Kernel (Kernel Trick) & Không gian đối ngẫu Lagrangian
+  - Hồi quy SVR, Phân loại đa lớp, Cài đặt Python từ đầu & Scikit-Learn
 - **[Chương 4: Mô hình Hồi quy & Tối ưu hóa](Chuong4_Hoi_quy/README.md)**
   1. [Hồi quy tuyến tính & Phương pháp bình phương bé nhất (LSM)](Chuong4_Hoi_quy/01_hoi_quy_tuyen_tinh_lsm.md)
   2. [Các mô hình hồi quy tuyến tính quy tắc hóa (Ridge, Lasso, Elastic Net)](Chuong4_Hoi_quy/02_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net.md)
