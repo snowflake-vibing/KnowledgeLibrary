@@ -54,7 +54,11 @@ Trong bài toán phân loại nhị phân có giám sát, giả sử tập huấ
 
 2. **Hồi quy Logistic (Logistic Regression):**
    - Tối ưu hàm mất mát Log Loss trên toàn bộ tập dữ liệu dựa trên mô hình xác suất điều kiện:
-     $$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}$$
+
+$$
+P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}
+$$
+
    - **Đặc điểm:** Mọi điểm dữ liệu (kể cả những điểm nằm rất xa ranh giới) đều đóng góp vào hàm mất mát và gradient. Khi tập dữ liệu có các điểm ngoại lai (*outliers*), siêu phẳng nghiệm có thể bị kéo lệch đáng kể.
 
 <div align="center">
@@ -76,16 +80,25 @@ Vladimir Vapnik và Alexey Chervonenkis (1963, 1995) đã đề xuất mô hình
 
 ### 1.3. Các khái niệm nền tảng: Siêu phẳng, Lề, và Vector hỗ trợ
 
-1. **Siêu phẳng quyết định (Decision Hyperplane):**
-   Trong không gian $d$ chiều, một siêu phẳng được xác định bởi vector pháp tuyến $\mathbf{w} \in \mathbb{R}^d$ và hệ số chệch $b \in \mathbb{R}$:
-   $$\mathbf{w}^T \mathbf{x} + b = 0 \qquad (1)$$
+#### 1. Siêu phẳng quyết định (Decision Hyperplane)
+Trong không gian $d$ chiều, một siêu phẳng được xác định bởi vector pháp tuyến $\mathbf{w} \in \mathbb{R}^d$ và hệ số chệch $b \in \mathbb{R}$:
 
-2. **Hàm quyết định phân lớp (Decision Function):**
-   Dự đoán nhãn $\hat{y}$ cho điểm $\mathbf{x}$ bằng hàm dấu (*signum*):
-   $$\hat{y} = f(\mathbf{x}) = \text{sign}(\mathbf{w}^T \mathbf{x} + b) = \begin{cases} +1 & \text{nếu } \mathbf{w}^T \mathbf{x} + b \ge 0 \\ -1 & \text{nếu } \mathbf{w}^T \mathbf{x} + b < 0 \end{cases} \qquad (2)$$
+$$
+\mathbf{w}^T \mathbf{x} + b = 0 \qquad (1)
+$$
 
-3. **Vector hỗ trợ (Support Vectors):**
-   Là các điểm dữ liệu nằm sát siêu phẳng nhất, nằm ngay trên hai mặt lề song song. Toàn bộ vị trí và góc nghiêng của siêu phẳng quyết định **chỉ phụ thuộc duy nhất vào các Support Vectors này**. Nếu ta di chuyển, thêm hoặc xóa các điểm dữ liệu khác (không phải support vectors), siêu phẳng quyết định hoàn toàn không đổi.
+#### 2. Hàm quyết định phân lớp (Decision Function)
+Dự đoán nhãn $\hat{y}$ cho điểm $\mathbf{x}$ bằng hàm dấu (*signum*):
+
+$$
+\hat{y} = f(\mathbf{x}) = \text{sign}(\mathbf{w}^T \mathbf{x} + b) = \begin{cases} 
++1 & \text{nếu } \mathbf{w}^T \mathbf{x} + b \ge 0 \\ 
+-1 & \text{nếu } \mathbf{w}^T \mathbf{x} + b < 0 
+\end{cases} \qquad (2)
+$$
+
+#### 3. Vector hỗ trợ (Support Vectors)
+Là các điểm dữ liệu nằm sát siêu phẳng nhất, nằm ngay trên hai mặt lề song song. Toàn bộ vị trí và góc nghiêng của siêu phẳng quyết định **chỉ phụ thuộc duy nhất vào các Support Vectors này**. Nếu ta di chuyển, thêm hoặc xóa các điểm dữ liệu khác (không phải support vectors), siêu phẳng quyết định hoàn toàn không đổi.
 
 ---
 
@@ -97,7 +110,9 @@ Vladimir Vapnik và Alexey Chervonenkis (1963, 1995) đã đề xuất mô hình
 
 Khoảng cách hình học đại số từ một điểm $\mathbf{x}_i$ bất kỳ đến siêu phẳng $\mathbf{w}^T \mathbf{x} + b = 0$ được tính theo hình chiếu trực giao:
 
-$$\gamma_i = \frac{|\mathbf{w}^T \mathbf{x}_i + b|}{\|\mathbf{w}\|_2} \qquad (3)$$
+$$
+\gamma_i = \frac{|\mathbf{w}^T \mathbf{x}_i + b|}{\|\mathbf{w}\|_2} \qquad (3)
+$$
 
 <div align="center">
   <img src="./images/svm_point_distance.png" alt="Khoảng cách từ điểm tới siêu phẳng" width="75%">
@@ -106,32 +121,50 @@ $$\gamma_i = \frac{|\mathbf{w}^T \mathbf{x}_i + b|}{\|\mathbf{w}\|_2} \qquad (3)
 
 Vì dữ liệu phân tách đúng nên $y_i(\mathbf{w}^T \mathbf{x}_i + b) > 0$ với mọi $i$. Do đó:
 
-$$\gamma_i = \frac{y_i(\mathbf{w}^T \mathbf{x}_i + b)}{\|\mathbf{w}\|_2} \qquad (4)$$
+$$
+\gamma_i = \frac{y_i(\mathbf{w}^T \mathbf{x}_i + b)}{\|\mathbf{w}\|_2} \qquad (4)
+$$
 
 Khoảng cách từ siêu phẳng đến điểm gần nó nhất trên toàn tập dữ liệu là:
 
-$$\gamma = \min_{i=1,\dots,N} \frac{y_i(\mathbf{w}^T \mathbf{x}_i + b)}{\|\mathbf{w}\|_2} \qquad (5)$$
+$$
+\gamma = \min_{i=1,\dots,N} \frac{y_i(\mathbf{w}^T \mathbf{x}_i + b)}{\|\mathbf{w}\|_2} \qquad (5)
+$$
 
 **Chuẩn hóa tỷ lệ (Scaling freedom):**  
 Nếu nhân cả $\mathbf{w}$ và $b$ với một hằng số dương $k > 0$, phương trình siêu phẳng không thay đổi, và khoảng cách $\gamma_i$ cũng không đổi. Ta có thể tự do chọn tỉ lệ sao cho giá trị nhỏ nhất của tử số bằng $1$:
 
-$$\min_{i=1,\dots,N} y_i(\mathbf{w}^T \mathbf{x}_i + b) = 1 \qquad (6)$$
+$$
+\min_{i=1,\dots,N} y_i(\mathbf{w}^T \mathbf{x}_i + b) = 1 \qquad (6)
+$$
 
 Khi đó:
 - Các điểm gần nhất thỏa mãn: $y_i(\mathbf{w}^T \mathbf{x}_i + b) = 1$ (chính là các **Support Vectors**).
 - Hai siêu phẳng lề biên đi qua các Support Vectors là:
-  $$\begin{cases} \mathbf{w}^T \mathbf{x} + b = +1 & \text{(Lớp dương)} \\ \mathbf{w}^T \mathbf{x} + b = -1 & \text{(Lớp âm)} \end{cases} \qquad (7)$$
+
+$$
+\begin{cases} 
+\mathbf{w}^T \mathbf{x} + b = +1 & \text{(Lớp dương)} \\ 
+\mathbf{w}^T \mathbf{x} + b = -1 & \text{(Lớp âm)} 
+\end{cases} \qquad (7)
+$$
+
 - Chiều rộng của lề (khoảng cách giữa 2 siêu phẳng lề):
-  $$\text{Margin} = \frac{1}{\|\mathbf{w}\|_2} - \left(-\frac{1}{\|\mathbf{w}\|_2}\right) = \frac{2}{\|\mathbf{w}\|_2} \qquad (8)$$
+
+$$
+\text{Margin} = \frac{1}{\|\mathbf{w}\|_2} - \left(-\frac{1}{\|\mathbf{w}\|_2}\right) = \frac{2}{\|\mathbf{w}\|_2} \qquad (8)
+$$
 
 ### 2.2. Bài toán tối ưu hóa nguyên thủy (Primal Optimization Problem)
 
 Mục tiêu là cực đại hóa độ rộng lề $\dfrac{2}{\|\mathbf{w}\|}$, tương đương với việc cực tiểu hóa $\|\mathbf{w}\|$ hay $\dfrac{1}{2}\|\mathbf{w}\|^2$ (để thuận tiện cho việc lấy đạo hàm), với điều kiện tất cả các điểm đều được phân lớp chính xác ngoài lề:
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \min_{\mathbf{w}, b} \quad & \frac{1}{2} \|\mathbf{w}\|_2^2 = \frac{1}{2} \mathbf{w}^T \mathbf{w} \\
 \text{thỏa mãn} \quad & y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1, \quad \forall i = 1, \dots, N
-\end{aligned} \qquad (9)$$
+\end{aligned} \qquad (9)
+$$
 
 > [!NOTE]
 > Đây là bài toán **Quy hoạch Toàn phương Lồi (Convex Quadratic Programming - QP)** với hàm mục tiêu lồi toàn phương và các ràng buộc bất đẳng thức affine tuyến tính. Do đó, bài toán luôn tồn tại **duy nhất một điểm cực tiểu toàn cục**.
@@ -142,39 +175,60 @@ $$\begin{aligned}
 
 Hàm Lagrange nguyên thủy:
 
-$$\mathcal{L}_P(\mathbf{w}, b, \boldsymbol{\alpha}) = \frac{1}{2} \|\mathbf{w}\|^2 - \sum_{i=1}^N \alpha_i \Big[ y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 \Big] \qquad (10)$$
+$$
+\mathcal{L}_P(\mathbf{w}, b, \boldsymbol{\alpha}) = \frac{1}{2} \|\mathbf{w}\|^2 - \sum_{i=1}^N \alpha_i \Big[ y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 \Big] \qquad (10)
+$$
 
 Lấy đạo hàm riêng theo các biến nguyên thủy $\mathbf{w}$ và $b$ rồi cho bằng $0$:
 
-$$\frac{\partial \mathcal{L}_P}{\partial \mathbf{w}} = \mathbf{w} - \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i = 0 \implies \mathbf{w} = \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i \qquad (11)$$
+$$
+\frac{\partial \mathcal{L}_P}{\partial \mathbf{w}} = \mathbf{w} - \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i = 0 \implies \mathbf{w} = \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i \qquad (11)
+$$
 
-$$\frac{\partial \mathcal{L}_P}{\partial b} = -\sum_{i=1}^N \alpha_i y_i = 0 \implies \sum_{i=1}^N \alpha_i y_i = 0 \qquad (12)$$
+$$
+\frac{\partial \mathcal{L}_P}{\partial b} = -\sum_{i=1}^N \alpha_i y_i = 0 \implies \sum_{i=1}^N \alpha_i y_i = 0 \qquad (12)
+$$
 
 Thay (11) và (12) ngược trở lại (10):
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathcal{L}_D(\boldsymbol{\alpha}) &= \frac{1}{2}\left(\sum_{i=1}^N \alpha_i y_i \mathbf{x}_i\right)^T \left(\sum_{j=1}^N \alpha_j y_j \mathbf{x}_j\right) - \sum_{i=1}^N \alpha_i y_i \left(\sum_{j=1}^N \alpha_j y_j \mathbf{x}_j\right)^T \mathbf{x}_i - b\underbrace{\sum_{i=1}^N \alpha_i y_i}_{=0} + \sum_{i=1}^N \alpha_i \\
 &= \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\mathbf{x}_i^T \mathbf{x}_j) \qquad (13)
-\end{aligned}$$
+\end{aligned}
+$$
 
 Ta thu được **Bài toán đối ngẫu Lagrange (Dual Problem)** chỉ phụ thuộc vào $\boldsymbol{\alpha}$:
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \max_{\boldsymbol{\alpha}} \quad & \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T \mathbf{x}_j \\
 \text{thỏa mãn} \quad & \alpha_i \ge 0, \quad \forall i = 1, \dots, N \\
 & \sum_{i=1}^N \alpha_i y_i = 0
-\end{aligned} \qquad (14)$$
+\end{aligned} \qquad (14)
+$$
 
 ### 2.4. Điều kiện Karush-Kuhn-Tucker (KKT) và bản chất Support Vectors
 
 Vì bài toán thỏa mãn điều kiện Slater (ràng buộc affine lồi khả thi), tính chất đối ngẫu mạnh (*Strong Duality*) được đảm bảo. Bộ nghiệm $(\mathbf{w}^*, b^*, \boldsymbol{\alpha}^*)$ thỏa mãn hệ điều kiện KKT:
 
-1. **Khả thi nguyên thủy (Primal Feasibility):**
-   $$y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) - 1 \ge 0, \quad \forall i = 1, \dots, N$$
-2. **Khả thi đối ngẫu (Dual Feasibility):**
-   $$\alpha_i^* \ge 0, \quad \forall i = 1, \dots, N$$
-3. **Bù lỏng (Complementary Slackness):**
-   $$\alpha_i^* \Big[ y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) - 1 \Big] = 0, \quad \forall i = 1, \dots, N \qquad (15)$$
+- **Khả thi nguyên thủy (Primal Feasibility):**
+
+$$
+y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) - 1 \ge 0, \quad \forall i = 1, \dots, N
+$$
+
+- **Khả thi đối ngẫu (Dual Feasibility):**
+
+$$
+\alpha_i^* \ge 0, \quad \forall i = 1, \dots, N
+$$
+
+- **Bù lỏng (Complementary Slackness):**
+
+$$
+\alpha_i^* \Big[ y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) - 1 \Big] = 0, \quad \forall i = 1, \dots, N \qquad (15)
+$$
 
 > [!IMPORTANT]
 > **Ý nghĩa hình học của Điều kiện bù lỏng (15):**  
@@ -188,14 +242,25 @@ Vì bài toán thỏa mãn điều kiện Slater (ràng buộc affine lồi kh�
 </div>
 
 Sau khi giải được $\boldsymbol{\alpha}^*$:
-- Vector trọng số $\mathbf{w}^*$:
-  $$\mathbf{w}^* = \sum_{i \in \text{SV}} \alpha_i^* y_i \mathbf{x}_i \qquad (16)$$
-- Hệ số chệch $b^*$: Lấy một điểm Support Vector $s \in \text{SV}$ bất kỳ (có $\alpha_s^* > 0$), do $y_s({\mathbf{w}^*}^T \mathbf{x}_s + b^*) = 1$ (nhân 2 vế với $y_s \in \{-1, +1\}$ vì $y_s^2 = 1$):
-  $$b^* = y_s - {\mathbf{w}^*}^T \mathbf{x}_s = y_s - \sum_{i \in \text{SV}} \alpha_i^* y_i (\mathbf{x}_i^T \mathbf{x}_s) \qquad (17)$$
-  *(Trong thực hành, để tránh sai số số học, ta lấy trung bình cộng $b^*$ qua toàn bộ tập các Support Vectors).*
+- **Vector trọng số $\mathbf{w}^*$:**
+
+$$
+\mathbf{w}^* = \sum_{i \in \text{SV}} \alpha_i^* y_i \mathbf{x}_i \qquad (16)
+$$
+
+- **Hệ số chệch $b^*$:** Lấy một điểm Support Vector $s \in \text{SV}$ bất kỳ (có $\alpha_s^* > 0$), do $y_s({\mathbf{w}^*}^T \mathbf{x}_s + b^*) = 1$ (nhân 2 vế với $y_s \in \{-1, +1\}$ vì $y_s^2 = 1$):
+
+$$
+b^* = y_s - {\mathbf{w}^*}^T \mathbf{x}_s = y_s - \sum_{i \in \text{SV}} \alpha_i^* y_i (\mathbf{x}_i^T \mathbf{x}_s) \qquad (17)
+$$
+
+*(Trong thực hành, để tránh sai số số học, ta lấy trung bình cộng $b^*$ qua toàn bộ tập các Support Vectors).*
 
 - **Hàm dự đoán nhãn cho mẫu mới $\mathbf{x}^*$:**
-  $$f(\mathbf{x}^*) = \text{sign}\left({\mathbf{w}^*}^T \mathbf{x}^* + b^*\right) = \text{sign}\left( \sum_{i \in \text{SV}} \alpha_i^* y_i (\mathbf{x}_i^T \mathbf{x}^*) + b^* \right) \qquad (18)$$
+
+$$
+f(\mathbf{x}^*) = \text{sign}\left({\mathbf{w}^*}^T \mathbf{x}^* + b^*\right) = \text{sign}\left( \sum_{i \in \text{SV}} \alpha_i^* y_i (\mathbf{x}_i^T \mathbf{x}^*) + b^* \right) \qquad (18)
+$$
 
 ---
 
@@ -218,7 +283,10 @@ Cortes và Vapnik (1995) đã đề xuất **Lề mềm (Soft-Margin)** để ch
 
 Đưa vào các **biến nới lỏng (slack variables)** $\xi_i \ge 0$ cho từng mẫu dữ liệu:
 - Ràng buộc mới:
-  $$y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \quad \forall i = 1, \dots, N \qquad (19)$$
+
+$$
+y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \quad \forall i = 1, \dots, N \qquad (19)
+$$
 
 <div align="center">
   <img src="./images/svm_slack_variable.png" alt="Biến nới lỏng Slack Variables" width="80%">
@@ -232,11 +300,13 @@ Cortes và Vapnik (1995) đã đề xuất **Lề mềm (Soft-Margin)** để ch
 
 **Bài toán tối ưu nguyên thủy lề mềm:**
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \min_{\mathbf{w}, b, \boldsymbol{\xi}} \quad & \frac{1}{2} \|\mathbf{w}\|^2 + C \sum_{i=1}^N \xi_i \\
 \text{thỏa mãn} \quad & y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \quad \forall i = 1, \dots, N \\
 & \xi_i \ge 0, \quad \forall i = 1, \dots, N
-\end{aligned} \qquad (20)$$
+\end{aligned} \qquad (20)
+$$
 
 Trong đó $C > 0$ là **siêu tham số đánh đổi (Trade-off hyperparameter)** giữa độ rộng của lề và tổng sai số chấp nhận:
 - **$C$ lớn:** Phạt rất nặng các điểm vi phạm lề. Mô hình cố gắng giảm tối đa $\sum \xi_i \implies$ Lề hẹp hơn, ít chịu lỗi trên tập train $\to$ Nguy cơ **Overfitting**.
@@ -245,11 +315,16 @@ Trong đó $C > 0$ là **siêu tham số đánh đổi (Trade-off hyperparameter
 ### 3.3. Dưới góc nhìn hàm mất mát: Hinge Loss và Quy tắc hóa L2
 
 Từ điều kiện ràng buộc $y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i$ và $\xi_i \ge 0$, ta có:
-$$\xi_i \ge \max\big(0, 1 - y_i(\mathbf{w}^T \mathbf{x}_i + b)\big)$$
+
+$$
+\xi_i \ge \max\big(0, 1 - y_i(\mathbf{w}^T \mathbf{x}_i + b)\big)
+$$
 
 Tại điểm tối ưu, $\xi_i$ sẽ nhận giá trị nhỏ nhất có thể, tức là đúng bằng vế phải. Khi đó bài toán (20) có thể viết lại dưới dạng bài toán tối ưu **không ràng buộc** tương đương:
 
-$$\min_{\mathbf{w}, b} \left[ \sum_{i=1}^N \underbrace{\max\big(0, 1 - y_i(\mathbf{w}^T \mathbf{x}_i + b)\big)}_{\text{Hàm mất mát Hinge (Hinge Loss)}} + \underbrace{\frac{1}{2C} \|\mathbf{w}\|^2}_{\text{Thành phần quy tắc hóa } L_2} \right] \qquad (21)$$
+$$
+\min_{\mathbf{w}, b} \left[ \sum_{i=1}^N \underbrace{\max\big(0, 1 - y_i(\mathbf{w}^T \mathbf{x}_i + b)\big)}_{\text{Hàm mất mát Hinge (Hinge Loss)}} + \underbrace{\frac{1}{2C} \|\mathbf{w}\|^2}_{\text{Thành phần quy tắc hóa } L_2} \right] \qquad (21)
+$$
 
 <div align="center">
   <img src="./images/hinge_loss_comparison.png" alt="So sánh Hinge Loss và Logistic Loss" width="80%">
@@ -263,7 +338,9 @@ $$\min_{\mathbf{w}, b} \left[ \sum_{i=1}^N \underbrace{\max\big(0, 1 - y_i(\math
 
 Áp dụng nhân tử Lagrange $\alpha_i \ge 0$ và $\beta_i \ge 0$:
 
-$$\mathcal{L}_P(\mathbf{w}, b, \boldsymbol{\xi}, \boldsymbol{\alpha}, \boldsymbol{\beta}) = \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^N \xi_i - \sum_{i=1}^N \alpha_i \big[y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 + \xi_i\big] - \sum_{i=1}^N \beta_i \xi_i \qquad (22)$$
+$$
+\mathcal{L}_P(\mathbf{w}, b, \boldsymbol{\xi}, \boldsymbol{\alpha}, \boldsymbol{\beta}) = \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^N \xi_i - \sum_{i=1}^N \alpha_i \big[y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 + \xi_i\big] - \sum_{i=1}^N \beta_i \xi_i \qquad (22)
+$$
 
 Triệt tiêu các đạo hàm riêng:
 - $\dfrac{\partial \mathcal{L}_P}{\partial \mathbf{w}} = 0 \implies \mathbf{w} = \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i$
@@ -272,11 +349,13 @@ Triệt tiêu các đạo hàm riêng:
 
 **Bài toán đối ngẫu Soft-Margin:**
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \max_{\boldsymbol{\alpha}} \quad & \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\mathbf{x}_i^T \mathbf{x}_j) \\
 \text{thỏa mãn} \quad & 0 \le \alpha_i \le C, \quad \forall i = 1, \dots, N \quad \text{(Ràng buộc hộp - Box constraint)} \\
 & \sum_{i=1}^N \alpha_i y_i = 0
-\end{aligned} \qquad (23)$$
+\end{aligned} \qquad (23)
+$$
 
 **Phân loại các điểm qua giá trị $\alpha_i$:**
 1. $\alpha_i = 0$: Điểm nằm ngoài lề, phân loại đúng ($\xi_i = 0$).
@@ -296,10 +375,16 @@ Khi dữ liệu không thể phân tách tuyến tính trong không gian gốc $
 > Một không gian dữ liệu không phân tách tuyến tính sẽ có xác suất rất cao trở thành **phân tách tuyến tính được** khi được chiếu (ánh xạ phi tuyến) lên một không gian đặc trưng mới có **số chiều cao hơn đáng kể**.
 
 Gọi $\phi(\mathbf{x})$ là hàm ánh xạ:
-$$\mathbf{x} \in \mathbb{R}^d \mapsto \phi(\mathbf{x}) \in \mathcal{H} \quad (\text{với } \dim(\mathcal{H}) = D \gg d)$$
+
+$$
+\mathbf{x} \in \mathbb{R}^d \mapsto \phi(\mathbf{x}) \in \mathcal{H} \quad (\text{với } \dim(\mathcal{H}) = D \gg d)
+$$
 
 Khi đó phương trình siêu phẳng trong không gian mới $\mathcal{H}$ là:
-$$\mathbf{w}^T \phi(\mathbf{x}) + b = 0 \qquad (24)$$
+
+$$
+\mathbf{w}^T \phi(\mathbf{x}) + b = 0 \qquad (24)
+$$
 
 <div align="center">
   <img src="./images/kernel_trick_transformation.png" alt="Biến đổi không gian phi tuyến qua Kernel Trick" width="85%">
@@ -313,13 +398,18 @@ Nếu tính toán trực tiếp:
 2. Tính tích vô hướng $\phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j)$.
 
 **Quan sát then chốt:** Trong bài toán đối ngẫu (23) và hàm dự đoán (18), dữ liệu **chỉ xuất hiện dưới dạng tích vô hướng giữa hai điểm**:
-$$\langle \phi(\mathbf{x}_i), \phi(\mathbf{x}_j) \rangle = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j)$$
+
+$$
+\langle \phi(\mathbf{x}_i), \phi(\mathbf{x}_j) \rangle = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j)
+$$
 
 > [!IMPORTANT]
 > **Định nghĩa Hàm Kernel:**  
-> Một hàm số $K(\mathbf{x}, \mathbf{z})$ được gọi là **Kernel** nếu nó có thể tính trực tiếp tích vô hướng trong không gian chiều cao bằng các phép toán ngay tại không gian chiều thấp ban đầu:
-> $$K(\mathbf{x}, \mathbf{z}) = \langle \phi(\mathbf{x}), \phi(\mathbf{z}) \rangle \qquad (25)$$
-> Nhờ đó, ta **hoàn toàn không cần phải biết dạng tường minh của hàm ánh xạ $\phi(\mathbf{x})$ là gì**, cũng không cần lưu trữ tọa độ trong không gian chiều cao!
+> Một hàm số $K(\mathbf{x}, \mathbf{z})$ được gọi là **Kernel** nếu nó có thể tính trực tiếp tích vô hướng trong không gian chiều cao bằng các phép toán ngay tại không gian chiều thấp ban đầu. Nhờ đó, ta **hoàn toàn không cần phải biết dạng tường minh của hàm ánh xạ $\phi(\mathbf{x})$ là gì**, cũng không cần lưu trữ tọa độ trong không gian chiều cao!
+
+$$
+K(\mathbf{x}, \mathbf{z}) = \langle \phi(\mathbf{x}), \phi(\mathbf{z}) \rangle \qquad (25)
+$$
 
 <div align="center">
   <img src="./images/kernel_mapping_function.jpg" alt="Nguyên lý hàm Kernel" width="70%">
@@ -331,7 +421,10 @@ $$\langle \phi(\mathbf{x}_i), \phi(\mathbf{x}_j) \rangle = \phi(\mathbf{x}_i)^T 
 Một hàm $K(\mathbf{x}, \mathbf{z})$ được đảm bảo tương ứng với tích vô hướng của một không gian Hilbert nào đó khi và chỉ khi thỏa mãn **Định lý Mercer**:
 1. **Tính đối xứng:** $K(\mathbf{x}, \mathbf{z}) = K(\mathbf{z}, \mathbf{x})$.
 2. **Ma trận Gram (Kernel Matrix) $\mathbf{K} \in \mathbb{R}^{N \times N}$ với $K_{ij} = K(\mathbf{x}_i, \mathbf{x}_j)$ là nửa xác định dương (Positive Semi-Definite - PSD):**
-   $$\forall \mathbf{c} \in \mathbb{R}^N, \quad \mathbf{c}^T \mathbf{K} \mathbf{c} = \sum_{i=1}^N \sum_{j=1}^N c_i c_j K(\mathbf{x}_i, \mathbf{x}_j) \ge 0 \qquad (26)$$
+
+$$
+\forall \mathbf{c} \in \mathbb{R}^N, \quad \mathbf{c}^T \mathbf{K} \mathbf{c} = \sum_{i=1}^N \sum_{j=1}^N c_i c_j K(\mathbf{x}_i, \mathbf{x}_j) \ge 0 \qquad (26)
+$$
 
 Tính chất nửa xác định dương đảm bảo bài toán tối ưu đối ngẫu vẫn là **bài toán QP lồi**, luôn có cực tiểu toàn cục duy nhất.
 
@@ -347,11 +440,13 @@ Tính chất nửa xác định dương đảm bảo bài toán tối ưu đối
 #### Khám phá RBF Kernel (Radial Basis Function):
 Ánh xạ RBF tương ứng với một không gian có **vô hạn chiều**. Thật vậy, xét trường hợp $1$-D và $\sigma = 1$:
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 K(x, z) &= \exp\left(-\frac{(x - z)^2}{2}\right) = \exp\left(-\frac{x^2}{2}\right) \exp\left(-\frac{z^2}{2}\right) \exp(xz) \\
 &= \exp\left(-\frac{x^2}{2}\right) \exp\left(-\frac{z^2}{2}\right) \sum_{k=0}^{\infty} \frac{(xz)^k}{k!} \\
 &= \sum_{k=0}^{\infty} \left[ e^{-\frac{x^2}{2}} \frac{x^k}{\sqrt{k!}} \right] \left[ e^{-\frac{z^2}{2}} \frac{z^k}{\sqrt{k!}} \right] = \phi(x)^T \phi(z)
-\end{aligned}$$
+\end{aligned}
+$$
 
 Vector $\phi(x) = e^{-\frac{x^2}{2}} \left( 1, \frac{x}{\sqrt{1!}}, \frac{x^2}{\sqrt{2!}}, \dots, \frac{x^k}{\sqrt{k!}}, \dots \right)^T$ có vô hạn phần tử!
 
@@ -377,7 +472,10 @@ Không chỉ phân loại, SVM còn được mở rộng giải quyết bài to�
 - Ý tưởng: Tìm một dải băng ống có bề rộng $2\varepsilon$ bao quanh hàm hồi quy $f(\mathbf{x}) = \mathbf{w}^T \mathbf{x} + b$.
 - Mọi điểm dữ liệu rơi **bên trong ống sai số $\pm \varepsilon$ đều không bị tính tổn thất** (loss = 0).
 - Chỉ những điểm **nằm ngoài dải băng ống** mới bị phạt theo khoảng cách lệch, gọi là hàm mất mát $\varepsilon$-không nhạy ($\varepsilon$-insensitive loss function):
-  $$\mathcal{L}_\varepsilon(y, f(\mathbf{x})) = \max(0, |y - f(\mathbf{x})| - \varepsilon) \qquad (27)$$
+
+$$
+\mathcal{L}_\varepsilon(y, f(\mathbf{x})) = \max(0, |y - f(\mathbf{x})| - \varepsilon) \qquad (27)
+$$
 
 <div align="center">
   <img src="./images/svr_concept_tube.png" alt="Dải băng ống sai số epsilon trong SVR" width="75%">
@@ -599,5 +697,7 @@ flowchart TD
 2. **Bước 2 (Baseline):** Thử nghiệm trước với `LinearSVC(C=1.0)`. Nếu độ chính xác đã đủ cao, ưu tiên giữ lại vì tốc độ suy luận nhanh và dễ giải thích.
 3. **Bước 3 (Nâng cao):** Chuyển sang `SVC(kernel='rbf')`.
 4. **Bước 4 (Dò tham số):** Sử dụng `GridSearchCV` hoặc `RandomizedSearchCV` kết hợp với $K$-Fold Cross Validation trên dải số mũ:
-   $$C \in \{0.01, 0.1, 1, 10, 100, 1000\}$$
-   $$\gamma \in \{0.0001, 0.001, 0.01, 0.1, 1, 10\}$$
+
+$$
+C \in \{0.01, 0.1, 1, 10, 100, 1000\}, \qquad \gamma \in \{0.0001, 0.001, 0.01, 0.1, 1, 10\}
+$$
