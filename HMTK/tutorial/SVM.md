@@ -2,7 +2,8 @@
 
 > **Môn học:** Học Máy Thống Kê (Statistical Machine Learning – HMTK / DS102)  
 > **Khoa:** Khoa học và Kỹ thuật Thông tin – Trường ĐH Công nghệ Thông tin, ĐHQG TP.HCM (UIT)  
-> **Chủ đề:** Mô hình phân lớp & hồi quy biên cực đại (Maximum Margin Classifier), Không gian đối ngẫu Lagrangian, và Kỹ thuật Kernel phi tuyến.
+> **Chủ đề:** Mô hình phân lớp & hồi quy biên cực đại (Maximum Margin Classifier), Không gian đối ngẫu Lagrangian, và Kỹ thuật Kernel phi tuyến.  
+> 💡 **Thực hành tương tác:** [Bộ Bài Tập Tính Toán Tương Tác SVM (HTML)](bai_tap_tinh_toan_svm.html) – Cho phép tự nhập số liệu, giải từng bước và tự kiểm tra đáp số.
 
 ---
 
@@ -56,22 +57,10 @@ Trong bài toán phân loại nhị phân có giám sát, giả sử tập huấ
      $$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}$$
    - **Đặc điểm:** Mọi điểm dữ liệu (kể cả những điểm nằm rất xa ranh giới) đều đóng góp vào hàm mất mát và gradient. Khi tập dữ liệu có các điểm ngoại lai (*outliers*), siêu phẳng nghiệm có thể bị kéo lệch đáng kể.
 
-```
-       Perceptron: Vô số nghiệm                 SVM: Nghiệm duy nhất có LỀ LỚN NHẤT
-       
-       x2 ^                                     x2 ^
-          |   o     o                              |   o     o      / (w^T x + b = +1)
-          |      o      /                          |      o        /
-          |            /                           |  =======     /  <-- Margin = 2/||w||
-          |   o       /  x                         |   o   [o]   /   x
-          |          /    x                        |-------/----/----/-- (w^T x + b = 0)
-          |         /   x                          |      /    [x]  x
-          |        /   x   x                       |     /     =======
-          |       /                                |    /   x   x   \ (w^T x + b = -1)
-          +------------------>                     +------------------>
-                              x1                                       x1
-        (Rất sát điểm dữ liệu)                  ([o], [x] là Support Vectors)
-```
+<div align="center">
+  <img src="./images/svm_concept_hyperplane.jpg" alt="Perceptron vs SVM Hyperplane" width="85%">
+  <p><em>Hình 1.1: Trực quan hóa hình học: Perceptron tìm một siêu phẳng bất kỳ (dễ sát điểm dữ liệu), trong khi SVM tìm siêu phẳng có khoảng cách lề (margin) lớn nhất tới các điểm gần nhất.</em></p>
+</div>
 
 ### 1.2. Ý tưởng cốt lõi: Phân loại biên cực đại (Maximum Margin)
 
@@ -79,6 +68,11 @@ Vladimir Vapnik và Alexey Chervonenkis (1963, 1995) đã đề xuất mô hình
 - Thay vì chỉ tìm một siêu phẳng phân tách bất kỳ, SVM tìm một siêu phẳng **cách xa các điểm dữ liệu gần nhất của cả hai lớp một khoảng lớn nhất có thể**.
 - Khoảng cách này được gọi là **Lề (Margin)**.
 - Khi lề đạt giá trị cực đại, vùng an toàn không có dữ liệu giữa hai lớp là rộng nhất, giúp mô hình đạt sai số tổng quát hóa nhỏ nhất khi gặp dữ liệu mới chưa từng thấy.
+
+<div align="center">
+  <img src="./images/svm_maximum_margin.png" alt="Siêu phẳng lề cực đại và Support Vectors" width="85%">
+  <p><em>Hình 1.2: Các thành phần cốt lõi của SVM: Siêu phẳng quyết định, hai siêu phẳng lề biên, và các Vector hỗ trợ (Support Vectors).</em></p>
+</div>
 
 ### 1.3. Các khái niệm nền tảng: Siêu phẳng, Lề, và Vector hỗ trợ
 
@@ -104,6 +98,11 @@ Vladimir Vapnik và Alexey Chervonenkis (1963, 1995) đã đề xuất mô hình
 Khoảng cách hình học đại số từ một điểm $\mathbf{x}_i$ bất kỳ đến siêu phẳng $\mathbf{w}^T \mathbf{x} + b = 0$ được tính theo hình chiếu trực giao:
 
 $$\gamma_i = \frac{|\mathbf{w}^T \mathbf{x}_i + b|}{\|\mathbf{w}\|_2} \qquad (3)$$
+
+<div align="center">
+  <img src="./images/svm_point_distance.png" alt="Khoảng cách từ điểm tới siêu phẳng" width="75%">
+  <p><em>Hình 2.1: Trực giác hình học về khoảng cách từ một điểm tới siêu phẳng phân tách trong không gian đặc trưng.</em></p>
+</div>
 
 Vì dữ liệu phân tách đúng nên $y_i(\mathbf{w}^T \mathbf{x}_i + b) > 0$ với mọi $i$. Do đó:
 
@@ -183,6 +182,11 @@ Vì bài toán thỏa mãn điều kiện Slater (ràng buộc affine lồi kh�
 > - **$\alpha_i^* = 0$:** Điểm dữ liệu thỏa mãn $y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) > 1$, tức là nằm an toàn phía ngoài lề. Điểm này **hoàn toàn không tham gia** vào việc xây dựng $\mathbf{w}^*$ (xem công thức 11).
 > - **$\alpha_i^* > 0$:** Bắt buộc $y_i({\mathbf{w}^*}^T \mathbf{x}_i + b^*) = 1$, tức là điểm dữ liệu nằm **chính xác trên siêu phẳng lề**. Đây chính là các **Support Vectors**!
 
+<div align="center">
+  <img src="./images/svm_support_vectors_margin.jpg" alt="Support Vectors xác định siêu phẳng lề" width="75%">
+  <p><em>Hình 2.2: Các Support Vectors (điểm khoanh tròn) nằm trực tiếp trên hai siêu phẳng lề, trực tiếp quyết định vị trí siêu phẳng phân tách.</em></p>
+</div>
+
 Sau khi giải được $\boldsymbol{\alpha}^*$:
 - Vector trọng số $\mathbf{w}^*$:
   $$\mathbf{w}^* = \sum_{i \in \text{SV}} \alpha_i^* y_i \mathbf{x}_i \qquad (16)$$
@@ -203,22 +207,10 @@ Trong các bài toán thực tế:
 1. Dữ liệu thường có nhiễu hoặc các phân bố chồng lấn, **không thể phân tách tuyến tính hoàn hảo**. Khi đó Hard-Margin SVM không có nghiệm khả thi.
 2. Ngay cả khi tách được, sự xuất hiện của một điểm ngoại lai nằm sâu sang lãnh thổ đối phương sẽ khiến lề bị thu hẹp đột ngột, dẫn đến hiện tượng **quá khớp (Overfitting)**.
 
-```
-       Hard Margin (Nhạy cảm với ngoại lai)        Soft Margin (Bỏ qua ngoại lai nhẹ)
-       
-       x2 ^                                         x2 ^
-          |   o     o                                  |   o     o
-          |      o      /                              |      o       / === Lề rộng
-          |            /                               |             /  /
-          |           /   x (Ngoại lai)                |   o     (x)/  /    x
-          |          /  /                              |-----------/--/-------------
-          |   o     /  /                               |          /  /   x
-          |        /  /  x                             |         /  /   x   x
-          |       /  /                                 |        /  /
-          +------------------>                         +------------------>
-                              x1                                           x1
-        (Lề bị ép cực hẹp, dễ Overfit)               (Cho phép vi phạm một ít, lề rộng)
-```
+<div align="center">
+  <img src="./images/soft_margin_need.png" alt="Sự cần thiết của Soft-Margin SVM" width="80%">
+  <p><em>Hình 3.1: So sánh Hard-Margin (lề bị bóp nghẹt vì 1 ngoại lai đơn lẻ) và Soft-Margin (cho phép vi phạm nhẹ để giữ vùng đệm an toàn rộng).</em></p>
+</div>
 
 Cortes và Vapnik (1995) đã đề xuất **Lề mềm (Soft-Margin)** để cho phép mô hình phạm phải một số sai sót có kiểm soát trên tập huấn luyện.
 
@@ -227,6 +219,11 @@ Cortes và Vapnik (1995) đã đề xuất **Lề mềm (Soft-Margin)** để ch
 Đưa vào các **biến nới lỏng (slack variables)** $\xi_i \ge 0$ cho từng mẫu dữ liệu:
 - Ràng buộc mới:
   $$y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \quad \forall i = 1, \dots, N \qquad (19)$$
+
+<div align="center">
+  <img src="./images/svm_slack_variable.png" alt="Biến nới lỏng Slack Variables" width="80%">
+  <p><em>Hình 3.2: Ý nghĩa hình học của biến nới lỏng $\xi_i$: $\xi_i = 0$ (ngoài lề), $0 < \xi_i \le 1$ (trong lề nhưng đúng lớp), và $\xi_i > 1$ (phân loại sai sang lớp đối diện).</em></p>
+</div>
 
 **Ý nghĩa của giá trị $\xi_i$:**
 - $\xi_i = 0$: Điểm được phân loại đúng và nằm an toàn trên hoặc ngoài lề.
@@ -254,19 +251,10 @@ Tại điểm tối ưu, $\xi_i$ sẽ nhận giá trị nhỏ nhất có thể, 
 
 $$\min_{\mathbf{w}, b} \left[ \sum_{i=1}^N \underbrace{\max\big(0, 1 - y_i(\mathbf{w}^T \mathbf{x}_i + b)\big)}_{\text{Hàm mất mát Hinge (Hinge Loss)}} + \underbrace{\frac{1}{2C} \|\mathbf{w}\|^2}_{\text{Thành phần quy tắc hóa } L_2} \right] \qquad (21)$$
 
-```
-  Loss ^
-       |  \
-     3 |   \  Hinge Loss: max(0, 1 - z)
-       |    \
-     2 |     \                 Logistic Loss: log(1 + e^-z)
-       |      \
-     1 |       \
-       |        \_____________
-     0 +--------+--------+-----> z = y * f(x)
-      -2       -1   0    1    2
-              (Biên lề tại z = 1)
-```
+<div align="center">
+  <img src="./images/hinge_loss_comparison.png" alt="So sánh Hinge Loss và Logistic Loss" width="80%">
+  <p><em>Hình 3.3: So sánh hàm mất mát Hinge Loss của SVM với Logistic Loss và hàm 0-1 Loss theo khoảng cách lề đại số $z = y \cdot (\mathbf{w}^T \mathbf{x} + b)$.</em></p>
+</div>
 
 - Khi $y_i f(\mathbf{x}_i) \ge 1$: Điểm nằm đúng phía và ngoài lề $\implies$ Mất mát bằng $0$.
 - Khi $y_i f(\mathbf{x}_i) < 1$: Mất mát tăng tuyến tính theo khoảng cách xâm lấn vào lề.
@@ -313,18 +301,10 @@ $$\mathbf{x} \in \mathbb{R}^d \mapsto \phi(\mathbf{x}) \in \mathcal{H} \quad (\t
 Khi đó phương trình siêu phẳng trong không gian mới $\mathcal{H}$ là:
 $$\mathbf{w}^T \phi(\mathbf{x}) + b = 0 \qquad (24)$$
 
-```
-        Không gian ban đầu R^2 (Không tách được)         Không gian mới H (R^3 - Tách phẳng được)
-        
-        x2 ^                                             z ^
-           |    x   x   x                                  |          / Siêu phẳng w^T phi(x) + b = 0
-           |  x   o   x                                    |        /
-           |  x o o o x   Ánh xạ phi(x)                    |    o o/o
-           |  x   o   x   ===================>             |      /   (x nằm ở đáy z thấp)
-           |    x   x   x                                  |    x/x x
-           +------------------>                            +------------------>
-                               x1                                              x1, x2
-```
+<div align="center">
+  <img src="./images/kernel_trick_transformation.png" alt="Biến đổi không gian phi tuyến qua Kernel Trick" width="85%">
+  <p><em>Hình 4.1: Định lý Cover & Trực giác hình học: Dữ liệu 2D phi tuyến được ánh xạ lên paraboloid 3D $z = x_1^2 + x_2^2$ để phân tách bằng siêu phẳng, tương ứng đường cong phân tách trong không gian ban đầu.</em></p>
+</div>
 
 ### 4.2. Bản chất "mẹo" Kernel (Kernel Trick)
 
@@ -340,6 +320,11 @@ $$\langle \phi(\mathbf{x}_i), \phi(\mathbf{x}_j) \rangle = \phi(\mathbf{x}_i)^T 
 > Một hàm số $K(\mathbf{x}, \mathbf{z})$ được gọi là **Kernel** nếu nó có thể tính trực tiếp tích vô hướng trong không gian chiều cao bằng các phép toán ngay tại không gian chiều thấp ban đầu:
 > $$K(\mathbf{x}, \mathbf{z}) = \langle \phi(\mathbf{x}), \phi(\mathbf{z}) \rangle \qquad (25)$$
 > Nhờ đó, ta **hoàn toàn không cần phải biết dạng tường minh của hàm ánh xạ $\phi(\mathbf{x})$ là gì**, cũng không cần lưu trữ tọa độ trong không gian chiều cao!
+
+<div align="center">
+  <img src="./images/kernel_mapping_function.jpg" alt="Nguyên lý hàm Kernel" width="70%">
+  <p><em>Hình 4.2: Hàm Kernel $K(\mathbf{x}, \mathbf{z})$ đóng vai trò đường tắt tính toán (shortcut), cho ra kết quả tương đương tích vô hướng ở không gian vô số chiều.</em></p>
+</div>
 
 ### 4.3. Định lý Mercer & Ma trận Gram
 
@@ -377,20 +362,10 @@ Trong RBF Kernel $K(\mathbf{x}, \mathbf{z}) = \exp(-\gamma \|\mathbf{x} - \mathb
   - **$\gamma$ nhỏ:** Bán kính rộng, hình chuông Gaussian thoải $\implies$ Mô hình mượt mà, ranh giới quyết định gần như phẳng $\to$ Có thể **Underfitting**.
   - **$\gamma$ lớn:** Bán kính hẹp, hình chuông nhọn $\implies$ Mô hình uốn lượn ôm sát từng điểm dữ liệu $\to$ Dễ **Overfitting**.
 
-```
-                           BẢNG TƯƠNG TÁC SIÊU THAM SỐ (C, gamma)
-          
-                       gamma Nhỏ                         gamma Lớn
-                 +-------------------------------+-------------------------------+
-                 | Lề rất rộng, ranh giới phẳng  | Ranh giới linh hoạt, mềm      |
-        C Nhỏ    | Cho phép nhiều sai lệch       | Đề phòng nhiễu tốt            |
-                 | --> Nguy cơ: UNDERFITTING     | --> CÂN BẰNG TỐT              |
-                 +-------------------------------+-------------------------------+
-                 | Ranh giới có xu hướng thẳng   | Ranh giới uốn lượn cục bộ     |
-        C Lớn    | Phạt lỗi gắt gao              | "Ốc đảo" bao bọc từng điểm    |
-                 | --> Khá tốt nếu dữ liệu tuyến | --> Nguy cơ: OVERFITTING NẶNG |
-                 +-------------------------------+-------------------------------+
-```
+| Tham số | $\gamma$ Nhỏ (Bán kính rộng) | $\gamma$ Lớn (Bán kính hẹp) |
+| :--- | :--- | :--- |
+| **$C$ Nhỏ** (Ưu tiên lề rộng, chấp nhận lỗi) | **Lề rất rộng, ranh giới phẳng**<br>Cho phép nhiều sai lệch dữ liệu.<br>⚠️ *Nguy cơ:* **Underfitting** | **Ranh giới linh hoạt, mềm mại**<br>Đề phòng nhiễu ngoại lai tốt.<br>✅ *Trạng thái:* **Cân bằng tốt** |
+| **$C$ Lớn** (Phạt lỗi gắt gao, lề hẹp) | **Ranh giới có xu hướng phẳng**<br>Phạt lỗi nghiêm ngặt.<br>🔹 *Phù hợp nếu dữ liệu gần như tuyến tính* | **Ranh giới uốn lượn cục bộ**<br>Tạo các "ốc đảo" bao bọc từng điểm train.<br>🚨 *Nguy cơ:* **Overfitting nặng** |
 
 ---
 
@@ -404,16 +379,15 @@ Không chỉ phân loại, SVM còn được mở rộng giải quyết bài to�
 - Chỉ những điểm **nằm ngoài dải băng ống** mới bị phạt theo khoảng cách lệch, gọi là hàm mất mát $\varepsilon$-không nhạy ($\varepsilon$-insensitive loss function):
   $$\mathcal{L}_\varepsilon(y, f(\mathbf{x})) = \max(0, |y - f(\mathbf{x})| - \varepsilon) \qquad (27)$$
 
-```
-     y ^                  / w^T x + b + epsilon
-       |       *   *     /
-       |     *    *  *  /  f(x) = w^T x + b
-       |   *    *      /
-       |       *   *  /   w^T x + b - epsilon
-       |  *          /
-       +----------------------------> x
-          (Điểm trong dải băng: Loss = 0; Điểm trên bờ hoặc ngoài dải: Support Vectors)
-```
+<div align="center">
+  <img src="./images/svr_concept_tube.png" alt="Dải băng ống sai số epsilon trong SVR" width="75%">
+  <p><em>Hình 5.1: Nguyên lý dải băng sai số $\pm \varepsilon$ trong Support Vector Regression (SVR): các mẫu nằm trong vùng đệm sai số có tổn thất bằng 0.</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/svr_epsilon_tube_slack.png" alt="Biến nới lỏng trong SVR" width="75%">
+  <p><em>Hình 5.2: Minh họa biến nới lỏng $\xi_i, \xi_i^*$ đối với các điểm vượt ra ngoài dải băng trên hoặc dưới.</em></p>
+</div>
 
 ### 5.2. Chiến lược phân loại đa lớp: One-vs-Rest (OvR) và One-vs-One (OvO)
 

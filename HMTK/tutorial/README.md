@@ -9,6 +9,7 @@
   - Hard-margin, Soft-margin, Hinge Loss, và Box Constraints
   - Kỹ thuật Kernel (Kernel Trick) & Không gian đối ngẫu Lagrangian
   - Hồi quy SVR, Phân loại đa lớp, Cài đặt Python từ đầu & Scikit-Learn
+  - 🚀 **[Công cụ Bài tập Tính toán Tương tác SVM (HTML)](bai_tap_tinh_toan_svm.html)**
 - **[Chương 4: Mô hình Hồi quy & Tối ưu hóa](Chuong4_Hoi_quy/README.md)**
   1. [Hồi quy tuyến tính & Phương pháp bình phương bé nhất (LSM)](Chuong4_Hoi_quy/01_hoi_quy_tuyen_tinh_lsm.md)
   2. [Các mô hình hồi quy tuyến tính quy tắc hóa (Ridge, Lasso, Elastic Net)](Chuong4_Hoi_quy/02_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net.md)

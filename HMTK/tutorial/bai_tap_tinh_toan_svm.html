@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Máy Thống Kê (DS102) – Bộ Bài Tập Tính Toán Tương Tác SVM</title>
+    
+    <!-- KaTeX for crisp Math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body);"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #818cf8;
+            --accent-green: #34d399;
+            --accent-red: #f87171;
+            --accent-amber: #fbbf24;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge-header {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .header-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Nav Tabs */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            padding-bottom: 6px;
+        }
+
+        .tab-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Exercise Section */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent-blue);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 9px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-blue);
+        }
+
+        /* Result styling */
+        .result-box {
+            background: #0b1120;
+            border: 1px solid #1e293b;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 16px;
+            font-size: 0.93rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-muted);
+        }
+
+        .result-val {
+            font-weight: 600;
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .step-block {
+            background: rgba(30, 41, 59, 0.7);
+            border-left: 3px solid var(--accent-indigo);
+            padding: 12px 14px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #c7d2fe;
+            margin-bottom: 4px;
+        }
+
+        /* Canvas */
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            margin-top: 14px;
+        }
+
+        canvas {
+            background: #090d16;
+            border-radius: 6px;
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.88rem;
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px 10px;
+            text-align: center;
+        }
+
+        .data-table th {
+            background: #0f172a;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tag-green { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); border: 1px solid rgba(52, 211, 153, 0.3); }
+        .tag-amber { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .tag-red { background: rgba(248, 113, 113, 0.15); color: var(--accent-red); border: 1px solid rgba(248, 113, 113, 0.3); }
+
+        /* Self-test box */
+        .test-box {
+            background: rgba(129, 140, 248, 0.08);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge-header">Học Máy Thống Kê (DS102) – UIT</span>
+        <h1>Bộ Bài Tập Tính Toán Tương Tác SVM</h1>
+        <p class="header-desc">
+            Công cụ hỗ trợ học tập & luyện thi: Nhập trực tiếp các thông số $(\mathbf{w}, b, \mathbf{x}, y, \alpha, C, \gamma)$, xem các bước giải chi tiết, trực quan hóa siêu phẳng & kiểm tra đáp án tự động.
+        </p>
+    </header>
+
+    <!-- Nav tabs -->
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab(0)">Bài 1: Hình học Lề & Siêu phẳng</button>
+        <button class="tab-btn" onclick="switchTab(1)">Bài 2: Đối ngẫu Lagrange & Support Vectors</button>
+        <button class="tab-btn" onclick="switchTab(2)">Bài 3: Soft-Margin, Slack & Hinge Loss</button>
+        <button class="tab-btn" onclick="switchTab(3)">Bài 4: Tính Toán Hàm Kernel</button>
+        <button class="tab-btn" onclick="switchTab(4)">Bài 5: Phân Loại Dual Machine</button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: HARD MARGIN GEOMETRY -->
+    <!-- ========================================== -->
+    <div class="tab-content active" id="tab-0">
+        <div class="grid-layout">
+            <!-- Left: Inputs -->
+            <div class="card">
+                <div class="card-title">
+                    <span>Nhập Thông Số Siêu Phẳng & Mẫu Thử</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 4px 10px;" onclick="loadPreset1()">Nạp mẫu đề thi</button>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">
+                    Phương trình siêu phẳng: $w_1 x_1 + w_2 x_2 + b = 0$.
+                </p>
+
+                <div class="form-group">
+                    <label>Vector trọng số $\mathbf{w} = (w_1, w_2)$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t1_w1" class="input-field" step="any" value="2" placeholder="w1">
+                        <input type="number" id="t1_w2" class="input-field" step="any" value="-1" placeholder="w2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hệ số chệch $b$:</label>
+                    <input type="number" id="t1_b" class="input-field" step="any" value="-2" placeholder="b">
+                </div>
+
+                <div class="form-group">
+                    <label>Tọa độ điểm kiểm tra $\mathbf{x} = (x_1, x_2)$ & Nhãn thực tế $y$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t1_x1" class="input-field" step="any" value="3" placeholder="x1">
+                        <input type="number" id="t1_x2" class="input-field" step="any" value="2" placeholder="x2">
+                        <select id="t1_y" class="input-field" style="max-width: 100px;">
+                            <option value="1" selected>y = +1</option>
+                            <option value="-1">y = -1</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="calculateTab1()">Tính Toán Chi Tiết</button>
+                </div>
+
+                <!-- Self-test section -->
+                <div class="test-box">
+                    <h4 style="color: #c7d2fe; margin-bottom: 8px; font-size: 0.92rem;">🎯 Tự kiểm tra kết quả tính tay:</h4>
+                    <div class="form-group">
+                        <label>Nhập độ rộng lề $\text{Margin}$ tính được:</label>
+                        <div class="input-row">
+                            <input type="number" id="test_margin" class="input-field" step="any" placeholder="Ví dụ: 0.894">
+                            <button class="btn btn-outline" onclick="checkTestTab1()">Kiểm tra</button>
+                        </div>
+                    </div>
+                    <div id="test_feedback" style="margin-top: 6px; font-size: 0.88rem; font-weight: 600;"></div>
+                </div>
+            </div>
+
+            <!-- Right: Calculation Steps & Canvas -->
+            <div class="card">
+                <div class="card-title">Kết Quả Hình Học & Trực Quan Hóa</div>
+
+                <div class="canvas-container">
+                    <canvas id="canvas1" width="450" height="280"></canvas>
+                </div>
+
+                <div id="t1_results" class="result-box">
+                    <!-- Dynamic calculations here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: DUAL LAGRANGE OPTIMIZATION -->
+    <!-- ========================================== -->
+    <div class="tab-content" id="tab-1">
+        <div class="grid-layout">
+            <div class="card">
+                <div class="card-title">
+                    <span>Dữ Liệu Huấn Luyện & Nhân Tử $\alpha_i$</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 4px 10px;" onclick="loadPreset2()">Đề thi mẫu UIT</button>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">
+                    Nhập tọa độ 3 điểm, nhãn $y_i \in \{-1, +1\}$ và nhân tử đối ngẫu $\alpha_i \ge 0$:
+                </p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Điểm</th>
+                            <th>$x_1$</th>
+                            <th>$x_2$</th>
+                            <th>$y_i$</th>
+                            <th>$\alpha_i$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>$\mathbf{x}_1$</td>
+                            <td><input type="number" id="t2_x11" class="input-field" step="any" value="1"></td>
+                            <td><input type="number" id="t2_x12" class="input-field" step="any" value="2"></td>
+                            <td><input type="number" id="t2_y1" class="input-field" value="1"></td>
+                            <td><input type="number" id="t2_a1" class="input-field" step="any" value="0.5"></td>
+                        </tr>
+                        <tr>
+                            <td>$\mathbf{x}_2$</td>
+                            <td><input type="number" id="t2_x21" class="input-field" step="any" value="2"></td>
+                            <td><input type="number" id="t2_x22" class="input-field" step="any" value="3"></td>
+                            <td><input type="number" id="t2_y2" class="input-field" value="1"></td>
+                            <td><input type="number" id="t2_a2" class="input-field" step="any" value="0.0"></td>
+                        </tr>
+                        <tr>
+                            <td>$\mathbf{x}_3$</td>
+                            <td><input type="number" id="t2_x31" class="input-field" step="any" value="2"></td>
+                            <td><input type="number" id="t2_x32" class="input-field" step="any" value="0.5"></td>
+                            <td><input type="number" id="t2_y3" class="input-field" value="-1"></td>
+                            <td><input type="number" id="t2_a3" class="input-field" step="any" value="0.5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-group" style="margin-top: 14px;">
+                    <label>Điểm mới cần phân loại $\mathbf{x}^* = (x_1^*, x_2^*)$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t2_qx1" class="input-field" step="any" value="1.5" placeholder="x1*">
+                        <input type="number" id="t2_qx2" class="input-field" step="any" value="1.0" placeholder="x2*">
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="calculateTab2()">Giải & Tìm Siêu Phẳng (w, b)</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Lời Giải Chi Tiết Từng Bước</div>
+                <div id="t2_results" class="result-box">
+                    Nhấn nút <b>"Giải & Tìm Siêu Phẳng (w, b)"</b> để xem các bước tính.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: SOFT-MARGIN, SLACK & HINGE LOSS -->
+    <!-- ========================================== -->
+    <div class="tab-content" id="tab-2">
+        <div class="grid-layout">
+            <div class="card">
+                <div class="card-title">
+                    <span>Thông Số Lề Mềm & Tập Mẫu Dữ Liệu</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 4px 10px;" onclick="loadPreset3()">Mẫu có Outlier</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Siêu phẳng $\mathbf{w} = (w_1, w_2)$ và $b$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t3_w1" class="input-field" step="any" value="1" placeholder="w1">
+                        <input type="number" id="t3_w2" class="input-field" step="any" value="1" placeholder="w2">
+                        <input type="number" id="t3_b" class="input-field" step="any" value="-4" placeholder="b">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tham số phạt vi phạm $C$:</label>
+                    <input type="number" id="t3_C" class="input-field" step="any" value="2.0">
+                </div>
+
+                <label style="font-size: 0.88rem; color: var(--text-muted);">Danh sách mẫu thử $(x_1, x_2, y)$:</label>
+                <table class="data-table" id="t3_table">
+                    <thead>
+                        <tr>
+                            <th>Điểm</th>
+                            <th>$x_1$</th>
+                            <th>$x_2$</th>
+                            <th>Nhãn $y_i$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>P1</td>
+                            <td><input type="number" id="t3_p1x" class="input-field" value="4"></td>
+                            <td><input type="number" id="t3_p1y" class="input-field" value="2"></td>
+                            <td><input type="number" id="t3_p1label" class="input-field" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>P2</td>
+                            <td><input type="number" id="t3_p2x" class="input-field" value="3"></td>
+                            <td><input type="number" id="t3_p2y" class="input-field" value="1.5"></td>
+                            <td><input type="number" id="t3_p2label" class="input-field" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>P3 (Ngoại lai)</td>
+                            <td><input type="number" id="t3_p3x" class="input-field" value="2"></td>
+                            <td><input type="number" id="t3_p3y" class="input-field" value="1"></td>
+                            <td><input type="number" id="t3_p3label" class="input-field" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>P4</td>
+                            <td><input type="number" id="t3_p4x" class="input-field" value="1"></td>
+                            <td><input type="number" id="t3_p4y" class="input-field" value="1"></td>
+                            <td><input type="number" id="t3_p4label" class="input-field" value="-1"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="calculateTab3()">Tính Slack $\xi_i$ & Hinge Loss</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Phân Tích Biến Nới Lỏng & Chi Phí Mục Tiêu</div>
+                <div id="t3_results" class="result-box">
+                    Nhấn nút <b>"Tính Slack $\xi_i$ & Hinge Loss"</b> để xem bảng trạng thái từng mẫu và giá trị hàm mục tiêu nguyên thủy.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: KERNEL FUNCTIONS & GRAM MATRIX -->
+    <!-- ========================================== -->
+    <div class="tab-content" id="tab-3">
+        <div class="grid-layout">
+            <div class="card">
+                <div class="card-title">Tính Toán Hàm Kernel Cho Hai Vector</div>
+
+                <div class="form-group">
+                    <label>Vector thứ nhất $\mathbf{x} = (x_1, x_2)$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t4_x1" class="input-field" step="any" value="1">
+                        <input type="number" id="t4_x2" class="input-field" step="any" value="2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Vector thứ hai $\mathbf{z} = (z_1, z_2)$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t4_z1" class="input-field" step="any" value="3">
+                        <input type="number" id="t4_z2" class="input-field" step="any" value="4">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Chọn loại Kernel:</label>
+                    <select id="t4_kernel_type" class="input-field" onchange="toggleKernelInputs()">
+                        <option value="linear">Tuyến tính (Linear): x^T * z</option>
+                        <option value="poly">Đa thức (Polynomial): (gamma * x^T * z + r)^d</option>
+                        <option value="rbf" selected>Hàm xuyên tâm (RBF / Gaussian): exp(-gamma * ||x - z||^2)</option>
+                        <option value="sigmoid">Sigmoid: tanh(gamma * x^T * z + r)</option>
+                    </select>
+                </div>
+
+                <div id="t4_kernel_params" class="input-row" style="margin-bottom: 14px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted);">Gamma ($\gamma$):</label>
+                        <input type="number" id="t4_gamma" class="input-field" step="any" value="0.5">
+                    </div>
+                    <div id="t4_r_box" style="flex: 1; display: none;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted);">Hệ số chệch ($r$):</label>
+                        <input type="number" id="t4_r" class="input-field" step="any" value="1">
+                    </div>
+                    <div id="t4_d_box" style="flex: 1; display: none;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted);">Bậc ($d$):</label>
+                        <input type="number" id="t4_d" class="input-field" step="1" value="2">
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="calculateTab4()">Tính Giá Trị Kernel</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Các Bước Đại Số & Ma Trận Gram</div>
+                <div id="t4_results" class="result-box">
+                    Nhấn nút để thực hiện các bước tính tích vô hướng, chuẩn khoảng cách và áp dụng công thức Kernel.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: DUAL MACHINE PREDICTION -->
+    <!-- ========================================== -->
+    <div class="tab-content" id="tab-4">
+        <div class="grid-layout">
+            <div class="card">
+                <div class="card-title">
+                    <span>Mô Hình Dual SVM Với Kernel RBF</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 4px 10px;" onclick="loadPreset5()">Nạp mẫu bài tập</button>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px;">
+                    Hàm quyết định: $f(\mathbf{x}^*) = \text{sign}\left(\sum_{i \in \text{SV}} \alpha_i y_i K(\mathbf{x}_i, \mathbf{x}^*) + b\right)$.
+                </p>
+
+                <div class="form-group">
+                    <label>Tham số RBF Kernel $\gamma$ & Hệ số chệch $b$:</label>
+                    <div class="input-row">
+                        <input type="number" id="t5_gamma" class="input-field" step="any" value="0.5" placeholder="gamma">
+                        <input type="number" id="t5_b" class="input-field" step="any" value="-0.2" placeholder="b">
+                    </div>
+                </div>
+
+                <label style="font-size: 0.88rem; color: var(--text-muted);">Tập các Support Vectors ($\alpha_i > 0$):</label>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>SV</th>
+                            <th>Tọa độ $\mathbf{x}_i$</th>
+                            <th>Nhãn $y_i$</th>
+                            <th>Nhân tử $\alpha_i$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SV 1</td>
+                            <td><input type="text" id="t5_sv1" class="input-field" value="1, 1"></td>
+                            <td><input type="number" id="t5_y1" class="input-field" value="1"></td>
+                            <td><input type="number" id="t5_a1" class="input-field" step="any" value="1.2"></td>
+                        </tr>
+                        <tr>
+                            <td>SV 2</td>
+                            <td><input type="text" id="t5_sv2" class="input-field" value="2, 3"></td>
+                            <td><input type="number" id="t5_y2" class="input-field" value="-1"></td>
+                            <td><input type="number" id="t5_a2" class="input-field" step="any" value="1.2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-group" style="margin-top: 14px;">
+                    <label>Mẫu kiểm tra mới $\mathbf{x}^* = (x_1^*, x_2^*)$:</label>
+                    <input type="text" id="t5_query" class="input-field" value="1.5, 1.2">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="calculateTab5()">Dự Đoán Nhãn $\hat{y}$</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Kết Quả Đánh Giá & Phân Lớp</div>
+                <div id="t5_results" class="result-box">
+                    Nhấn nút <b>"Dự Đoán Nhãn $\hat{y}$"</b> để tính chi tiết từng số hạng đóng góp của các Support Vectors.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switching
+    function switchTab(index) {
+        document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+            btn.classList.toggle('active', idx === index);
+        });
+        document.querySelectorAll('.tab-content').forEach((content, idx) => {
+            content.classList.toggle('active', idx === index);
+        });
+        if (index === 0) {
+            drawCanvas1();
+        }
+    }
+
+    // ==========================================
+    // TAB 1 LOGIC
+    // ==========================================
+    function loadPreset1() {
+        document.getElementById('t1_w1').value = "2";
+        document.getElementById('t1_w2').value = "-1";
+        document.getElementById('t1_b').value = "-2";
+        document.getElementById('t1_x1').value = "3";
+        document.getElementById('t1_x2').value = "2";
+        document.getElementById('t1_y').value = "1";
+        calculateTab1();
+    }
+
+    let calculatedMargin1 = 0;
+
+    function calculateTab1() {
+        const w1 = parseFloat(document.getElementById('t1_w1').value);
+        const w2 = parseFloat(document.getElementById('t1_w2').value);
+        const b = parseFloat(document.getElementById('t1_b').value);
+        const x1 = parseFloat(document.getElementById('t1_x1').value);
+        const x2 = parseFloat(document.getElementById('t1_x2').value);
+        const y = parseFloat(document.getElementById('t1_y').value);
+
+        const normW = Math.sqrt(w1 * w1 + w2 * w2);
+        const margin = 2 / normW;
+        calculatedMargin1 = margin;
+
+        const algebraicDist = w1 * x1 + w2 * x2 + b;
+        const geomDist = Math.abs(algebraicDist) / normW;
+        const functionalMargin = y * algebraicDist;
+
+        let statusTag = '';
+        let statusExplain = '';
+        if (functionalMargin > 1.0001) {
+            statusTag = '<span class="tag tag-green">Phân loại ĐÚNG ngoài lề</span>';
+            statusExplain = 'Điểm nằm an toàn ngoài lề, không vi phạm và không ảnh hưởng đến vị trí siêu phẳng.';
+        } else if (Math.abs(functionalMargin - 1.0) <= 0.0001) {
+            statusTag = '<span class="tag tag-amber">SUPPORT VECTOR (Trên lề)</span>';
+            statusExplain = 'Điểm nằm chính xác trên siêu phẳng lề (y * (w^T x + b) = 1). Điểm này trực tiếp xác định siêu phẳng!';
+        } else if (functionalMargin > 0) {
+            statusTag = '<span class="tag tag-amber">Trong vùng lề (Đúng lớp)</span>';
+            statusExplain = 'Điểm nằm giữa siêu phẳng phân chia và siêu phẳng lề (0 < y * f(x) < 1). Vi phạm lề nhưng phân loại đúng.';
+        } else {
+            statusTag = '<span class="tag tag-red">PHÂN LOẠI SAI (Misclassified)</span>';
+            statusExplain = 'Điểm vượt qua siêu phẳng sang vùng của lớp đối diện (y * f(x) < 0). Vi phạm lề nghiêm trọng.';
+        }
+
+        const out = document.getElementById('t1_results');
+        out.innerHTML = `
+            <div class="result-row">
+                <span class="result-label">Chuẩn vector trọng số ||w||₂:</span>
+                <span class="result-val">√(${w1}² + ${w2}²) = ${normW.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Độ rộng lề (Margin = 2/||w||):</span>
+                <span class="result-val">${margin.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Khoảng cách đại số z = w^T x + b:</span>
+                <span class="result-val">${algebraicDist.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Khoảng cách Euclid tới siêu phẳng (γ):</span>
+                <span class="result-val">${geomDist.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Giá trị lề hàm số y * (w^T x + b):</span>
+                <span class="result-val">${functionalMargin.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Trạng thái phân vị trí:</span>
+                <span>${statusTag}</span>
+            </div>
+            <div class="step-block">
+                <div class="step-title">Ý nghĩa hình học:</div>
+                ${statusExplain}
+            </div>
+        `;
+
+        drawCanvas1(w1, w2, b, x1, x2, y);
+    }
+
+    function checkTestTab1() {
+        const userVal = parseFloat(document.getElementById('test_margin').value);
+        const fb = document.getElementById('test_feedback');
+        if (isNaN(userVal)) {
+            fb.innerHTML = '<span style="color: var(--accent-red)">Vui lòng nhập một số!</span>';
+            return;
+        }
+        if (Math.abs(userVal - calculatedMargin1) < 0.02) {
+            fb.innerHTML = `<span style="color: var(--accent-green)">🎉 Chính xác! Đáp số lề là 2 / ||w|| ≈ ${calculatedMargin1.toFixed(4)}.</span>`;
+        } else {
+            fb.innerHTML = `<span style="color: var(--accent-red)">❌ Chưa chính xác. Đáp số đúng là ${calculatedMargin1.toFixed(4)}. Gợi ý: Margin = 2 / √(w1² + w2²).</span>`;
+        }
+    }
+
+    function drawCanvas1(w1 = 2, w2 = -1, b = -2, px = 3, py = 2, pLabel = 1) {
+        const canvas = document.getElementById('canvas1');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Coordinate transforms: Map [-2, 6] to [0, width], [-2, 6] to [height, 0]
+        const minX = -1, maxX = 6;
+        const minY = -2, maxY = 5;
+
+        function toCanvasX(x) {
+            return ((x - minX) / (maxX - minX)) * width;
+        }
+        function toCanvasY(y) {
+            return height - ((y - minY) / (maxY - minY)) * height;
+        }
+
+        // Grid lines
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 1;
+        for (let x = Math.ceil(minX); x <= maxX; x++) {
+            ctx.beginPath();
+            ctx.moveTo(toCanvasX(x), 0);
+            ctx.lineTo(toCanvasX(x), height);
+            ctx.stroke();
+        }
+        for (let y = Math.ceil(minY); y <= maxY; y++) {
+            ctx.beginPath();
+            ctx.moveTo(0, toCanvasY(y));
+            ctx.lineTo(width, toCanvasY(y));
+            ctx.stroke();
+        }
+
+        // Axes
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(toCanvasX(minX), toCanvasY(0));
+        ctx.lineTo(toCanvasX(maxX), toCanvasY(0));
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(toCanvasX(0), toCanvasY(minY));
+        ctx.lineTo(toCanvasX(0), toCanvasY(maxY));
+        ctx.stroke();
+
+        // Helper to draw line w1*x + w2*y + b = target
+        function drawLine(target, color, dash = [], lineWidth = 1.5) {
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.setLineDash(dash);
+            ctx.beginPath();
+
+            if (Math.abs(w2) > 0.0001) {
+                const yStart = (target - b - w1 * minX) / w2;
+                const yEnd = (target - b - w1 * maxX) / w2;
+                ctx.moveTo(toCanvasX(minX), toCanvasY(yStart));
+                ctx.lineTo(toCanvasX(maxX), toCanvasY(yEnd));
+            } else {
+                const xVal = (target - b) / w1;
+                ctx.moveTo(toCanvasX(xVal), toCanvasY(minY));
+                ctx.lineTo(toCanvasX(xVal), toCanvasY(maxY));
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Draw Margin Lines (w^T x + b = +1 and -1)
+        drawLine(1, '#38bdf8', [6, 4], 1.5);
+        drawLine(-1, '#f87171', [6, 4], 1.5);
+
+        // Draw Decision Boundary (w^T x + b = 0)
+        drawLine(0, '#f8fafc', [], 2.5);
+
+        // Draw point
+        const cx = toCanvasX(px);
+        const cy = toCanvasY(py);
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = pLabel === 1 ? '#38bdf8' : '#f87171';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Label
+        ctx.fillStyle = '#fff';
+        ctx.font = '12px sans-serif';
+        ctx.fillText(`P(${px}, ${py}) [y=${pLabel}]`, cx + 10, cy - 8);
+
+        // Legend
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '11px sans-serif';
+        ctx.fillText('Siêu phẳng: w^T x + b = 0 (Trắng)', 10, 20);
+        ctx.fillText('Biên lề: +1 (Xanh dương), -1 (Đỏ)', 10, 36);
+    }
+
+    // ==========================================
+    // TAB 2 LOGIC (DUAL LAGRANGE)
+    // ==========================================
+    function loadPreset2() {
+        document.getElementById('t2_x11').value = "1";
+        document.getElementById('t2_x12').value = "2";
+        document.getElementById('t2_y1').value = "1";
+        document.getElementById('t2_a1').value = "0.4";
+
+        document.getElementById('t2_x21').value = "2";
+        document.getElementById('t2_x22').value = "3";
+        document.getElementById('t2_y2').value = "1";
+        document.getElementById('t2_a2').value = "0.0";
+
+        document.getElementById('t2_x31').value = "2";
+        document.getElementById('t2_x32').value = "0.5";
+        document.getElementById('t2_y3').value = "-1";
+        document.getElementById('t2_a3').value = "0.4";
+
+        document.getElementById('t2_qx1').value = "1.5";
+        document.getElementById('t2_qx2').value = "1.0";
+        calculateTab2();
+    }
+
+    function calculateTab2() {
+        const x1 = [parseFloat(document.getElementById('t2_x11').value), parseFloat(document.getElementById('t2_x12').value)];
+        const y1 = parseFloat(document.getElementById('t2_y1').value);
+        const a1 = parseFloat(document.getElementById('t2_a1').value);
+
+        const x2 = [parseFloat(document.getElementById('t2_x21').value), parseFloat(document.getElementById('t2_x22').value)];
+        const y2 = parseFloat(document.getElementById('t2_y2').value);
+        const a2 = parseFloat(document.getElementById('t2_a2').value);
+
+        const x3 = [parseFloat(document.getElementById('t2_x31').value), parseFloat(document.getElementById('t2_x32').value)];
+        const y3 = parseFloat(document.getElementById('t2_y3').value);
+        const a3 = parseFloat(document.getElementById('t2_a3').value);
+
+        const qx1 = parseFloat(document.getElementById('t2_qx1').value);
+        const qx2 = parseFloat(document.getElementById('t2_qx2').value);
+
+        // Step 1: Constraint check sum(alpha_i * y_i) == 0
+        const constraintSum = a1 * y1 + a2 * y2 + a3 * y3;
+
+        // Step 2: Compute w = sum(alpha_i * y_i * x_i)
+        const w1 = a1 * y1 * x1[0] + a2 * y2 * x2[0] + a3 * y3 * x3[0];
+        const w2 = a1 * y1 * x1[1] + a2 * y2 * x2[1] + a3 * y3 * x3[1];
+
+        // Step 3: Compute b using Support Vectors (alpha > 0)
+        let svPoints = [];
+        if (a1 > 0.0001) svPoints.push({ x: x1, y: y1, name: 'x1' });
+        if (a2 > 0.0001) svPoints.push({ x: x2, y: y2, name: 'x2' });
+        if (a3 > 0.0001) svPoints.push({ x: x3, y: y3, name: 'x3' });
+
+        let bVals = [];
+        svPoints.forEach(sv => {
+            const b_i = sv.y - (w1 * sv.x[0] + w2 * sv.x[1]);
+            bVals.push(b_i);
+        });
+
+        const bAvg = bVals.length > 0 ? bVals.reduce((a, b) => a + b, 0) / bVals.length : 0;
+
+        // Step 4: Predict for query point
+        const queryScore = w1 * qx1 + w2 * qx2 + bAvg;
+        const predLabel = queryScore >= 0 ? "+1" : "-1";
+
+        const out = document.getElementById('t2_results');
+        out.innerHTML = `
+            <div class="step-block">
+                <div class="step-title">Bước 1: Kiểm tra ràng buộc đối ngẫu Lagrange</div>
+                ∑ (αᵢ · yᵢ) = (${a1} · ${y1}) + (${a2} · ${y2}) + (${a3} · ${y3}) = <b>${constraintSum.toFixed(4)}</b>
+                ${Math.abs(constraintSum) < 0.001 
+                    ? '<span class="tag tag-green" style="margin-left: 8px;">✓ Thỏa mãn (= 0)</span>' 
+                    : '<span class="tag tag-red" style="margin-left: 8px;">⚠️ Không bằng 0 (Hãy chỉnh lại các αᵢ)</span>'}
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Xác định Support Vectors & Tính vector pháp tuyến w</div>
+                Các điểm có αᵢ > 0 là Support Vectors: <b>${svPoints.map(s => s.name).join(', ') || 'Không có'}</b>.<br>
+                w₁ = (${a1} · ${y1} · ${x1[0]}) + (${a2} · ${y2} · ${x2[0]}) + (${a3} · ${y3} · ${x3[0]}) = <b>${w1.toFixed(4)}</b><br>
+                w₂ = (${a1} · ${y1} · ${x1[1]}) + (${a2} · ${y2} · ${x2[1]}) + (${a3} · ${y3} · ${x3[1]}) = <b>${w2.toFixed(4)}</b><br>
+                ➔ <b>w = (${w1.toFixed(4)}, ${w2.toFixed(4)})</b>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Tính hệ số chệch b từ Support Vectors (b = yₛ - wᵀ xₛ)</div>
+                ${svPoints.map((sv, idx) => `Từ ${sv.name}: b = ${sv.y} - (${w1.toFixed(3)}·${sv.x[0]} + ${w2.toFixed(3)}·${sv.x[1]}) = <b>${bVals[idx].toFixed(4)}</b>`).join('<br>')}
+                <br>➔ <b>b trung bình = ${bAvg.toFixed(4)}</b>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 4: Phân loại điểm mới x* = (${qx1}, ${qx2})</div>
+                f(x*) = w₁·x₁* + w₂·x₂* + b = (${w1.toFixed(3)})·(${qx1}) + (${w2.toFixed(3)})·(${qx2}) + (${bAvg.toFixed(3)}) = <b>${queryScore.toFixed(4)}</b><br>
+                ➔ <b>Nhãn dự đoán: ŷ = sign(${queryScore.toFixed(4)}) = <span style="color: ${queryScore >= 0 ? 'var(--accent-blue)' : 'var(--accent-red)'}; font-size: 1.1rem; font-weight: bold;">${predLabel}</span></b>
+            </div>
+        `;
+    }
+
+    // ==========================================
+    // TAB 3 LOGIC (SOFT MARGIN & HINGE LOSS)
+    // ==========================================
+    function loadPreset3() {
+        document.getElementById('t3_w1').value = "1";
+        document.getElementById('t3_w2').value = "1";
+        document.getElementById('t3_b').value = "-4";
+        document.getElementById('t3_C').value = "2.0";
+        calculateTab3();
+    }
+
+    function calculateTab3() {
+        const w1 = parseFloat(document.getElementById('t3_w1').value);
+        const w2 = parseFloat(document.getElementById('t3_w2').value);
+        const b = parseFloat(document.getElementById('t3_b').value);
+        const C = parseFloat(document.getElementById('t3_C').value);
+
+        const pts = [
+            { id: 'P1', x: parseFloat(document.getElementById('t3_p1x').value), y: parseFloat(document.getElementById('t3_p1y').value), label: parseFloat(document.getElementById('t3_p1label').value) },
+            { id: 'P2', x: parseFloat(document.getElementById('t3_p2x').value), y: parseFloat(document.getElementById('t3_p2y').value), label: parseFloat(document.getElementById('t3_p2label').value) },
+            { id: 'P3', x: parseFloat(document.getElementById('t3_p3x').value), y: parseFloat(document.getElementById('t3_p3y').value), label: parseFloat(document.getElementById('t3_p3label').value) },
+            { id: 'P4', x: parseFloat(document.getElementById('t3_p4x').value), y: parseFloat(document.getElementById('t3_p4y').value), label: parseFloat(document.getElementById('t3_p4label').value) },
+        ];
+
+        let sumSlack = 0;
+        let tableRows = '';
+
+        pts.forEach(p => {
+            const z = w1 * p.x + w2 * p.y + b;
+            const marginVal = p.label * z;
+            const slack = Math.max(0, 1 - marginVal);
+            sumSlack += slack;
+
+            let tag = '';
+            if (slack === 0) {
+                tag = '<span class="tag tag-green">Ngoài lề (ξ=0)</span>';
+            } else if (slack <= 1.0) {
+                tag = '<span class="tag tag-amber">Trong lề, Đúng lớp (0<ξ≤1)</span>';
+            } else {
+                tag = '<span class="tag tag-red">SAI LỚP (ξ>1)</span>';
+            }
+
+            tableRows += `
+                <tr>
+                    <td><b>${p.id}</b></td>
+                    <td>(${p.x}, ${p.y})</td>
+                    <td>${p.label > 0 ? '+1' : '-1'}</td>
+                    <td>${marginVal.toFixed(3)}</td>
+                    <td style="color: ${slack > 0 ? 'var(--accent-amber)' : 'var(--accent-green)'}; font-weight: bold;">${slack.toFixed(3)}</td>
+                    <td>${tag}</td>
+                </tr>
+            `;
+        });
+
+        const normWSq = w1 * w1 + w2 * w2;
+        const regTerm = 0.5 * normWSq;
+        const penaltyTerm = C * sumSlack;
+        const totalCost = regTerm + penaltyTerm;
+
+        const out = document.getElementById('t3_results');
+        out.innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Mẫu</th>
+                        <th>(x₁, x₂)</th>
+                        <th>yᵢ</th>
+                        <th>y·(wᵀx + b)</th>
+                        <th>Slack ξᵢ = max(0, 1-y·z)</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>${tableRows}</tbody>
+            </table>
+
+            <div class="result-row" style="margin-top: 14px;">
+                <span class="result-label">Tổng biến nới lỏng (Tổng Hinge Loss) ∑ ξᵢ:</span>
+                <span class="result-val">${sumSlack.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Thành phần Quy tắc hóa L2 (1/2 ||w||²):</span>
+                <span class="result-val">0.5 · (${normWSq}) = ${regTerm.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Thành phần Phạt vi phạm (C · ∑ ξᵢ với C=${C}):</span>
+                <span class="result-val">${penaltyTerm.toFixed(4)}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Hàm mục tiêu nguyên thủy J(w, b, ξ):</span>
+                <span class="result-val" style="color: var(--accent-indigo); font-size: 1.15rem;">${totalCost.toFixed(4)}</span>
+            </div>
+        `;
+    }
+
+    // ==========================================
+    // TAB 4 LOGIC (KERNEL FUNCTIONS)
+    // ==========================================
+    function toggleKernelInputs() {
+        const type = document.getElementById('t4_kernel_type').value;
+        const rBox = document.getElementById('t4_r_box');
+        const dBox = document.getElementById('t4_d_box');
+
+        if (type === 'poly') {
+            rBox.style.display = 'block';
+            dBox.style.display = 'block';
+        } else if (type === 'sigmoid') {
+            rBox.style.display = 'block';
+            dBox.style.display = 'none';
+        } else {
+            rBox.style.display = 'none';
+            dBox.style.display = 'none';
+        }
+    }
+
+    function calculateTab4() {
+        const x1 = parseFloat(document.getElementById('t4_x1').value);
+        const x2 = parseFloat(document.getElementById('t4_x2').value);
+        const z1 = parseFloat(document.getElementById('t4_z1').value);
+        const z2 = parseFloat(document.getElementById('t4_z2').value);
+        const type = document.getElementById('t4_kernel_type').value;
+        const gamma = parseFloat(document.getElementById('t4_gamma').value);
+        const r = parseFloat(document.getElementById('t4_r').value);
+        const d = parseFloat(document.getElementById('t4_d').value);
+
+        // Dot product
+        const dot = x1 * z1 + x2 * z2;
+        // Squared Euclidean distance
+        const sqDist = Math.pow(x1 - z1, 2) + Math.pow(x2 - z2, 2);
+
+        let kVal = 0;
+        let formulaExplain = '';
+
+        if (type === 'linear') {
+            kVal = dot;
+            formulaExplain = `K(x, z) = x₁·z₁ + x₂·z₂ = (${x1}·${z1}) + (${x2}·${z2}) = <b>${kVal.toFixed(4)}</b>`;
+        } else if (type === 'poly') {
+            const inner = gamma * dot + r;
+            kVal = Math.pow(inner, d);
+            formulaExplain = `K(x, z) = (γ · xᵀz + r)^d = (${gamma} · ${dot} + ${r})^${d} = (${inner.toFixed(4)})^${d} = <b>${kVal.toFixed(4)}</b>`;
+        } else if (type === 'rbf') {
+            kVal = Math.exp(-gamma * sqDist);
+            formulaExplain = `
+                Khoảng cách bình phương ||x - z||² = (${x1} - ${z1})² + (${x2} - ${z2})² = ${sqDist.toFixed(4)}<br>
+                K(x, z) = exp(-γ · ||x - z||²) = exp(-${gamma} · ${sqDist.toFixed(4)}) = exp(-${(gamma * sqDist).toFixed(4)}) = <b>${kVal.toFixed(6)}</b>
+            `;
+        } else if (type === 'sigmoid') {
+            const inner = gamma * dot + r;
+            kVal = Math.tanh(inner);
+            formulaExplain = `K(x, z) = tanh(γ · xᵀz + r) = tanh(${gamma} · ${dot} + ${r}) = tanh(${inner.toFixed(4)}) = <b>${kVal.toFixed(6)}</b>`;
+        }
+
+        const out = document.getElementById('t4_results');
+        out.innerHTML = `
+            <div class="step-block">
+                <div class="step-title">Phép tính nền tảng:</div>
+                Tích vô hướng xᵀz: <b>${dot.toFixed(4)}</b><br>
+                Bình phương khoảng cách Euclid ||x - z||²: <b>${sqDist.toFixed(4)}</b> (Khoảng cách Euclid: ${(Math.sqrt(sqDist)).toFixed(4)})
+            </div>
+            <div class="step-block">
+                <div class="step-title">Kết quả áp dụng Kernel [${type.toUpperCase()}]:</div>
+                ${formulaExplain}
+            </div>
+            <div class="step-block">
+                <div class="step-title">Ý nghĩa độ đo tương đồng:</div>
+                ${type === 'rbf' ? 
+                  `Giá trị Kernel đạt cực đại bằng 1 khi 2 điểm trùng khít nhau (khoảng cách = 0) và tiệm cận dần về 0 khi khoảng cách tiến ra xa vô cực. Với khoảng cách hiện tại, độ tương đồng giữa hai điểm là ${(kVal * 100).toFixed(2)}%.` :
+                  `Hàm Kernel đóng vai trò tích vô hướng ẩn trong không gian nhiều chiều, cho phép SVM xây dựng siêu phẳng phi tuyến mà không chịu chi phí chiếu tọa độ.`}
+            </div>
+        `;
+    }
+
+    // ==========================================
+    // TAB 5 LOGIC (DUAL MACHINE PREDICTION)
+    // ==========================================
+    function loadPreset5() {
+        document.getElementById('t5_gamma').value = "0.5";
+        document.getElementById('t5_b').value = "-0.2";
+        document.getElementById('t5_sv1').value = "1, 1";
+        document.getElementById('t5_y1').value = "1";
+        document.getElementById('t5_a1').value = "1.5";
+
+        document.getElementById('t5_sv2').value = "3, 2";
+        document.getElementById('t5_y2').value = "-1";
+        document.getElementById('t5_a2').value = "1.5";
+
+        document.getElementById('t5_query').value = "1.2, 1.4";
+        calculateTab5();
+    }
+
+    function calculateTab5() {
+        const gamma = parseFloat(document.getElementById('t5_gamma').value);
+        const b = parseFloat(document.getElementById('t5_b').value);
+
+        const sv1_coords = document.getElementById('t5_sv1').value.split(',').map(s => parseFloat(s.trim()));
+        const y1 = parseFloat(document.getElementById('t5_y1').value);
+        const a1 = parseFloat(document.getElementById('t5_a1').value);
+
+        const sv2_coords = document.getElementById('t5_sv2').value.split(',').map(s => parseFloat(s.trim()));
+        const y2 = parseFloat(document.getElementById('t5_y2').value);
+        const a2 = parseFloat(document.getElementById('t5_a2').value);
+
+        const q = document.getElementById('t5_query').value.split(',').map(s => parseFloat(s.trim()));
+
+        // RBF Kernel K(sv, q)
+        const d1_sq = Math.pow(sv1_coords[0] - q[0], 2) + Math.pow(sv1_coords[1] - q[1], 2);
+        const k1 = Math.exp(-gamma * d1_sq);
+        const term1 = a1 * y1 * k1;
+
+        const d2_sq = Math.pow(sv2_coords[0] - q[0], 2) + Math.pow(sv2_coords[1] - q[1], 2);
+        const k2 = Math.exp(-gamma * d2_sq);
+        const term2 = a2 * y2 * k2;
+
+        const score = term1 + term2 + b;
+        const predClass = score >= 0 ? "+1" : "-1";
+
+        const out = document.getElementById('t5_results');
+        out.innerHTML = `
+            <div class="step-block">
+                <div class="step-title">1. Đóng góp từ SV1 (${sv1_coords[0]}, ${sv1_coords[1]}) [Lớp ${y1}]:</div>
+                ||SV₁ - x*||² = ${d1_sq.toFixed(4)} ➔ K(SV₁, x*) = exp(-${gamma} · ${d1_sq.toFixed(3)}) = <b>${k1.toFixed(4)}</b><br>
+                Số hạng α₁ · y₁ · K(SV₁, x*) = ${a1} · (${y1}) · ${k1.toFixed(4)} = <b>${term1.toFixed(4)}</b>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">2. Đóng góp từ SV2 (${sv2_coords[0]}, ${sv2_coords[1]}) [Lớp ${y2}]:</div>
+                ||SV₂ - x*||² = ${d2_sq.toFixed(4)} ➔ K(SV₂, x*) = exp(-${gamma} · ${d2_sq.toFixed(3)}) = <b>${k2.toFixed(4)}</b><br>
+                Số hạng α₂ · y₂ · K(SV₂, x*) = ${a2} · (${y2}) · ${k2.toFixed(4)} = <b>${term2.toFixed(4)}</b>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">3. Tổng hợp hàm quyết định f(x*):</div>
+                f(x*) = Số hạng 1 + Số hạng 2 + b<br>
+                f(x*) = (${term1.toFixed(4)}) + (${term2.toFixed(4)}) + (${b}) = <b>${score.toFixed(4)}</b><br>
+                ➔ <b>Dự đoán: ŷ = sign(${score.toFixed(4)}) = <span style="font-size: 1.2rem; font-weight: bold; color: ${score >= 0 ? 'var(--accent-blue)' : 'var(--accent-red)'}">${predClass}</span></b>
+            </div>
+        `;
+    }
+
+    // Initialize on load
+    window.onload = function() {
+        calculateTab1();
+        toggleKernelInputs();
+    };
+</script>
+</body>
+</html>
