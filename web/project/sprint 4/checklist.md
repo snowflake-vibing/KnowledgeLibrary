@@ -203,6 +203,8 @@ Tất cả các API được bảo vệ bởi middleware `auth:sanctum`:
   - [x] Bước 2: Xóa hồ sơ có lịch sử cũ $\rightarrow$ Assert `assertSoftDeleted('patient_profiles')`.
   - [x] Bước 3: Thử khôi phục qua API restore $\rightarrow$ Assert hồ sơ hoạt động trở lại.
   - [x] Bước 4: Xóa hồ sơ chưa từng đặt lịch $\rightarrow$ Assert `assertDatabaseMissing('patient_profiles')` và `assertDatabaseHas('patient_consents')`.
+- [x] **Bộ Test Case & Tài khoản thử nghiệm (Mới bổ sung):**
+  - [x] Đã hoàn thành và đẩy lên tài liệu [**`05_Bo_Test_Case_Va_Huong_Dan_Kiem_Thu_E15_E17.md`**](05_Bo_Test_Case_Va_Huong_Dan_Kiem_Thu_E15_E17.md) (gồm 5 tài khoản test phân quyền, ma trận test case chi tiết cho E15, E17, các case biên và truy vấn SQL đối soát CSDL).
 
 ---
 
