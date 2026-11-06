@@ -1,4 +1,4 @@
-# BẢNG CHECKLIST TỔNG HỢP TOÀN DIỆN: USER DASHBOARD & HỒ SƠ BỆNH NHÂN (SPRINT 4)
+# BẢNG CHECKLIST TỔNG HỢP TOÀN DIỆN: USER DASHBOARD, HỒ SƠ BỆNH NHÂN & TÀI LIỆU DOCX (SPRINT 4)
 
 > **Dự án:** MedSi (YouMed Mini) — Nền tảng đặt lịch khám bệnh trực tuyến  
 > **Người thực hiện:** **Hiệu**  
@@ -219,10 +219,34 @@ Tất cả các API được bảo vệ bởi middleware `auth:sanctum`:
 
 ---
 
-## PHẦN G. TRẠNG THÁI GIT & NHÁNH TRÊN GITHUB
+## PHẦN G. ĐỐI SOÁT & NHIỆM VỤ HOÀN THIỆN CÁC TÀI LIỆU WORD (DOCX) CỦA HIỆU
+
+*Căn cứ: Mục 4.4 ("Việc tài liệu") trong `Sprint_4_requirement.pdf` và file `user_profile_checklist.docx`.*
+
+- [x] **1. Đối soát và chuẩn hóa tệp `user_profile_checklist.docx`:**
+  - [x] Rà soát cấu trúc cũ trong file Word phác thảo: Các tên cột cũ (`date_of_birth`, `national_id`, `bhyt_code`, `is_primary`) và cơ chế `ON DELETE CASCADE` đã được chuẩn hóa sang schema CSDL v1.1 (`dob`, `identity_card_number`, `health_insurance_code`, `is_default`, xóa mềm `deleted_at`).
+  - [x] Bổ sung các luồng nghiệp vụ còn thiếu trong bản Word cũ: Ghi nhận bằng chứng đồng thuận `patient_consents`, xác thực người giám hộ khi dưới 16 tuổi, cơ chế che mờ dữ liệu nhạy cảm (Data Masking) và bản chụp bệnh nhân `makePatientSnapshot()`.
+  - [x] Tích hợp toàn bộ 4 màn hình Dashboard của bản Word vào tài liệu `checklist.md` này để phục vụ phát triển đồng bộ giữa Frontend và Backend.
+- [x] **2. Cập nhật tài liệu thiết kế dữ liệu `PRF_DD.docx`:**
+  - [x] Bỏ cột `district_id` khỏi từ điển dữ liệu theo quyết định CF-09 (chỉ quản lý cấp tỉnh/thành phố `city`).
+  - [x] Bổ sung định nghĩa cột `deleted_at` cho cơ chế lưu trữ mềm hồ sơ theo quyết định CF-06.
+  - [x] Bổ sung bảng phân loại mức độ bảo mật & nhạy cảm dữ liệu (Data Sensitivity) theo quyết định CF-11: Số CCCD, Mã BHYT và Số điện thoại được phân loại mức độ nhạy cảm cao, bắt buộc che mờ khi xuất qua API.
+  - [x] Chuẩn hóa các vai trò người dùng được phép thao tác trên hồ sơ bệnh nhân theo quyết định CF-10 (`patient` chỉ thao tác trên hồ sơ của mình, `admin` có quyền kiểm soát toàn hệ thống).
+- [x] **3. Cập nhật tài liệu quy tắc nghiệp vụ `BR-PRF.docx`:**
+  - [x] Sửa quy tắc `BR-PRF-03`: Bỏ hoàn toàn việc xác thực OTP khi người dùng tạo mới hồ sơ bệnh nhân theo quyết định CF-51.
+  - [x] Sửa quy tắc `BR-PRF-10`: Cập nhật điều kiện kiểm tra trạng thái lịch khám gắn với hồ sơ theo 9 trạng thái STM chuẩn: `pending_payment`, `pending_approval`, `confirmed` (theo CF-47).
+  - [x] Bổ sung trích dẫn số hiệu điều khoản gốc cho Ngưỡng tuổi giám hộ: Căn cứ **Điều 1, Luật Trẻ em 2016** (ngưỡng 16 tuổi theo CF-07).
+  - [x] Bổ sung trích dẫn số hiệu điều khoản gốc cho Thời hạn lưu trữ dữ liệu y tế: Căn cứ **Điều 69, Luật Khám bệnh, chữa bệnh 2023** và **Nghị định 13/2023/NĐ-CP** (thời hạn lưu trữ 10 - 20 năm, không dùng khóa ngoại cứng tại `patient_consents` theo CF-08).
+- [x] **4. Tài liệu quy trình & Biên bản họp:**
+  - [x] Tuân thủ quy ước đặt tên nhánh Git theo Mục 8 baseline: Nhánh `feature/user-profile` và nhánh `s4/profile-hieu`.
+  - [x] Hoàn thiện tài liệu tổng hợp và ghi biên bản họp phục vụ 2 buổi phỏng vấn theo yêu cầu của sprint.
+
+---
+
+## PHẦN H. TRẠNG THÁI GIT & NHÁNH TRÊN GITHUB
 
 - [x] **Dự án chính:** [`https://github.com/th4nhc0n999/Main-Project-IS207`](https://github.com/th4nhc0n999/Main-Project-IS207)
-  - [x] Nhánh `feature/user-profile`: Đã commit và push (`Commit cac1ce3`).
-  - [x] Nhánh chuẩn Sprint 4 `s4/profile-hieu`: Đã commit và push (`Commit cac1ce3`).
+  - [x] Nhánh `feature/user-profile`: Đã commit và push.
+  - [x] Nhánh chuẩn Sprint 4 `s4/profile-hieu`: Đã commit và push.
 - [x] **Kho tài liệu:** [`https://github.com/snowflake-vibing/KnowledgeLibrary`](https://github.com/snowflake-vibing/KnowledgeLibrary)
-  - [x] Nhánh `main`: Đã commit và push (`Commit db6dcf0`).
+  - [x] Nhánh `main`: Đã commit và push tệp `checklist.md` tổng hợp này.
