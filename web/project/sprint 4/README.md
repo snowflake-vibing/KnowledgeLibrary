@@ -88,5 +88,6 @@ Theo mục 4.4 của `Sprint 4 requirement.pdf`, Hiệu phụ trách cập nhậ
 2. [**`02_Quan_Ly_Ho_So_Va_Dong_Thuan.md`**](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md): Nghiệp vụ CRUD, Enum quan hệ, Giám hộ <16 tuổi, Consent & Rút đồng ý.
 3. [**`03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md`**](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md): Che mờ CCCD/BHYT/SĐT, hàm `makePatientSnapshot`, chính sách xóa 3 trường hợp và khôi phục.
 4. [**`04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md`**](04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md): Kịch bản và code PHPUnit E15 & E17.
-5. [**`checklist.md`**](checklist.md): Bảng checklist tích hợp toàn diện (Dashboard, Profile, Backend, Pháp lý & Hồ sơ Sprint 4).
-6. [**`Huong_Dan_Tra_Cuu_Dieu_Khoan_Goc_Google_SEO.md`**](Huong_Dan_Tra_Cuu_Dieu_Khoan_Goc_Google_SEO.md): Cẩm nang tra cứu điều khoản pháp lý gốc trên Google với kỹ thuật tìm kiếm chuẩn SEO (CF-07, CF-08).
+5. [**`05_Bo_Test_Case_Va_Huong_Dan_Kiem_Thu_E15_E17.md`**](05_Bo_Test_Case_Va_Huong_Dan_Kiem_Thu_E15_E17.md): Bộ ma trận Test Case chi tiết, tài khoản test mẫu, kịch bản biên và hướng dẫn kiểm thử toàn diện.
+6. [**`checklist.md`**](checklist.md): Bảng checklist tích hợp toàn diện (Dashboard, Profile, Backend, Pháp lý & Hồ sơ Sprint 4).
+7. [**`Huong_Dan_Tra_Cuu_Dieu_Khoan_Goc_Google_SEO.md`**](Huong_Dan_Tra_Cuu_Dieu_Khoan_Goc_Google_SEO.md): Cẩm nang tra cứu điều khoản pháp lý gốc trên Google với kỹ thuật tìm kiếm chuẩn SEO (CF-07, CF-08).
