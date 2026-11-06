@@ -1,33 +1,44 @@
 # Phân Hệ 01: Eloquent Models & 14 Model Factories (Mã Task: S4-03)
 
+> **Căn cứ tài liệu:** `Sprint_4_requirement.pdf` (Mục 4.4.a) & `03._ERD_v1.1.pdf`  
 > **Người thực hiện:** Hiệu  
-> **Nhiệm vụ:** Thiết lập quan hệ Eloquent Models, cấu hình xóa mềm (Soft Deletes) và xây dựng 14 Model Factories cho toàn bộ cơ sở dữ liệu MedSi.
+> **Nhiệm vụ:** Thiết lập quan hệ Eloquent Models, cấu hình xóa mềm (Soft Deletes) cho 4 bảng và xây dựng 14 Model Factories cho toàn bộ cơ sở dữ liệu MedSi.
 
 ---
 
-## 1. Kiến trúc Eloquent Models & Quan hệ (Relationships)
+## 1. Cấu hình Xóa Mềm (Soft Deletes)
 
-### 1.1. Model `PatientProfile`
-Đại diện cho hồ sơ người được khám bệnh (thuộc bảng `patient_profiles`).
+Theo mục 4.4.(a) của `Sprint_4_requirement.pdf` và trang 1 của `03._ERD_v1.1.pdf`:
+* Chỉ có đúng **4 bảng** được cấu hình xóa mềm bằng cột `deleted_at`:
+  1. `patient_profiles` (Hồ sơ người khám)
+  2. `doctors` (Bác sĩ)
+  3. `hospitals` (Cơ sở y tế)
+  4. `exam_types` (Loại / Gói khám)
+* Các bảng còn lại tuyệt đối không xóa cứng dữ liệu giao dịch hay kiểm toán:
+  * `users`: Không xóa cứng, sử dụng trạng thái `disabled`.
+  * `payments`, `payment_transactions`, `refunds`, `audit_logs`: Chỉ thêm hoặc cập nhật trạng thái, không xóa.
 
-* **Thuộc tính chính:**
-  * `user_id`: ID tài khoản người dùng sở hữu.
-  * `full_name`, `dob`, `gender`, `phone`, `relationship`.
-  * `identity_card_number`: Số CCCD/Định danh cá nhân.
-  * `health_insurance_code`: Mã thẻ BHYT.
-  * `guardian_name`, `guardian_phone`, `guardian_relationship`: Thông tin người giám hộ (dành cho người dưới 16 tuổi).
-  * `is_default`: Cờ đánh dấu hồ sơ mặc định (`0` hoặc `1`).
-  * `deleted_at`: Cột lưu vết xóa mềm (`SoftDeletes`).
+---
 
-* **Code mẫu Model (`app/Models/PatientProfile.php`):**
+## 2. Kiến trúc Eloquent Models & Quan hệ (Relationships)
+
+### 2.1. Model `PatientProfile`
+* Sử dụng `SoftDeletes`, `HasFactory`.
+* Bổ sung phương thức `makePatientSnapshot()` phục vụ xuất bản chụp đã che cho Hoài Bảo và Tuấn Anh.
+* Quan hệ:
+  * `user()`: `BelongsTo(User::class)`
+  * `bookings()`: `HasMany(Booking::class)`
+  * `consents()`: `HasMany(PatientConsent::class)`
+
 ```php
 namespace App\Models;
 
+use App\Support\DataMasker;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PatientProfile extends Model
 {
@@ -50,46 +61,59 @@ class PatientProfile extends Model
         'is_default',
     ];
 
-    protected $casts = [
-        'dob' => 'date',
-        'is_default' => 'boolean',
-        'deleted_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'dob' => 'date',
+            'is_default' => 'boolean',
+            'deleted_at' => 'datetime',
+        ];
+    }
 
-    /**
-     * Tài khoản người dùng sở hữu hồ sơ này
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * Các lịch khám gắn với hồ sơ này
-     */
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class, 'patient_profile_id');
     }
 
-    /**
-     * Lịch sử đồng ý điều khoản (Không ràng buộc khóa ngoại cứng)
-     */
     public function consents(): HasMany
     {
         return $this->hasMany(PatientConsent::class, 'patient_profile_id');
+    }
+
+    /**
+     * Hàm makePatientSnapshot(profile) trả JSON đã che cho Hoài Bảo và Tuấn Anh
+     */
+    public function makePatientSnapshot(): array
+    {
+        return [
+            'profile_id' => $this->id,
+            'full_name' => $this->full_name,
+            'dob' => $this->dob?->format('Y-m-d'),
+            'gender' => $this->gender,
+            'relationship' => $this->relationship,
+            'phone' => DataMasker::maskPhone($this->phone),
+            'identity_card_number' => DataMasker::maskIdentityCard($this->identity_card_number),
+            'health_insurance_code' => DataMasker::maskHealthInsurance($this->health_insurance_code),
+            'guardian_name' => $this->guardian_name,
+            'guardian_phone' => DataMasker::maskPhone($this->guardian_phone),
+            'guardian_relationship' => $this->guardian_relationship,
+            'captured_at' => now()->toIso8601String(),
+        ];
     }
 }
 ```
 
 ---
 
-### 1.2. Model `PatientConsent`
-Đại diện cho bằng chứng chấp thuận điều khoản y tế (thuộc bảng `patient_consents`).
+### 2.2. Model `PatientConsent`
+* Cột `patient_profile_id` **cố ý không đặt khóa ngoại cứng** trong schema để khi hồ sơ bị xóa cứng thì bằng chứng đồng ý vẫn được bảo lưu phục vụ pháp lý và đối soát.
+* Bổ sung cột `revoked_at` để hỗ trợ rút đồng ý xử lý dữ liệu.
 
-* **Đặc tính kỹ thuật schema:** Cột `patient_profile_id` **không ràng buộc Foreign Key cứng** trỏ về bảng `patient_profiles` (`ON DELETE RESTRICT` hoặc `CASCADE`), đảm bảo khi hồ sơ bị xóa cứng thì bằng chứng pháp lý này vẫn tồn tại.
-
-* **Code mẫu Model (`app/Models/PatientConsent.php`):**
 ```php
 namespace App\Models;
 
@@ -114,11 +138,14 @@ class PatientConsent extends Model
         'revoked_at',
     ];
 
-    protected $casts = [
-        'is_agreed' => 'boolean',
-        'agreed_at' => 'datetime',
-        'revoked_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_agreed' => 'boolean',
+            'agreed_at' => 'datetime',
+            'revoked_at' => 'datetime',
+        ];
+    }
 
     public function user(): BelongsTo
     {
@@ -134,158 +161,23 @@ class PatientConsent extends Model
 
 ---
 
-## 2. Hệ thống 14 Model Factories
+## 3. Danh Mục 14 Model Factories Hoàn Chỉnh
 
-Mục tiêu là cung cấp các Factory sinh dữ liệu ngẫu nhiên chuẩn xác theo schema `medsi_schema_v1.sql` và cấu hình tiền tệ VND, múi giờ Việt Nam.
+Đã tạo đầy đủ 14 file Factory tại `backend/database/factories/`:
 
-### Danh mục 14 Factories cần triển khai:
-
-| STT | Model | Tên File Factory | Ghi chú & Ràng buộc Schema |
+| STT | Model | File Factory | Ghi chú & Ràng buộc Schema Chuẩn |
 |:---:|---|---|---|
-| 1 | `User` | `database/factories/UserFactory.php` | Vai trò: `patient`, `doctor`, `staff`, `admin`. Staff bắt buộc có `hospital_id`. |
-| 2 | `PatientProfile` | `database/factories/PatientProfileFactory.php` | Giới tính: `male`, `female`, `other`. Hỗ trợ state trẻ em `< 16 tuổi`. |
-| 3 | `PatientConsent` | `database/factories/PatientConsentFactory.php` | `policy_version` mặc định "v1.0", `is_agreed = true`, lưu IP và User Agent. |
-| 4 | `Specialty` | `database/factories/SpecialtyFactory.php` | Mã khoa `code` unique (CK01, CK02...), `name`, `slug` unique. |
-| 5 | `Hospital` | `database/factories/HospitalFactory.php` | Tên bệnh viện, địa chỉ, `city`, tọa độ `latitude` / `longitude`, hotline. |
-| 6 | `Doctor` | `database/factories/DoctorFactory.php` | Liên kết `user_id`, `specialty_id`, `hospital_id`, chức danh (`title`), kinh nghiệm. |
-| 7 | `ExamType` | `database/factories/ExamTypeFactory.php` | Gói khám thuộc bệnh viện & chuyên khoa, đơn giá `price >= 0`. |
-| 8 | `Slot` | `database/factories/SlotFactory.php` | Đa hình `owner_type` (`doctor`/`hospital`), `work_date`, `start_time < end_time`, `booked_count <= capacity`. |
-| 9 | `Booking` | `database/factories/BookingFactory.php` | Mã `code` unique, `booking_type`, `patient_snapshot` JSON masked, 9 trạng thái STM. |
-| 10 | `Ticket` | `database/factories/TicketFactory.php` | Mã `ticket_code`, số thứ tự `queue_seq` unique theo `queue_scope`, `qr_token` (JWT). |
-| 11 | `Payment` | `database/factories/PaymentFactory.php` | Mã `payment_code`, số tiền khám, phí dịch vụ 20.000đ, trạng thái thanh toán. |
-| 12 | `PaymentTransaction` | `database/factories/PaymentTransactionFactory.php`| Mã giao dịch cổng thanh toán `transaction_code` unique, phương thức (`qr_code`, `store_pay`...). |
-| 13 | `Refund` | `database/factories/RefundFactory.php` | Mã `refund_code`, chính sách hoàn tiền (`doctor_rejected`, `early_cancel`...), trạng thái. |
-| 14 | `AuditLog` | `database/factories/AuditLogFactory.php` | Bảng log chỉ ghi (`INSERT only`), mã sự kiện AU-01 đến AU-20, IP, metadata JSON. |
-
----
-
-### Code chi tiết các Factories tiêu biểu
-
-#### 1. `PatientProfileFactory.php`
-```php
-namespace Database\Factories;
-
-use App\Models\PatientProfile;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-class PatientProfileFactory extends Factory
-{
-    protected $model = PatientProfile::class;
-
-    public function definition(): array
-    {
-        return [
-            'user_id' => User::factory(),
-            'full_name' => $this->faker->name(),
-            'dob' => $this->faker->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
-            'gender' => $this->faker->randomElement(['male', 'female', 'other']),
-            'phone' => '09' . $this->faker->numerify('########'),
-            'relationship' => 'Bản thân',
-            'identity_card_number' => $this->faker->numerify('001099######'),
-            'health_insurance_code' => 'DN401' . $this->faker->numerify('##########'),
-            'guardian_name' => null,
-            'guardian_phone' => null,
-            'guardian_relationship' => null,
-            'is_default' => false,
-        ];
-    }
-
-    /**
-     * Trạng thái hồ sơ trẻ em dưới 16 tuổi (có người giám hộ)
-     */
-    public function child(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'dob' => now()->subYears(8)->format('Y-m-d'),
-            'relationship' => 'Con',
-            'guardian_name' => $this->faker->name(),
-            'guardian_phone' => '09' . $this->faker->numerify('########'),
-            'guardian_relationship' => 'Bố/Mẹ',
-        ]);
-    }
-
-    /**
-     * Trạng thái hồ sơ mặc định
-     */
-    public function defaultProfile(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'is_default' => true,
-        ]);
-    }
-}
-```
-
-#### 2. `PatientConsentFactory.php`
-```php
-namespace Database\Factories;
-
-use App\Models\PatientConsent;
-use App\Models\PatientProfile;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-class PatientConsentFactory extends Factory
-{
-    protected $model = PatientConsent::class;
-
-    public function definition(): array
-    {
-        return [
-            'user_id' => User::factory(),
-            'patient_profile_id' => PatientProfile::factory(),
-            'policy_version' => 'v1.0',
-            'is_agreed' => true,
-            'agreed_at' => now(),
-            'ip_address' => $this->faker->ipv4(),
-            'user_agent' => $this->faker->userAgent(),
-            'revoked_at' => null,
-        ];
-    }
-}
-```
-
-#### 3. `BookingFactory.php` (với masked patient_snapshot)
-```php
-namespace Database\Factories;
-
-use App\Models\Booking;
-use App\Models\PatientProfile;
-use App\Models\Slot;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-
-class BookingFactory extends Factory
-{
-    protected $model = Booking::class;
-
-    public function definition(): array
-    {
-        return [
-            'code' => 'BK' . strtoupper(Str::random(10)),
-            'user_id' => User::factory(),
-            'patient_profile_id' => PatientProfile::factory(),
-            'booking_type' => 'doctor',
-            'doctor_id' => null,
-            'hospital_id' => null,
-            'exam_type_id' => null,
-            'slot_id' => Slot::factory(),
-            'symptoms' => 'Đau đầu, sốt nhẹ',
-            'patient_snapshot' => [
-                'full_name' => $this->faker->name(),
-                'dob' => '1995-05-12',
-                'gender' => 'male',
-                'phone' => '090*****89', // Masked phone
-                'identity_card_number' => '001099****12', // Masked CCCD
-                'relationship' => 'Bản thân',
-            ],
-            'status' => 'pending_payment',
-            'hold_expires_at' => now()->addMinutes(15),
-            'approval_expires_at' => null,
-            'version' => 1,
-        ];
-    }
-}
-```
+| 1 | `User` | `UserFactory.php` | Vai trò: `patient`, `doctor`, `staff` (gắn `hospital_id`), `admin`. |
+| 2 | `PatientProfile` | `PatientProfileFactory.php` | Giới tính: `male`, `female`, `other`. Hỗ trợ state `child()` và `defaultProfile()`. |
+| 3 | `PatientConsent` | `PatientConsentFactory.php` | Lưu IP, User Agent, `policy_version`, `revoked_at = null`. |
+| 4 | `Specialty` | `SpecialtyFactory.php` | Mã khoa unique (CK01, CK02, CK03...), name, slug. |
+| 5 | `Hospital` | `HospitalFactory.php` | Tên cơ sở y tế, địa chỉ, `city`, tọa độ `latitude`, `longitude`, hotline. |
+| 6 | `Doctor` | `DoctorFactory.php` | Liên kết `user_id`, `specialty_id`, `hospital_id`, title, kinh nghiệm. |
+| 7 | `ExamType` | `ExamTypeFactory.php` | Gói khám gắn `hospital_id` và `specialty_id`, đơn giá `price >= 0`. |
+| 8 | `Slot` | `SlotFactory.php` | Đa hình `owner_type` (`doctor`/`hospital`), `work_date`, `start_time < end_time`. |
+| 9 | `Booking` | `BookingFactory.php` | Mã code unique, 9 trạng thái STM, `patient_snapshot` JSON đã che mờ. |
+| 10 | `Ticket` | `TicketFactory.php` | Mã `ticket_code`, số thứ tự `queue_seq` unique theo `queue_scope`, `qr_token` (JWT). |
+| 11 | `Payment` | `PaymentFactory.php` | Phí khám, phí tiện ích 20.000đ, trạng thái thanh toán. |
+| 12 | `PaymentTransaction` | `PaymentTransactionFactory.php` | Mã giao dịch `transaction_code`, nguồn `gateway`/`demo_admin`/`counter`. |
+| 13 | `Refund` | `RefundFactory.php` | Chính sách hoàn tiền (`doctor_rejected`, `early_cancel`...), trạng thái. |
+| 14 | `AuditLog` | `AuditLogFactory.php` | Bảng log chỉ thêm (`Insert-only`), sự kiện AU-01 đến AU-20. |

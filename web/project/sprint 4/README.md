@@ -1,7 +1,7 @@
 # Kế Hoạch & Chi Tiết Công Việc Sprint 4 — Thành Viên: Hiệu
 
 > **Dự án:** MedSi — Nền tảng đặt lịch khám bệnh trực tuyến  
-> **Phiên bản baseline:** v0.1 (Tài liệu thống nhất baseline Sprint 4)  
+> **Căn cứ tài liệu:** `Sprint_4_requirement.pdf` (Mục 4.4) & `03._ERD_v1.1.pdf` (Mục 4.2, 4.3, 5, 6)  
 > **Người phụ trách:** **Hiệu**  
 > **Vai trò:** Backend Developer (Core Patient Profiles, Privacy, Factories & Acceptance Tests)  
 > **Mã công việc:** `S4-03`, `S4-20`, `S4-21`, `S4-22`, `S4-23`, `S4-24`, `S4-25`  
@@ -9,9 +9,9 @@
 
 ---
 
-## 1. Tổng quan phân công Sprint 4
+## 1. Tổng quan phân công Sprint 4 (Theo Mục 4.4 của Sprint 4 Requirement)
 
-Trong Sprint 4 của dự án MedSi, Hiệu chịu trách nhiệm toàn bộ phân hệ **Quản lý Hồ sơ người được khám (`patient_profiles`)**, **Bằng chứng đồng thuận điều khoản y tế (`patient_consents`)**, **Bảo vệ quyền riêng tư & che mờ dữ liệu nhạy cảm (Data Masking & Snapshot)**, **Hệ thống Model Factories cho 14 bảng CSDL**, và các kịch bản kiểm thử E2E liên quan (`E15`, `E17`).
+Hiệu chịu trách nhiệm toàn bộ phân hệ **Quản lý Hồ sơ người được khám (`patient_profiles`)**, **Bằng chứng đồng thuận điều khoản y tế (`patient_consents`)**, **Bảo vệ quyền riêng tư & che mờ dữ liệu nhạy cảm (Data Masking & Snapshot)**, **Hệ thống Model Factories cho 14 bảng CSDL**, và các kịch bản kiểm thử E2E liên quan (`E15`, `E17`).
 
 ```mermaid
 flowchart TD
@@ -22,58 +22,69 @@ flowchart TD
     ConsentCheck -->|Chưa tick đồng ý| RejectConsent[Từ chối tạo hồ sơ]
     ConsentCheck -->|Đã tick đồng ý| CreateProfile[Tạo PatientProfile & Lưu PatientConsent]
     
-    CreateProfile --> Masking[Che mờ CCCD & SĐT khi trả API]
-    CreateProfile --> Snapshot[Lưu Masked Patient Snapshot khi Booking]
+    CreateProfile --> Masking[Che mờ CCCD, BHYT & SĐT khi trả API]
+    CreateProfile --> Snapshot[Hàm makePatientSnapshot cho Hoài Bảo & Tuấn Anh]
+    CreateProfile --> Revoke[Hỗ trợ rút đồng ý: revoked_at]
     
     User -->|2. Yêu cầu xóa hồ sơ| DeletePolicy{Kiểm tra lịch khám}
-    DeletePolicy -->|Đang có lịch chờ| Block[Chặn xóa: Lỗi EX-PRF-06]
+    DeletePolicy -->|Đang có lịch chờ| Block[Chặn xóa: Mã lỗi EX-PRF-06]
     DeletePolicy -->|Đã có lịch sử khám| SoftDel[Xóa mềm: deleted_at]
-    DeletePolicy -->|Chưa từng đặt lịch| HardDel[Xóa cứng Profile - Bảo lưu Consent]
+    DeletePolicy -->|Chưa từng đặt lịch| HardDel[Xóa cứng Profile - Bảo lưu Consent & Audit]
+    SoftDel --> Restore[Khôi phục hồ sơ đã xóa mềm: restore]
 ```
 
 ---
 
 ## 2. Bảng phân rã công việc (Work Breakdown Structure)
 
-| Mã Task | Tên hạng mục | Mô tả nội dung | Tài liệu chi tiết |
+| Mã Task | Hạng mục | Mô tả nội dung theo yêu cầu chính thức | Trạng thái Code / Tài liệu |
 |---|---|---|---|
-| **S4-03** | Eloquent Relationships, Soft Deletes & 14-Table Factories | Khai báo quan hệ Eloquent models, trait Soft Deletes và viết Model Factory cho toàn bộ 14 bảng CSDL để sinh dữ liệu test. | [01_Model_Eloquent_Va_14_Factories.md](01_Model_Eloquent_Va_14_Factories.md) |
-| **S4-20** | Profile CRUD (`patient_profiles`) | Xây dựng API Thêm/Xem/Sửa/Xóa hồ sơ: tối đa 10 hồ sơ/user, 1 hồ sơ mặc định, unique `(user_id, identity_card_number)`. | [02_Quan_Ly_Ho_So_Va_Dong_Thuan.md](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md) |
-| **S4-21** | Guardian Validation | Xác thực người giám hộ: Bệnh nhân `< 16 tuổi` bắt buộc nhập `guardian_name`, `guardian_phone`, `guardian_relationship`. | [02_Quan_Ly_Ho_So_Va_Dong_Thuan.md](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md) |
-| **S4-22** | Consent Evidence (`patient_consents`) | Ghi nhận bằng chứng đồng ý điều khoản khi tạo hồ sơ. Thiết kế schema không khóa ngoại cứng để bảo lưu bằng chứng khi profile bị xóa. | [02_Quan_Ly_Ho_So_Va_Dong_Thuan.md](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md) |
-| **S4-23** | Sensitive Data Masking | Che giấu số CCCD và SĐT trên API response để bảo vệ quyền riêng tư cá nhân. | [03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md) |
-| **S4-24** | Masked Patient Snapshot | Lưu snapshot thông tin bệnh nhân đã được che mờ vào cột JSON `patient_snapshot` của bảng `bookings`. | [03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md) |
-| **S4-25** | Deletion Policy | Chính sách xóa hồ sơ theo 3 trường hợp: chặn xóa khi có lịch chờ (`EX-PRF-06`), xóa mềm khi có lịch sử, xóa cứng khi chưa từng đặt lịch. | [03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md) |
+| **S4-03** | Eloquent Relationships, Soft Deletes & 14 Factories | (a) Khai báo Model, quan hệ Eloquent, SoftDeletes (`patient_profiles`, `doctors`, `hospitals`, `exam_types`) và Factory cho 14 bảng trong CSDL. | Đã hoàn thành & push GitHub |
+| **S4-20** | Profile CRUD (`patient_profiles`) | (b) Tối đa 10 hồ sơ/tài khoản; bắt buộc họ tên, ngày sinh, giới tính, quan hệ (`Bản thân`, `Cha`, `Mẹ`, `Con`, `Vợ`, `Chồng`, `Khác`); SĐT và CCCD tuỳ chọn; không trùng CCCD trong tài khoản; đúng 1 hồ sơ mặc định. | Đã hoàn thành & push GitHub |
+| **S4-21** | Guardian Validation | (d) Bắt buộc thông tin người giám hộ khi bệnh nhân dưới ngưỡng tuổi giám hộ (`config('medsi.guardian_age_threshold', 16)`). | Đã hoàn thành & push GitHub |
+| **S4-22** | Consent Evidence & Revocation (`patient_consents`) | (c) Bắt buộc đồng ý dữ liệu trước khi lưu hồ sơ, ghi nhận phiên bản, IP, thiết bị; hỗ trợ rút đồng ý (`revoked_at`, không xóa bản ghi); không FK cứng. | Đã hoàn thành & push GitHub |
+| **S4-23** | Sensitive Data Masking | (d) API Resource che mờ CCCD, BHYT, SĐT (trừ màn hình sửa của chủ sở hữu với `mode=edit`). | Đã hoàn thành & push GitHub |
+| **S4-24** | Masked Patient Snapshot | (f) Hàm `makePatientSnapshot(profile)` trả JSON đã che mờ phục vụ luồng đặt khám của Hoài Bảo và Tuấn Anh. | Đã hoàn thành & push GitHub |
+| **S4-25** | Deletion Policy & Restore | (e) Chặn khi còn lịch chờ (lỗi `EX-PRF-06`); xóa mềm (`deleted_at`) khi đã có lịch; xóa cứng khi chưa từng có lịch (giữ consent và audit logs); hỗ trợ khôi phục hồ sơ (`restore`). | Đã hoàn thành & push GitHub |
 
 ---
 
-## 3. Mục tiêu nghiệm thu E2E (End-to-End Acceptance)
+## 3. Căn cứ pháp lý & Chuẩn hóa quy định (Task tài liệu của Hiệu)
 
-Hiệu chịu trách nhiệm trực tiếp viết và đảm bảo vượt qua (PASS) 2 kịch bản nghiệm thu kiểm thử tự động trong Sprint 4:
+Theo mục 4.4 của `Sprint 4 requirement.pdf`, Hiệu phụ trách cập nhật các tài liệu đặc tả miền với các căn cứ pháp lý:
 
-* **`E15` (Profile trẻ em, Xác thực người giám hộ, Đồng thuận điều khoản & Masking):**
-  * Khởi tạo tài khoản bệnh nhân mới.
-  * Tạo hồ sơ trẻ em dưới 16 tuổi (`guardian_age_threshold`).
-  * Cố tình lưu khi chưa đồng thuận consent $\rightarrow$ Thất bại.
-  * Cung cấp đủ thông tin người giám hộ + đồng ý điều khoản $\rightarrow$ Thành công.
-  * Kiểm tra DB có đúng 1 bản ghi consent; response trả về CCCD và SĐT đã được che mờ (masked).
-* **`E17` (Kiểm thử chính sách xóa 3 loại hồ sơ):**
-  * Chuẩn bị 3 hồ sơ bệnh nhân:
-    1. Đang có lịch khám chờ duyệt hoặc đang giữ chỗ.
-    2. Đã từng có lịch sử khám trước đó.
-    3. Chưa từng phát sinh bất kỳ lượt đặt lịch nào.
-  * Yêu cầu xóa lần lượt:
-    * Hồ sơ 1: Bị chặn xóa và quăng mã lỗi `EX-PRF-06`.
-    * Hồ sơ 2: Được xóa mềm (`deleted_at` được gán timestamp).
-    * Hồ sơ 3: Bị xóa cứng khỏi bảng `patient_profiles`, đồng thời bản ghi trong `patient_consents` và nhật ký audit vẫn được bảo lưu nguyên vẹn.
-
-Chi tiết mã test tự động PHPUnit xem tại: [04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md](04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md).
+1. **Ngưỡng tuổi người giám hộ (`guardian_age_threshold = 16`):**
+   * **Căn cứ pháp lý:** **Điều 1, Luật Trẻ em số 102/2016/QH13**: *"Trẻ em là người dưới 16 tuổi."*
+   * Khi người được khám dưới 16 tuổi, bắt buộc phải có thông tin và sự đồng thuận của cha, mẹ hoặc người giám hộ hợp pháp.
+2. **Thời hạn lưu trữ hồ sơ và bằng chứng đồng thuận:**
+   * **Căn cứ pháp lý:** **Điều 69, Luật Khám bệnh, chữa bệnh số 15/2023/QH15** quy định hồ sơ bệnh án phải được lưu trữ ít nhất 10 năm đến 20 năm; **Nghị định 13/2023/NĐ-CP** về bảo vệ dữ liệu cá nhân.
+   * Do đó, dù hồ sơ người dùng có bị xóa cứng (chưa từng đặt lịch) thì bảng `patient_consents` **không dùng khóa ngoại cứng** và bảng `audit_logs` là **Insert-only** để đảm bảo bằng chứng pháp lý và kiểm toán không bao giờ bị xóa mất.
+3. **Các chuẩn hóa tài liệu miền đã chốt:**
+   * Bỏ `district_id` theo CF-09.
+   * Dùng `deleted_at` theo CF-06.
+   * Xử lý mức độ nhạy cảm dữ liệu (Masking) theo CF-11.
+   * Bỏ OTP khi tạo hồ sơ theo CF-51 (`BR-PRF-03`).
+   * Sử dụng các trạng thái chuẩn: `pending_payment`, `pending_approval`, `confirmed` theo CF-47 (`BR-PRF-10`).
 
 ---
 
-## 4. Mục lục tài liệu phân công
+## 4. Mục tiêu nghiệm thu E2E (Acceptance Criteria)
 
-1. **[01_Model_Eloquent_Va_14_Factories.md](01_Model_Eloquent_Va_14_Factories.md)**: Chi tiết cấu trúc Model, Soft Deletes và 14 file Model Factories.
-2. **[02_Quan_Ly_Ho_So_Va_Dong_Thuan.md](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md)**: Nghiệp vụ CRUD hồ sơ, giới hạn số lượng, xác thực người giám hộ và lưu bằng chứng consent.
-3. **[03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md)**: Cơ chế che mờ dữ liệu (Data Masking), lưu `patient_snapshot` và xử lý 3 kịch bản xóa hồ sơ.
-4. **[04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md](04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md)**: Kịch bản và code kiểm thử E2E tự động cho E15 và E17.
+* **`E15` (Hồ sơ trẻ em, Người giám hộ, Consent & Masking):**
+  * Tạo hồ sơ trẻ em dưới 16 tuổi: thiếu thông tin giám hộ $\rightarrow$ Lỗi 422; thiếu consent $\rightarrow$ Lỗi 422.
+  * Nhập đủ người giám hộ + đồng ý điều khoản $\rightarrow$ Thành công HTTP 201.
+  * Đúng 1 bản ghi consent trong DB; Response trả về CCCD, BHYT, SĐT đều được che mờ.
+  * Hàm `makePatientSnapshot(profile)` trả về JSON đã che mờ.
+* **`E17` (Chính sách xóa 3 loại hồ sơ & Khôi phục):**
+  * Hồ sơ có lịch chờ $\rightarrow$ Chặn với mã lỗi **`EX-PRF-06`**.
+  * Hồ sơ có lịch sử cũ $\rightarrow$ Xóa mềm (`deleted_at`), hỗ trợ khôi phục qua API restore.
+  * Hồ sơ chưa từng đặt lịch $\rightarrow$ Xóa cứng (`forceDelete`), bảo lưu bản ghi `patient_consents` và `audit_logs`.
+
+---
+
+## 5. Mục lục tài liệu chi tiết
+
+1. [**`01_Model_Eloquent_Va_14_Factories.md`**](01_Model_Eloquent_Va_14_Factories.md): Chi tiết 14 Eloquent Models & 14 Factories.
+2. [**`02_Quan_Ly_Ho_So_Va_Dong_Thuan.md`**](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md): Nghiệp vụ CRUD, Enum quan hệ, Giám hộ <16 tuổi, Consent & Rút đồng ý.
+3. [**`03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md`**](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md): Che mờ CCCD/BHYT/SĐT, hàm `makePatientSnapshot`, chính sách xóa 3 trường hợp và khôi phục.
+4. [**`04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md`**](04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md): Kịch bản và code PHPUnit E15 & E17.
