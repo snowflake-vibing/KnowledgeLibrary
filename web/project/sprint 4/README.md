@@ -88,3 +88,4 @@ Theo mục 4.4 của `Sprint 4 requirement.pdf`, Hiệu phụ trách cập nhậ
 2. [**`02_Quan_Ly_Ho_So_Va_Dong_Thuan.md`**](02_Quan_Ly_Ho_So_Va_Dong_Thuan.md): Nghiệp vụ CRUD, Enum quan hệ, Giám hộ <16 tuổi, Consent & Rút đồng ý.
 3. [**`03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md`**](03_Masking_Snapshot_Va_Chinh_Sach_Xoa.md): Che mờ CCCD/BHYT/SĐT, hàm `makePatientSnapshot`, chính sách xóa 3 trường hợp và khôi phục.
 4. [**`04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md`**](04_Kich_Ban_Kiem_Thu_E2E_E15_E17.md): Kịch bản và code PHPUnit E15 & E17.
+5. [**`CHECKLIST_HOAN_THANH_HIEU.md`**](CHECKLIST_HOAN_THANH_HIEU.md): Bảng checklist đối soát 11 phần việc hoàn thành 100% của Hiệu.
