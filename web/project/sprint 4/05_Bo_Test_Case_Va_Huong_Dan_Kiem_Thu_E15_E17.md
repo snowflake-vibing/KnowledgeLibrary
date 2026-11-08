@@ -18,7 +18,6 @@ Hệ thống cung cấp sẵn các bộ tài khoản thử nghiệm theo từng 
 | **Patient (Test E17)** | `patient.e17@medsi.vn` | `Password@123` | Kiểm thử chính sách xóa 3 loại hồ sơ (chặn xóa lịch chờ, xóa mềm lịch cũ, xóa cứng hồ sơ trắng) | Đã có sẵn 3 hồ sơ tương ứng với 3 trạng thái lịch khám. |
 | **Patient (Hồ sơ đầy)** | `patient.max10@medsi.vn` | `Password@123` | Kiểm thử chặn tạo hồ sơ thứ 11 (`max_profiles_per_user = 10`) | Đã có sẵn 10 hồ sơ hợp lệ. |
 | **Doctor (Bác sĩ)** | `doctor.ck03@medsi.vn` | `Password@123` | Kiểm tra bác sĩ chỉ nhận được dữ liệu che mờ `patient_snapshot` trong lịch hẹn | Thuộc chuyên khoa Tim mạch CK03. |
-| **Admin** | `admin.audit@medsi.vn` | `Password@123` | Kiểm tra tra cứu hồ sơ và kiểm tra nhật ký `audit_logs` | Toàn quyền tra cứu hệ thống. |
 
 ---
 
@@ -188,6 +187,25 @@ Hệ thống cung cấp sẵn các bộ tài khoản thử nghiệm theo từng 
 * **Mục tiêu:** Một tài khoản luôn chỉ có đúng 1 hồ sơ `is_default = true`.
 * **Các bước thực hiện:** Cập nhật hồ sơ B thành `is_default = true`.
 * **Kết quả mong đợi:** Hồ sơ B trở thành `is_default = true`, hồ sơ A (vốn là mặc định trước đó) tự động chuyển thành `is_default = false`.
+
+---
+
+### 2.4. Kịch bản Bác sĩ & Bản chụp dữ liệu bệnh nhân (Task S4-24)
+
+#### `TC-DOC-01`: Bác sĩ tiếp nhận ca khám & kiểm tra Bản chụp hồ sơ bệnh nhân (Patient Snapshot)
+* **Mục tiêu:** Đảm bảo Bác sĩ khi tiếp nhận ca khám chỉ xem được thông tin bệnh nhân từ bản chụp snapshot đã che mờ (CCCD, BHYT, SĐT, SĐT người giám hộ) theo đúng nhiệm vụ S4-24 của Hiệu, chống lộ lọt thông tin cá nhân của người bệnh.
+* **Tài khoản test:** `doctor.ck03@medsi.vn` (Mật khẩu: `Password@123`).
+* **Các bước thực hiện trên Web:**
+  1. Đăng nhập bằng tài khoản `doctor.ck03@medsi.vn`.
+  2. Tại thanh điều hướng góc trên, kiểm tra chức danh hiển thị đúng là **`👨‍⚕️ Bác sĩ`** kèm huy hiệu **`Bác sĩ Chuyên khoa`**.
+  3. Bấm vào tab **"Lịch Khám Tiếp Nhận (Bác sĩ)"**.
+  4. Trên thẻ ca khám trong danh sách, tìm khối **"Bản Chụp Hồ Sơ Bệnh Nhân (Patient Snapshot)"**.
+* **Kết quả mong đợi:**
+  * Toàn bộ dữ liệu người bệnh tại thời điểm đặt lịch hiển thị dưới dạng bản chụp snapshot đã che mờ:
+    * Số CCCD: Đã che dạng `079******234`.
+    * Số điện thoại: Đã che dạng `090*****67`.
+    * Mã thẻ BHYT: Đã che dạng `DN5******099`.
+    * Người giám hộ (với trẻ em <16 tuổi): Số điện thoại đã che dạng `090*****67`.
 
 ---
 
