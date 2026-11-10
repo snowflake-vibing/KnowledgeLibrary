@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Specify the Contents of a Query Axis</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Sticky Control Bar */
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        /* Question Cards */
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .code-kw {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .code-dim {
+            color: #fbbf24;
+        }
+
+        /* Blank Input */
+        .blank-input {
+            display: inline-block;
+            background: #0f172a;
+            color: #a5f3fc;
+            border: 2px solid #64748b;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #38bdf8;
+            background: #172554;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .feedback-box strong {
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Summary Modal */
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Specify the Contents of a Query Axis</h1>
+        <p>Tự gõ chính xác các từ khóa còn thiếu trong các câu truy vấn MDX để ghi nhớ cú pháp và phản xạ viết code thực tế.</p>
+        <div class="badges">
+            <span class="badge">✍️ Dạng bài: Điền từ khóa (Fill-in-the-Blank)</span>
+            <span class="badge">🎯 Tổng cộng: 18 bài tập</span>
+            <span class="badge">💡 Có gợi ý & chấm điểm tức thì</span>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 18 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <!-- Summary box -->
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 18</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <!-- Questions -->
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Khai báo trục Cột (Trục 0) bằng tên định danh chuẩn (Alias)",
+        desc: "Điền từ khóa chỉ định hiển thị độ đo [Internet Sales Amount] trên trục Cột (X-axis):",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON <input class="blank-input" data-id="1_0" placeholder="từ khóa..." style="width: 140px;">\nFROM [Adventure Works];`,
+        answers: [
+            ["COLUMNS", "columns", "AXIS(0)", "axis(0)", "0"]
+        ],
+        hint: "Tên alias chuẩn của trục số 0, bắt đầu bằng chữ C (7 chữ cái).",
+        explanation: "Trục 0 có tên alias chuẩn là COLUMNS (hoặc AXIS(0), hoặc chỉ số số nguyên 0)."
+    },
+    {
+        id: 2,
+        title: "Khai báo trục Dòng (Trục 1) bằng tên định danh chuẩn (Alias)",
+        desc: "Điền từ khóa đưa danh sách các năm vào các hàng/dòng (Y-axis) của bảng kết quả:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    { [Date].[Calendar Year].Members } ON <input class="blank-input" data-id="2_0" placeholder="từ khóa..." style="width: 120px;">\nFROM [Adventure Works];`,
+        answers: [
+            ["ROWS", "rows", "AXIS(1)", "axis(1)", "1"]
+        ],
+        hint: "Tên alias chuẩn của trục số 1 (4 chữ cái, bắt đầu bằng R).",
+        explanation: "Trục 1 có alias chuẩn là ROWS (hoặc AXIS(1) hoặc chỉ số 1)."
+    },
+    {
+        id: 3,
+        title: "Loại bỏ các dòng toàn giá trị rỗng (NULL) khỏi kết quả",
+        desc: "Điền cụm 2 từ khóa đặt trước biểu thức tập hợp trên trục ROWS để loại bỏ dữ liệu trống:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    <input class="blank-input" data-id="3_0" placeholder="2 từ khóa..." style="width: 160px;"> [Customer].[Customer Geography].[Country].Members ON ROWS\nFROM [Adventure Works];`,
+        answers: [
+            ["NON EMPTY", "non empty", "NONEMPTY"]
+        ],
+        hint: "Gồm từ phủ định (NON) kết hợp từ chỉ sự trống rỗng (EMPTY).",
+        explanation: "Từ khóa NON EMPTY loại bỏ các tuple trên trục mà toàn bộ giao điểm ô đều rỗng (NULL)."
+    },
+    {
+        id: 4,
+        title: "Sử dụng cú pháp hàm AXIS(n) cho trục Cột và Dòng",
+        desc: "Điền đúng chỉ số nguyên trong hàm AXIS(...) cho trục hoành (Cột) và trục tung (Dòng):",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON AXIS(<input class="blank-input" data-id="4_0" placeholder="số?" style="width: 60px;">),\n    { [Product].[Category].Members } ON AXIS(<input class="blank-input" data-id="4_1" placeholder="số?" style="width: 60px;">)\nFROM [Adventure Works];`,
+        answers: [
+            ["0"],
+            ["1"]
+        ],
+        hint: "Hệ thống trục trong MDX là 0-indexed (bắt đầu từ số 0).",
+        explanation: "Trục Cột tương ứng với AXIS(0), trục Dòng tương ứng với AXIS(1)."
+    },
+    {
+        id: 5,
+        title: "Chỉ định trục Trang (Trục 2 - Z-axis)",
+        desc: "Điền tên alias chuẩn cho trục số 2 (chia kết quả thành từng trang dữ liệu):",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    { [Product].[Category].Members } ON ROWS,\n    { [Date].[Calendar Year].[CY 2023] } ON <input class="blank-input" data-id="5_0" placeholder="tên trục?" style="width: 130px;">\nFROM [Adventure Works];`,
+        answers: [
+            ["PAGES", "pages", "AXIS(2)", "axis(2)", "2"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'các trang sách/báo cáo' (bắt đầu bằng chữ P, số nhiều).",
+        explanation: "Trục 2 (AXIS(2)) có alias chuẩn là PAGES."
+    },
+    {
+        id: 6,
+        title: "Chỉ định trục Phân đoạn (Trục 3) và Chương (Trục 4)",
+        desc: "Điền tên alias chuẩn cho trục số 3 và trục số 4 trong MDX:",
+        code: `// Trục 3 có alias là: <input class="blank-input" data-id="6_0" placeholder="trục 3..." style="width: 140px;">\n// Trục 4 có alias là: <input class="blank-input" data-id="6_1" placeholder="trục 4..." style="width: 140px;">`,
+        answers: [
+            ["SECTIONS", "sections", "AXIS(3)", "axis(3)"],
+            ["CHAPTERS", "chapters", "AXIS(4)", "axis(4)"]
+        ],
+        hint: "Trục 3 = Sections; Trục 4 = Chapters.",
+        explanation: "5 alias chuẩn đầu tiên: 0 = COLUMNS, 1 = ROWS, 2 = PAGES, 3 = SECTIONS, 4 = CHAPTERS."
+    },
+    {
+        id: 7,
+        title: "Số lượng Query Axes tối đa MDX hỗ trợ",
+        desc: "Điền số lượng trục truy vấn tối đa mà ngôn ngữ MDX hỗ trợ trong 1 câu SELECT:",
+        code: `// Ngôn ngữ MDX hỗ trợ tối đa: <input class="blank-input" data-id="7_0" placeholder="số nguyên?" style="width: 90px;"> trục truy vấn (đánh số từ 0 đến 127).`,
+        answers: [
+            ["128", "128 trục"]
+        ],
+        hint: "Lũy thừa 2 mũ 7 (2^7 = ?).",
+        explanation: "MDX hỗ trợ tối đa 128 trục truy vấn (từ Axis 0 đến Axis 127)."
+    },
+    {
+        id: 8,
+        title: "Quy tắc không được nhảy cóc trục (No Skipped Axes)",
+        desc: "Sửa lại câu lệnh bị lỗi bên dưới (do chỉ khai báo ROWS mà thiếu COLUMNS). Điền tên trục hợp lệ khi chỉ có 1 trục:",
+        code: `// CÂU LỖI: SELECT [Product].[Category].Members ON ROWS FROM [Adventure Works];\n// SỬA ĐÚNG:\nSELECT\n    [Product].[Category].Members ON <input class="blank-input" data-id="8_0" placeholder="trục đúng..." style="width: 140px;">\nFROM [Adventure Works];`,
+        answers: [
+            ["COLUMNS", "columns", "0", "AXIS(0)", "axis(0)"]
+        ],
+        hint: "Khi câu lệnh chỉ có 1 trục duy nhất, bắt buộc trục đó phải là trục 0.",
+        explanation: "Theo quy tắc 'No Skipped Axes', các trục phải liên tục bắt đầu từ trục 0 (COLUMNS). Không thể có ROWS khi chưa có COLUMNS."
+    },
+    {
+        id: 9,
+        title: "Lọc điều kiện trực tiếp trên trục bằng mệnh đề HAVING",
+        desc: "Điền từ khóa mệnh đề lọc các năm có doanh thu > 5,000,000 ngay trước từ khóa ON ROWS:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    [Date].[Calendar Year].Members \n        <input class="blank-input" data-id="9_0" placeholder="mệnh đề?" style="width: 120px;"> [Measures].[Internet Sales Amount] > 5000000 ON ROWS\nFROM [Adventure Works];`,
+        answers: [
+            ["HAVING", "having"]
+        ],
+        hint: "Mệnh đề bắt đầu bằng H (tương tự having trong SQL nhưng đặt trên trục).",
+        explanation: "Cú pháp: Set_Expression [HAVING Condition] ON Axis."
+    },
+    {
+        id: 10,
+        title: "Truy xuất siêu dữ liệu thành viên (Member Properties)",
+        desc: "Điền cụm 2 từ khóa yêu cầu Analysis Services trả về các thuộc tính mở rộng của thành viên:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    [Product].[Category].Members \n        <input class="blank-input" data-id="10_0" placeholder="2 từ khóa..." style="width: 220px;"> MEMBER_UNIQUE_NAME, LEVEL_NUMBER ON ROWS\nFROM [Adventure Works];`,
+        answers: [
+            ["DIMENSION PROPERTIES", "dimension properties", "DIMENSIONPROPERTIES"]
+        ],
+        hint: "Từ khóa kết hợp giữa 'DIMENSION' và 'PROPERTIES'.",
+        explanation: "Mệnh đề DIMENSION PROPERTIES dùng để truy vấn các thuộc tính thành viên như MEMBER_UNIQUE_NAME, CAPTION..."
+    },
+    {
+        id: 11,
+        title: "Thuộc tính định danh duy nhất của thành viên",
+        desc: "Điền tên thuộc tính chuẩn trả về chuỗi định danh duy nhất (Unique Name) của Member:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    [Product].[Category].Members \n        DIMENSION PROPERTIES <input class="blank-input" data-id="11_0" placeholder="thuộc tính..." style="width: 230px;"> ON ROWS\nFROM [Adventure Works];`,
+        answers: [
+            ["MEMBER_UNIQUE_NAME", "member_unique_name"]
+        ],
+        hint: "Cấu trúc: MEMBER + UNIQUE + NAME (nối bằng dấu gạch dưới).",
+        explanation: "Thuộc tính MEMBER_UNIQUE_NAME trả về tên định danh đầy đủ của thành viên (vd: [Product].[Category].&[1])."
+    },
+    {
+        id: 12,
+        title: "Kết hợp 2 chiều trên cùng một trục bằng hàm CROSSJOIN",
+        desc: "Điền tên hàm MDX tạo tích Descartes giữa Danh mục sản phẩm và Quốc gia của khách hàng:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    NON EMPTY <input class="blank-input" data-id="12_0" placeholder="tên hàm?" style="width: 140px;">(\n        [Product].[Category].Members,\n        [Customer].[Customer Geography].[Country].Members\n    ) ON ROWS\nFROM [Adventure Works];`,
+        answers: [
+            ["CROSSJOIN", "crossjoin"]
+        ],
+        hint: "Hàm tích Đề-các (Cartesian product) gồm từ CROSS kết hợp JOIN.",
+        explanation: "Hàm CROSSJOIN(Set1, Set2) kết hợp các thành viên từ nhiều chiều tạo thành các Tuple đa chiều trên cùng 1 trục."
+    },
+    {
+        id: 13,
+        title: "Truy vấn MDX không có trục nào (Empty SELECT clause)",
+        desc: "Điền tên tiếng Anh thuật ngữ chỉ kết quả trả về khi câu SELECT không có bất kỳ trục nào:",
+        code: `SELECT\nFROM [Adventure Works]\nWHERE ([Measures].[Internet Sales Amount], [Date].[Calendar Year].[CY 2023]);\n// Kết quả trả về đúng 1 ô duy nhất, gọi là: <input class="blank-input" data-id="13_0" placeholder="thuật ngữ (2 từ)..." style="width: 150px;">`,
+        answers: [
+            ["Single Cell", "single cell", "SINGLE CELL", "1 ô", "1 cell"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'Một ô đơn lẻ' (bắt đầu bằng S và C).",
+        explanation: "Khi SELECT không chứa trục nào, toàn bộ các chiều trở thành Slicer và kết quả trả về là một Single Cell (1 ô duy nhất)."
+    },
+    {
+        id: 14,
+        title: "Phân biệt Query Axis và Slicer Axis",
+        desc: "Điền từ khóa mệnh đề đại diện cho Query Axis và Slicer Axis:",
+        code: `// Trục Query Axis được định nghĩa trong mệnh đề: <input class="blank-input" data-id="14_0" placeholder="mệnh đề 1..." style="width: 110px;">\n// Trục Slicer Axis được định nghĩa trong mệnh đề: <input class="blank-input" data-id="14_1" placeholder="mệnh đề 2..." style="width: 110px;">`,
+        answers: [
+            ["SELECT", "select"],
+            ["WHERE", "where"]
+        ],
+        hint: "Mệnh đề 1 = SELECT; Mệnh đề 2 = WHERE.",
+        explanation: "Query Axis được khai báo sau SELECT (... ON COLUMNS/ROWS), còn Slicer Axis được khai báo trong mệnh đề WHERE."
+    },
+    {
+        id: 15,
+        title: "Ký hiệu bao bọc một Set (Tập hợp) trong MDX",
+        desc: "Điền ký hiệu cặp dấu ngoặc chuẩn dùng để định nghĩa một Set các độ đo hoặc thành viên:",
+        code: `SELECT\n    <input class="blank-input" data-id="15_0" placeholder="ngoặc mở?" style="width: 50px;"> [Measures].[Internet Sales Amount], [Measures].[Order Quantity] <input class="blank-input" data-id="15_1" placeholder="ngoặc đóng?" style="width: 50px;"> ON COLUMNS\nFROM [Adventure Works];`,
+        answers: [
+            ["{", "dấu ngoặc nhọn"],
+            ["}", "dấu ngoặc nhọn"]
+        ],
+        hint: "Dấu ngoặc nhọn { và }.",
+        explanation: "Trong MDX, một Set luôn được bao bọc bởi dấu ngoặc nhọn { }."
+    },
+    {
+        id: 16,
+        title: "Ký hiệu bao bọc một Tuple (Bộ tọa độ) trong MDX",
+        desc: "Điền ký hiệu cặp dấu ngoặc chuẩn dùng để định nghĩa một Tuple trong mệnh đề WHERE hoặc SET:",
+        code: `WHERE <input class="blank-input" data-id="16_0" placeholder="mở?" style="width: 50px;"> [Customer].[Gender].[F], [Date].[Calendar Year].[CY 2023] <input class="blank-input" data-id="16_1" placeholder="đóng?" style="width: 50px;">`,
+        answers: [
+            ["(", "ngoặc đơn"],
+            [")", "ngoặc đơn"]
+        ],
+        hint: "Dấu ngoặc đơn ( và ).",
+        explanation: "Trong MDX, một Tuple luôn được bao bọc bởi cặp dấu ngoặc đơn ( )."
+    },
+    {
+        id: 17,
+        title: "Thiết lập ngữ cảnh khối (Cube Context)",
+        desc: "Điền từ khóa mệnh đề dùng để xác định tên khối Cube dữ liệu được truy vấn:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS\n<input class="blank-input" data-id="17_0" placeholder="từ khóa..." style="width: 100px;"> [Adventure Works];`,
+        answers: [
+            ["FROM", "from"]
+        ],
+        hint: "Tương tự SQL, từ khóa chỉ nguồn dữ liệu (4 chữ cái, bắt đầu bằng F).",
+        explanation: "Mệnh đề FROM xác định Cube Context cho toàn bộ truy vấn MDX."
+    },
+    {
+        id: 18,
+        title: "Hoàn thiện câu truy vấn tổng hợp phức hợp",
+        desc: "Điền 3 từ khóa còn thiếu để hoàn thiện câu truy vấn: loại bỏ dòng trống, đưa kết quả vào dòng và lọc các đơn vị có doanh thu > 10,000:",
+        code: `SELECT\n    { [Measures].[Internet Sales Amount] } ON COLUMNS,\n    <input class="blank-input" data-id="18_0" placeholder="từ khóa 1..." style="width: 130px;"> [Product].[Subcategory].Members \n        <input class="blank-input" data-id="18_1" placeholder="từ khóa 2..." style="width: 100px;"> [Measures].[Internet Sales Amount] > 10000 ON <input class="blank-input" data-id="18_2" placeholder="từ khóa 3..." style="width: 100px;">\nFROM [Adventure Works];`,
+        answers: [
+            ["NON EMPTY", "non empty", "NONEMPTY"],
+            ["HAVING", "having"],
+            ["ROWS", "rows", "1", "AXIS(1)"]
+        ],
+        hint: "Từ 1: NON EMPTY; Từ 2: HAVING; Từ 3: ROWS.",
+        explanation: "Cú pháp hoàn chỉnh: NON EMPTY [Set] HAVING [Condition] ON ROWS."
+    }
+];
+
+let questionStatus = {}; // { qId: true/false }
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#e2e8f0; color:#334155;">Điền từ khóa MDX</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Thêm listener Enter để auto check
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã gõ chính xác 100% tất cả các từ khóa và cú pháp Query Axes trong MDX!";
+    } else if (percent >= 70) {
+        msg = "👍 Khá tốt! Bạn đã nhớ được đa số cú pháp, hãy bấm 'Xem gợi ý' các câu còn sai để luyện tập thêm.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này và thử gõ lại từng từ khóa để khắc sâu cú pháp nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

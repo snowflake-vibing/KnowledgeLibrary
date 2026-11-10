@@ -44,9 +44,9 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 
 ### 6. [Kho Dữ Liệu & OLAP – Data Warehouse & OLAP](Kho_Du_Lieu_OLAP/README.md)
 - **[Giải chi tiết Đề thi cuối kỳ HK2 (2023 - 2024)](Kho_Du_Lieu_OLAP/giai_de/DeThiCuoiKy_KhoDLOLAP_HK2-20232024.md)**
-- **[Chuyên đề MDX & OLAP Fundamentals](Kho_Du_Lieu_OLAP/mdx/mdx_query_fundamentals.md)**
-- **[Đặc tả nội dung trục truy vấn trong MDX (Query Axes)](Kho_Du_Lieu_OLAP/mdx/specify_the_contents_of_a_query_axis.md)**
-- **[Kịch bản thực hành MDX Query Script (`query.mdx`)](Kho_Du_Lieu_OLAP/mdx/query.mdx)**
-- **[Web App trắc nghiệm tương tác MDX (18 câu)](Kho_Du_Lieu_OLAP/mdx/trac_nghiem_specify_query_axis.html)**
+- **[Tổng quan chuyên đề MDX & Mục đích học tập](Kho_Du_Lieu_OLAP/mdx/README.md)**
+- **[01. MDX Query Fundamentals (Lý thuyết & Bài tập điền từ)](Kho_Du_Lieu_OLAP/mdx/01_mdx_query_fundamentals/ly_thuyet.md)**
+- **[02. Specify the Contents of a Query Axis (Lý thuyết & Bài tập điền từ)](Kho_Du_Lieu_OLAP/mdx/02_specify_the_contents_of_a_query_axis/ly_thuyet.md)**
+
 
 

@@ -9,13 +9,17 @@ Kho tài liệu học tập, thiết kế hệ thống Kho dữ liệu (Data War
 ```
 Kho_Du_Lieu_OLAP/
 ├── giai_de/
-│   └── DeThiCuoiKy_KhoDLOLAP_HK2-20232024.md   # Lời giải chi tiết Đề thi Cuối kỳ HK2 (2023 - 2024)
+│   └── DeThiCuoiKy_KhoDLOLAP_HK2-20232024.md         # Lời giải chi tiết Đề thi Cuối kỳ HK2 (2023 - 2024)
 ├── mdx/
-│   ├── mdx_query_fundamentals.md               # Kiến thức nền tảng về MDX Query (Microsoft Learn)
-│   ├── specify_the_contents_of_a_query_axis.md # Hướng dẫn chi tiết về Query Axes trong MDX
-│   ├── query.mdx                               # Bộ truy vấn MDX thực hành mẫu (SSMS / Analysis Services)
-│   └── trac_nghiem_specify_query_axis.html     # Web App trắc nghiệm tương tác 18 câu có chấm điểm & giải thích
-└── README.md                                   # Tổng quan danh mục tài liệu
+│   ├── README.md                                     # Mục đích học tập (ghi nhớ cú pháp & tự viết code)
+│   ├── 01_mdx_query_fundamentals/                    # Module 01: Nền tảng truy vấn MDX
+│   │   ├── ly_thuyet.md                              # Lý thuyết chuyên sâu từ Microsoft Learn
+│   │   └── bai_tap_dien_tu.html                      # Web App bài tập điền từ khóa & cú pháp (15 câu)
+│   └── 02_specify_the_contents_of_a_query_axis/      # Module 02: Đặc tả các trục truy vấn (Query Axes)
+│       ├── ly_thuyet.md                              # Lý thuyết chuyên sâu về Query Axes
+│       ├── query.mdx                                 # Bộ truy vấn mẫu thực hành (SSMS / Analysis Services)
+│       └── bai_tap_dien_tu.html                      # Web App bài tập điền từ khóa & cú pháp (18 câu)
+└── README.md                                         # Tổng quan danh mục tài liệu
 ```
 
 ---
@@ -32,28 +36,17 @@ Kho_Du_Lieu_OLAP/
 
 ---
 
-### 2. [Chuyên đề MDX & OLAP (`mdx/`)](mdx/)
-* **[Nền tảng truy vấn MDX (MDX Query Fundamentals)](mdx/mdx_query_fundamentals.md)**
-  - Nền tảng về Multidimensional Expressions & Cellset.
-  - 4 khối xây dựng: Dimension, Measure, Tuple `(...)` và Set `{...}`.
-  - Cấu trúc lệnh `SELECT ... FROM ... WHERE ...`.
-  - Phân biệt chuyên sâu giữa Query Axis (`SELECT`) và Slicer Axis (`WHERE`).
-  - Bảng so sánh đối chiếu giữa SQL và MDX.
+### 2. [Chuyên đề MDX & OLAP (`mdx/`)](mdx/README.md)
+*Mục đích cốt lõi: Ghi nhớ chuẩn xác từ khóa, quy tắc cú pháp và rèn luyện kỹ năng tự viết code MDX hoàn chỉnh thông qua mô hình: Mỗi Folder = 1 File Lý thuyết (`ly_thuyet.md`) + 1 File Bài tập điền từ (`bai_tap_dien_tu.html`).*
 
-* **[Đặc tả nội dung trục truy vấn (Specify the Contents of a Query Axis)](mdx/specify_the_contents_of_a_query_axis.md)**
-  - Cú pháp mệnh đề `<SELECT query axis clause>`.
-  - Ánh xạ 128 trục truy vấn, hệ thống alias chuẩn: `COLUMNS (0)`, `ROWS (1)`, `PAGES (2)`, `SECTIONS (3)`, `CHAPTERS (4)`.
-  - Từ khóa `NON EMPTY` để loại bỏ các ô dữ liệu rỗng.
-  - Mệnh đề `HAVING` lọc trực tiếp trên trục và `DIMENSION PROPERTIES` lấy siêu dữ liệu thành viên.
-  - Quy tắc bắt buộc: **No Skipped Axes** (không được nhảy cóc trục) và **Empty SELECT clause** (0 trục - Single Cell).
+* **[Chuyên đề 01: Nền tảng truy vấn MDX (MDX Query Fundamentals)](mdx/01_mdx_query_fundamentals/)**
+  - **Lý thuyết:** [`ly_thuyet.md`](mdx/01_mdx_query_fundamentals/ly_thuyet.md) – Multidimensional Expressions & Cellset, 4 khối Dimension/Measure/Tuple/Set, cấu trúc lệnh `SELECT...FROM...WHERE`, Default Member và bảng so sánh SQL vs MDX.
+  - **Bài tập điền từ khóa:** [`bai_tap_dien_tu.html`](mdx/01_mdx_query_fundamentals/bai_tap_dien_tu.html) – 15 bài tập tương tác gõ trực tiếp từ khóa cú pháp, kiểm tra tức thì và gợi ý chi tiết.
 
-* **[Kịch bản truy vấn mẫu thực hành (`query.mdx`)](mdx/query.mdx)**
-  - File mã nguồn `.mdx` gồm 10 phần truy vấn thực hành mẫu, sẵn sàng chạy trực tiếp trên SSMS / Azure Analysis Services / Power BI XMLA Endpoint trên cơ sở dữ liệu Adventure Works.
-
-* **[Ứng dụng trắc nghiệm tương tác (`trac_nghiem_specify_query_axis.html`)](mdx/trac_nghiem_specify_query_axis.html)**
-  - Giao diện trực quan trên nền Web (HTML5/CSS3/JavaScript thuần).
-  - Bộ 18 câu trắc nghiệm bao quát toàn diện lý thuyết, cú pháp và các bẫy đề thi.
-  - Chấm điểm tự động, phân loại kết quả và cung cấp lời giải thích chi tiết cho từng phương án.
+* **[Chuyên đề 02: Đặc tả nội dung trục truy vấn (Specify Query Axes)](mdx/02_specify_the_contents_of_a_query_axis/)**
+  - **Lý thuyết:** [`ly_thuyet.md`](mdx/02_specify_the_contents_of_a_query_axis/ly_thuyet.md) – Cú pháp `<SELECT query axis clause>`, 128 trục truy vấn, hệ thống Alias (`COLUMNS`, `ROWS`, `PAGES`,...), `NON EMPTY`, mệnh đề `HAVING`, `DIMENSION PROPERTIES`, quy tắc *No Skipped Axes* và *Empty SELECT*.
+  - **Bài tập điền từ khóa:** [`bai_tap_dien_tu.html`](mdx/02_specify_the_contents_of_a_query_axis/bai_tap_dien_tu.html) – 18 bài tập tương tác điền từ khóa hoàn thiện code MDX có chấm điểm.
+  - **File code mẫu:** [`query.mdx`](mdx/02_specify_the_contents_of_a_query_axis/query.mdx) – 10 kịch bản truy vấn thực hành sẵn sàng chạy trên SSMS / Adventure Works.
 
 ---
 
