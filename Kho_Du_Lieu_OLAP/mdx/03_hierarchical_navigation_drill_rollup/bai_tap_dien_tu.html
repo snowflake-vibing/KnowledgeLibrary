@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Điều Hướng Phân Cấp & Drill Down / Roll Up</title>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --primary-light: #f5f3ff;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .blank-input {
+            display: inline-block;
+            background: #1e1b4b;
+            color: #c4b5fd;
+            border: 2px solid #6366f1;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #a78bfa;
+            background: #2e1065;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Hierarchy Navigation & Drill down / Roll up</h1>
+        <p>Tự gõ chính xác các hàm điều hướng cây phân cấp: Children, Parent, Descendants, Ancestor, Siblings, PrevMember để thành thạo các dạng đề thi UIT.</p>
+        <div class="badges">
+            <span class="badge">✍️ Dạng bài: Điền từ khóa & Hoàn thiện code</span>
+            <span class="badge">🎯 Tổng cộng: 15 bài tập</span>
+            <span class="badge">🎓 Bám sát đề thi UIT</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 15 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 15</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Thao tác Drill down 1 cấp bằng hàm .Children",
+        desc: "Điền thuộc tính mở rộng nút năm [2023] thành danh sách các Quý con trực tiếp:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    [Dim_ThoiGian].[Nam].[2023].<input class="blank-input" data-id="1_0" placeholder="thuộc tính..." style="width: 130px;"> ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["Children", "children", "CHILDREN"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'các con' (số nhiều của Child).",
+        explanation: "[Member].Children mở rộng nút cha thành các phần tử con trực tiếp (thao tác Drill down 1 cấp)."
+    },
+    {
+        id: 2,
+        title: "Thao tác Roll up 1 cấp bằng hàm .Parent",
+        desc: "Điền thuộc tính cuộn gộp từ một tháng cụ thể [2023-05] lên Quý cha trực tiếp:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    { [Dim_ThoiGian].[Thang].[2023-05].<input class="blank-input" data-id="2_0" placeholder="thuộc tính..." style="width: 120px;"> } ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["Parent", "parent", "PARENT"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Cha mẹ / Phụ huynh' (6 chữ cái).",
+        explanation: "[Member].Parent trả về nút cha trực tiếp của phần tử (thao tác Roll up 1 cấp)."
+    },
+    {
+        id: 3,
+        title: "Khoan sâu đa cấp bằng hàm DESCENDANTS",
+        desc: "Điền tên hàm MDX dùng để khoan sâu từ cấp Năm xuống cấp Quý:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="3_0" placeholder="tên hàm?" style="width: 150px;">(\n        [Dim_ThoiGian].[Nam_Quy_Thang].[Nam].[2023],\n        [Dim_ThoiGian].[Nam_Quy_Thang].[Quy]\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["DESCENDANTS", "descendants", "Descendants"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Các hậu duệ/con cháu' (bắt đầu bằng D).",
+        explanation: "Hàm DESCENDANTS(Member, Level) khoan sâu xuống các cấp độ bên dưới theo phân cấp."
+    },
+    {
+        id: 4,
+        title: "Cờ điều khiển cành lá (LEAVES) trong DESCENDANTS",
+        desc: "Điền tên cờ (Flag) trong hàm DESCENDANTS để chỉ lấy các phần tử ở cấp thấp nhất (lá cây phân cấp):",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    DESCENDANTS(\n        [Dim_DiemDen].[QuocGia_ThanhPho].[Vietnam],\n        ,\n        <input class="blank-input" data-id="4_0" placeholder="tên cờ?" style="width: 110px;">\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["LEAVES", "leaves", "Leaves"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'những chiếc lá' (số nhiều của Leaf).",
+        explanation: "Cờ LEAVES trong hàm DESCENDANTS chỉ lấy các thành viên lá không có con bên dưới."
+    },
+    {
+        id: 5,
+        title: "Lấy các phần tử cùng cấp (Anh chị em ruột)",
+        desc: "Điền tên thuộc tính trả về danh sách các Quý cùng cấp với [Q1 2023]:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    [Dim_ThoiGian].[Quy].[Q1 2023].<input class="blank-input" data-id="5_0" placeholder="thuộc tính..." style="width: 120px;"> ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["Siblings", "siblings", "SIBLINGS"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'anh chị em ruột' (bắt đầu bằng S, 8 chữ cái).",
+        explanation: "[Member].Siblings trả về tập hợp các anh chị em cùng cha (bao gồm cả chính nó)."
+    },
+    {
+        id: 6,
+        title: "Điều hướng phần tử kỳ liền trước (.PrevMember)",
+        desc: "Điền thuộc tính lấy thành viên kỳ trước đó (dùng để tính tăng trưởng doanh số so với kỳ trước):",
+        code: `WITH MEMBER [Measures].[DoanhThuKyTruoc] AS\n    ( [Measures].[DoanhThu], [Dim_ThoiGian].[Nam].CurrentMember.<input class="blank-input" data-id="6_0" placeholder="thuộc tính..." style="width: 140px;"> )\nSELECT\n    {[Measures].[DoanhThu], [Measures].[DoanhThuKyTruoc]} ON COLUMNS,\n    [Dim_ThoiGian].[Nam].[Nam].Members ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["PrevMember", "prevmember", "PREVMEMBER", ".PrevMember"]
+        ],
+        hint: "Viết tắt của 'Previous Member'.",
+        explanation: "[Member].PrevMember trả về thành viên liền trước trên cùng cấp độ phân cấp."
+    },
+    {
+        id: 7,
+        title: "Điều hướng phần tử kỳ liền sau (.NextMember)",
+        desc: "Điền thuộc tính lấy thành viên ở vị trí liền kề phía sau trên cùng cấp:",
+        code: `// Lấy tháng tiếp theo sau tháng hiện tại:\n[Dim_ThoiGian].[Thang].CurrentMember.<input class="blank-input" data-id="7_0" placeholder="thuộc tính..." style="width: 140px;">`,
+        answers: [
+            ["NextMember", "nextmember", "NEXTMEMBER"]
+        ],
+        hint: "Ghép giữa NEXT và MEMBER.",
+        explanation: "[Member].NextMember trả về phần tử kế tiếp."
+    },
+    {
+        id: 8,
+        title: "Lấy con đầu tiên và con cuối cùng",
+        desc: "Điền thuộc tính lấy Quý đầu tiên (Q1) và Quý cuối cùng (Q4) của năm 2023:",
+        code: `// Quý 1 năm 2023: [Dim_ThoiGian].[Nam].[2023].<input class="blank-input" data-id="8_0" placeholder="con đầu tiên?" style="width: 130px;">\n// Quý 4 năm 2023: [Dim_ThoiGian].[Nam].[2023].<input class="blank-input" data-id="8_1" placeholder="con cuối cùng?" style="width: 130px;">`,
+        answers: [
+            ["FirstChild", "firstchild", "FIRSTCHILD"],
+            ["LastChild", "lastchild", "LASTCHILD"]
+        ],
+        hint: "FirstChild = Con đầu; LastChild = Con cuối.",
+        explanation: "[Member].FirstChild và [Member].LastChild lấy nút con ở vị trí biên."
+    },
+    {
+        id: 9,
+        title: "Truy vấn tổ tiên bằng hàm ANCESTOR",
+        desc: "Điền tên hàm MDX trả về 1 thành viên tổ tiên ở cấp Quốc gia của thành phố [Đà Nẵng]:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    { <input class="blank-input" data-id="9_0" placeholder="tên hàm?" style="width: 130px;">([Dim_DiemDen].[DiaLy].[ThanhPho].[Đà Nẵng], [Dim_DiemDen].[DiaLy].[QuocGia]) } ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["ANCESTOR", "ancestor", "Ancestor"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Tổ tiên' (8 chữ cái).",
+        explanation: "Hàm ANCESTOR(Member, Level) trả về 1 Member tổ tiên ở level được chỉ định."
+    },
+    {
+        id: 10,
+        title: "Bản chất thao tác Drill down trong đề thi UIT",
+        desc: "Trong phân tích OLAP, thao tác khoan sâu (Drill down) di chuyển theo hướng nào trên cây phân cấp?",
+        code: `// Thao tác Drill down đi từ nút: <input class="blank-input" data-id="10_0" placeholder="Cha hay Con?" style="width: 100px;"> xuống các nút: <input class="blank-input" data-id="10_1" placeholder="Cha hay Con?" style="width: 100px;"> (từ tổng quát xuống chi tiết).`,
+        answers: [
+            ["Cha", "Parent", "cha", "parent"],
+            ["Con", "Children", "con", "children"]
+        ],
+        hint: "Từ Cha xuống Con.",
+        explanation: "Drill down đi từ nút cha tổng quát xuống các nút con chi tiết hơn."
+    },
+    {
+        id: 11,
+        title: "Bản chất thao tác Roll up trong đề thi UIT",
+        desc: "Trong phân tích OLAP, thao tác cuộn gộp (Roll up) di chuyển theo hướng nào trên cây phân cấp?",
+        code: `// Thao tác Roll up đi từ các nút: <input class="blank-input" data-id="11_0" placeholder="Cha hay Con?" style="width: 100px;"> cuộn gộp lên nút: <input class="blank-input" data-id="11_1" placeholder="Cha hay Con?" style="width: 100px;"> (từ chi tiết lên tổng quát).`,
+        answers: [
+            ["Con", "Children", "con", "children"],
+            ["Cha", "Parent", "cha", "parent"]
+        ],
+        hint: "Từ Con lên Cha.",
+        explanation: "Roll up đi từ các nút con chi tiết thu gọn lên nút cha tổng quát hơn."
+    },
+    {
+        id: 12,
+        title: "Hoàn thiện câu truy vấn Drill down theo đề thi UIT",
+        desc: "Hoàn thiện câu lệnh Drill down chiều thời gian từ Năm 2023 xuống Quý:",
+        code: `SELECT\n    {[Measures].[DoanhThu], [Measures].[SoLuongTour]} ON COLUMNS,\n    [Dim_ThoiGian].[Nam].[2023].<input class="blank-input" data-id="12_0" placeholder="thuộc tính..." style="width: 120px;"> ON <input class="blank-input" data-id="12_1" placeholder="trục dòng..." style="width: 90px;">\nFROM [Tour_DW];`,
+        answers: [
+            ["Children", "children"],
+            ["ROWS", "rows", "1", "AXIS(1)"]
+        ],
+        hint: "Từ 1 = Children; Từ 2 = ROWS.",
+        explanation: "Cú pháp: [Nam].[2023].Children ON ROWS."
+    },
+    {
+        id: 13,
+        title: "Khoan sâu theo khoảng cách (Distance) trong DESCENDANTS",
+        desc: "Điền khoảng cách số nguyên (Distance) để khoan sâu từ Năm xuống trực tiếp cấp con kế cận:",
+        code: `// Khoan sâu xuống đúng 1 cấp con:\nDESCENDANTS([Dim_ThoiGian].[Nam].[2023], <input class="blank-input" data-id="13_0" placeholder="số?" style="width: 50px;">, SELF)`,
+        answers: [
+            ["1"]
+        ],
+        hint: "Khoảng cách 1 cấp.",
+        explanation: "Distance = 1 tương đương việc gọi .Children."
+    },
+    {
+        id: 14,
+        title: "Kiểu dữ liệu trả về của hàm .Children và .Parent",
+        desc: "Điền kiểu trả về trong MDX (Set hay Member) của 2 hàm điều hướng này:",
+        code: `// [Member].Children trả về một: <input class="blank-input" data-id="14_0" placeholder="Set hay Member?" style="width: 110px;">\n// [Member].Parent trả về một: <input class="blank-input" data-id="14_1" placeholder="Set hay Member?" style="width: 110px;">`,
+        answers: [
+            ["Set", "set", "SET"],
+            ["Member", "member", "MEMBER"]
+        ],
+        hint: "Children trả về Set; Parent trả về Member.",
+        explanation: "Children gồm nhiều con nên trả về một Set; Parent chỉ có 1 cha nên là Member."
+    },
+    {
+        id: 15,
+        title: "Câu thuyết minh bắt buộc trong đề thi UIT",
+        desc: "Khi làm câu hỏi Roll up / Drill down trong đề thi UIT, sinh viên bắt buộc phải ghi rõ theo yếu tố gì?",
+        code: `// Ví dụ thuyết minh: Thực hiện <input class="blank-input" data-id="15_0" placeholder="Drill down hay Roll up?" style="width: 140px;"> theo chiều Thời gian từ cấp độ Năm xuống cấp độ Quý.`,
+        answers: [
+            ["Drill down", "drill down", "DRILL DOWN", "khoan sâu"]
+        ],
+        hint: "Khoan từ Năm xuống Quý là Drill down.",
+        explanation: "Đề bài yêu cầu ghi rõ theo yếu tố gì (chiều nào, từ cấp độ nào sang cấp độ nào) để đạt trọn điểm."
+    }
+];
+
+let questionStatus = {};
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#ede9fe; color:#6d28d9;">Điều hướng phân cấp</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã nắm trọn các hàm phân cấp và thao tác Drill down / Roll up cho đề thi UIT!";
+    } else if (percent >= 70) {
+        msg = "👍 Khá tốt! Bạn đã hiểu hầu hết các hàm phân cấp, hãy xem lại các câu còn sai.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này để ôn chắc thao tác Drill down / Roll up nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

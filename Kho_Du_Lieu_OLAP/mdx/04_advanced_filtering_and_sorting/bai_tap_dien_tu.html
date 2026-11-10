@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Lọc & Sắp Xếp Nâng Cao</title>
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --primary-light: #ecfdf5;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .blank-input {
+            display: inline-block;
+            background: #064e3b;
+            color: #a7f3d0;
+            border: 2px solid #059669;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #34d399;
+            background: #022c22;
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Advanced Filtering & Sorting</h1>
+        <p>Tự gõ chính xác các hàm lọc và xếp hạng: Filter, TopCount, BottomCount, Order, BDESC, Head, Tail.</p>
+        <div class="badges">
+            <span class="badge">✍️ Dạng bài: Điền từ khóa & Hoàn thiện code</span>
+            <span class="badge">🎯 Tổng cộng: 15 bài tập</span>
+            <span class="badge">💡 Có lời giải chi tiết</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 15 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 15</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Cú pháp hàm FILTER lọc theo ngưỡng doanh thu",
+        desc: "Điền tên hàm MDX dùng để lọc các điểm đến có doanh thu lớn hơn 30 triệu:",
+        code: `SELECT\n    {[Measures].[DoanhThu], [Measures].[SoLuotKhach]} ON COLUMNS,\n    <input class="blank-input" data-id="1_0" placeholder="tên hàm?" style="width: 120px;">(\n        [Dim_DiemDen].[TenDiemDen].Members,\n        [Measures].[DoanhThu] > 30000000\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["FILTER", "filter", "Filter"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Lọc' (6 chữ cái).",
+        explanation: "Hàm FILTER(Set, Condition) duyệt qua từng phần tử và chỉ giữ lại phần tử có điều kiện True."
+    },
+    {
+        id: 2,
+        title: "Cú pháp hàm TOPCOUNT lấy N phần tử đứng đầu",
+        desc: "Điền tên hàm MDX lấy top 3 hướng dẫn viên phụ trách nhiều tour nhất:",
+        code: `SELECT\n    {[Measures].[SoLuongTour]} ON COLUMNS,\n    <input class="blank-input" data-id="2_0" placeholder="tên hàm?" style="width: 140px;">(\n        [Dim_HuongDanVien].[HoTenHDV].Members,\n        3,\n        [Measures].[SoLuongTour]\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["TOPCOUNT", "topcount", "TopCount"]
+        ],
+        hint: "Ghép giữa TOP và COUNT.",
+        explanation: "Hàm TOPCOUNT(Set, Count, Numeric_Expression) sắp xếp giảm dần và lấy Count phần tử dẫn đầu."
+    },
+    {
+        id: 3,
+        title: "Cú pháp hàm BOTTOMCOUNT lấy N phần tử thấp nhất",
+        desc: "Điền tên hàm MDX lấy ra 5 loại hình du lịch có doanh thu thấp nhất:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="3_0" placeholder="tên hàm?" style="width: 150px;">(\n        [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,\n        5,\n        [Measures].[DoanhThu]\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["BOTTOMCOUNT", "bottomcount", "BottomCount"]
+        ],
+        hint: "Ghép giữa BOTTOM và COUNT.",
+        explanation: "Hàm BOTTOMCOUNT(Set, Count, Numeric_Expression) sắp xếp tăng dần và lấy Count phần tử dưới đáy."
+    },
+    {
+        id: 4,
+        title: "Cờ BDESC trong hàm ORDER (Phá vỡ phân cấp giảm dần)",
+        desc: "Điền cờ sắp xếp toàn cục giảm dần bỏ qua cây phân cấp cha con:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    ORDER(\n        [Dim_KhachDuLich].[HoTenKDL].Members,\n        [Measures].[DoanhThu],\n        <input class="blank-input" data-id="4_0" placeholder="cờ sắp xếp?" style="width: 100px;">\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["BDESC", "bdesc", "BDesc"]
+        ],
+        hint: "Chữ B (Break hierarchy) kết hợp DESC (Descending).",
+        explanation: "Cờ BDESC san phẳng toàn bộ tập hợp và sắp xếp giảm dần tuyệt đối."
+    },
+    {
+        id: 5,
+        title: "Cờ DESC trong hàm ORDER (Giữ nguyên phân cấp)",
+        desc: "Điền cờ sắp xếp giảm dần nhưng vẫn giữ nguyên cấu trúc cha con (Hierarchical Sort):",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    ORDER(\n        [Dim_ThoiGian].[Nam_Quy_Thang].Members,\n        [Measures].[DoanhThu],\n        <input class="blank-input" data-id="5_0" placeholder="cờ?" style="width: 90px;">\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["DESC", "desc", "Desc"]
+        ],
+        hint: "Viết tắt của Descending (4 chữ cái).",
+        explanation: "Cờ DESC chỉ sắp xếp các phần tử con bên trong từng nút cha mà không làm vỡ phân cấp."
+    },
+    {
+        id: 6,
+        title: "Ý nghĩa của ký tự 'B' trong cờ BASC / BDESC",
+        desc: "Ký tự 'B' trong BASC và BDESC là viết tắt của từ tiếng Anh nào?",
+        code: `// Ký tự B viết tắt của: <input class="blank-input" data-id="6_0" placeholder="từ tiếng Anh?" style="width: 120px;"> (phá vỡ cấu trúc phân cấp).`,
+        answers: [
+            ["Break", "break", "BREAK"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'bẻ gãy / phá vỡ' (5 chữ cái).",
+        explanation: "B đại diện cho Break (Break Hierarchy)."
+    },
+    {
+        id: 7,
+        title: "Cắt đầu tập hợp bằng hàm HEAD",
+        desc: "Điền tên hàm MDX lấy ra 3 phần tử đầu tiên của một Set mà không tự sắp xếp lại:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="7_0" placeholder="tên hàm?" style="width: 110px;">(\n        [Dim_DiemDen].[TenDiemDen].Members,\n        3\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["HEAD", "head", "Head"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'Cái đầu' (4 chữ cái).",
+        explanation: "Hàm HEAD(Set, Count) trích xuất Count phần tử đầu tiên của tập hợp."
+    },
+    {
+        id: 8,
+        title: "Cắt đuôi tập hợp (lấy phần tử mới nhất) bằng hàm TAIL",
+        desc: "Điền tên hàm MDX lấy ra tháng cuối cùng (mới nhất) trong danh sách các tháng:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="8_0" placeholder="tên hàm?" style="width: 110px;">(\n        [Dim_ThoiGian].[Thang].Members,\n        1\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["TAIL", "tail", "Tail"]
+        ],
+        hint: "Từ tiếng Anh chỉ 'Cái đuôi' (4 chữ cái).",
+        explanation: "Hàm TAIL(Set, Count) lấy Count phần tử ở cuối tập hợp."
+    },
+    {
+        id: 9,
+        title: "Lấy Top theo phần trăm tích lũy (TOPPERCENT)",
+        desc: "Điền tên hàm MDX tìm nhóm khách hàng đóng góp 80% tổng doanh thu:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="9_0" placeholder="tên hàm?" style="width: 160px;">(\n        [Dim_KhachDuLich].[HoTenKDL].Members,\n        80,\n        [Measures].[DoanhThu]\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["TOPPERCENT", "toppercent", "TopPercent"]
+        ],
+        hint: "Ghép giữa TOP và PERCENT.",
+        explanation: "Hàm TOPPERCENT(Set, Percentage, Measure) lấy các phần tử dẫn đầu đạt mốc % tích lũy."
+    },
+    {
+        id: 10,
+        title: "Lấy Top theo giá trị tích lũy (TOPSUM)",
+        desc: "Điền tên hàm MDX lấy các tour dẫn đầu cho đến khi tổng doanh số tích lũy đạt 100,000,000:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="10_0" placeholder="tên hàm?" style="width: 140px;">(\n        [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,\n        100000000,\n        [Measures].[DoanhThu]\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["TOPSUM", "topsum", "TopSum"]
+        ],
+        hint: "Ghép giữa TOP và SUM.",
+        explanation: "Hàm TOPSUM(Set, Value, Measure) lấy các phần tử tích lũy cho đến khi tổng đạt ngưỡng Value."
+    },
+    {
+        id: 11,
+        title: "Toán tử logic kết hợp trong FILTER",
+        desc: "Điền từ khóa toán tử logic 'VÀ' để lọc hướng dẫn viên có cả tour >= 5 VÀ doanh thu > 50tr:",
+        code: `FILTER(\n    [Dim_HuongDanVien].[HoTenHDV].Members,\n    [Measures].[SoLuongTour] >= 5 <input class="blank-input" data-id="11_0" placeholder="toán tử?" style="width: 80px;"> [Measures].[DoanhThu] > 50000000\n)`,
+        answers: [
+            ["AND", "and"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Và' (3 chữ cái).",
+        explanation: "Toán tử AND kết hợp 2 điều kiện bắt buộc đồng thời thỏa mãn."
+    },
+    {
+        id: 12,
+        title: "Kiểm tra ô dữ liệu không bị rỗng (NOT IsEmpty)",
+        desc: "Điền tên hàm kiểm tra ô dữ liệu rỗng trong biểu thức MDX:",
+        code: `FILTER(\n    [Dim_DiemDen].[TenDiemDen].Members,\n    NOT <input class="blank-input" data-id="12_0" placeholder="tên hàm?" style="width: 110px;">([Measures].[DoanhThu])\n)`,
+        answers: [
+            ["ISEMPTY", "isempty", "IsEmpty"]
+        ],
+        hint: "Ghép giữa Is và Empty.",
+        explanation: "Hàm IsEmpty(Value) kiểm tra giá trị ô có rỗng (Null) hay không."
+    },
+    {
+        id: 13,
+        title: "Sắp xếp tăng dần phá vỡ phân cấp (BASC)",
+        desc: "Điền cờ sắp xếp toàn cục theo thứ tự TĂNG DẦN phá vỡ phân cấp:",
+        code: `ORDER(\n    [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,\n    [Measures].[DoanhThu],\n    <input class="blank-input" data-id="13_0" placeholder="cờ?" style="width: 90px;">\n)`,
+        answers: [
+            ["BASC", "basc", "BAsc"]
+        ],
+        hint: "Ghép giữa B (Break) và ASC (Ascending).",
+        explanation: "Cờ BASC sắp xếp tăng dần toàn cục (Break Ascending)."
+    },
+    {
+        id: 14,
+        title: "Phân biệt TOPCOUNT và HEAD",
+        desc: "Điền từ thích hợp (CÓ hay KHÔNG): Hàm TOPCOUNT có tự động sắp xếp lại dữ liệu không?",
+        code: `// Hàm TOPCOUNT <input class="blank-input" data-id="14_0" placeholder="CÓ hay KHÔNG?" style="width: 90px;"> tự động sắp xếp giảm dần, còn hàm HEAD thì <input class="blank-input" data-id="14_1" placeholder="CÓ hay KHÔNG?" style="width: 90px;"> tự sắp xếp.`,
+        answers: [
+            ["CÓ", "có", "Co", "co"],
+            ["KHÔNG", "không", "Khong", "khong"]
+        ],
+        hint: "TopCount = CÓ; Head = KHÔNG.",
+        explanation: "TOPCOUNT tự sắp xếp giảm dần theo Measure; HEAD chỉ cắt đúng N phần tử theo thứ tự sẵn có."
+    },
+    {
+        id: 15,
+        title: "Hoàn thiện câu truy vấn kết hợp FILTER và ORDER",
+        desc: "Điền tên hàm lọc và sắp xếp để hiển thị các điểm đến doanh thu > 20tr sắp xếp giảm dần:",
+        code: `SELECT\n    {[Measures].[DoanhThu]} ON COLUMNS,\n    <input class="blank-input" data-id="15_0" placeholder="hàm 1?" style="width: 100px;">(\n        <input class="blank-input" data-id="15_1" placeholder="hàm 2?" style="width: 100px;">(\n            [Dim_DiemDen].[TenDiemDen].Members,\n            [Measures].[DoanhThu] > 20000000\n        ),\n        [Measures].[DoanhThu],\n        BDESC\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["ORDER", "order", "Order"],
+            ["FILTER", "filter", "Filter"]
+        ],
+        hint: "Hàm bao ngoài là ORDER; Hàm lọc bên trong là FILTER.",
+        explanation: "ORDER(FILTER(Set, Condition), Measure, BDESC)."
+    }
+];
+
+let questionStatus = {};
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#d1fae5; color:#065f46;">Lọc & Xếp hạng MDX</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã làm chủ toàn bộ kỹ thuật lọc và xếp hạng MDX!";
+    } else if (percent >= 70) {
+        msg = "👍 Khá tốt! Bạn đã hiểu hầu hết các hàm lọc, hãy xem lại các câu còn sai.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này để ôn chắc các hàm TopCount, Filter, BDESC nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

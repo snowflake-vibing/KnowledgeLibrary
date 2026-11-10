@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Time Intelligence & Trend Analysis</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #f0f9ff;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .blank-input {
+            display: inline-block;
+            background: #082f49;
+            color: #bae6fd;
+            border: 2px solid #0284c7;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #38bdf8;
+            background: #0c4a6e;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Time Intelligence & Trend Analysis</h1>
+        <p>Làm chủ các hàm phân tích chuỗi thời gian: ParallelPeriod, YTD, QTD, PeriodsToDate, OpeningPeriod, PrevMember và công thức tính % tăng trưởng.</p>
+        <div class="badges">
+            <span class="badge">🚀 Nâng cao (Điểm 9 - 10 đề thi UIT)</span>
+            <span class="badge">✍️ Dạng bài: Điền từ khóa & Hoàn thiện code</span>
+            <span class="badge">💡 Có lời giải chi tiết</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 12 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 12</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Hàm tìm kỳ song song cùng kỳ (ParallelPeriod)",
+        desc: "Điền tên hàm MDX tìm kỳ tương ứng của năm trước (ví dụ: Tháng 5/2022 của Tháng 5/2023):",
+        code: `WITH MEMBER [Measures].[DoanhThuCungKyNamTruoc] AS\n    ( [Measures].[DoanhThu], <input class="blank-input" data-id="1_0" placeholder="tên hàm?" style="width: 160px;">([Dim_ThoiGian].[Nam], 1, [Dim_ThoiGian].CurrentMember) )`,
+        answers: [
+            ["PARALLELPERIOD", "parallelperiod", "ParallelPeriod"]
+        ],
+        hint: "Ghép giữa PARALLEL (song song) và PERIOD (chu kỳ).",
+        explanation: "Hàm PARALLELPERIOD(Level, Lag, Member) trả về kỳ song song ở chu kỳ trước."
+    },
+    {
+        id: 2,
+        title: "Hàm tính lũy kế từ đầu năm đến nay (Year-to-Date)",
+        desc: "Điền tên hàm viết tắt 3 chữ cái dùng để lấy các kỳ lũy kế từ đầu năm:",
+        code: `WITH MEMBER [Measures].[DoanhThuYTD] AS\n    AGGREGATE(<input class="blank-input" data-id="2_0" placeholder="3 chữ cái..." style="width: 80px;">([Dim_ThoiGian].CurrentMember), [Measures].[DoanhThu])`,
+        answers: [
+            ["YTD", "ytd", "Ytd"]
+        ],
+        hint: "Viết tắt của Year-To-Date (3 chữ cái).",
+        explanation: "Hàm YTD() trả về tập hợp các kỳ từ đầu năm đến kỳ hiện tại."
+    },
+    {
+        id: 3,
+        title: "Hàm tính lũy kế từ đầu quý đến nay (Quarter-to-Date)",
+        desc: "Điền tên hàm viết tắt 3 chữ cái dùng để tính lũy kế từ đầu quý:",
+        code: `WITH MEMBER [Measures].[DoanhThuQTD] AS\n    AGGREGATE(<input class="blank-input" data-id="3_0" placeholder="3 chữ cái..." style="width: 80px;">(), [Measures].[DoanhThu])`,
+        answers: [
+            ["QTD", "qtd", "Qtd"]
+        ],
+        hint: "Viết tắt của Quarter-To-Date (3 chữ cái).",
+        explanation: "Hàm QTD() trả về các kỳ từ đầu quý đến nay."
+    },
+    {
+        id: 4,
+        title: "Hàm tổng quát tính lũy kế theo cấp độ (PeriodsToDate)",
+        desc: "Điền tên hàm MDX tổng quát trả về các kỳ lũy kế đến thời điểm hiện tại:",
+        code: `WITH MEMBER [Measures].[DoanhThuLuyKe] AS\n    AGGREGATE(<input class="blank-input" data-id="4_0" placeholder="tên hàm?" style="width: 160px;">([Dim_ThoiGian].[Nam], [Dim_ThoiGian].CurrentMember), [Measures].[DoanhThu])`,
+        answers: [
+            ["PERIODSTODATE", "periodstodate", "PeriodsToDate"]
+        ],
+        hint: "Ghép giữa Periods, To và Date.",
+        explanation: "PeriodsToDate(Level, Member) là hàm tổng quát của YTD, QTD, MTD."
+    },
+    {
+        id: 5,
+        title: "Hàm lấy ngày/kỳ mở đầu (OpeningPeriod)",
+        desc: "Điền tên hàm MDX lấy ngày đầu tiên của năm 2023 (01/01/2023):",
+        code: `// Lấy ngày đầu kỳ của năm 2023:\n<input class="blank-input" data-id="5_0" placeholder="tên hàm?" style="width: 150px;">([Dim_ThoiGian].[Ngay], [Dim_ThoiGian].[Nam].[2023])`,
+        answers: [
+            ["OPENINGPERIOD", "openingperiod", "OpeningPeriod"]
+        ],
+        hint: "Ghép giữa OPENING và PERIOD.",
+        explanation: "OpeningPeriod(Level, Member) trả về con đầu tiên ở level chỉ định."
+    },
+    {
+        id: 6,
+        title: "Hàm lấy ngày/kỳ kết sổ cuối cùng (ClosingPeriod)",
+        desc: "Điền tên hàm MDX lấy ngày cuối cùng của năm 2023 (31/12/2023):",
+        code: `// Lấy ngày chốt sổ cuối kỳ:\n<input class="blank-input" data-id="6_0" placeholder="tên hàm?" style="width: 150px;">([Dim_ThoiGian].[Ngay], [Dim_ThoiGian].[Nam].[2023])`,
+        answers: [
+            ["CLOSINGPERIOD", "closingperiod", "ClosingPeriod"]
+        ],
+        hint: "Ghép giữa CLOSING và PERIOD.",
+        explanation: "ClosingPeriod(Level, Member) trả về con cuối cùng ở level chỉ định."
+    },
+    {
+        id: 7,
+        title: "Hàm điều kiện tránh chia cho 0 (IIF)",
+        desc: "Điền tên hàm điều kiện trong MDX để kiểm tra mẫu số trước khi tính tỷ lệ tăng trưởng:",
+        code: `MEMBER [Measures].[TyLeTangTruong] AS\n    <input class="blank-input" data-id="7_0" placeholder="tên hàm?" style="width: 80px;">(\n        [Measures].[DoanhThuKyTruoc] = 0 OR IsEmpty([Measures].[DoanhThuKyTruoc]),\n        NULL,\n        ([Measures].[DoanhThu] - [Measures].[DoanhThuKyTruoc]) / [Measures].[DoanhThuKyTruoc]\n    )`,
+        answers: [
+            ["IIF", "iif", "IIf"]
+        ],
+        hint: "Hai chữ I kết hợp một chữ F (3 chữ cái).",
+        explanation: "Hàm IIF(Condition, True_Value, False_Value) rẽ nhánh điều kiện."
+    },
+    {
+        id: 8,
+        title: "Số bước nhảy lùi lại 1 chu kỳ trong ParallelPeriod",
+        desc: "Điền số nguyên đại diện cho bước nhảy lùi lại đúng 1 chu kỳ năm trước:",
+        code: `PARALLELPERIOD([Dim_ThoiGian].[Nam], <input class="blank-input" data-id="8_0" placeholder="số?" style="width: 50px;">, [Dim_ThoiGian].CurrentMember)`,
+        answers: [
+            ["1"]
+        ],
+        hint: "Lùi lại 1 chu kỳ.",
+        explanation: "Lag = 1 có nghĩa là lùi lại 1 bước so với mốc cha."
+    },
+    {
+        id: 9,
+        title: "Tính tăng trưởng so với kỳ liền trước bằng .PrevMember",
+        desc: "Điền thuộc tính lấy kỳ liền kề trước đó (dùng tính Month-over-Month):",
+        code: `( [Measures].[DoanhThu], [Dim_ThoiGian].[Thang].CurrentMember.<input class="blank-input" data-id="9_0" placeholder="thuộc tính..." style="width: 140px;"> )`,
+        answers: [
+            ["PrevMember", "prevmember", "PREVMEMBER"]
+        ],
+        hint: "Viết tắt của Previous Member.",
+        explanation: ".PrevMember lấy thành viên đứng ngay trước trên cùng level."
+    },
+    {
+        id: 10,
+        title: "Định dạng hiển thị tỷ lệ phần trăm",
+        desc: "Điền giá trị chuỗi định dạng hiển thị số liệu dạng phần trăm (Percent):",
+        code: `MEMBER [Measures].[TangTruong] AS ...,\n    FORMAT_STRING = "<input class="blank-input" data-id="10_0" placeholder="định dạng..." style="width: 110px;">"`,
+        answers: [
+            ["Percent", "percent", "0.00%", "#,##0.0%"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Phần trăm' (bắt đầu bằng P).",
+        explanation: "FORMAT_STRING = 'Percent' tự động nhân 100 và thêm ký hiệu %."
+    },
+    {
+        id: 11,
+        title: "Hàm tính lũy kế từ đầu tháng (Month-to-Date)",
+        desc: "Điền tên hàm viết tắt 3 chữ cái dùng để tính lũy kế từ đầu tháng:",
+        code: `WITH MEMBER [Measures].[DoanhThuMTD] AS\n    AGGREGATE(<input class="blank-input" data-id="11_0" placeholder="3 chữ cái..." style="width: 80px;">(), [Measures].[DoanhThu])`,
+        answers: [
+            ["MTD", "mtd", "Mtd"]
+        ],
+        hint: "Viết tắt của Month-To-Date (3 chữ cái).",
+        explanation: "Hàm MTD() trả về tập hợp các ngày từ đầu tháng đến nay."
+    },
+    {
+        id: 12,
+        title: "Công thức tổng quát tính % tăng trưởng",
+        desc: "Điền phép toán còn thiếu trong công thức tính tăng trưởng: (HiệnTại [ ? ] TrướcĐó) / TrướcĐó",
+        code: `// Công thức: ( [DoanhThuHienTai] <input class="blank-input" data-id="12_0" placeholder="dấu phép toán?" style="width: 50px;"> [DoanhThuTruocDo] ) / [DoanhThuTruocDo]`,
+        answers: [
+            ["-", "trừ", "minus"]
+        ],
+        hint: "Dấu trừ (-).",
+        explanation: "Tỷ lệ tăng trưởng bằng (Kỳ này - Kỳ trước) chia cho Kỳ trước."
+    }
+];
+
+let questionStatus = {};
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#e0f2fe; color:#0369a1;">Time Intelligence</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã làm chủ toàn bộ kỹ thuật phân tích chuỗi thời gian nâng cao trong MDX!";
+    } else if (percent >= 70) {
+        msg = "👍 Rất tốt! Hãy bấm 'Xem gợi ý' các câu còn sai để nhớ chắc cú pháp ParallelPeriod nhé.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này để ôn chắc các hàm Time Intelligence nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Hàm GENERATE & Top N Per Group</title>
+    <style>
+        :root {
+            --primary: #ea580c;
+            --primary-dark: #c2410c;
+            --primary-light: #fff7ed;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #9a3412 0%, #ea580c 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .blank-input {
+            display: inline-block;
+            background: #431407;
+            color: #fed7aa;
+            border: 2px solid #ea580c;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #fb923c;
+            background: #7c2d12;
+            box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Hàm GENERATE & Kỹ Thuật Top N Per Group</h1>
+        <p>Làm chủ kỹ thuật giải quyết bài toán kinh điển của đề thi UIT: Với mỗi nhóm X, tìm top N của Y bằng GENERATE, CurrentMember và CROSSJOIN.</p>
+        <div class="badges">
+            <span class="badge">🎯 Dạng câu 3a Đề thi UIT (1.0 điểm)</span>
+            <span class="badge">✍️ Dạng bài: Điền từ khóa & Hoàn thiện code</span>
+            <span class="badge">💡 Có lời giải chi tiết</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 12 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 12</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Tên hàm lặp đa cấp trong MDX",
+        desc: "Điền tên hàm MDX đóng vai trò như vòng lặp duyệt qua từng phần tử của Set 1 để đánh giá Set 2:",
+        code: `SELECT\n    {[Measures].[SoLuongTour]} ON COLUMNS,\n    <input class="blank-input" data-id="1_0" placeholder="tên hàm?" style="width: 140px;">(\n        [Dim_ThoiGian].[Nam].[2023].Children,\n        ...\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["GENERATE", "generate", "Generate"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Sinh ra / Khởi tạo' (8 chữ cái, bắt đầu bằng G).",
+        explanation: "Hàm GENERATE(Set1, Set2_Expression) duyệt qua từng phần tử của Set1 để tính toán Set2."
+    },
+    {
+        id: 2,
+        title: "Thuộc tính chỉ phần tử hiện tại đang được duyệt",
+        desc: "Điền thuộc tính lấy phần tử hiện tại trong vòng lặp của chiều thời gian:",
+        code: `GENERATE(\n    [Dim_ThoiGian].[Nam].[2023].Children,\n    CROSSJOIN(\n        {[Dim_ThoiGian].[Nam].<input class="blank-input" data-id="2_0" placeholder="thuộc tính..." style="width: 150px;">},\n        TOPCOUNT(...)\n    )\n)`,
+        answers: [
+            ["CurrentMember", "currentmember", "CURRENTMEMBER"]
+        ],
+        hint: "Ghép giữa Current và Member.",
+        explanation: "[Hierarchy].CurrentMember đại diện cho phần tử đang được duyệt ở vòng lặp hiện tại."
+    },
+    {
+        id: 3,
+        title: "Bao bọc CurrentMember thành một Set hợp lệ",
+        desc: "Điền cặp dấu ngoặc bắt buộc bao quanh CurrentMember khi đưa vào hàm CROSSJOIN:",
+        code: `CROSSJOIN(\n    <input class="blank-input" data-id="3_0" placeholder="mở?" style="width: 50px;"> [Dim_ThoiGian].[Nam].CurrentMember <input class="blank-input" data-id="3_1" placeholder="đóng?" style="width: 50px;">,\n    TOPCOUNT([Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members, 2, [Measures].[SoLuongTour])\n)`,
+        answers: [
+            ["{", "ngoặc nhọn"],
+            ["}", "ngoặc nhọn"]
+        ],
+        hint: "Dấu ngoặc nhọn { và }.",
+        explanation: "CurrentMember là một Member. Hàm CROSSJOIN đòi hỏi Set nên bắt buộc phải bao bằng { }."
+    },
+    {
+        id: 4,
+        title: "Cờ tùy chọn ALL trong hàm GENERATE",
+        desc: "Điền từ khóa cờ trong GENERATE để giữ lại các phần tử trùng lặp:",
+        code: `// Cú pháp: GENERATE(Set1, Set2_Expression, <input class="blank-input" data-id="4_0" placeholder="cờ?" style="width: 70px;">)`,
+        answers: [
+            ["ALL", "all", "All"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Tất cả' (3 chữ cái).",
+        explanation: "Mặc định GENERATE sẽ loại bỏ trùng lặp. Thêm cờ ALL sẽ giữ nguyên tất cả kết quả."
+    },
+    {
+        id: 5,
+        title: "Hàm tích Đề-các kết hợp kết quả trên ROWS",
+        desc: "Điền tên hàm kết hợp Quý hiện tại với Top 2 loại hình tour để hiển thị trên cùng một dòng:",
+        code: `GENERATE(\n    [Dim_ThoiGian].[Nam].[2023].Children,\n    <input class="blank-input" data-id="5_0" placeholder="tên hàm?" style="width: 140px;">(\n        {[Dim_ThoiGian].[Nam].CurrentMember},\n        TOPCOUNT(...)\n    )\n)`,
+        answers: [
+            ["CROSSJOIN", "crossjoin", "Crossjoin"]
+        ],
+        hint: "Ghép giữa CROSS và JOIN.",
+        explanation: "Hàm CROSSJOIN tạo tích Descartes giữa {CurrentMember} và TopCount để hiển thị 2 cột trên ROWS."
+    },
+    {
+        id: 6,
+        title: "Hoàn thiện trọn vẹn Câu 3a Đề thi Cuối kỳ UIT",
+        desc: "Điền 3 từ khóa còn thiếu trong bài giải Câu 3a: Với mỗi quý năm 2023, lấy 2 loại hình nhiều tour nhất:",
+        code: `SELECT\n    {[Measures].[SoLuongTour]} ON COLUMNS,\n    <input class="blank-input" data-id="6_0" placeholder="hàm lặp?" style="width: 120px;">(\n        [Dim_ThoiGian].[Nam].[2023].Children,\n        CROSSJOIN(\n            {[Dim_ThoiGian].[Nam].<input class="blank-input" data-id="6_1" placeholder="phần tử duyệt?" style="width: 140px;">},\n            <input class="blank-input" data-id="6_2" placeholder="hàm top?" style="width: 120px;">(\n                [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,\n                2,\n                [Measures].[SoLuongTour]\n            )\n        )\n    ) ON ROWS\nFROM [Tour_DW];`,
+        answers: [
+            ["GENERATE", "generate"],
+            ["CurrentMember", "currentmember"],
+            ["TOPCOUNT", "topcount"]
+        ],
+        hint: "Từ 1 = GENERATE; Từ 2 = CurrentMember; Từ 3 = TOPCOUNT.",
+        explanation: "Bộ 3 hoàn hảo giải quyết bài toán Top N per group trong đề thi UIT."
+    },
+    {
+        id: 7,
+        title: "Biến thể: Với mỗi Quốc gia, tìm Top 3 khách hàng chi tiêu lớn nhất",
+        desc: "Điền các từ khóa còn thiếu để giải quyết bài toán xếp hạng khách hàng theo từng quốc gia:",
+        code: `GENERATE(\n    [Dim_KhachDuLich].[QuocGiaKDL].Members,\n    CROSSJOIN(\n        {[Dim_KhachDuLich].[QuocGiaKDL].<input class="blank-input" data-id="7_0" placeholder="thuộc tính..." style="width: 140px;">},\n        TOPCOUNT(\n            [Dim_KhachDuLich].[HoTenKDL].Members,\n            <input class="blank-input" data-id="7_1" placeholder="số lượng?" style="width: 50px;">,\n            [Measures].[DoanhThu]\n        )\n    )\n)`,
+        answers: [
+            ["CurrentMember", "currentmember"],
+            ["3"]
+        ],
+        hint: "Thuộc tính: CurrentMember; Số lượng: 3.",
+        explanation: "Mỗi quốc gia duyệt qua sẽ tìm Top 3 khách hàng theo [Measures].[DoanhThu]."
+    },
+    {
+        id: 8,
+        title: "Tại sao không thể dùng CROSSJOIN + TOPCOUNT đơn thuần?",
+        desc: "Điền từ thích hợp (TOÀN CỤC hay TỪNG QUÝ): Nếu không dùng GENERATE, TOPCOUNT sẽ tính trên phạm vi nào?",
+        code: `// Nếu chỉ viết CROSSJOIN(Quy, TOPCOUNT(...)), thì TOPCOUNT sẽ xếp hạng <input class="blank-input" data-id="8_0" placeholder="TOÀN CỤC hay TỪNG QUÝ?" style="width: 130px;"> thay vì tính độc lập cho <input class="blank-input" data-id="8_1" placeholder="TOÀN CỤC hay TỪNG QUÝ?" style="width: 130px;">.`,
+        answers: [
+            ["TOÀN CỤC", "toàn cục", "Toan cuc", "toan cuc", "global"],
+            ["TỪNG QUÝ", "từng quý", "Tung quy", "tung quy", "mỗi quý", "moi quy"]
+        ],
+        hint: "Từ 1 = TOÀN CỤC; Từ 2 = TỪNG QUÝ.",
+        explanation: "Không có GENERATE thì TOPCOUNT chạy trước trên toàn cube, cho ra cùng 1 danh sách cho tất cả các quý."
+    },
+    {
+        id: 9,
+        title: "Lấy danh sách các Quý con của năm 2023",
+        desc: "Điền thuộc tính trả về Set 4 quý con của năm 2023 trong tham số thứ nhất của GENERATE:",
+        code: `GENERATE(\n    [Dim_ThoiGian].[Nam].[2023].<input class="blank-input" data-id="9_0" placeholder="thuộc tính..." style="width: 120px;">,\n    ...\n)`,
+        answers: [
+            ["Children", "children", "CHILDREN"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'các con' (số nhiều).",
+        explanation: "[Nam].[2023].Children trả về tập hợp các quý con."
+    },
+    {
+        id: 10,
+        title: "Kiểu dữ liệu trả về của hàm GENERATE",
+        desc: "Hàm GENERATE trong MDX luôn trả về kiểu dữ liệu gì?",
+        code: `// Hàm GENERATE trả về một: <input class="blank-input" data-id="10_0" placeholder="Set hay Member?" style="width: 100px;">`,
+        answers: [
+            ["Set", "set", "SET"]
+        ],
+        hint: "Là một tập hợp (3 chữ cái).",
+        explanation: "GENERATE ghép nối các kết quả thành một Set các Tuple."
+    },
+    {
+        id: 11,
+        title: "Đo lường tiêu chí xếp hạng trong đề bài",
+        desc: "Trong câu hỏi: 'cho biết 02 loại hình có số tour du lịch nhiều nhất', tiêu chí Measure truyền vào TOPCOUNT là gì?",
+        code: `TOPCOUNT(\n    [Dim_LoaiHinhDuLich].[TenLoaiHinhDL].Members,\n    2,\n    [Measures].[<input class="blank-input" data-id="11_0" placeholder="tên Measure?" style="width: 130px;">]\n)`,
+        answers: [
+            ["SoLuongTour", "soluongtour", "SOLUONGTOUR"]
+        ],
+        hint: "Độ đo đếm số tour đã thiết kế ở Câu 1 (SoLuongTour).",
+        explanation: "Đề bài yêu cầu số tour nhiều nhất nên dùng độ đo [Measures].[SoLuongTour]."
+    },
+    {
+        id: 12,
+        title: "Tóm tắt tư duy giải quyết câu 3a",
+        desc: "Điền tên 2 hàm MDX then chốt nhất định phải xuất hiện trong bài làm câu 3a để được trọn 1.0 điểm:",
+        code: `// Hai hàm bắt buộc là: <input class="blank-input" data-id="12_0" placeholder="hàm 1..." style="width: 110px;"> và <input class="blank-input" data-id="12_1" placeholder="hàm 2..." style="width: 110px;">`,
+        answers: [
+            ["GENERATE", "generate"],
+            ["TOPCOUNT", "topcount"]
+        ],
+        hint: "Hàm 1 = GENERATE; Hàm 2 = TOPCOUNT.",
+        explanation: "GENERATE để lặp từng quý và TOPCOUNT để lấy 2 loại hình tour đứng đầu."
+    }
+];
+
+let questionStatus = {};
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#ffedd5; color:#9a3412;">Trọng tâm đề thi UIT</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã làm chủ 100% kỹ thuật giải bài toán Top N per group của đề thi cuối kỳ UIT!";
+    } else if (percent >= 70) {
+        msg = "👍 Khá tốt! Hãy bấm 'Xem gợi ý' các câu còn sai để nhớ chắc cú pháp CurrentMember và CROSSJOIN nhé.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này để hiểu rõ bản chất hàm GENERATE nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

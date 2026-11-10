@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Điền Từ Khóa MDX: Calculated Members & AGGREGATE</title>
+    <style>
+        :root {
+            --primary: #d97706;
+            --primary-dark: #b45309;
+            --primary-light: #fffbeb;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+            color: white;
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14.5px;
+            opacity: 0.95;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls {
+            background: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .stat-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12.5px;
+            border-radius: 6px;
+        }
+
+        .q-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .q-card.status-correct {
+            border-left-color: var(--success);
+        }
+
+        .q-card.status-incorrect {
+            border-left-color: var(--danger);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        .blank-input {
+            display: inline-block;
+            background: #451a03;
+            color: #fde68a;
+            border: 2px solid #d97706;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.15s ease;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .blank-input:focus {
+            border-color: #f59e0b;
+            background: #78350f;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+        }
+
+        .blank-input.correct {
+            border-color: #10b981 !important;
+            background: #064e3b !important;
+            color: #6ee7b7 !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #ef4444 !important;
+            background: #7f1d1d !important;
+            color: #fca5a5 !important;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--success-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-box.hint {
+            background-color: var(--warning-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #summaryCard {
+            display: none;
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        #summaryScore {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Luyện Cú Pháp MDX: Calculated Members & AGGREGATE</h1>
+        <p>Làm chủ kỹ thuật tạo thành viên tính toán, gộp nhiều năm/kỳ với hàm AGGREGATE để giải quyết trọn vẹn Câu 3b đề thi UIT.</p>
+        <div class="badges">
+            <span class="badge">🎯 Dạng câu 3b Đề thi UIT (1.0 điểm)</span>
+            <span class="badge">✍️ Dạng bài: Điền từ khóa & Hoàn thiện code</span>
+            <span class="badge">💡 Có lời giải chi tiết</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="stat-group">
+            <span>Tiến độ: <span id="doneCount" class="stat-value">0</span> / 12 câu đúng</span>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="resetAll()">Làm lại từ đầu</button>
+            <button class="btn-primary" onclick="checkAll()">Kiểm tra tất cả</button>
+        </div>
+    </div>
+
+    <div id="summaryCard">
+        <h2>Kết Quả Làm Bài</h2>
+        <div id="summaryScore">0 / 12</div>
+        <p id="summaryMsg" style="margin-bottom: 16px; color: var(--gray-600);"></p>
+        <button class="btn-primary" onclick="resetAll()">Làm lại bài tập</button>
+    </div>
+
+    <div id="quizContainer"></div>
+</div>
+
+<script>
+const questionsData = [
+    {
+        id: 1,
+        title: "Cú pháp mở đầu định nghĩa Calculated Member",
+        desc: "Điền cụm 2 từ khóa mở đầu câu lệnh MDX dùng để tạo một thành viên tính toán:",
+        code: `<input class="blank-input" data-id="1_0" placeholder="2 từ khóa..." style="width: 170px;"> [Measures].[GiaTourTrungBinh] AS\n    [Measures].[DoanhThu] / [Measures].[SoLuotKhach]\nSELECT ...`,
+        answers: [
+            ["WITH MEMBER", "with member", "WITHMEMBER"]
+        ],
+        hint: "Ghép giữa WITH và MEMBER.",
+        explanation: "Cú pháp chuẩn: WITH MEMBER [Tên_Thành_Viên] AS [Biểu_Thức]."
+    },
+    {
+        id: 2,
+        title: "Cú pháp mở đầu định nghĩa Named Set",
+        desc: "Điền cụm 2 từ khóa mở đầu câu lệnh MDX dùng để định nghĩa một tập hợp đặt tên tái sử dụng:",
+        code: `<input class="blank-input" data-id="2_0" placeholder="2 từ khóa..." style="width: 150px;"> [Top5DiemDen] AS\n    TOPCOUNT([Dim_DiemDen].[TenDiemDen].Members, 5, [Measures].[DoanhThu])\nSELECT ...`,
+        answers: [
+            ["WITH SET", "with set", "WITHSET"]
+        ],
+        hint: "Ghép giữa WITH và SET.",
+        explanation: "Cú pháp chuẩn: WITH SET [Tên_Set] AS [Biểu_Thức_Tập_Hợp]."
+    },
+    {
+        id: 3,
+        title: "Hàm tổng hợp thông minh đa năng AGGREGATE",
+        desc: "Điền tên hàm tổng hợp tự động áp dụng đúng cơ chế tổng hợp của từng Measure (kể cả DistinctCount):",
+        code: `WITH MEMBER [Dim_ThoiGian].[Nam].[GiaiDoan2022_2023] AS\n    <input class="blank-input" data-id="3_0" placeholder="tên hàm?" style="width: 150px;">({[Dim_ThoiGian].[Nam].[2022], [Dim_ThoiGian].[Nam].[2023]})\nSELECT ...`,
+        answers: [
+            ["AGGREGATE", "aggregate", "Aggregate"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Tổng hợp / Gom cụm' (9 chữ cái, bắt đầu bằng A).",
+        explanation: "Hàm AGGREGATE tự động nhận diện quy tắc tổng hợp gốc (Sum, DistinctCount, Min, Max...)."
+    },
+    {
+        id: 4,
+        title: "Từ khóa liên kết gán biểu thức tính toán",
+        desc: "Điền từ khóa dùng để gán biểu thức tính toán sau tên thành viên:",
+        code: `WITH MEMBER [Measures].[LoiNhuan] <input class="blank-input" data-id="4_0" placeholder="từ khóa..." style="width: 70px;">\n    [Measures].[DoanhThu] * 0.2`,
+        answers: [
+            ["AS", "as"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Như là / Bằng' (2 chữ cái).",
+        explanation: "Từ khóa AS liên kết giữa tên định danh và công thức tính."
+    },
+    {
+        id: 5,
+        title: "Định dạng hiển thị số liệu (FORMAT_STRING)",
+        desc: "Điền tên thuộc tính dùng để gán định dạng hiển thị phần trăm hoặc tiền tệ:",
+        code: `WITH MEMBER [Measures].[TyLeLoiNhuan] AS\n    [Measures].[LoiNhuan] / [Measures].[DoanhThu],\n    <input class="blank-input" data-id="5_0" placeholder="thuộc tính..." style="width: 180px;"> = "Percent"`,
+        answers: [
+            ["FORMAT_STRING", "format_string", "FORMATSTRING"]
+        ],
+        hint: "Ghép giữa FORMAT và STRING (nối bằng gạch dưới).",
+        explanation: "FORMAT_STRING thiết lập định dạng hiển thị cho ô dữ liệu."
+    },
+    {
+        id: 6,
+        title: "Hoàn thiện Câu 3b Đề thi Cuối kỳ UIT",
+        desc: "Điền các từ khóa còn thiếu để giải quyết yêu cầu: Top 3 hướng dẫn viên nhiều tour nhất cả hai năm 2022 và 2023:",
+        code: `WITH MEMBER [Dim_ThoiGian].[Nam].[GiaiDoan2022_2023] AS\n    <input class="blank-input" data-id="6_0" placeholder="hàm tổng hợp?" style="width: 130px;">({[Dim_ThoiGian].[Nam].[2022], [Dim_ThoiGian].[Nam].[2023]})\nSELECT\n    {[Measures].[SoLuongTour]} ON COLUMNS,\n    <input class="blank-input" data-id="6_1" placeholder="hàm top?" style="width: 120px;">(\n        [Dim_HuongDanVien].[HoTenHDV].Members,\n        3,\n        ([Measures].[SoLuongTour], [Dim_ThoiGian].[Nam].[GiaiDoan2022_2023])\n    ) ON ROWS\nFROM [Tour_DW]\nWHERE ([Dim_ThoiGian].[Nam].[GiaiDoan2022_2023]);`,
+        answers: [
+            ["AGGREGATE", "aggregate"],
+            ["TOPCOUNT", "topcount"]
+        ],
+        hint: "Hàm 1 = AGGREGATE; Hàm 2 = TOPCOUNT.",
+        explanation: "Sự kết hợp giữa AGGREGATE và TOPCOUNT giúp giải quyết chính xác bài toán gộp thời gian."
+    },
+    {
+        id: 7,
+        title: "Tại sao không nên dùng hàm SUM để gộp 2 năm với [SoLuongTour]?",
+        desc: "Vì [SoLuongTour] là độ đo dạng DistinctCount, nếu dùng SUM thì kết quả sẽ bị thế nào?",
+        code: `// Nếu dùng SUM, các tour chạy qua 2 năm sẽ bị tính: <input class="blank-input" data-id="7_0" placeholder="TRÙNG hay ĐÚNG?" style="width: 100px;"> làm sai số liệu.`,
+        answers: [
+            ["TRÙNG", "trùng", "Trung", "trung", "lặp", "đếm lặp"]
+        ],
+        hint: "Bị đếm TRÙNG lặp (Double-counting).",
+        explanation: "SUM chỉ cộng dồn số học nên các tour xuất hiện ở cả 2 năm sẽ bị đếm 2 lần."
+    },
+    {
+        id: 8,
+        title: "Hàm đếm số lượng phần tử trong một Set",
+        desc: "Điền tên hàm MDX dùng để đếm số lượng thành viên trong tập hợp:",
+        code: `WITH MEMBER [Measures].[SoLuongDiemDen] AS\n    <input class="blank-input" data-id="8_0" placeholder="tên hàm?" style="width: 100px;">([Dim_DiemDen].[TenDiemDen].Members)`,
+        answers: [
+            ["COUNT", "count", "Count"]
+        ],
+        hint: "Từ tiếng Anh mang nghĩa 'Đếm' (5 chữ cái).",
+        explanation: "Hàm Count(Set) đếm số lượng tuple trong tập hợp."
+    },
+    {
+        id: 9,
+        title: "Hàm tính trung bình cộng (AVG)",
+        desc: "Điền tên hàm MDX tính doanh thu trung bình của các điểm đến:",
+        code: `WITH MEMBER [Measures].[DoanhThuTrungBinh] AS\n    <input class="blank-input" data-id="9_0" placeholder="tên hàm?" style="width: 90px;">([Dim_DiemDen].[TenDiemDen].Members, [Measures].[DoanhThu])`,
+        answers: [
+            ["AVG", "avg", "Avg"]
+        ],
+        hint: "Viết tắt của Average (3 chữ cái).",
+        explanation: "Hàm Avg(Set, Numeric_Expression) tính trung bình cộng giá trị của độ đo."
+    },
+    {
+        id: 10,
+        title: "Tạo Tuple kết hợp Measure với Dimension Member",
+        desc: "Điền ký hiệu cặp dấu ngoặc chuẩn để tạo Tuple định trị cho độ đo tại năm 2023:",
+        code: `// Một Tuple kết hợp 1 Measure và 1 Member thời gian:\n<input class="blank-input" data-id="10_0" placeholder="mở?" style="width: 50px;"> [Measures].[DoanhThu], [Dim_ThoiGian].[Nam].[2023] <input class="blank-input" data-id="10_1" placeholder="đóng?" style="width: 50px;">`,
+        answers: [
+            ["(", "ngoặc đơn"],
+            [")", "ngoặc đơn"]
+        ],
+        hint: "Dấu ngoặc đơn ( và ).",
+        explanation: "Tuple luôn được đóng mở bởi dấu ngoặc đơn ( )."
+    },
+    {
+        id: 11,
+        title: "Định nghĩa tập hợp gộp 2 năm bằng Set",
+        desc: "Điền ký hiệu cặp dấu ngoặc dùng để tạo Set chứa 2 năm 2022 và 2023:",
+        code: `AGGREGATE(<input class="blank-input" data-id="11_0" placeholder="mở?" style="width: 50px;"> [Dim_ThoiGian].[Nam].[2022], [Dim_ThoiGian].[Nam].[2023] <input class="blank-input" data-id="11_1" placeholder="đóng?" style="width: 50px;">)`,
+        answers: [
+            ["{", "ngoặc nhọn"],
+            ["}", "ngoặc nhọn"]
+        ],
+        hint: "Dấu ngoặc nhọn { và }.",
+        explanation: "Tham số truyền vào AGGREGATE là một Set nên bắt buộc dùng ngoặc nhọn { }."
+    },
+    {
+        id: 12,
+        title: "Phạm vi hoạt động của mệnh đề WITH",
+        desc: "Các thành viên tính toán và tập hợp tạo bởi mệnh đề WITH tồn tại trong phạm vi nào?",
+        code: `// Tồn tại tạm thời trong: <input class="blank-input" data-id="12_0" placeholder="phiên truy vấn hay vĩnh viễn?" style="width: 160px;"> của câu lệnh SELECT đó.`,
+        answers: [
+            ["phiên truy vấn", "phien truy van", "truy vấn", "câu lệnh", "query scope", "session"]
+        ],
+        hint: "Trong phạm vi câu truy vấn (Query Scope).",
+        explanation: "Mệnh đề WITH chỉ có giá trị cục bộ trong câu truy vấn hiện tại (Query Scope)."
+    }
+];
+
+let questionStatus = {};
+
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    questionsData.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `qCard_${q.id}`;
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">Bài tập ${q.id} / ${questionsData.length}</span>
+                <span class="badge" style="background:#fef3c7; color:#92400e;">Calculated Members & Aggregates</span>
+            </div>
+            <div class="q-desc">${q.desc}</div>
+            <div class="code-box">${q.code}</div>
+            <div class="q-actions">
+                <button class="btn-primary btn-sm" onclick="checkQuestion(${q.id})">Kiểm tra câu này</button>
+                <button class="btn-secondary btn-sm" onclick="showHint(${q.id})">Xem gợi ý</button>
+                <button class="btn-secondary btn-sm" onclick="showSolution(${q.id})">Hiện đáp án</button>
+            </div>
+            <div class="feedback-box" id="feedback_${q.id}"></div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const qId = parseInt(input.getAttribute("data-id").split("_")[0]);
+                checkQuestion(qId);
+            }
+        });
+    });
+}
+
+function normalizeStr(str) {
+    if (!str) return "";
+    return str.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+function checkQuestion(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    let isAllCorrect = true;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        const userVal = normalizeStr(input ? input.value : "");
+        const validAnswers = q.answers[i].map(a => normalizeStr(a));
+
+        if (validAnswers.includes(userVal)) {
+            if (input) {
+                input.classList.add("correct");
+                input.classList.remove("incorrect");
+            }
+        } else {
+            isAllCorrect = false;
+            if (input) {
+                input.classList.add("incorrect");
+                input.classList.remove("correct");
+            }
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+
+    if (isAllCorrect) {
+        questionStatus[qId] = true;
+        card.className = "q-card status-correct";
+        fb.className = "feedback-box correct show";
+        fb.innerHTML = `<strong>✓ Chính xác tuyệt đối!</strong><br>${q.explanation}`;
+    } else {
+        questionStatus[qId] = false;
+        card.className = "q-card status-incorrect";
+        fb.className = "feedback-box incorrect show";
+        fb.innerHTML = `<strong>✗ Chưa chính xác.</strong> Hãy kiểm tra lại từ khóa hoặc bấm "Xem gợi ý".`;
+    }
+
+    updateProgress();
+}
+
+function showHint(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+    const fb = document.getElementById(`feedback_${qId}`);
+    fb.className = "feedback-box hint show";
+    fb.innerHTML = `<strong>💡 Gợi ý:</strong> ${q.hint}`;
+}
+
+function showSolution(qId) {
+    const q = questionsData.find(item => item.id === qId);
+    if (!q) return;
+
+    for (let i = 0; i < q.answers.length; i++) {
+        const input = document.querySelector(`input[data-id="${qId}_${i}"]`);
+        if (input) {
+            input.value = q.answers[i][0];
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+        }
+    }
+
+    const card = document.getElementById(`qCard_${qId}`);
+    const fb = document.getElementById(`feedback_${qId}`);
+    questionStatus[qId] = true;
+    card.className = "q-card status-correct";
+    fb.className = "feedback-box correct show";
+    fb.innerHTML = `<strong>Đáp án chuẩn:</strong> ${q.explanation}`;
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    document.getElementById("doneCount").innerText = correctCount;
+}
+
+function checkAll() {
+    questionsData.forEach(q => checkQuestion(q.id));
+    const correctCount = Object.values(questionStatus).filter(v => v === true).length;
+    const percent = Math.round((correctCount / questionsData.length) * 100);
+
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("summaryScore").innerText = `${correctCount} / ${questionsData.length} câu đúng (${percent}%)`;
+
+    let msg = "";
+    if (percent === 100) {
+        msg = "🎉 Xuất sắc! Bạn đã làm chủ hoàn toàn các kỹ thuật giải Câu 3b đề thi cuối kỳ UIT!";
+    } else if (percent >= 70) {
+        msg = "👍 Rất tốt! Hãy bấm 'Xem gợi ý' các câu còn sai để nhớ chắc cú pháp AGGREGATE nhé.";
+    } else {
+        msg = "⚠️ Hãy đọc lại file `ly_thuyet.md` trong thư mục này để ôn kỹ phân biệt giữa SUM và AGGREGATE nhé!";
+    }
+    document.getElementById("summaryMsg").innerText = msg;
+    summaryCard.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function resetAll() {
+    questionStatus = {};
+    document.querySelectorAll(".blank-input").forEach(input => {
+        input.value = "";
+        input.className = "blank-input";
+    });
+    document.querySelectorAll(".q-card").forEach(card => {
+        card.className = "q-card";
+    });
+    document.querySelectorAll(".feedback-box").forEach(fb => {
+        fb.className = "feedback-box";
+        fb.innerHTML = "";
+    });
+    document.getElementById("summaryCard").style.display = "none";
+    document.getElementById("doneCount").innerText = "0";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", renderQuiz);
+</script>
+
+</body>
+</html>

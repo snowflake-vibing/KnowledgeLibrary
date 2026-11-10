@@ -45,8 +45,13 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 ### 6. [Kho Dữ Liệu & OLAP – Data Warehouse & OLAP](Kho_Du_Lieu_OLAP/README.md)
 - **[Giải chi tiết Đề thi cuối kỳ HK2 (2023 - 2024)](Kho_Du_Lieu_OLAP/giai_de/DeThiCuoiKy_KhoDLOLAP_HK2-20232024.md)**
 - **[Tổng quan chuyên đề MDX & Mục đích học tập](Kho_Du_Lieu_OLAP/mdx/README.md)**
-- **[01. MDX Query Fundamentals (Lý thuyết & Bài tập điền từ)](Kho_Du_Lieu_OLAP/mdx/01_mdx_query_fundamentals/ly_thuyet.md)**
-- **[02. Specify the Contents of a Query Axis (Lý thuyết & Bài tập điền từ)](Kho_Du_Lieu_OLAP/mdx/02_specify_the_contents_of_a_query_axis/ly_thuyet.md)**
+- **[01. MDX Query Fundamentals](Kho_Du_Lieu_OLAP/mdx/01_mdx_query_fundamentals/ly_thuyet.md)**
+- **[02. Specify the Contents of a Query Axis](Kho_Du_Lieu_OLAP/mdx/02_specify_the_contents_of_a_query_axis/ly_thuyet.md)**
+- **[03. Hierarchical Navigation & Drill down / Roll up](Kho_Du_Lieu_OLAP/mdx/03_hierarchical_navigation_drill_rollup/ly_thuyet.md)**
+- **[04. Advanced Filtering & Sorting](Kho_Du_Lieu_OLAP/mdx/04_advanced_filtering_and_sorting/ly_thuyet.md)**
+- **[05. GENERATE & Iterative Functions (Bí quyết câu 3a UIT)](Kho_Du_Lieu_OLAP/mdx/05_generate_and_iterative_functions/ly_thuyet.md)**
+- **[06. Calculated Members & AGGREGATE (Bí quyết câu 3b UIT)](Kho_Du_Lieu_OLAP/mdx/06_calculated_members_named_sets_aggregates/ly_thuyet.md)**
+- **[07. Time Intelligence & Trend Analysis (Chuyên đề điểm 9-10)](Kho_Du_Lieu_OLAP/mdx/07_time_intelligence_and_trend_analysis/ly_thuyet.md)**
 
 
 
