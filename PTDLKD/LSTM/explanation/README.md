@@ -29,8 +29,9 @@ flowchart TD
     Doc5["05_he_thong_thi_nghiem.md<br><b>Các Thí nghiệm Kinh điển trong Bài báo</b><br>Reber Grammar, Adding Problem, Temporal Order"]
     Doc6["06_so_sanh_lich_su_va_hien_dai.md<br><b>LSTM 1997 Gốc vs. LSTM Hiện đại & Đánh giá</b><br>Sự ra đời của Forget Gate & Peephole"]
     Doc7["07_ke_hoach_slide_15_trang.md<br><b>Kịch bản Slide Báo cáo Team (15 Trang)</b><br>Kết hợp Paper 1997, Podcast & arXiv:1909.09586"]
+    Doc8["08_vi_du_time_series_chi_tiet.md<br><b>Ví dụ Time Series Tính Tay Chi Tiết</b><br>Đầy đủ dữ liệu, trọng số, Forget/Input/Output & Softmax"]
 
-    Doc1 --> Doc2 --> Doc3 --> Doc4 --> Doc5 --> Doc6 --> Doc7
+    Doc1 --> Doc2 --> Doc3 --> Doc4 --> Doc5 --> Doc6 --> Doc7 --> Doc8
 ```
 
 ### 1. [01_tong_quan_va_boi_canh.md](file:///D:/PTDLKD/LSTM/explanation/01_tong_quan_va_boi_canh.md)
@@ -72,3 +73,7 @@ flowchart TD
 ### 7. [07_ke_hoach_slide_15_trang.md](file:///D:/PTDLKD/LSTM/explanation/07_ke_hoach_slide_15_trang.md)
 * **Kịch bản báo cáo team đúng 15 trang:** Tổng hợp trực giác Feynman từ tài liệu giải thích 1997, video podcast *What is LSTM?* (`hcKsSOQolWc`), và bài báo hướng dẫn *Understanding LSTM* (`arXiv:1909.09586`).
 * **Cấu trúc đầy đủ từng slide:** Tiêu đề, nội dung trọng tâm, gợi ý visual/mã màu và lời dẫn (Speaker Notes).
+
+### 8. [08_vi_du_time_series_chi_tiet.md](file:///D:/PTDLKD/LSTM/explanation/08_vi_du_time_series_chi_tiet.md)
+* **Ví dụ Time Series cụ thể có số liệu tính tay:** Bài toán dự báo trạng thái phụ tải lưới điện (Thấp / Trung bình / Quá tải) qua từng ngày ($t=3$ và $t=4$).
+* **Đầy đủ ma trận thông số & diễn giải từng bước:** Bám sát sơ đồ Cell State, Forget Gate, Input Gate, Output Gate và đầu ra `softmax`.
