@@ -28,8 +28,9 @@ flowchart TD
     Doc4["04_thuat_toan_hoc_va_truncated_bptt.md<br><b>Thuật toán Huấn luyện & Truncated Backprop</b><br>Cơ chế lan truyền ngược O(1) cục bộ"]
     Doc5["05_he_thong_thi_nghiem.md<br><b>Các Thí nghiệm Kinh điển trong Bài báo</b><br>Reber Grammar, Adding Problem, Temporal Order"]
     Doc6["06_so_sanh_lich_su_va_hien_dai.md<br><b>LSTM 1997 Gốc vs. LSTM Hiện đại & Đánh giá</b><br>Sự ra đời của Forget Gate & Peephole"]
+    Doc7["07_ke_hoach_slide_15_trang.md<br><b>Kịch bản Slide Báo cáo Team (15 Trang)</b><br>Kết hợp Paper 1997, Podcast & arXiv:1909.09586"]
 
-    Doc1 --> Doc2 --> Doc3 --> Doc4 --> Doc5 --> Doc6
+    Doc1 --> Doc2 --> Doc3 --> Doc4 --> Doc5 --> Doc6 --> Doc7
 ```
 
 ### 1. [01_tong_quan_va_boi_canh.md](file:///D:/PTDLKD/LSTM/explanation/01_tong_quan_va_boi_canh.md)
@@ -67,3 +68,7 @@ flowchart TD
   - Năm 2014: Rút gọn thành **GRU (Gated Recurrent Unit)** (Cho et al.).
 * **Hạn chế thực sự của LSTM gốc:** Bài toán XOR trễ sâu (Strongly delayed XOR problem) và hiện tượng bão hòa trạng thái tế bào.
 * **Tầm nhìn tương lai:** Từ LSTM đến Attention và Transformers.
+
+### 7. [07_ke_hoach_slide_15_trang.md](file:///D:/PTDLKD/LSTM/explanation/07_ke_hoach_slide_15_trang.md)
+* **Kịch bản báo cáo team đúng 15 trang:** Tổng hợp trực giác Feynman từ tài liệu giải thích 1997, video podcast *What is LSTM?* (`hcKsSOQolWc`), và bài báo hướng dẫn *Understanding LSTM* (`arXiv:1909.09586`).
+* **Cấu trúc đầy đủ từng slide:** Tiêu đề, nội dung trọng tâm, gợi ý visual/mã màu và lời dẫn (Speaker Notes).
