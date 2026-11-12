@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 01 - Bản Chất Kiến Trúc, Nhớ Công Thức & Tính Toán Chuỗi Thời Gian</title>
+    <title>Chuyên Đề 01 - Kiểm Tra Kiến Trúc & Tính Toán Thực Hành Chuỗi Thời Gian</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -34,7 +34,6 @@
         .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 22px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
         .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
         
-        /* Architecture Diagram Box */
         .arch-diagram { background: #0b1120; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
         .arch-title { font-weight: 700; color: var(--accent); margin-bottom: 12px; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .arch-flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
@@ -46,25 +45,16 @@
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
         .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
-        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
 
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .math-block { margin: 10px 0; padding: 8px 0; overflow-x: auto; }
-        
-        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
         .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
         .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
         .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
         .hint-text { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
-
-        .data-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92rem; }
-        .data-table th, .data-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: center; }
-        .data-table th { background: rgba(255, 255, 255, 0.05); color: var(--accent); }
 
         .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; line-height: 1.7; }
         .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; }
@@ -75,71 +65,48 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 01</span>
-        <h1>Kiến Trúc Phân Rã, Thử Thách Nhớ Công Thức & Tính Toán Chuỗi Thời Gian</h1>
-        <p class="subtitle">Hiểu rõ sơ đồ kiến trúc Forward Pass, chủ động ghi nhớ cấu trúc công thức và tự tay tính toán các con số cụ thể.</p>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán Thực Hành Chuỗi Thời Gian</h1>
+        <p class="subtitle">Tự nhớ công thức toán học từ lý thuyết, quan sát dữ liệu thô và tự tay thực hiện các phép tính số học cụ thể.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">15</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">9</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
         <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: PHÂN RÃ CỔ ĐIỂN (CLASSICAL DECOMPOSITION)</div>
         <div class="arch-flow">
             <div class="arch-node">Chuỗi gốc $Y_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Bộ lọc CMA (Làm mịn)</div>
+            <div class="arch-node highlight">Lọc trung bình trượt CMA</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node">Tách Xu hướng $T_t$</div>
+            <div class="arch-node">Đường xu hướng $T_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Tỷ số $z_t = \frac{Y_t}{T_t}$</div>
+            <div class="arch-node highlight">Bóc tách mùa vụ thô $z_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node">Chỉ số mùa vụ $S_t$</div>
+            <div class="arch-node">Chỉ số mùa vụ chuẩn hóa $S_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node">Khử mùa vụ $\frac{Y_t}{S_t}$</div>
+            <div class="arch-node">Khử mùa vụ</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Dự báo $\hat{y}_{t+h} = T_{t+h} \times S_{t+h}$</div>
+            <div class="arch-node output">Dự báo tái cấu trúc $\hat{y}_{t+h}$</div>
         </div>
         <div class="arch-desc">
-            <strong>Bản chất luồng truyền dữ liệu (Forward Pass Flow):</strong><br>
-            1. Dữ liệu gốc biến động mạnh $Y_t$ đi qua bộ lọc <em>Trung bình trượt trung tâm (CMA)</em> để triệt tiêu dao động ngắn hạn $\to$ trích xuất được <strong>Đường xu hướng $T_t$</strong>.<br>
-            2. Lấy $Y_t / T_t$ để bóc tách yếu tố mùa vụ thô $\to$ tính trung bình và chuẩn hóa tổng bằng $m$ $\to$ thu được <strong>Chỉ số mùa vụ $S_t$</strong>.<br>
-            3. Dùng $S_t$ để <em>khử mùa vụ</em> khỏi $Y_t$, ngoại suy đường xu hướng tương lai $T_{t+h}$ và nhân lại với $S_{t+h}$ để tái cấu trúc dự báo cuối cùng.
+            <strong>Bản chất luồng truyền dữ liệu (Forward Pass Pipeline):</strong><br>
+            1. Dữ liệu gốc $Y_t$ đi qua bộ lọc <em>Trung bình trượt trung tâm (CMA)</em> để khử biến động ngắn hạn $\to$ thu được <strong>Đường xu hướng $T_t$</strong>.<br>
+            2. So sánh $Y_t$ với $T_t$ để bóc tách yếu tố mùa vụ thô $\to$ tính trung bình từng chu kỳ và chuẩn hóa tổng $\to$ thu được <strong>Chỉ số mùa vụ $S_t$</strong>.<br>
+            3. Dùng $S_t$ để khử mùa vụ khỏi chuỗi ban đầu, ngoại suy đường xu hướng tương lai và tổng hợp lại để đưa ra kết quả dự báo.
         </div>
     </div>
 
     <!-- BÀI 1: TỰ TƯƠNG QUAN MẪU (ACF) -->
     <div class="card">
         <h2>Bài 1: Hệ Số Tự Tương Quan Mẫu (Autocorrelation Function - ACF)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ cấu trúc công thức</span>
-        <p>Hệ số tự tương quan mẫu bậc $k$ ($r_k$) đo lường tương quan giữa $y_t$ và giá trị trễ $y_{t-k}$. Điền ký hiệu toán học đúng:</p>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Điền số hạng trong tử số hiệp phương sai mẫu: $\sum_{t=k+1}^n (y_t - \bar{y}) \times [ \dots ]$</div>
-            <div class="input-row">
-                <span class="input-label">Số hạng trễ là:</span>
-                <input type="text" class="blank-input" data-ans="y_{t-k} - \bar{y}" data-alt="y_{t-k}-y_mean, y_{t-k} - y_bar, y_{t-1} - \bar{y}" placeholder="Ví dụ: y_{t-k} - \bar{y}">
-                <span class="hint-text">(Gõ: y_{t-k} - \bar{y} hoặc y_{t-1} - y_bar)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Điền số hạng trong mẫu số phương sai mẫu: $\sum_{t=1}^n [ \dots ]$</div>
-            <div class="input-row">
-                <span class="input-label">Biểu thức bình phương là:</span>
-                <input type="text" class="blank-input" data-ans="(y_t - \bar{y})^2" data-alt="(y_t-\bar{y})^2, (y_t - y_bar)^2" placeholder="Ví dụ: (y_t - \bar{y})^2">
-                <span class="hint-text">(Gõ: (y_t - \bar{y})^2 hoặc (y_t - y_bar)^2)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán con số</span>
         <p>Cho chuỗi 5 quan sát: $y = [10, 14, 12, 18, 16]$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính giá trị trung bình $\bar{y}$</div>
+            <div class="step-desc">1. Tính giá trị trung bình $\bar{y}$ của chuỗi quan sát</div>
             <div class="input-row">
                 <span class="input-label">$\bar{y} = $</span>
                 <input type="text" class="blank-input" data-ans="14" data-tol="0.01" placeholder="Nhập số...">
@@ -147,7 +114,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính tổng bình phương sai lệch ở mẫu số $\sum_{t=1}^5 (y_t - \bar{y})^2$</div>
+            <div class="step-desc">2. Tính tổng bình phương sai lệch quanh trung bình (mẫu số của $r_1$)</div>
             <div class="input-row">
                 <span class="input-label">Mẫu số = </span>
                 <input type="text" class="blank-input" data-ans="40" data-tol="0.01" placeholder="Nhập số...">
@@ -155,7 +122,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Tính hệ số tự tương quan bậc 1 ($r_1$)</div>
+            <div class="step-desc">3. Tính hệ số tự tương quan mẫu bậc 1 ($r_1$)</div>
             <div class="input-row">
                 <span class="input-label">Hệ số $r_1 = $</span>
                 <input type="text" class="blank-input" data-ans="0" data-tol="0.01" placeholder="Nhập số...">
@@ -164,39 +131,21 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Bản chất:</strong> $r_1$ so sánh tích đồng hướng của độ lệch hôm nay $(y_t - \bar{y})$ với độ lệch hôm qua $(y_{t-1} - \bar{y})$ trên toàn bộ phương sai. Ở bài toán này tổng tích bằng 0, nghĩa là bước trước cao hay thấp hơn trung bình không dự báo được chiều hướng của bước sau.</p>
-            <p>$\bar{y} = 70/5 = 14$. Mẫu số $= (-4)^2 + 0^2 + (-2)^2 + 4^2 + 2^2 = 40$. Tử số $= 0 + 0 + (-8) + 8 = 0 \implies r_1 = 0$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Trung bình: $\bar{y} = (10 + 14 + 12 + 18 + 16)/5 = 70/5 = 14.0$.</p>
+            <p>• Độ lệch: $[-4, 0, -2, 4, 2]$. Mẫu số: $(-4)^2 + 0^2 + (-2)^2 + 4^2 + 2^2 = 16 + 0 + 4 + 16 + 4 = 40$.</p>
+            <p>• Tử số hiệp phương sai trễ bậc 1: $(-4)(0) + (0)(-2) + (-2)(4) + (4)(2) = 0 + 0 - 8 + 8 = 0$.</p>
+            <p>• Do đó: $r_1 = 0 / 40 = 0.0$.</p>
         </div>
     </div>
 
     <!-- BÀI 2: PHÂN RÃ MÔ HÌNH NHÂN & CMA -->
     <div class="card">
         <h2>Bài 2: Phân Rã Mùa Vụ & Trung Bình Trượt Trung Tâm (CMA)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức phân rã</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong mô hình nhân, công thức khử mùa vụ (Deseasonalization) là:</div>
-            <div class="input-row">
-                <span class="input-label">$d_t = \frac{y_t}{[ \dots ]}$ với mẫu số là thành phần nào?</span>
-                <input type="text" class="blank-input" data-ans="S_t" data-alt="St, S_j" placeholder="Ví dụ: S_t">
-                <span class="hint-text">(Gõ: S_t hoặc St)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Công thức CMA cho chu kỳ chẵn $m=4$ quý gán trọng số ở 2 đầu mút là bao nhiêu?</div>
-            <div class="input-row">
-                <span class="input-label">Trọng số của $y_{t-2}$ và $y_{t+2}$ trong CMA 4 quý là:</span>
-                <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Ví dụ: 0.5">
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
         <p>Dữ liệu doanh số 5 quý: $y_1 = 40$ (Q1), $y_2 = 56$ (Q2), $y_3 = 68$ (Q3), $y_4 = 92$ (Q4), $y_5 = 50$ (Q1 năm sau).</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính $\text{CMA}_3$ tại Quý 3</div>
+            <div class="step-desc">1. Tính giá trị trung bình trượt trung tâm $\text{CMA}_3$ tại Quý 3 (chu kỳ $m=4$)</div>
             <div class="input-row">
                 <span class="input-label">$\text{CMA}_3 = $</span>
                 <input type="text" class="blank-input" data-ans="65.25" data-tol="0.05" placeholder="Nhập số...">
@@ -204,7 +153,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính tỷ số mùa vụ thô $z_3 = \frac{y_3}{\text{CMA}_3}$ tại Quý 3</div>
+            <div class="step-desc">2. Tính tỷ số mùa vụ thô $z_3$ tại Quý 3 theo mô hình nhân</div>
             <div class="input-row">
                 <span class="input-label">$z_3 = $</span>
                 <input type="text" class="blank-input" data-ans="1.042" data-tol="0.02" placeholder="Ví dụ: 1.042">
@@ -213,9 +162,9 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Cho đường xu hướng $\hat{T}_t = 36.5 + 8.5t$ và chỉ số mùa vụ Quý 1 $S_1 = 0.6950$. Tính dự báo $\hat{y}_9$ cho Quý 1 năm 3 ($t=9$)</div>
+            <div class="step-desc">3. Cho phương trình xu hướng $\hat{T}_t = 36.5 + 8.5t$ và chỉ số mùa vụ Quý 1 $S_1 = 0.6950$. Tính dự báo doanh số $\hat{y}_9$ cho Quý 1 năm 3 ($t=9$)</div>
             <div class="input-row">
-                <span class="input-label">$\hat{y}_9 = \hat{T}_9 \times S_1 = $</span>
+                <span class="input-label">$\hat{y}_9 = $</span>
                 <input type="text" class="blank-input" data-ans="78.535" data-tol="0.1" placeholder="Nhập số...">
                 <span class="hint-text">triệu VNĐ</span>
             </div>
@@ -223,36 +172,18 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Bản chất:</strong> CMA lấy trung bình trượt 4 quý để triệt tiêu ảnh hưởng của mùa vụ. Trọng số 0.5 ở hai biên để căn đúng tâm thời điểm quý 3. $\text{CMA}_3 = \frac{0.5(40) + 56 + 68 + 92 + 0.5(50)}{4} = 65.25$. Tỷ số $z_3 = 68 / 65.25 \approx 1.042$. Với $t=9$: $\hat{T}_9 = 36.5 + 8.5(9) = 113.0 \implies \hat{y}_9 = 113.0 \times 0.6950 = 78.535$ triệu.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Với chu kỳ chẵn $m=4$, trọng số hai đầu là 0.5: $\text{CMA}_3 = \frac{0.5(40) + 56 + 68 + 92 + 0.5(50)}{4} = \frac{20 + 216 + 25}{4} = \frac{261}{4} = 65.25$.</p>
+            <p>• Tỷ số mùa vụ thô: $z_3 = y_3 / \text{CMA}_3 = 68 / 65.25 \approx 1.04215 \approx 1.042$.</p>
+            <p>• Tại $t=9$: Xu hướng $\hat{T}_9 = 36.5 + 8.5(9) = 36.5 + 76.5 = 113.0$. Dự báo mô hình nhân: $\hat{y}_9 = \hat{T}_9 \times S_1 = 113.0 \times 0.6950 = 78.535$ triệu VNĐ.</p>
         </div>
     </div>
 
     <!-- BÀI 3: THƯỚC ĐO SAI SỐ DỰ BÁO -->
     <div class="card">
-        <h2>Bài 3: Nhớ Công Thức & Tính Toán Thang Đo Sai Số (MAE, MSE, MAPE)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức thang đo</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong công thức MAPE, mẫu số của tỷ số sai đối là gì: $\frac{|y_t - \hat{y}_t|}{[ \dots ]}$?</div>
-            <div class="input-row">
-                <span class="input-label">Mẫu số là giá trị thực tế hay dự báo:</span>
-                <input type="text" class="blank-input" data-ans="y_t" data-alt="yt, y, thuc te" placeholder="Ví dụ: y_t">
-                <span class="hint-text">(Gõ: y_t hoặc yt)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Quan hệ giữa RMSE và MSE: $\text{RMSE} = [ \dots ](\text{MSE})$</div>
-            <div class="input-row">
-                <span class="input-label">Toán tử áp dụng lên MSE là:</span>
-                <input type="text" class="blank-input" data-ans="sqrt" data-alt="can, can bac hai, √" placeholder="Ví dụ: sqrt">
-                <span class="hint-text">(Gõ: sqrt hoặc can)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán con số</span>
-        <p>Bảng 4 bước: $y = [50, 60, 75, 90]$ và dự báo $\hat{y} = [48, 64, 70, 95]$. Tổng sai số tuyệt đối $\sum |e_t| = 16$, tổng bình phương $\sum e_t^2 = 70$, tổng tỷ số $\sum |e_t/y_t| = 0.2290$.</p>
+        <h2>Bài 3: Tính Toán Các Thang Đo Sai Số (MAE, RMSE, MAPE)</h2>
+        <p>Cho dữ liệu thực tế 4 bước: $y = [50, 60, 75, 90]$ và giá trị dự báo tương ứng $\hat{y} = [48, 64, 70, 95]$.<br>
+        Tổng hợp đã tính sẵn: tổng sai số tuyệt đối là 16, tổng bình phương sai số là 70, tổng tỷ lệ sai số đối tuyệt đối là 0.2290.</p>
 
         <div class="calc-step">
             <div class="step-desc">1. Tính Sai số tuyệt đối trung bình (MAE)</div>
@@ -263,7 +194,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính Căn sai số bình phương trung bình (RMSE)</div>
+            <div class="step-desc">2. Tính Căn bậc hai sai số bình phương trung bình (RMSE)</div>
             <div class="input-row">
                 <span class="input-label">$\text{RMSE} = $</span>
                 <input type="text" class="blank-input" data-ans="4.183" data-tol="0.05" placeholder="Nhập số...">
@@ -281,7 +212,10 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Bản chất:</strong> MAE thể hiện sai lệch trung bình 4.0 đơn vị. RMSE phạt mạnh các sai số lớn hơn nên đạt 4.183 (luôn $\ge$ MAE). MAPE thể hiện mức độ sai lệch theo tỷ lệ phần trăm (5.725%), rất trực quan khi báo cáo cho ban giám đốc.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• $\text{MAE} = \frac{1}{4} \sum |e_t| = \frac{16}{4} = 4.0$.</p>
+            <p>• $\text{MSE} = \frac{70}{4} = 17.5 \implies \text{RMSE} = \sqrt{17.5} \approx 4.1833 \approx 4.183$.</p>
+            <p>• $\text{MAPE} = \frac{100\%}{4} \sum \frac{|e_t|}{y_t} = \frac{0.2290}{4} \times 100\% = 0.05725 \times 100\% = 5.725\%$.</p>
         </div>
     </div>
 </div>
@@ -290,11 +224,7 @@
     function normalizeInput(val) {
         return val.trim().toLowerCase()
             .replace(/\s+/g, '')
-            .replace(/,/g, '.')
-            .replace(/alpha/g, 'α')
-            .replace(/beta/g, 'β')
-            .replace(/sigma/g, 'σ')
-            .replace(/phi/g, 'ϕ');
+            .replace(/,/g, '.');
     }
 
     function checkAllAnswers() {
@@ -303,7 +233,6 @@
 
         inputs.forEach(input => {
             const expectedRaw = input.getAttribute('data-ans').trim();
-            const altRaw = input.getAttribute('data-alt') || '';
             const tolerance = parseFloat(input.getAttribute('data-tol'));
             const userRaw = input.value.trim();
 
@@ -318,16 +247,10 @@
 
             let isCorrect = false;
 
-            // Numeric comparison if tolerance is defined
             if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
             } else {
-                // String / formula token comparison
-                const normUser = normalizeInput(userRaw);
-                const normExpected = normalizeInput(expectedRaw);
-                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
-
-                isCorrect = allowedList.some(item => normUser === item);
+                isCorrect = (normalizeInput(userRaw) === normalizeInput(expectedRaw));
             }
 
             if (isCorrect) {

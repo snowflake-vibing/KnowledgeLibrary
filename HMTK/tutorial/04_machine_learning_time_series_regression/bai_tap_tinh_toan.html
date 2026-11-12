@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 04 - Kiến Trúc Cửa Sổ Trượt, Nhớ Công Thức & Tính Toán Tabular ML</title>
+    <title>Chuyên Đề 04 - Kiểm Tra Kiến Trúc & Tính Toán Tabular ML</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -46,13 +46,10 @@
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
         .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
-        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
 
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
         .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
         .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
@@ -69,16 +66,16 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 04</span>
-        <h1>Kiến Trúc Cửa Sổ Trượt, Nhớ Công Thức & Tính Toán Tabular ML</h1>
-        <p class="subtitle">Nắm vững kiến trúc biến đổi chuỗi thành bảng (Sliding Window Pipeline), nhớ công thức trích xuất và tính toán đệ quy đa bước.</p>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán Tabular ML</h1>
+        <p class="subtitle">Tự nhớ quy tắc bóc tách đặc trưng trễ, mã hóa lượng giác và tự tay tính toán dự báo đệ quy đa bước.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">15</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">11</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
         <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: HỌC MÁY CỬA SỔ TRƯỢT (SLIDING WINDOW)</div>
         <div class="arch-flow">
@@ -86,157 +83,106 @@
             <div class="arch-arrow">➔</div>
             <div class="arch-node highlight">Cửa sổ trượt (Sliding Window)</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Vector $X_t = [L_1, L_2, \text{RM}, \sin/\cos]$</div>
+            <div class="arch-node state">Vector đặc trưng bảng $X_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Mô hình $f(X_t)$</div>
+            <div class="arch-node highlight">Mô hình hồi quy $f(X_t)$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Dự báo $\hat{y}_{t+1}$</div>
-            <div class="arch-arrow">⮌ (Hồi tiếp làm $L_1$)</div>
+            <div class="arch-node output">Dự báo 1 bước $\hat{y}_{t+1}$</div>
+            <div class="arch-arrow">⮌ (Hồi tiếp làm Lag 1 mới)</div>
         </div>
         <div class="arch-desc">
             <strong>Bản chất luồng truyền dữ liệu (Tabular ML Forward Loop):</strong><br>
-            1. **Feature Engineering:** Tại mỗi thời điểm $t$, bộ trích xuất lùi về quá khứ lấy các giá trị trễ $y_{t-1}, y_{t-2}$, tính trung bình trượt và góc lượng giác $\sin/\cos$ để biến chuỗi thời gian thành vector đặc trưng bảng $X_t$.<br>
-            2. **Forward Inference:** Mô hình hồi quy $f(X_t)$ sinh ra dự báo 1 bước $\hat{y}_{t+1}$.<br>
-            3. **Recursive Forward Feedback:** Đưa giá trị vừa dự báo $\hat{y}_{t+1}$ quay ngược lại đầu vào để đóng vai trò làm $\text{Lag}_1$ mới, đẩy cửa sổ dịch chuyển sang phải 1 đơn vị để dự báo tiếp $\hat{y}_{t+2}$.
+            1. **Trích xuất đặc trưng:** Tại mỗi mốc $t$, cửa sổ lùi về quá khứ để lấy các giá trị trễ, thống kê trượt và tọa độ chu kỳ $\sin/\cos$ để biến chuỗi thời gian thành vector đặc trưng bảng $X_t$.<br>
+            2. **Suy luận tiến:** Mô hình hồi quy sinh ra giá trị dự báo 1 bước $\hat{y}_{t+1}$.<br>
+            3. **Hồi tiếp đệ quy:** Đưa giá trị vừa dự báo $\hat{y}_{t+1}$ quay ngược lại đầu vào đóng vai trò là $\text{Lag}_1$ mới, đẩy cửa sổ dịch chuyển để dự báo tiếp bước tương lai.
         </div>
     </div>
 
     <!-- BÀI 1: TẠO MA TRẬN LAG VÀ ROLLING STATS -->
     <div class="card">
         <h2>Bài 1: Bóc Tách Đặc Trưng Trễ (Lag) và Thống Kê Trượt (Rolling Mean)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức trích xuất</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Tại mốc dự báo $t$, đặc trưng $\text{Lag}_1$ lấy giá trị của phần tử nào trong chuỗi?</div>
-            <div class="input-row">
-                <span class="input-label">$\text{Lag}_1 = $</span>
-                <input type="text" class="blank-input" data-ans="y_{t-1}" data-alt="yt-1, y_t-1" placeholder="Ví dụ: y_{t-1}">
-                <span class="hint-text">(Gõ: y_{t-1} hoặc yt-1)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Trung bình trượt 3 bước $\text{RM}_3$: $\frac{y_{t-1} + y_{t-2} + [ \dots ]}{3}$</div>
-            <div class="input-row">
-                <span class="input-label">Phần tử thứ ba trong cửa sổ:</span>
-                <input type="text" class="blank-input" data-ans="y_{t-3}" data-alt="yt-3, y_t-3" placeholder="Ví dụ: y_{t-3}">
-                <span class="hint-text">(Gõ: y_{t-3})</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
         <p>Cho chuỗi: $y = [10, 15, 12, 18, 20, 25]$ với $t = 1 \dots 6$.</p>
 
         <div class="calc-step">
             <div class="step-desc">1. Bóc tách vector đặc trưng tại $t=4$ ($y_4 = 18$)</div>
             <div class="input-row">
-                <span class="input-label">$L_1 = y_3 = $</span>
+                <span class="input-label">$L_1 = $</span>
                 <input type="text" class="blank-input" data-ans="12" data-tol="0.01" placeholder="Nhập số...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">$L_2 = y_2 = $</span>
+                <span class="input-label">$L_2 = $</span>
                 <input type="text" class="blank-input" data-ans="15" data-tol="0.01" placeholder="Nhập số...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">$\text{RM}_3 = \frac{12 + 15 + 10}{3} = $</span>
+                <span class="input-label">$\text{RM}_3 = $</span>
                 <input type="text" class="blank-input" data-ans="12.333" data-tol="0.05" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Bóc tách tại $t=5$ ($y_5 = 20$)</div>
+            <div class="step-desc">2. Bóc tách vector đặc trưng tại $t=5$ ($y_5 = 20$)</div>
             <div class="input-row">
-                <span class="input-label">$L_1 = y_4 = $</span>
+                <span class="input-label">$L_1 = $</span>
                 <input type="text" class="blank-input" data-ans="18" data-tol="0.01" placeholder="Nhập số...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">$\text{RM}_2 = \frac{y_4 + y_3}{2} = $</span>
+                <span class="input-label">$\text{RM}_2 = $</span>
                 <input type="text" class="blank-input" data-ans="15.0" data-tol="0.05" placeholder="Nhập số...">
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Bản chất:</strong> Khi chuyển đổi sang dữ liệu bảng, mỗi dòng đại diện cho một mốc thời gian. Các cột đặc trưng $L_1, L_2, \text{RM}_3$ đóng vai trò là biến độc lập để mô hình học máy ánh xạ tới nhãn mục tiêu $y_t$. Tuyệt đối không dùng thông tin từ $y_t$ trở đi để tính $\text{RM}$ nhằm tránh rò rỉ dữ liệu.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Tại $t=4$: $L_1 = y_3 = 12$, $L_2 = y_2 = 15$. $\text{RM}_3 = (y_3 + y_2 + y_1)/3 = (12 + 15 + 10)/3 = 37/3 \approx 12.333$.</p>
+            <p>• Tại $t=5$: $L_1 = y_4 = 18$. $\text{RM}_2 = (y_4 + y_3)/2 = (18 + 12)/2 = 30/2 = 15.0$.</p>
         </div>
     </div>
 
     <!-- BÀI 2: MÃ HÓA CYCLICAL LƯỢNG GIÁC -->
     <div class="card">
         <h2>Bài 2: Mã Hóa Chu Kỳ Lượng Giác (Cyclical Encoding)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức chu kỳ</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Chu kỳ giờ trong một ngày đêm có bao nhiêu giờ? Điền mẫu số: $\text{hour}_{\sin} = \sin\left(\frac{2\pi \times \text{hour}}{[ \dots ]}\right)$</div>
-            <div class="input-row">
-                <span class="input-label">Chu kỳ $T$ (số giờ):</span>
-                <input type="text" class="blank-input" data-ans="24" data-tol="0.01" placeholder="Ví dụ: 24">
-            </div>
-        </div>
+        <p>Mã hóa thời gian theo giờ trong ngày sang hệ tọa độ 2D bằng hàm lượng giác với chu kỳ $T=24$ giờ.</p>
 
         <div class="calc-step">
-            <div class="step-desc">2. Điền tên hàm lượng giác đối ngẫu thứ hai cùng với $\sin$ để tạo tọa độ 2D:</div>
+            <div class="step-desc">1. Tính tọa độ lượng giác tại thời điểm 06:00 sáng</div>
             <div class="input-row">
-                <span class="input-label">Hàm lượng giác:</span>
-                <input type="text" class="blank-input" data-ans="cos" data-alt="cosine" placeholder="Ví dụ: cos">
-                <span class="hint-text">(Gõ: cos)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán tọa độ</span>
-
-        <div class="calc-step">
-            <div class="step-desc">1. Thời điểm 06:00 sáng ($\text{hour} = 6 \implies$ góc $\frac{2\pi \times 6}{24} = \frac{\pi}{2} = 90^\circ$)</div>
-            <div class="input-row">
-                <span class="input-label">$\text{hour}_{\sin} = \sin(90^\circ) = $</span>
+                <span class="input-label">$\text{hour}_{\sin} = $</span>
                 <input type="text" class="blank-input" data-ans="1.0" data-tol="0.01" placeholder="Nhập số...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">$\text{hour}_{\cos} = \cos(90^\circ) = $</span>
+                <span class="input-label">$\text{hour}_{\cos} = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Thời điểm 18:00 chiều ($\text{hour} = 18 \implies$ góc $\frac{2\pi \times 18}{24} = \frac{3\pi}{2} = 270^\circ$)</div>
+            <div class="step-desc">2. Tính tọa độ lượng giác tại thời điểm 18:00 chiều</div>
             <div class="input-row">
-                <span class="input-label">$\text{hour}_{\sin} = \sin(270^\circ) = $</span>
+                <span class="input-label">$\text{hour}_{\sin} = $</span>
                 <input type="text" class="blank-input" data-ans="-1.0" data-tol="0.01" placeholder="Nhập số...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">$\text{hour}_{\cos} = \cos(270^\circ) = $</span>
+                <span class="input-label">$\text{hour}_{\cos} = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Bản chất:</strong> Nếu chỉ dùng số nguyên từ 0 đến 23, mô hình sẽ xem giờ 23 và giờ 0 cách nhau rất xa (khoảng cách 23 đơn vị). Chiếu lên đường tròn đơn vị qua cặp $(\sin, \cos)$ biến thời gian thành quỹ đạo liên tục, giúp mô hình nhận biết 23:00 và 00:00 là hai thời điểm liền kề nhau.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Lúc 06:00: Góc $\theta = \frac{2\pi \times 6}{24} = \frac{\pi}{2} = 90^\circ \implies \sin(90^\circ) = 1.0, \cos(90^\circ) = 0.0$.</p>
+            <p>• Lúc 18:00: Góc $\theta = \frac{2\pi \times 18}{24} = \frac{3\pi}{2} = 270^\circ \implies \sin(270^\circ) = -1.0, \cos(270^\circ) = 0.0$.</p>
         </div>
     </div>
 
     <!-- BÀI 3: DỰ BÁO ĐỆ QUY ĐA BƯỚC -->
     <div class="card">
         <h2>Bài 3: Dự Báo Đệ Quy Đa Bước (Recursive Strategy)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ nguyên lý đệ quy</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong chiến lược đệ quy, khi dự báo bước $t+2$, giá trị của $y_{t+1}$ được thay bằng gì?</div>
-            <div class="input-row">
-                <span class="input-label">Giá trị thay thế:</span>
-                <input type="text" class="blank-input" data-ans="y_hat_{t+1}" data-alt="y_hat, du bao, y_{t+1}_hat, yhat" placeholder="Ví dụ: y_hat">
-                <span class="hint-text">(Gõ: y_hat hoặc du bao)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Mô hình đã học: $\hat{y}_t = 5.0 + 0.7 L_1 + 0.2 L_2$. Tại $t=10$, có $y_9 = 40.0, y_{10} = 45.0$.</p>
+        <p>Mô hình hồi quy đã học có phương trình: $\hat{y}_t = 5.0 + 0.7 L_1 + 0.2 L_2$. Tại $t=10$, dữ liệu thực tế có $y_9 = 40.0, y_{10} = 45.0$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính dự báo bước $t=11$ ($L_1 = y_{10} = 45.0, L_2 = y_9 = 40.0$)</div>
+            <div class="step-desc">1. Tính dự báo 1 bước tới tại $t=11$</div>
             <div class="input-row">
                 <span class="input-label">$\hat{y}_{11} = $</span>
                 <input type="text" class="blank-input" data-ans="44.5" data-tol="0.05" placeholder="Nhập số...">
@@ -244,7 +190,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính dự báo đệ quy bước $t=12$ ($L_1 = \hat{y}_{11} = 44.5, L_2 = y_{10} = 45.0$)</div>
+            <div class="step-desc">2. Áp dụng chiến lược đệ quy để tính tiếp dự báo bước kế tiếp tại $t=12$</div>
             <div class="input-row">
                 <span class="input-label">$\hat{y}_{12} = $</span>
                 <input type="text" class="blank-input" data-ans="45.15" data-tol="0.05" placeholder="Nhập số...">
@@ -253,7 +199,9 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Bản chất:</strong> Bước 1: $\hat{y}_{11} = 5.0 + 0.7(45) + 0.2(40) = 44.5$. Để dự báo tiếp bước 12, ta đưa $44.5$ vào làm $L_1$ và đẩy $45.0$ làm $L_2 \implies \hat{y}_{12} = 5.0 + 0.7(44.5) + 0.2(45) = 45.15$. Sai số của bước 11 sẽ lan truyền sang bước 12 (đây là hiện tượng tích lũy sai số của chiến lược đệ quy).</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Bước 1: $L_1 = y_{10} = 45.0, L_2 = y_9 = 40.0 \implies \hat{y}_{11} = 5.0 + 0.7(45.0) + 0.2(40.0) = 5.0 + 31.5 + 8.0 = 44.5$.</p>
+            <p>• Bước 2: Thay $y_{11}$ bằng giá trị vừa dự báo $\hat{y}_{11} = 44.5$: $L_1 = 44.5, L_2 = y_{10} = 45.0 \implies \hat{y}_{12} = 5.0 + 0.7(44.5) + 0.2(45.0) = 5.0 + 31.15 + 9.0 = 45.15$.</p>
         </div>
     </div>
 </div>
@@ -262,9 +210,7 @@
     function normalizeInput(val) {
         return val.trim().toLowerCase()
             .replace(/\s+/g, '')
-            .replace(/,/g, '.')
-            .replace(/_/g, '')
-            .replace(/\{|\}/g, '');
+            .replace(/,/g, '.');
     }
 
     function checkAllAnswers() {
@@ -273,7 +219,6 @@
 
         inputs.forEach(input => {
             const expectedRaw = input.getAttribute('data-ans').trim();
-            const altRaw = input.getAttribute('data-alt') || '';
             const tolerance = parseFloat(input.getAttribute('data-tol'));
             const userRaw = input.value.trim();
 
@@ -291,11 +236,7 @@
             if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
             } else {
-                const normUser = normalizeInput(userRaw);
-                const normExpected = normalizeInput(expectedRaw);
-                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
-
-                isCorrect = allowedList.some(item => normUser === item);
+                isCorrect = (normalizeInput(userRaw) === normalizeInput(expectedRaw));
             }
 
             if (isCorrect) {

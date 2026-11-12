@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 03 - Kiến Trúc Lọc Tín Hiệu, Nhớ Công Thức & Tính Toán ARIMA</title>
+    <title>Chuyên Đề 03 - Kiểm Tra Kiến Trúc & Tính Toán Mô Hình ARIMA</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -46,13 +46,10 @@
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
         .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
-        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
 
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
         .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
         .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
@@ -69,16 +66,16 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 03</span>
-        <h1>Kiến Trúc Lọc Tín Hiệu, Nhớ Công Thức & Tính Toán ARIMA</h1>
-        <p class="subtitle">Hiểu bản chất lọc sai phân và cấu trúc ARMA, chủ động nhớ công thức và tự tay thực hiện các phép tính dự báo đệ quy.</p>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán Mô Hình ARIMA</h1>
+        <p class="subtitle">Tự nhớ quy tắc kỳ vọng có điều kiện và tự tay thực hiện các phép tính dự báo đệ quy và phục hồi sai phân.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">16</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">8</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
         <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: MÔ HÌNH ARIMA(p, d, q)</div>
         <div class="arch-flow">
@@ -88,58 +85,27 @@
             <div class="arch-arrow">➔</div>
             <div class="arch-node state">Chuỗi dừng $w_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Lọc ARMA: $\sum \phi_i w_{t-i} + \sum \theta_j \epsilon_{t-j}$</div>
+            <div class="arch-node highlight">Bộ lọc ARMA đệ quy</div>
             <div class="arch-arrow">➔</div>
             <div class="arch-node state">Dự báo sai phân $\hat{w}_{t+h}$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Tích hợp ngược $\hat{y}_{t+h} = \hat{y}_{t+h-1} + \hat{w}_{t+h}$</div>
+            <div class="arch-node output">Tích hợp phục hồi chuỗi gốc $\hat{y}_{t+h}$</div>
         </div>
         <div class="arch-desc">
             <strong>Bản chất luồng truyền dữ liệu (Forward Pass Pipeline):</strong><br>
-            1. **Tiền xử lý (Differencing):** Chuỗi không dừng $y_t$ được lấy sai phân $d$ lần để loại bỏ xu hướng bất định $\to$ thu được chuỗi dừng $w_t$.<br>
-            2. **Suy luận ARMA:** $w_t$ được dự báo bằng kết hợp tuyến tính của $p$ giá trị quá khứ ($\text{AR}$) và $q$ cú sốc nhiễu quá khứ ($\text{MA}$). Khi bước sang tương lai ($h > q$), kỳ vọng các cú sốc tương lai bằng 0 $\to$ dự báo hội tụ về trung bình dài hạn $\mu$.<br>
-            3. **Tích hợp phục hồi:** Đem dự báo sai phân $\hat{w}_{t+h}$ cộng lũy tích ngược lại với giá trị quan sát cuối cùng để trả về đơn vị gốc của $y_t$.
+            1. **Tiền xử lý:** Chuỗi không dừng $y_t$ được lấy sai phân $d$ lần để triệt tiêu xu hướng trôi $\to$ thu được chuỗi dừng $w_t$.<br>
+            2. **Suy luận ARMA:** $w_t$ được dự báo bằng kết hợp tuyến tính của các giá trị quá khứ và các cú sốc nhiễu. Khi bước sang tương lai xa, kỳ vọng nhiễu mới bằng 0 $\to$ dự báo hội tụ về trung bình dài hạn $\mu$.<br>
+            3. **Tích hợp phục hồi:** Đem dự báo sai phân cộng lũy tích ngược lại với giá trị quan sát cuối cùng để đưa về thang đo gốc của $y_t$.
         </div>
     </div>
 
     <!-- BÀI 1: KỲ VỌNG VÀ PHƯƠNG SAI AR(1) -->
     <div class="card">
         <h2>Bài 1: Quá Trình Tự Hồi Quy AR(1)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức AR(1)</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong phương trình AR(1): $y_t = c + [ \dots ] y_{t-1} + \epsilon_t$, hệ số tự hồi quy ký hiệu là gì?</div>
-            <div class="input-row">
-                <span class="input-label">Hệ số tự hồi quy bậc 1:</span>
-                <input type="text" class="blank-input" data-ans="phi_1" data-alt="ϕ_1, phi1, ϕ1, phi" placeholder="Ví dụ: phi_1">
-                <span class="hint-text">(Gõ: phi_1 hoặc ϕ_1)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Kỳ vọng trung bình dài hạn của AR(1) dừng: $\mu = \frac{c}{[ \dots ]}$</div>
-            <div class="input-row">
-                <span class="input-label">Mẫu số trong công thức $\mu$:</span>
-                <input type="text" class="blank-input" data-ans="1 - phi_1" data-alt="1-phi_1, 1 - ϕ_1, 1-phi1" placeholder="Ví dụ: 1 - phi_1">
-                <span class="hint-text">(Gõ: 1 - phi_1)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">3. Mẫu số trong công thức phương sai $\text{Var}(y_t) = \frac{\sigma_\epsilon^2}{[ \dots ]}$ là gì?</div>
-            <div class="input-row">
-                <span class="input-label">Mẫu số phương sai:</span>
-                <input type="text" class="blank-input" data-ans="1 - phi_1^2" data-alt="1-phi_1^2, 1 - ϕ_1^2, 1-phi1^2" placeholder="Ví dụ: 1 - phi_1^2">
-                <span class="hint-text">(Gõ: 1 - phi_1^2)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán con số</span>
         <p>Cho quá trình AR(1): $y_t = 6.0 + 0.7 y_{t-1} + \epsilon_t$, với phương sai nhiễu trắng $\sigma_\epsilon^2 = 1.02$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính kỳ vọng trung bình dài hạn $\mu$</div>
+            <div class="step-desc">1. Tính kỳ vọng trung bình dài hạn $\mu$ của chuỗi</div>
             <div class="input-row">
                 <span class="input-label">$\mu = $</span>
                 <input type="text" class="blank-input" data-ans="20.0" data-tol="0.05" placeholder="Nhập số...">
@@ -147,7 +113,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính phương sai của chuỗi $\text{Var}(y_t)$</div>
+            <div class="step-desc">2. Tính phương sai toàn cục của chuỗi $\text{Var}(y_t)$</div>
             <div class="input-row">
                 <span class="input-label">$\text{Var}(y_t) = $</span>
                 <input type="text" class="blank-input" data-ans="2.0" data-tol="0.05" placeholder="Nhập số...">
@@ -156,34 +122,15 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Bản chất:</strong> Vì $|\phi_1| = 0.7 < 1$, chuỗi có tính dừng (mean-reverting). Khi không có nhiễu mới, chuỗi liên tục bị kéo về điểm cân bằng dài hạn $\mu = 6.0 / (1 - 0.7) = 20.0$. Phương sai toàn cục $\text{Var} = 1.02 / (1 - 0.49) = 2.0$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Kỳ vọng trung bình dài hạn: $\mu = \frac{c}{1 - \phi_1} = \frac{6.0}{1 - 0.7} = \frac{6.0}{0.3} = 20.0$.</p>
+            <p>• Phương sai toàn cục: $\text{Var}(y_t) = \frac{\sigma_\epsilon^2}{1 - \phi_1^2} = \frac{1.02}{1 - (0.7)^2} = \frac{1.02}{1 - 0.49} = \frac{1.02}{0.51} = 2.0$.</p>
         </div>
     </div>
 
     <!-- BÀI 2: DỰ BÁO ĐỆ QUY ARMA(1, 1) -->
     <div class="card">
         <h2>Bài 2: Dự Báo Đa Bước Mô Hình ARMA(1, 1)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức dự báo ARMA</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Khi dự báo từ bước $h \ge 2$, kỳ vọng của số hạng nhiễu tương lai $\mathbb{E}[\epsilon_{t+1}]$ bằng bao nhiêu?</div>
-            <div class="input-row">
-                <span class="input-label">$\mathbb{E}[\epsilon_{t+1}] = $</span>
-                <input type="text" class="blank-input" data-ans="0" data-tol="0.01" placeholder="Ví dụ: 0">
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Thành phần MA ở bước $t+1$ tác động qua tham số nào: $c + \phi_1 y_t + [ \dots ] \epsilon_t$?</div>
-            <div class="input-row">
-                <span class="input-label">Hệ số trung bình trượt bậc 1:</span>
-                <input type="text" class="blank-input" data-ans="theta_1" data-alt="θ_1, theta1, θ1, theta" placeholder="Ví dụ: theta_1">
-                <span class="hint-text">(Gõ: theta_1 hoặc θ_1)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
         <p>Cho mô hình: $y_t = 8.0 + 0.5 y_{t-1} + 0.3 \epsilon_{t-1} + \epsilon_t$. Tại $t = 50$, có $y_{50} = 22.0$ và phần dư $\epsilon_{50} = 2.0$.</p>
 
         <div class="calc-step">
@@ -195,7 +142,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính dự báo 2 bước tới $\hat{y}_{52|50}$ (chú ý $\mathbb{E}[\epsilon_{51}] = 0$)</div>
+            <div class="step-desc">2. Tính dự báo 2 bước tới $\hat{y}_{52|50}$</div>
             <div class="input-row">
                 <span class="input-label">$\hat{y}_{52} = $</span>
                 <input type="text" class="blank-input" data-ans="17.8" data-tol="0.05" placeholder="Nhập số...">
@@ -203,7 +150,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Tính giá trị hội tụ dài hạn $\mu$ khi $h \to \infty$</div>
+            <div class="step-desc">3. Tính giá trị hội tụ dài hạn $\mu$ khi bước dự báo $h \to \infty$</div>
             <div class="input-row">
                 <span class="input-label">$\mu = $</span>
                 <input type="text" class="blank-input" data-ans="16.0" data-tol="0.05" placeholder="Nhập số...">
@@ -212,36 +159,17 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Bản chất:</strong> Bước 1 nhận sự đóng góp của cú sốc hiện tại $\epsilon_{50}$: $\hat{y}_{51} = 8 + 0.5(22) + 0.3(2) = 19.6$. Đến bước 2, cú sốc $\epsilon_{50}$ đã biến mất khỏi phương trình (vì MA chỉ có bậc 1), chỉ còn quán tính AR: $\hat{y}_{52} = 8 + 0.5(19.6) = 17.8$. Càng về sau, quán tính suy giảm dần và hội tụ về mức trung bình $\mu = 8 / (1 - 0.5) = 16.0$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Bước 1: $\hat{y}_{51} = 8.0 + 0.5(22.0) + 0.3(2.0) + 0 = 8.0 + 11.0 + 0.6 = 19.6$.</p>
+            <p>• Bước 2: Vì $\epsilon_{51}$ thuộc tương lai nên $\mathbb{E}[\epsilon_{51}] = 0$. Do đó: $\hat{y}_{52} = 8.0 + 0.5(19.6) + 0.3(0) + 0 = 8.0 + 9.8 = 17.8$.</p>
+            <p>• Khi $h \to \infty$: Chuỗi hội tụ về trung bình dài hạn $\mu = \frac{c}{1 - \phi_1} = \frac{8.0}{1 - 0.5} = 16.0$.</p>
         </div>
     </div>
 
     <!-- BÀI 3: PHỤC HỒI SAI PHÂN ARIMA(1, 1, 0) -->
     <div class="card">
         <h2>Bài 3: Phục Hồi Tích Hợp Dự Báo ARIMA(1, 1, 0)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức sai phân & phục hồi</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Định nghĩa chuỗi sai phân bậc 1: $w_t = y_t - [ \dots ]$</div>
-            <div class="input-row">
-                <span class="input-label">Số hạng trừ đi là:</span>
-                <input type="text" class="blank-input" data-ans="y_{t-1}" data-alt="y_{t-1}, yt-1, y_t-1" placeholder="Ví dụ: y_{t-1}">
-                <span class="hint-text">(Gõ: y_{t-1})</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Công thức phục hồi dự báo gốc từ dự báo sai phân: $\hat{y}_{t+1} = y_t + [ \dots ]$</div>
-            <div class="input-row">
-                <span class="input-label">Số hạng cộng thêm là:</span>
-                <input type="text" class="blank-input" data-ans="w_{t+1}" data-alt="w_{t+1}, wt+1, w_hat" placeholder="Ví dụ: w_{t+1}">
-                <span class="hint-text">(Gõ: w_{t+1})</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Đặt $w_t = y_t - y_{t-1}$ tuân theo $\text{AR}(1)$: $w_t = 0.4 w_{t-1} + \epsilon_t$. Tại $t=20$, dữ liệu gốc có $y_{19} = 100.0, y_{20} = 105.0$.</p>
+        <p>Chuỗi sai phân bậc 1 $w_t = y_t - y_{t-1}$ tuân theo $\text{AR}(1)$: $w_t = 0.4 w_{t-1} + \epsilon_t$. Tại $t=20$, dữ liệu gốc có $y_{19} = 100.0, y_{20} = 105.0$.</p>
 
         <div class="calc-step">
             <div class="step-desc">1. Tính giá trị sai phân tại $t=20$ ($w_{20}$)</div>
@@ -252,7 +180,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính dự báo sai phân $\hat{w}_{21}$ và phục hồi dự báo gốc $\hat{y}_{21}$</div>
+            <div class="step-desc">2. Tính dự báo sai phân $\hat{w}_{21}$ và phục hồi dự báo chuỗi gốc $\hat{y}_{21}$</div>
             <div class="input-row">
                 <span class="input-label">$\hat{w}_{21} = $</span>
                 <input type="text" class="blank-input" data-ans="2.0" data-tol="0.05" placeholder="Nhập w21...">
@@ -264,7 +192,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Tính dự báo sai phân $\hat{w}_{22}$ và phục hồi dự báo gốc $\hat{y}_{22}$</div>
+            <div class="step-desc">3. Tính tiếp phục hồi dự báo chuỗi gốc cho bước 22 ($\hat{y}_{22}$)</div>
             <div class="input-row">
                 <span class="input-label">Dự báo gốc $\hat{y}_{22} = $</span>
                 <input type="text" class="blank-input" data-ans="107.8" data-tol="0.05" placeholder="Nhập y22...">
@@ -273,7 +201,10 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Bản chất:</strong> $w_{20} = 105 - 100 = 5.0$ biểu thị mức tăng trưởng ở bước 20 là $+5$. Do $w_t$ có hệ số tự hồi quy $0.4$, tốc độ tăng trưởng ở bước 21 dự kiến còn $\hat{w}_{21} = 0.4 \times 5 = 2.0 \implies \hat{y}_{21} = 105 + 2 = 107.0$. Ở bước 22, mức tăng tiếp tục giảm còn $\hat{w}_{22} = 0.4 \times 2 = 0.8 \implies \hat{y}_{22} = 107.0 + 0.8 = 107.8$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Sai phân tại $t=20$: $w_{20} = y_{20} - y_{19} = 105.0 - 100.0 = 5.0$.</p>
+            <p>• Dự báo sai phân $\hat{w}_{21} = 0.4 \times w_{20} = 0.4 \times 5.0 = 2.0 \implies \hat{y}_{21} = y_{20} + \hat{w}_{21} = 105.0 + 2.0 = 107.0$.</p>
+            <p>• Dự báo sai phân $\hat{w}_{22} = 0.4 \times \hat{w}_{21} = 0.4 \times 2.0 = 0.8 \implies \hat{y}_{22} = \hat{y}_{21} + \hat{w}_{22} = 107.0 + 0.8 = 107.8$.</p>
         </div>
     </div>
 </div>
@@ -282,14 +213,7 @@
     function normalizeInput(val) {
         return val.trim().toLowerCase()
             .replace(/\s+/g, '')
-            .replace(/,/g, '.')
-            .replace(/alpha/g, 'α')
-            .replace(/beta/g, 'β')
-            .replace(/sigma/g, 'σ')
-            .replace(/phi/g, 'ϕ')
-            .replace(/theta/g, 'θ')
-            .replace(/_/g, '')
-            .replace(/\{|\}/g, '');
+            .replace(/,/g, '.');
     }
 
     function checkAllAnswers() {
@@ -298,7 +222,6 @@
 
         inputs.forEach(input => {
             const expectedRaw = input.getAttribute('data-ans').trim();
-            const altRaw = input.getAttribute('data-alt') || '';
             const tolerance = parseFloat(input.getAttribute('data-tol'));
             const userRaw = input.value.trim();
 
@@ -316,11 +239,7 @@
             if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
             } else {
-                const normUser = normalizeInput(userRaw);
-                const normExpected = normalizeInput(expectedRaw);
-                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
-
-                isCorrect = allowedList.some(item => normUser === item);
+                isCorrect = (normalizeInput(userRaw) === normalizeInput(expectedRaw));
             }
 
             if (isCorrect) {

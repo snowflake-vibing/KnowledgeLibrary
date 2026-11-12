@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 02 - Kiến Trúc Đệ Quy, Nhớ Công Thức & Tính Toán San Bằng Hàm Mũ</title>
+    <title>Chuyên Đề 02 - Kiểm Tra Kiến Trúc & Tính Toán San Bằng Hàm Mũ</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -38,7 +38,6 @@
         .arch-title { font-weight: 700; color: var(--accent); margin-bottom: 12px; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .arch-flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
         .arch-node { background: var(--bg-card); border: 1.5px solid var(--border); padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; color: #e2e8f0; }
-        .arch-node.highlight { border-color: var(--primary); color: var(--primary); background: rgba(56, 189, 248, 0.1); }
         .arch-node.state { border-color: var(--warning); color: var(--warning); background: rgba(251, 191, 36, 0.1); }
         .arch-node.output { border-color: var(--success); color: var(--success); background: rgba(52, 211, 153, 0.1); }
         .arch-arrow { color: var(--text-muted); font-size: 1.1rem; font-weight: 700; }
@@ -46,13 +45,10 @@
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
         .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
-        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
 
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
         .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
         .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
@@ -69,62 +65,40 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 02</span>
-        <h1>Kiến Trúc Đệ Quy, Nhớ Công Thức & Tính Toán San Bằng Hàm Mũ</h1>
-        <p class="subtitle">Nắm vững kiến trúc chuyển giao trạng thái đệ quy (Level, Trend, Seasonal), chủ động nhớ công thức và tự tính toán ra các con số.</p>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán San Bằng Hàm Mũ</h1>
+        <p class="subtitle">Tự nhớ các phương trình cập nhật trạng thái đệ quy (Level, Trend, Seasonal) và tự tay thực hiện các phép tính số học.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">16</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">12</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
         <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: KHÔNG GIAN TRẠNG THÁI HOLT-WINTERS</div>
         <div class="arch-flow">
             <div class="arch-node">Quan sát mới $y_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Level $l_t = \alpha(y_t - s_{t-m}) + (1-\alpha)(l_{t-1} + b_{t-1})$</div>
+            <div class="arch-node state">Cập nhật Mức độ nền $l_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Trend $b_t = \beta(l_t - l_{t-1}) + (1-\beta)b_{t-1}$</div>
+            <div class="arch-node state">Cập nhật Xu hướng $b_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Seasonal $s_t = \gamma(y_t - l_t) + (1-\gamma)s_{t-m}$</div>
+            <div class="arch-node state">Cập nhật Mùa vụ $s_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Dự báo $\hat{y}_{t+h|t} = l_t + h \cdot b_t + s_{t+h-m}$</div>
+            <div class="arch-node output">Phóng chiếu tương lai $\hat{y}_{t+h|t}$</div>
         </div>
         <div class="arch-desc">
             <strong>Bản chất luồng truyền trạng thái (Recurrent Forward Pass):</strong><br>
-            Mô hình duy trì 3 biến bộ nhớ: <strong>Mức độ nền ($l_t$)</strong>, <strong>Độ dốc xu hướng ($b_t$)</strong> và <strong>Độ lệch mùa vụ ($s_t$)</strong>.<br>
-            Mỗi khi có quan sát mới $y_t$, hệ thống cập nhật đệ quy các trạng thái bằng phép nội suy tuyến tính giữa <em>thông tin mới tức thời</em> và <em>dự báo từ trạng thái cũ</em>. Khi dự báo tương lai $h$ bước, mô hình cố định trạng thái tại thời điểm $t$ và tịnh tiến theo độ dốc $h \times b_t$.
+            Hệ thống duy trì 3 biến bộ nhớ: <strong>Mức độ nền ($l_t$)</strong>, <strong>Độ dốc xu hướng ($b_t$)</strong> và <strong>Độ lệch mùa vụ ($s_t$)</strong>.<br>
+            Mỗi khi có quan sát mới $y_t$, hệ thống cập nhật đệ quy các trạng thái bằng phép nội suy giữa thông tin mới tức thời và dự báo từ bước trước. Khi dự báo tương lai $h$ bước, mô hình cố định trạng thái tại thời điểm $t$ và tịnh tiến theo độ dốc xu hướng.
         </div>
     </div>
 
     <!-- BÀI 1: SAN BẰNG HÀM MŨ ĐƠN (SES) -->
     <div class="card">
         <h2>Bài 1: San Bằng Hàm Mũ Đơn (Simple Exponential Smoothing - SES)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức SES</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Điền trọng số gán cho quan sát thực tế $y_t$ trong phương trình: $\hat{y}_{t+1} = [ \dots ] y_t + (1-\alpha)\hat{y}_t$</div>
-            <div class="input-row">
-                <span class="input-label">Trọng số của $y_t$ là hệ số nào:</span>
-                <input type="text" class="blank-input" data-ans="alpha" data-alt="α, a" placeholder="Ví dụ: alpha">
-                <span class="hint-text">(Gõ: alpha hoặc α)</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">2. Trong dạng hiệu chỉnh theo sai số: $l_t = l_{t-1} + \alpha [ \dots ]$, thành phần nhân với $\alpha$ là gì?</div>
-            <div class="input-row">
-                <span class="input-label">Ký hiệu sai số một bước:</span>
-                <input type="text" class="blank-input" data-ans="e_t" data-alt="et, e, y_t - y_hat" placeholder="Ví dụ: e_t">
-                <span class="hint-text">(Gõ: e_t hoặc et)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán con số</span>
-        <p>Cho chuỗi quan sát: $y_1 = 20, y_2 = 24, y_3 = 22, y_4 = 28$. Thiết lập hệ số $\alpha = 0.4$, khởi tạo $\hat{y}_{1|0} = 20.0$.</p>
+        <p>Cho chuỗi quan sát: $y_1 = 20, y_2 = 24, y_3 = 22, y_4 = 28$. Thiết lập hệ số san bằng $\alpha = 0.4$, khởi tạo dự báo ban đầu $\hat{y}_{1|0} = 20.0$.</p>
 
         <div class="calc-step">
             <div class="step-desc">1. Tính dự báo cho thời điểm $t=2$ ($\hat{y}_{2|1}$)</div>
@@ -135,9 +109,9 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tại $t=2$, quan sát $y_2 = 24$. Tính sai số $e_2$ và dự báo $\hat{y}_{3|2}$</div>
+            <div class="step-desc">2. Tại $t=2$, quan sát $y_2 = 24$. Tính sai số dự báo $e_2$ và dự báo cho thời điểm tiếp theo $\hat{y}_{3|2}$</div>
             <div class="input-row">
-                <span class="input-label">Sai số $e_2 = y_2 - \hat{y}_{2|1} = $</span>
+                <span class="input-label">Sai số $e_2 = $</span>
                 <input type="text" class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="Nhập e2...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
@@ -147,9 +121,9 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Tại $t=3$ ($y_3 = 22$) và $t=4$ ($y_4 = 28$), tính dự báo $\hat{y}_{4|3}$ và dự báo tương lai $\hat{y}_{5|4}$</div>
+            <div class="step-desc">3. Tại $t=3$ ($y_3 = 22$) và $t=4$ ($y_4 = 28$), tính tiếp dự báo $\hat{y}_{4|3}$ và dự báo tương lai $\hat{y}_{5|4}$</div>
             <div class="input-row">
-                <span class="input-label">$\hat{y}_{4|3} = $</span>
+                <span class="input-label">Dự báo $\hat{y}_{4|3} = $</span>
                 <input type="text" class="blank-input" data-ans="21.76" data-tol="0.05" placeholder="Nhập y4...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
@@ -160,48 +134,21 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Bản chất:</strong> SES cân bằng giữa việc tin vào quan sát mới nhất ($40\%$) và tin vào kinh nghiệm tích lũy trước đó ($60\%$). Sai số $e_2 = 24 - 20 = 4$ lập tức kéo dự báo bước tiếp theo tăng thêm $0.4 \times 4 = 1.6 \to \hat{y}_3 = 21.6$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Tại $t=1$: $\hat{y}_{2|1} = 0.4(20) + 0.6(20) = 20.0$.</p>
+            <p>• Tại $t=2$: Sai số $e_2 = y_2 - \hat{y}_{2|1} = 24 - 20 = 4.0$. Dự báo $\hat{y}_{3|2} = \hat{y}_{2|1} + \alpha e_2 = 20.0 + 0.4(4.0) = 21.6$ (hoặc $0.4 \times 24 + 0.6 \times 20 = 21.6$).</p>
+            <p>• Tại $t=3$: $\hat{y}_{4|3} = 0.4(22) + 0.6(21.6) = 8.8 + 12.96 = 21.76$.</p>
+            <p>• Tại $t=4$: $\hat{y}_{5|4} = 0.4(28) + 0.6(21.76) = 11.2 + 13.056 = 24.256$.</p>
         </div>
     </div>
 
     <!-- BÀI 2: HOLT TUYẾN TÍNH (LEVEL & TREND) -->
     <div class="card">
         <h2>Bài 2: Phương Pháp Holt Tuyến Tính (Level & Trend)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức Holt</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong phương trình cập nhật Level $l_t = \alpha y_t + (1-\alpha)[ \dots ]$, biểu thức trong ngoặc vuông là:</div>
-            <div class="input-row">
-                <span class="input-label">Mức dự kiến từ bước trước:</span>
-                <input type="text" class="blank-input" data-ans="l_{t-1} + b_{t-1}" data-alt="l_{t-1}+b_{t-1}, l_{t-1} + b_{t-1}, lt-1 + bt-1" placeholder="Ví dụ: l_{t-1} + b_{t-1}">
-                <span class="hint-text">(Gõ: l_{t-1} + b_{t-1})</span>
-            </div>
-        </div>
+        <p>Khởi tạo ban đầu: $l_0 = 80$, $b_0 = 5$. Siêu tham số san bằng: $\alpha = 0.2, \beta = 0.1$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">2. Trong phương trình Trend $b_t = \beta [ \dots ] + (1-\beta)b_{t-1}$, số hạng đo lường biến thiên mức là:</div>
-            <div class="input-row">
-                <span class="input-label">Độ lệch mức vừa quan sát:</span>
-                <input type="text" class="blank-input" data-ans="l_t - l_{t-1}" data-alt="l_t-l_{t-1}, lt - lt-1" placeholder="Ví dụ: l_t - l_{t-1}">
-                <span class="hint-text">(Gõ: l_t - l_{t-1})</span>
-            </div>
-        </div>
-
-        <div class="calc-step">
-            <div class="step-desc">3. Công thức dự báo $h$ bước tới: $\hat{y}_{t+h} = l_t + [ \dots ]$</div>
-            <div class="input-row">
-                <span class="input-label">Phần bù xu hướng $h$ bước là:</span>
-                <input type="text" class="blank-input" data-ans="h * b_t" data-alt="h*b_t, h*bt, h.b_t, hb_t, h*b" placeholder="Ví dụ: h * b_t">
-                <span class="hint-text">(Gõ: h * b_t)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Khởi tạo: $l_0 = 80$, $b_0 = 5$. Siêu tham số: $\alpha = 0.2, \beta = 0.1$.</p>
-
-        <div class="calc-step">
-            <div class="step-desc">1. Tại $t=1$, quan sát $y_1 = 90$. Tính Level $l_1$, Trend $b_1$ và dự báo $\hat{y}_{2|1}$</div>
+            <div class="step-desc">1. Tại $t=1$, quan sát $y_1 = 90$. Tính Level $l_1$, Trend $b_1$ và dự báo bước kế tiếp $\hat{y}_{2|1}$</div>
             <div class="input-row">
                 <span class="input-label">Level $l_1 = $</span>
                 <input type="text" class="blank-input" data-ans="86.0" data-tol="0.05" placeholder="Nhập l1...">
@@ -230,29 +177,20 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Bản chất:</strong> $l_1 = 0.2(90) + 0.8(80+5) = 18 + 68 = 86.0$. Độ tăng mức thực tế là $86 - 80 = 6$, nên xu hướng tăng nhẹ: $b_1 = 0.1(6) + 0.9(5) = 5.1$. Dự báo tương lai $t=3$ lấy $l_2 + 1 \times b_2 = 91.68 + 5.158 = 96.838$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Tại $t=1$: $l_1 = 0.2(90) + 0.8(80+5) = 18 + 68 = 86.0$. Xu hướng: $b_1 = 0.1(86 - 80) + 0.9(5) = 0.6 + 4.5 = 5.1$. Dự báo: $\hat{y}_{2|1} = 86.0 + 5.1 = 91.1$.</p>
+            <p>• Tại $t=2$: $l_2 = 0.2(94) + 0.8(91.1) = 18.8 + 72.88 = 91.68$. Xu hướng: $b_2 = 0.1(91.68 - 86.0) + 0.9(5.1) = 0.568 + 4.59 = 5.158$.</p>
+            <p>• Phóng chiếu tương lai: $\hat{y}_{3|2} = l_2 + 1(b_2) = 91.68 + 5.158 = 96.838$. $\hat{y}_{4|2} = l_2 + 2(b_2) = 91.68 + 2(5.158) = 101.996$.</p>
         </div>
     </div>
 
     <!-- BÀI 3: HOLT-WINTERS MÔ HÌNH NHÂN -->
     <div class="card">
         <h2>Bài 3: Dự Báo Holt-Winters Mô Hình Nhân (Multiplicative Seasonality)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức Holt-Winters</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong mô hình nhân, công thức dự báo có nhân với chỉ số mùa vụ không? Điền toán tử: $(l_t + h \cdot b_t) [ \dots ] s_{t+h-m}$</div>
-            <div class="input-row">
-                <span class="input-label">Toán tử liên kết (nhân hay cộng):</span>
-                <input type="text" class="blank-input" data-ans="*" data-alt="nhan, \times, x" placeholder="Gõ: * hoặc nhan">
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Tại $t=12$, ước lượng được: $l_{12} = 200.0$, $b_{12} = 8.0$. Chỉ số mùa vụ: $s_9 = 0.80$ (Q1), $s_{10} = 1.10$ (Q2), $s_{11} = 0.90$ (Q3), $s_{12} = 1.20$ (Q4).</p>
+        <p>Tại thời điểm $t=12$, ước lượng được: $l_{12} = 200.0$, $b_{12} = 8.0$. Chỉ số mùa vụ chu kỳ 4 quý gần nhất: $s_9 = 0.80$ (Q1), $s_{10} = 1.10$ (Q2), $s_{11} = 0.90$ (Q3), $s_{12} = 1.20$ (Q4).</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính dự báo Quý 1 năm sau ($t=13, h=1$, dùng chỉ số $s_9 = 0.80$)</div>
+            <div class="step-desc">1. Tính dự báo Quý 1 năm sau ($t=13, h=1$)</div>
             <div class="input-row">
                 <span class="input-label">$\hat{y}_{13} = $</span>
                 <input type="text" class="blank-input" data-ans="166.4" data-tol="0.1" placeholder="Nhập số...">
@@ -261,7 +199,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính dự báo Quý 2 năm sau ($t=14, h=2$, dùng chỉ số $s_{10} = 1.10$)</div>
+            <div class="step-desc">2. Tính dự báo Quý 2 năm sau ($t=14, h=2$)</div>
             <div class="input-row">
                 <span class="input-label">$\hat{y}_{14} = $</span>
                 <input type="text" class="blank-input" data-ans="237.6" data-tol="0.1" placeholder="Nhập số...">
@@ -271,7 +209,10 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Bản chất:</strong> Mức nền sau 1 quý là $200 + 1(8) = 208$. Do rơi vào Quý 1 (thấp điểm, $s_9 = 0.8$), doanh số thực tế giảm còn $208 \times 0.8 = 166.4$. Ngược lại ở Quý 2 ($s_{10} = 1.1$), mức nền $200 + 2(8) = 216$ được khuếch đại lên $216 \times 1.1 = 237.6$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Với mô hình nhân, công thức phóng chiếu là $(l_t + h \cdot b_t) \times s_{t+h-m}$.</p>
+            <p>• Quý 1 năm sau ($t=13, h=1$, lấy $s_9 = 0.80$): $\hat{y}_{13} = (200.0 + 1 \times 8.0) \times 0.80 = 208.0 \times 0.80 = 166.4$ triệu VNĐ.</p>
+            <p>• Quý 2 năm sau ($t=14, h=2$, lấy $s_{10} = 1.10$): $\hat{y}_{14} = (200.0 + 2 \times 8.0) \times 1.10 = 216.0 \times 1.10 = 237.6$ triệu VNĐ.</p>
         </div>
     </div>
 </div>
@@ -280,13 +221,7 @@
     function normalizeInput(val) {
         return val.trim().toLowerCase()
             .replace(/\s+/g, '')
-            .replace(/,/g, '.')
-            .replace(/alpha/g, 'α')
-            .replace(/beta/g, 'β')
-            .replace(/sigma/g, 'σ')
-            .replace(/phi/g, 'ϕ')
-            .replace(/nhan/g, '*')
-            .replace(/x/g, '*');
+            .replace(/,/g, '.');
     }
 
     function checkAllAnswers() {
@@ -295,7 +230,6 @@
 
         inputs.forEach(input => {
             const expectedRaw = input.getAttribute('data-ans').trim();
-            const altRaw = input.getAttribute('data-alt') || '';
             const tolerance = parseFloat(input.getAttribute('data-tol'));
             const userRaw = input.value.trim();
 
@@ -313,11 +247,7 @@
             if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
             } else {
-                const normUser = normalizeInput(userRaw);
-                const normExpected = normalizeInput(expectedRaw);
-                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
-
-                isCorrect = allowedList.some(item => normUser === item);
+                isCorrect = (normalizeInput(userRaw) === normalizeInput(expectedRaw));
             }
 
             if (isCorrect) {

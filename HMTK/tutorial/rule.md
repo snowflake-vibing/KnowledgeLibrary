@@ -1,7 +1,7 @@
 # QUY CHUẨN XÂY DỰNG CHUYÊN ĐỀ HỌC TẬP & BÀI TẬP DỰ BÁO
 ## Standard Operating Procedure (SOP) for Time-Series Forecasting & ML Tutorials
 
-> **Mục tiêu tối thượng:** Giúp người học không chỉ đọc lý thuyết trừu tượng hay bấm máy tính đơn thuần, mà phải **hiểu bản chất cơ chế (Mechanism & Architecture)**, **chủ động nhớ công thức (Active Recall)** và **tự tay tính toán ra các con số cụ thể (Step-by-step Computation)**.
+> **Mục tiêu tối thượng:** Giúp người học không chỉ đọc lý thuyết trừu tượng hay bấm máy tính dựa trên công thức có sẵn, mà phải **hiểu bản chất cơ chế (Mechanism & Architecture)**, **tự nhớ công thức trong đầu (Active Recall from Theory)** và **tự tay thực hiện toàn bộ các phép tính toán số liệu cụ thể (Hands-on Computation)**.
 
 ---
 
@@ -12,8 +12,8 @@ Mỗi chuyên đề **BẮT BUỘC CHỈ GỒM ĐÚNG 2 TẬP TIN CỐT LÕI**:
 
 ```text
 HMTK/tutorial/XX_ten_chuyen_de/
-├── ly_thuyet.md            # Tài liệu lý thuyết, kiến trúc, nguồn gốc toán học & ví dụ tính tay
-└── bai_tap_tinh_toan.html   # Web app tương tác điền khuyết nhớ công thức & tự tính toán số liệu
+├── ly_thuyet.md            # Tài liệu lý thuyết, kiến trúc, nguồn gốc toán học & ví dụ tính tay chi tiết
+└── bai_tap_tinh_toan.html   # Web app tương tác kiểm tra kiến trúc & tự tay tính toán số liệu
 ```
 
 ---
@@ -21,9 +21,9 @@ HMTK/tutorial/XX_ten_chuyen_de/
 ## 2. NGUYÊN TẮC "100% ĐỒNG BỘ VÀ KHÔNG RỖNG RANH GIỚI"
 
 > [!IMPORTANT]
-> **Quy tắc bất biến:** *"Bất kỳ nội dung, sơ đồ, biến số, logit tuyến tính hay bước tính nào xuất hiện trong bài tập HTML thì BẮT BUỘC PHẢI ĐƯỢC GIẢI THÍCH TƯỜNG MINH trong file lý thuyết Markdown."*
+> **Quy tắc bất biến:** *"Bất kỳ bài toán, bước tính trung gian (như logit tuyến tính $z$, sai số $e_t$, mức nền $l_t$, tọa độ lượng giác $\sin/\cos$, tỷ số mùa vụ) nào xuất hiện trong bài tập HTML thì BẮT BUỘC PHẢI ĐƯỢC DẠY VÀ GIẢI THÍCH TƯỜNG MINH trong file lý thuyết Markdown."*
 
-* Không được phép đưa ra một bài tập trong HTML với các khái niệm hoặc công thức mà trong `ly_thuyet.md` không đề cập hoặc chỉ lướt qua.
+* Không được phép đưa ra một bài tập trong HTML với các đại lượng hoặc công thức mà trong `ly_thuyet.md` không đề cập hoặc chỉ lướt qua.
 * Các ký hiệu (ví dụ: $l_t, b_t, s_t, w_t, \nabla, z_f, z_i, z_c, z_o, \sigma, \tanh, e_t, \text{RM}_k$) phải có định nghĩa, đơn vị và ý nghĩa vật lý đồng nhất giữa hai tệp.
 * Các con số và bước tính toán trong bài tập HTML phải có bài toán mẫu tương ứng trong mục *Ví dụ tính tay chi tiết (Worked Numerical Example)* của `ly_thuyet.md`.
 
@@ -31,15 +31,15 @@ HMTK/tutorial/XX_ten_chuyen_de/
 
 ## 3. QUY CHUẨN SOẠN THẢO TỆP LÝ THUYẾT (`ly_thuyet.md`)
 
-Mỗi tệp `ly_thuyet.md` phải tuân theo khung sườn chuẩn sau:
+Mỗi tệp `ly_thuyet.md` là cuốn giáo trình tự học toàn diện, bao gồm:
 
 ### 3.1. Cấu trúc tiêu chuẩn của `ly_thuyet.md`
-1. **Tiêu đề & Tổng quan chuyên đề:** Nêu rõ bối cảnh, bài toán thực tế giải quyết.
+1. **Tiêu đề & Tổng quan chuyên đề:** Nêu rõ bối cảnh, bài toán thực tế cần giải quyết.
 2. **Sơ đồ Kiến trúc & Luồng Forward Pass (Mermaid Diagram):**
    * Sử dụng biểu đồ `flowchart LR` hoặc `flowchart TD`.
-   * Mô tả đường đi của dữ liệu từ quan sát gốc $\to$ qua các tầng xử lý/bộ nhớ trạng thái $\to$ tính toán đầu ra $\to$ cơ chế hồi tiếp (recursive feedback) hoặc tích hợp phục hồi (undifferencing).
+   * Mô tả trực quan luồng dữ liệu từ quan sát gốc $\to$ qua các tầng xử lý / bộ nhớ trạng thái $\to$ tính toán đầu ra $\to$ cơ chế hồi tiếp (recursive feedback) hoặc tích hợp phục hồi (undifferencing).
 3. **Bản chất cơ chế & Khái niệm cốt lõi:**
-   * Không chỉ liệt kê công thức mà phải giải thích *tại sao lại làm như vậy* (ví dụ: tại sao dùng hàm $\sigma$ cho cổng nhưng dùng $\tanh$ cho ô nhớ; tại sao đường cao tốc ô nhớ giải quyết triệt tiêu đạo hàm; tại sao phải lấy sai phân; tại sao cần mã hóa $\sin/\cos$ trên vòng tròn đơn vị).
+   * Không chỉ liệt kê công thức mà phải giải thích *bản chất tại sao lại làm như vậy* (ví dụ: tại sao dùng hàm $\sigma$ cho cổng nhưng dùng $\tanh$ cho ô nhớ; tại sao đường cao tốc ô nhớ giải quyết triệt tiêu đạo hàm; tại sao phải lấy sai phân; tại sao cần mã hóa $\sin/\cos$ trên vòng tròn đơn vị).
    * Phân tích rõ các trường hợp biên ($\alpha \to 1$ vs $\alpha \to 0$, điều kiện dừng $|\phi_1| < 1$, v.v.).
 4. **Hệ thống phương trình toán học chi tiết:**
    * Trình bày dạng hiển thị độc lập: đặt giữa `$$ ... $$` với một dòng trống phía trước và một dòng trống phía sau.
@@ -65,68 +65,49 @@ Mỗi tệp `ly_thuyet.md` phải tuân theo khung sườn chuẩn sau:
 
 ## 4. QUY CHUẨN THIẾT KẾ BÀI TẬP TƯƠNG TÁC (`bai_tap_tinh_toan.html`)
 
-Tệp HTML là công cụ tương tác cốt lõi. Giao diện sử dụng Dark Slate theme, nhúng thư viện KaTeX để hiển thị công thức sắc nét.
+Tệp HTML là công cụ kiểm tra đánh giá năng lực tính toán và ghi nhớ kiến trúc. Giao diện sử dụng Dark Slate theme, KaTeX để hiển thị công thức sắc nét.
 
-### 4.1. Cấu trúc bài tập: Bắt buộc tách làm 2 phần rõ rệt
+### 4.1. Nguyên tắc "Tập trung 100% vào tính toán & Tuyệt đối không show công thức"
+> [!IMPORTANT]
+> **Quy chuẩn đề bài trong HTML:**
+> 1. **Bỏ phần điền công thức:** Không tạo các ô điền chữ/ký hiệu như `alpha`, `1-alpha`, `sigmoid` trong bài tập. Bài tập chỉ tập trung 100% vào việc **tính toán ra các con số cụ thể**.
+> 2. **Không show công thức trong câu hỏi:** 
+>    - Tuyệt đối **không in sẵn công thức toán** hoặc **công thức đã thế số** trong phần câu hỏi / nhãn input.
+>    - Chỉ cung cấp dữ liệu quan sát ($y_t$) và bộ tham số siêu cấp ($\alpha, \beta, W, b, c$).
+>    - Người học bắt buộc phải tự nhớ công thức trong đầu (đã học từ `ly_thuyet.md`) để tự áp dụng và bấm máy tính.
+> 3. **Sơ đồ kiến trúc không lộ công thức:**
+>    - Sơ đồ kiến trúc (Architecture Diagram) ở đầu trang HTML chỉ thể hiện tên khái niệm và luồng dữ liệu (ví dụ: *Quan sát mới $\to$ Cập nhật Level $\to$ Cập nhật Trend $\to$ Phóng chiếu dự báo*), tuyệt đối không ghi công thức toán chi tiết bên trong các node để tránh làm lộ công thức làm bài.
 
-Mỗi dạng bài toán trong thẻ `<div class="card">` bắt buộc chia làm 2 phân mục:
+### 4.2. Cấu trúc câu hỏi tính toán chuẩn
+Mỗi câu hỏi chỉ nêu yêu cầu tính toán và ô nhập số:
+```html
+<div class="calc-step">
+    <div class="step-desc">1. Tính giá trị trung bình trượt trung tâm $\text{CMA}_3$ tại Quý 3 (chu kỳ $m=4$)</div>
+    <div class="input-row">
+        <span class="input-label">$\text{CMA}_3 = $</span>
+        <input type="text" class="blank-input" data-ans="65.25" data-tol="0.05" placeholder="Nhập số...">
+    </div>
+</div>
+```
 
-#### Phần A: Điền khuyết nhớ công thức (Active Formula Recall)
-* **Mục đích:** Bắt buộc người học phải kích hoạt trí nhớ chủ động để nhớ tên tham số, ký hiệu toán học hoặc hàm kích hoạt, **chấm dứt tình trạng chỉ nhìn công thức có sẵn rồi bấm máy tính**.
-* **Cách thiết kế:**
-  * Che đi một thành phần cốt lõi trong công thức bằng `[ ... ]`.
-  * Yêu cầu người học gõ vào ô text input giá trị biểu tượng (ví dụ: `alpha`, `1 - alpha`, `e_t`, `phi_1`, `1 - phi_1^2`, `sigmoid`, `tanh`, `*`, `+`).
-  * Có nhãn gợi ý kiểu nhập văn bản bình thường (ví dụ: *Gõ: alpha hoặc α*).
+### 4.3. Hộp giải thích & Lời giải chi tiết (Solution Box)
+* Mỗi bài tập (`card`) có một nút *"Xem giải thích bản chất & lời giải"*.
+* Mặc định được ẩn đi (`display: none`). Chỉ khi học viên bấm nút thì mới mở ra để xem:
+  * Công thức gốc áp dụng.
+  * Từng bước thế số và kết quả làm tròn chi tiết.
+  * Nhận xét bản chất để đối chiếu tư duy.
 
-#### Phần B: Tự tay tính toán con số (Step-by-step Numerical Computation)
-* **Mục đích:** Rèn luyện khả năng tự triển khai công thức vào dữ liệu số.
-* **Cách thiết kế:**
-  * Chỉ cung cấp dữ liệu đầu vào ($y_t$) và bộ tham số siêu cấp ($\alpha, \beta, W, b$).
-  * **TUYỆT ĐỐI KHÔNG ghi sẵn công thức đã thế số**.
-  * Chia nhỏ bài toán thành từng bước tính trung gian (ví dụ: Bước 1 tính sai số $e_2 \to$ Bước 2 tính mức nền $l_2 \to$ Bước 3 tính dự báo $\hat{y}_3$).
-  * Thiết lập ngưỡng dung sai (`data-tol="0.05"` hoặc `data-tol="0.01"`) để học viên không bị chấm sai do làm tròn số học.
-
-### 4.2. Quy tắc cấm kỵ về KaTeX và Thẻ Input trong HTML
+### 4.4. Quy tắc cấm kỵ về KaTeX và Thẻ Input trong HTML
 > [!CAUTION]
 > **TUYỆT ĐỐI KHÔNG ĐƯỢC NHÚNG THẺ `<input>` BÊN TRONG KHỐI KaTeX (`$$...$$` hoặc `$..$`)!**
 > Trình phân tích cú pháp của KaTeX sẽ coi thẻ HTML là chuỗi văn bản không hợp lệ hoặc render lỗi khiến ô input biến mất khỏi cây DOM.
 
-**Cách viết đúng chuẩn:**
-```html
-<!-- KHỐI 1: HIỂN THỊ CÔNG THỨC TOÁN BẰNG KATEX -->
-<div class="step-desc">
-    1. Điền trọng số gán cho quan sát thực tế $y_t$ trong phương trình: 
-    $\hat{y}_{t+1} = [ \dots ] y_t + (1-\alpha)\hat{y}_t$
-</div>
+Luôn tách biệt:
+* Thẻ văn bản / công thức toán hiển thị riêng (`<div class="step-desc">...</div>` hoặc `<span class="input-label">$l_1 = $</span>`).
+* Thẻ nhập liệu nằm riêng lẻ (`<input type="text" class="blank-input" ...>`).
 
-<!-- KHỐI 2: HÀNG NHẬP LIỆU RIÊNG BIỆT BÊN DƯỚI -->
-<div class="input-row">
-    <span class="input-label">Trọng số của $y_t$ là hệ số nào:</span>
-    <input type="text" class="blank-input" data-ans="alpha" data-alt="α, a" placeholder="Ví dụ: alpha">
-    <span class="hint-text">(Gõ: alpha hoặc α)</span>
-</div>
-```
-
-### 4.3. Bộ chuẩn hóa đầu vào Javascript (`normalizeInput`)
-Học viên có thể gõ bằng nhiều cách khác nhau (chữ thường, chữ hoa, có dấu cách, dùng dấu chấm hay phẩy, gõ chữ Hy Lạp hoặc chữ phiên âm). Hàm xử lý Javascript phải hỗ trợ chuẩn hóa:
-
-```javascript
-function normalizeInput(val) {
-    return val.trim().toLowerCase()
-        .replace(/\s+/g, '')              // Bỏ khoảng trắng
-        .replace(/,/g, '.')               // Chuẩn hóa dấu phẩy thành dấu chấm
-        .replace(/alpha/g, 'α')
-        .replace(/beta/g, 'β')
-        .replace(/gamma/g, 'γ')
-        .replace(/sigma/g, 'σ')
-        .replace(/phi/g, 'ϕ')
-        .replace(/theta/g, 'θ')
-        .replace(/nhan/g, '*')
-        .replace(/x/g, '*')
-        .replace(/_/g, '')                // Cho phép gõ e_t hoặc et
-        .replace(/\{|\}/g, '');           // Bỏ ngoặc nhọn LaTeX nếu có
-}
-```
+### 4.5. Thiết lập dung sai số học (`data-tol`)
+Mọi ô nhập kết quả tính toán số thực phải có thuộc tính `data-tol` (thường là `0.05`, `0.02` hoặc `0.01` tùy độ dài chữ số thập phân) để học viên không bị trừ điểm oan do làm tròn số học trung gian.
 
 ---
 
@@ -137,12 +118,12 @@ Trước khi nghiệm thu và commit bất kỳ chuyên đề mới nào lên h�
 | STT | Hạng mục kiểm tra | Tiêu chuẩn đạt |
 |:---:|:---|:---|
 | 1 | **Cấu trúc thư mục** | Có đủ đúng 2 tệp `ly_thuyet.md` và `bai_tap_tinh_toan.html` trong thư mục `XX_...`. |
-| 2 | **Sơ đồ kiến trúc** | Có sơ đồ Mermaid trong `ly_thuyet.md` và flow diagram trong `bai_tap_tinh_toan.html`. |
-| 3 | **Đồng bộ nội dung** | 100% câu hỏi trong HTML có lý thuyết tương ứng giải thích trong markdown. |
-| 4 | **Phần A (Nhớ công thức)** | Đã che biến/toán tử/hàm kích hoạt cốt lõi, người học nhập chữ bình thường. |
-| 5 | **Phần B (Tính toán số)** | Người học tự tay tính từ dữ liệu thô, không in sẵn công thức thế số. |
+| 2 | **Sơ đồ kiến trúc HTML** | Có sơ đồ luồng dữ liệu khái niệm ở đầu trang, **không lộ công thức toán trong các node**. |
+| 3 | **Không show công thức đề bài** | Toàn bộ câu hỏi trong HTML chỉ nêu yêu cầu và dữ liệu thô, **không in sẵn công thức**. |
+| 4 | **Tập trung tính toán số liệu** | 100% câu hỏi yêu cầu người học tự tính ra con số cụ thể qua các bước trung gian. |
+| 5 | **Đồng bộ lý thuyết** | Mọi bước tính và khái niệm trong HTML đều có mục giải thích và ví dụ tính tay tương ứng trong `ly_thuyet.md`. |
 | 6 | **Tách biệt KaTeX / Input** | Không có bất kỳ thẻ `<input>` nào nằm trong dấu `$` hay `$$`. |
-| 7 | **Dung sai số học** | Mọi ô nhập số đều có `data-tol` (thường là `0.05` hoặc `0.01`). |
-| 8 | **Định dạng Markdown** | Các khối `$$...$$` có dòng trống bao quanh, ký hiệu `\$` được escape đúng. |
-| 9 | **Kiểm thử giao diện** | Mở tệp HTML trên trình duyệt, KaTeX render đẹp, bấm Enter hoặc nút kiểm tra chấm điểm chính xác. |
+| 7 | **Dung sai số học** | Mọi ô nhập số đều có `data-tol` (ví dụ `0.05` hoặc `0.01`). |
+| 8 | **Định dạng Markdown** | Các khối `$$...$$` trong `ly_thuyet.md` có dòng trống bao quanh, ký hiệu `\$` được escape đúng. |
+| 9 | **Kiểm thử giao diện** | Mở tệp HTML trên trình duyệt, KaTeX render đẹp, nút xem lời giải đóng/mở mượt mà, chấm điểm chính xác. |
 | 10 | **Cập nhật Roadmap** | Đã cập nhật mục lục và liên kết chuyên đề mới vào `HMTK/tutorial/README.md`. |

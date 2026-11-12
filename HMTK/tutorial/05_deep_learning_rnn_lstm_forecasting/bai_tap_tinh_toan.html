@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 05 - Kiến Trúc Tế Bào LSTM, Nhớ Công Thức & Tính Toán Forward Pass</title>
+    <title>Chuyên Đề 05 - Kiểm Tra Kiến Trúc & Tính Toán Forward Pass LSTM</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -46,13 +46,10 @@
 
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
         .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
-        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
 
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
         .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
         .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
@@ -69,125 +66,84 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 05</span>
-        <h1>Kiến Trúc Tế Bào LSTM, Nhớ Công Thức & Tính Toán Forward Pass</h1>
-        <p class="subtitle">Hiểu bản chất vi kiến trúc ô nhớ (Cell State Highway), chủ động nhớ công thức 3 cổng và tự tay tính toán toàn bộ luồng Forward Pass.</p>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán Forward Pass LSTM</h1>
+        <p class="subtitle">Tự nhớ quy tắc kích hoạt các cổng, cập nhật đường cao tốc ô nhớ và tự tay tính toán từng bước lan truyền xuôi.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">16</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">10</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
-        <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: TẾ BÀO BỘ NHỚ LSTM (HOCHREITER & SCHMIDHUBER)</div>
+        <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: TẾ BÀO BỘ NHỚ LSTM</div>
         <div class="arch-flow">
             <div class="arch-node">Đầu vào $[x_t, h_{t-1}]$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Cổng quên $f_t = \sigma(\cdot)$</div>
-            <div class="arch-arrow">➔ nhân $\odot$ với $C_{t-1}$</div>
+            <div class="arch-node highlight">Cổng quên $f_t$ & Ô nhớ cũ $C_{t-1}$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Đường cao tốc Ô nhớ $C_t = f_t C_{t-1} + i_t \tilde{C}_t$</div>
+            <div class="arch-node highlight">Cổng vào $i_t$ & Ứng viên mới $\tilde{C}_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node highlight">Cổng ra $o_t = \sigma(\cdot)$</div>
+            <div class="arch-node state">Đường cao tốc Ô nhớ $C_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Trạng thái ẩn $h_t = o_t \odot \tanh(C_t)$</div>
+            <div class="arch-node highlight">Cổng ra $o_t$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node output">Trạng thái ẩn đầu ra $h_t$</div>
         </div>
         <div class="arch-desc">
             <strong>Bản chất luồng truyền dữ liệu (LSTM Forward Pass):</strong><br>
-            1. **Cổng quên ($f_t$):** Dùng hàm $\sigma \in (0, 1)$ quyết định tỷ lệ ô nhớ cũ $C_{t-1}$ được giữ lại.<br>
-            2. **Cổng vào ($i_t$) & Trạng thái ứng viên ($\tilde{C}_t$):** $i_t$ mở van cho thông tin mới $\tilde{C}_t$ (đã chuẩn hóa qua hàm $\tanh \in (-1, 1)$) cộng dồn vào ô nhớ.<br>
-            3. **Cập nhật ô nhớ ($C_t$):** Phép cộng tuyến tính giúp đạo hàm truyền ngược không bị suy hao (chống Vanishing Gradient).<br>
-            4. **Cổng ra ($o_t$):** Quyết định bao nhiêu phần trăm ô nhớ được hiển thị ra trạng thái ẩn bên ngoài $h_t$.
+            1. **Cổng quên:** Điều tiết tỷ lệ phần trăm ô nhớ cũ được giữ lại qua hàm mở van.<br>
+            2. **Cổng vào & Ứng viên:** Tạo thông tin mới đối xứng và mở van điều tiết nạp vào ô nhớ.<br>
+            3. **Đường cao tốc Ô nhớ:** Phép cộng tuyến tính giúp đạo hàm truyền ngược không bị suy hao theo thời gian.<br>
+            4. **Cổng ra & Trạng thái ẩn:** Nén ô nhớ về khoảng hữu hạn và nhân với độ mở cổng ra để xuất vector ngữ cảnh tiếp theo.
         </div>
     </div>
 
     <!-- BÀI 1: CỔNG QUÊN VÀ CỔNG VÀO -->
     <div class="card">
         <h2>Bài 1: Cổng Quên ($f_t$) và Cổng Vào ($i_t$)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức hàm kích hoạt</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Cổng quên dùng hàm kích hoạt nào để tạo giá trị mở van trong khoảng $(0, 1)$?</div>
-            <div class="input-row">
-                <span class="input-label">Hàm kích hoạt của cổng:</span>
-                <input type="text" class="blank-input" data-ans="sigmoid" data-alt="sigma, σ" placeholder="Ví dụ: sigmoid">
-                <span class="hint-text">(Gõ: sigmoid hoặc sigma)</span>
-            </div>
-        </div>
+        <p>Cho dữ liệu đầu vào: $x_t = 2.0$, trạng thái ẩn trước $h_{t-1} = 1.0$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">2. Trạng thái ứng viên mới $\tilde{C}_t$ dùng hàm kích hoạt nào để chuẩn hóa về khoảng $(-1, 1)$?</div>
+            <div class="step-desc">1. Cổng quên có bộ trọng số $W_f = 0.5, U_f = 0.2, b_f = -1.2$. Tính giá trị tuyến tính $z_f$ và độ mở cổng quên $f_t$</div>
             <div class="input-row">
-                <span class="input-label">Hàm kích hoạt ứng viên:</span>
-                <input type="text" class="blank-input" data-ans="tanh" data-alt="tan h" placeholder="Ví dụ: tanh">
-                <span class="hint-text">(Gõ: tanh)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Cho $x_t = 2.0, h_{t-1} = 1.0$. Hàm Sigmoid: $\sigma(z) = \frac{1}{1 + e^{-z}}$ (chú ý $\sigma(0) = 0.5$).</p>
-
-        <div class="calc-step">
-            <div class="step-desc">1. Cổng quên: $W_f = 0.5, U_f = 0.2, b_f = -1.2$. Tính giá trị tuyến tính $z_f$ và độ mở $f_t$</div>
-            <div class="input-row">
-                <span class="input-label">Tuyến tính $z_f = 0.5(2.0) + 0.2(1.0) - 1.2 = $</span>
+                <span class="input-label">Tuyến tính $z_f = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zf...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng quên $f_t = \sigma(z_f) = $</span>
+                <span class="input-label">Độ mở $f_t = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập ft...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Cổng vào: $W_i = 0.6, U_i = -0.2, b_i = -1.0$. Tính tuyến tính $z_i$ và độ mở $i_t$</div>
+            <div class="step-desc">2. Cổng vào có bộ trọng số $W_i = 0.6, U_i = -0.2, b_i = -1.0$. Tính giá trị tuyến tính $z_i$ và độ mở cổng vào $i_t$</div>
             <div class="input-row">
-                <span class="input-label">Tuyến tính $z_i = 0.6(2.0) - 0.2(1.0) - 1.0 = $</span>
+                <span class="input-label">Tuyến tính $z_i = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zi...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng vào $i_t = \sigma(z_i) = $</span>
+                <span class="input-label">Độ mở $i_t = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập it...">
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Bản chất:</strong> Hàm Sigmoid $\sigma \in (0, 1)$ đóng vai trò là chiếc van điều tiết tỷ lệ phần trăm (0% là đóng hoàn toàn, 100% là cho qua hết). Tại đây $z_f = 0 \implies f_t = 0.5$ nghĩa là cho phép 50% nội dung ô nhớ cũ đi tiếp.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Cổng quên: $z_f = W_f x_t + U_f h_{t-1} + b_f = 0.5(2.0) + 0.2(1.0) - 1.2 = 1.0 + 0.2 - 1.2 = 0.0 \implies f_t = \sigma(0.0) = 0.5$.</p>
+            <p>• Cổng vào: $z_i = W_i x_t + U_i h_{t-1} + b_i = 0.6(2.0) - 0.2(1.0) - 1.0 = 1.2 - 0.2 - 1.0 = 0.0 \implies i_t = \sigma(0.0) = 0.5$.</p>
         </div>
     </div>
 
     <!-- BÀI 2: CẬP NHẬT TRẠNG THÁI Ô NHỚ -->
     <div class="card">
         <h2>Bài 2: Cập Nhật Trạng Thái Ô Nhớ ($C_t$)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức cập nhật ô nhớ</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trong công thức: $C_t = [ \dots ] \odot C_{t-1} + i_t \odot \tilde{C}_t$, cổng nào nhân với ô nhớ cũ?</div>
-            <div class="input-row">
-                <span class="input-label">Ký hiệu cổng điều khiển quá khứ:</span>
-                <input type="text" class="blank-input" data-ans="f_t" data-alt="ft, f" placeholder="Ví dụ: f_t">
-                <span class="hint-text">(Gõ: f_t hoặc ft)</span>
-            </div>
-        </div>
+        <p>Biết độ mở cổng quên $f_t = 0.500$, độ mở cổng vào $i_t = 0.500$. Ô nhớ cũ $C_{t-1} = 4.0$, trạng thái ứng viên mới $\tilde{C}_t = 0.800$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">2. Cổng nào điều khiển lượng nạp thông tin mới $\tilde{C}_t$?</div>
-            <div class="input-row">
-                <span class="input-label">Ký hiệu cổng đầu vào:</span>
-                <input type="text" class="blank-input" data-ans="i_t" data-alt="it, i" placeholder="Ví dụ: i_t">
-                <span class="hint-text">(Gõ: i_t hoặc it)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Biết $f_t = 0.500, i_t = 0.500$. Ô nhớ cũ $C_{t-1} = 4.0$, ứng viên mới $\tilde{C}_t = 0.800$.</p>
-
-        <div class="calc-step">
-            <div class="step-desc">1. Tính lượng thông tin được giữ lại từ ô nhớ cũ ($f_t \times C_{t-1}$)</div>
+            <div class="step-desc">1. Tính lượng thông tin được giữ lại từ ô nhớ cũ</div>
             <div class="input-row">
                 <span class="input-label">Thông tin giữ lại = </span>
                 <input type="text" class="blank-input" data-ans="2.0" data-tol="0.01" placeholder="Nhập số...">
@@ -195,7 +151,7 @@
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính lượng thông tin mới được nạp vào ($i_t \times \tilde{C}_t$)</div>
+            <div class="step-desc">2. Tính lượng thông tin mới được nạp vào ô nhớ</div>
             <div class="input-row">
                 <span class="input-label">Thông tin nạp mới = </span>
                 <input type="text" class="blank-input" data-ans="0.4" data-tol="0.01" placeholder="Nhập số...">
@@ -212,44 +168,34 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Bản chất:</strong> Ô nhớ cũ có giá trị 4.0, sau khi qua cổng quên chỉ giữ lại $0.5 \times 4.0 = 2.0$. Thông tin mới $\tilde{C}_t = 0.8$ qua cổng vào $0.5$ nạp thêm $0.4$. Tổng trạng thái mới $C_t = 2.0 + 0.4 = 2.4$. Nhờ phép cộng thay vì phép nhân ma trận liên tiếp, gradient có thể chạy thẳng dọc trục thời gian mà không bị triệt tiêu.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Thông tin giữ lại: $f_t \times C_{t-1} = 0.500 \times 4.0 = 2.0$.</p>
+            <p>• Thông tin nạp mới: $i_t \times \tilde{C}_t = 0.500 \times 0.800 = 0.400$.</p>
+            <p>• Trạng thái ô nhớ mới: $C_t = 2.0 + 0.400 = 2.400$.</p>
         </div>
     </div>
 
     <!-- BÀI 3: CỔNG RA VÀ TRẠNG THÁI ẨN -->
     <div class="card">
         <h2>Bài 3: Cổng Ra ($o_t$) và Trạng Thái Ẩn Đầu Ra ($h_t$)</h2>
-        
-        <span class="section-tag tag-recall">Phần A: Nhớ công thức trạng thái ẩn</span>
-        
-        <div class="calc-step">
-            <div class="step-desc">1. Trước khi nhân với cổng ra $o_t$, trạng thái ô nhớ $C_t$ được đưa qua hàm kích hoạt nào? $h_t = o_t \odot [ \dots ](C_t)$</div>
-            <div class="input-row">
-                <span class="input-label">Hàm kích hoạt:</span>
-                <input type="text" class="blank-input" data-ans="tanh" data-alt="tan h" placeholder="Ví dụ: tanh">
-                <span class="hint-text">(Gõ: tanh)</span>
-            </div>
-        </div>
-
-        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
-        <p>Với $x_t = 2.0, h_{t-1} = 1.0, C_t = 2.4$. Trọng số cổng ra: $W_o = 0.3, U_o = 0.4, b_o = -1.0$.</p>
+        <p>Với $x_t = 2.0, h_{t-1} = 1.0, C_t = 2.4$. Trọng số cổng ra: $W_o = 0.3, U_o = 0.4, b_o = -1.0$. Cho biết $\tanh(2.4) = 0.9837$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính giá trị tuyến tính $z_o = 0.3(2.0) + 0.4(1.0) - 1.0$ và độ mở cổng ra $o_t$</div>
+            <div class="step-desc">1. Tính giá trị tuyến tính $z_o$ và độ mở cổng ra $o_t$</div>
             <div class="input-row">
                 <span class="input-label">Tuyến tính $z_o = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zo...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng ra $o_t = \sigma(z_o) = $</span>
+                <span class="input-label">Độ mở $o_t = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập ot...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Cho $\tanh(C_t) = \tanh(2.4) = 0.9837$. Tính trạng thái ẩn đầu ra $h_t$</div>
+            <div class="step-desc">2. Tính trạng thái ẩn đầu ra $h_t$</div>
             <div class="input-row">
-                <span class="input-label">Trạng thái ẩn $h_t = o_t \times \tanh(C_t) = $</span>
+                <span class="input-label">Trạng thái ẩn $h_t = $</span>
                 <input type="text" class="blank-input" data-ans="0.492" data-tol="0.01" placeholder="Ví dụ: 0.492">
                 <span class="hint-text">(làm tròn 3 chữ số thập phân)</span>
             </div>
@@ -257,7 +203,10 @@
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Bản chất:</strong> Ô nhớ $C_t$ đóng vai trò bộ nhớ dài hạn nội bộ, không xuất thẳng ra ngoài. Nó được ép về khoảng $(-1, 1)$ qua $\tanh(2.4) = 0.9837$ rồi nhân với cổng ra $o_t = 0.5$ để xuất ra $h_t = 0.492$. Vector $h_t$ này vừa là ngữ cảnh chuyển tiếp cho bước $t+1$, vừa được đưa vào tầng Dense để sinh ra giá trị dự báo cuối cùng.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>• Giá trị tuyến tính: $z_o = W_o x_t + U_o h_{t-1} + b_o = 0.3(2.0) + 0.4(1.0) - 1.0 = 0.6 + 0.4 - 1.0 = 0.0$.</p>
+            <p>• Độ mở cổng ra: $o_t = \sigma(z_o) = \sigma(0.0) = 0.5$.</p>
+            <p>• Trạng thái ẩn: $h_t = o_t \times \tanh(C_t) = 0.5 \times 0.9837 = 0.49185 \approx 0.492$.</p>
         </div>
     </div>
 </div>
@@ -266,10 +215,7 @@
     function normalizeInput(val) {
         return val.trim().toLowerCase()
             .replace(/\s+/g, '')
-            .replace(/,/g, '.')
-            .replace(/sigma/g, 'σ')
-            .replace(/_/g, '')
-            .replace(/\{|\}/g, '');
+            .replace(/,/g, '.');
     }
 
     function checkAllAnswers() {
@@ -278,7 +224,6 @@
 
         inputs.forEach(input => {
             const expectedRaw = input.getAttribute('data-ans').trim();
-            const altRaw = input.getAttribute('data-alt') || '';
             const tolerance = parseFloat(input.getAttribute('data-tol'));
             const userRaw = input.value.trim();
 
@@ -296,11 +241,7 @@
             if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
             } else {
-                const normUser = normalizeInput(userRaw);
-                const normExpected = normalizeInput(expectedRaw);
-                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
-
-                isCorrect = allowedList.some(item => normUser === item);
+                isCorrect = (normalizeInput(userRaw) === normalizeInput(expectedRaw));
             }
 
             if (isCorrect) {
