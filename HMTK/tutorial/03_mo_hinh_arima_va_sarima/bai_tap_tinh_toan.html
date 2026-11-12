@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên Đề 03 - Bài Tập Điền Khuyết Mô Hình ARIMA & SARIMA</title>
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --success: #34d399;
+            --error: #f87171;
+            --accent: #818cf8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg-main); color: var(--text); padding: 24px 16px; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; }
+        header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        h1 { font-size: 1.85rem; margin-bottom: 6px; }
+        .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+        .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 24px; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 12px 0; }
+        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-align: center; width: 110px; transition: all 0.2s; }
+        .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
+        .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
+        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; }
+        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 8px; }
+        .btn-toggle-sol:hover { color: #fff; border-color: var(--primary); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="badge">HMTK • Chuyên đề 03</span>
+        <h1>Bài Tập Tính Toán Điền Khuyết: Mô Hình Thống Kê ARIMA</h1>
+        <p class="subtitle">Thực hành tính toán: Kỳ vọng dừng, Phương sai quá trình AR(1), Dự báo đệ quy mô hình ARMA(1, 1) và Phục hồi sai phân ARIMA(1, 1, 0).</p>
+    </header>
+
+    <div class="stats-bar">
+        <div>Điểm số: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">11</span> ô điền</div>
+        <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
+    </div>
+
+    <!-- BÀI 1: KỲ VỌNG VÀ PHƯƠNG SAI AR(1) -->
+    <div class="card">
+        <h2>Bài 1: Tính toán Kỳ Vọng và Phương Sai Quá Trình AR(1)</h2>
+        <p>Cho quá trình tự hồi quy bậc 1 có phương trình: $y_t = 6.0 + 0.7 y_{t-1} + \epsilon_t$, với phương sai nhiễu trắng $\sigma_\epsilon^2 = 1.02$.</p>
+
+        <div class="calc-step">
+            <p><strong>Bước 1:</strong> Tính kỳ vọng trung bình dài hạn $\mu = \frac{c}{1 - \phi_1}$:</p>
+            $$\mu = \frac{6.0}{1 - 0.7} = \frac{6.0}{0.3} = \text{ [ } <input class="blank-input" data-ans="20.0" data-tol="0.05" placeholder="mu..."> \text{ ] }$$
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 2:</strong> Tính phương sai của chuỗi $\text{Var}(y_t) = \frac{\sigma_\epsilon^2}{1 - \phi_1^2}$:</p>
+            $$\text{Var}(y_t) = \frac{1.02}{1 - 0.7^2} = \frac{1.02}{1 - 0.49} = \frac{1.02}{0.51} = \text{ [ } <input class="blank-input" data-ans="2.0" data-tol="0.05" placeholder="Var..."> \text{ ] }$$
+        </div>
+
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải chi tiết Bài 1</button>
+        <div id="sol1" class="solution-box">
+            <p><strong>Lời giải:</strong></p>
+            <p>1. $\mu = 6.0 / (1 - 0.7) = 6.0 / 0.3 = 20.0$.</p>
+            <p>2. $\text{Var}(y_t) = 1.02 / (1 - 0.49) = 1.02 / 0.51 = 2.0$.</p>
+        </div>
+    </div>
+
+    <!-- BÀI 2: DỰ BÁO ĐỆ QUY ARMA(1, 1) -->
+    <div class="card">
+        <h2>Bài 2: Tính Dự Báo Đa Bước Mô Hình ARMA(1, 1)</h2>
+        <p>Cho mô hình: $y_t = 8.0 + 0.5 y_{t-1} + 0.3 \epsilon_{t-1} + \epsilon_t$.</p>
+        <p>Tại thời điểm $t = 50$, quan sát được $y_{50} = 22.0$ và phần dư $\epsilon_{50} = 2.0$.</p>
+
+        <div class="calc-step">
+            <p><strong>Bước 1:</strong> Tính dự báo 1 bước tới $\hat{y}_{51|50}$:</p>
+            $$\hat{y}_{51|50} = 8.0 + 0.5(22.0) + 0.3(2.0) + 0 = 8.0 + 11.0 + 0.6 = \text{ [ } <input class="blank-input" data-ans="19.6" data-tol="0.05" placeholder="y_hat_51..."> \text{ ] }$$
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 2:</strong> Tính dự báo 2 bước tới $\hat{y}_{52|50}$ (chú ý: $\mathbb{E}[\epsilon_{51}] = 0$):</p>
+            $$\hat{y}_{52|50} = 8.0 + 0.5(\hat{y}_{51|50}) + 0.3(0) = 8.0 + 0.5 \times 19.6 = \text{ [ } <input class="blank-input" data-ans="17.8" data-tol="0.05" placeholder="y_hat_52..."> \text{ ] }$$
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 3:</strong> Tính dự báo 3 bước tới $\hat{y}_{53|50}$:</p>
+            $$\hat{y}_{53|50} = 8.0 + 0.5(\hat{y}_{52|50}) = 8.0 + 0.5 \times 17.8 = \text{ [ } <input class="blank-input" data-ans="16.9" data-tol="0.05" placeholder="y_hat_53..."> \text{ ] }$$
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 4:</strong> Khi $h \to \infty$, giá trị dự báo sẽ hội tụ về kỳ vọng trung bình $\mu = \frac{8.0}{1 - 0.5}$:</p>
+            $$\mu = \text{ [ } <input class="blank-input" data-ans="16.0" data-tol="0.05" placeholder="mu..."> \text{ ] }$$
+        </div>
+
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem lời giải chi tiết Bài 2</button>
+        <div id="sol2" class="solution-box">
+            <p><strong>Lời giải:</strong></p>
+            <p>1. $\hat{y}_{51} = 8 + 0.5(22) + 0.3(2) = 8 + 11 + 0.6 = 19.6$.</p>
+            <p>2. $\hat{y}_{52} = 8 + 0.5(19.6) = 8 + 9.8 = 17.8$.</p>
+            <p>3. $\hat{y}_{53} = 8 + 0.5(17.8) = 8 + 8.9 = 16.9$.</p>
+            <p>4. $\mu = 8 / (1 - 0.5) = 16.0$.</p>
+        </div>
+    </div>
+
+    <!-- BÀI 3: MÔ HÌNH ARIMA(1, 1, 0) -->
+    <div class="card">
+        <h2>Bài 3: Tính Sai Phân và Phục Hồi Dự Báo ARIMA(1, 1, 0)</h2>
+        <p>Đặt $w_t = y_t - y_{t-1}$ là chuỗi sai phân bậc 1 tuân theo $\text{AR}(1)$: $w_t = 0.4 w_{t-1} + \epsilon_t$.</p>
+        <p>Tại thời điểm $t=20$, dữ liệu gốc có: $y_{19} = 100.0, y_{20} = 105.0$.</p>
+
+        <div class="calc-step">
+            <p><strong>Bước 1:</strong> Tính giá trị sai phân tại $t=20$: $w_{20} = y_{20} - y_{19} =$ [ <input class="blank-input" data-ans="5.0" data-tol="0.05" placeholder="w20..."> ]</p>
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 2:</strong> Tính dự báo sai phân bước tiếp theo $\hat{w}_{21|20} = 0.4 \times w_{20} =$ [ <input class="blank-input" data-ans="2.0" data-tol="0.05" placeholder="w_hat_21..."> ]</p>
+            <p>Phục hồi giá trị dự báo gốc $\hat{y}_{21|20} = y_{20} + \hat{w}_{21|20} = 105.0 + 2.0 =$ [ <input class="blank-input" data-ans="107.0" data-tol="0.05" placeholder="y_hat_21..."> ]</p>
+        </div>
+
+        <div class="calc-step">
+            <p><strong>Bước 3:</strong> Tính dự báo sai phân cho $t=22$: $\hat{w}_{22|20} = 0.4 \times \hat{w}_{21|20} = 0.4 \times 2.0 =$ [ <input class="blank-input" data-ans="0.8" data-tol="0.05" placeholder="w_hat_22..."> ]</p>
+            <p>Phục hồi giá trị dự báo gốc $\hat{y}_{22|20} = \hat{y}_{21|20} + \hat{w}_{22|20} = 107.0 + 0.8 =$ [ <input class="blank-input" data-ans="107.8" data-tol="0.05" placeholder="y_hat_22..."> ]</p>
+        </div>
+
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem lời giải chi tiết Bài 3</button>
+        <div id="sol3" class="solution-box">
+            <p><strong>Lời giải:</strong></p>
+            <p>1. $w_{20} = 105 - 100 = 5.0$.</p>
+            <p>2. $\hat{w}_{21} = 0.4(5.0) = 2.0 \implies \hat{y}_{21} = 105 + 2.0 = 107.0$.</p>
+            <p>3. $\hat{w}_{22} = 0.4(2.0) = 0.8 \implies \hat{y}_{22} = 107.0 + 0.8 = 107.8$.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkAllAnswers() {
+        const inputs = document.querySelectorAll('.blank-input');
+        let correctCount = 0;
+
+        inputs.forEach(input => {
+            const expected = parseFloat(input.getAttribute('data-ans'));
+            const tolerance = parseFloat(input.getAttribute('data-tol')) || 0.01;
+            const userVal = parseFloat(input.value.trim());
+
+            if (!isNaN(userVal) && Math.abs(userVal - expected) <= tolerance) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+                correctCount++;
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+            }
+        });
+
+        document.getElementById('currentScore').innerText = correctCount;
+        document.getElementById('totalBlanks').innerText = inputs.length;
+    }
+
+    function toggleSolution(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.blank-input').forEach(inp => {
+            inp.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") checkAllAnswers();
+            });
+        });
+        document.getElementById('totalBlanks').innerText = document.querySelectorAll('.blank-input').length;
+    });
+</script>
+</body>
+</html>
