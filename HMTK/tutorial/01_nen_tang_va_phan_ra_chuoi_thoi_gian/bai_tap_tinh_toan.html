@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
     <style>
         :root {
             --bg-main: #0f172a;
@@ -29,21 +29,26 @@
         h1 { font-size: 1.85rem; margin-bottom: 6px; }
         .subtitle { color: var(--text-muted); font-size: 0.95rem; }
         .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; }
-        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
-        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .score-box { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 24px; }
-        .card h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92rem; }
         .data-table th, .data-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: center; }
         .data-table th { background: rgba(255, 255, 255, 0.05); color: var(--accent); }
-        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 12px 0; }
-        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-align: center; width: 110px; transition: all 0.2s; }
+        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
+        .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
+        .math-block { margin: 10px 0; padding: 8px 0; overflow-x: auto; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-label { font-size: 0.92rem; color: var(--text-muted); }
+        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 150px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
         .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
-        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; }
-        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 8px; }
+        .unit-label { font-size: 0.88rem; color: var(--text-muted); }
+        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; line-height: 1.7; }
+        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; }
         .btn-toggle-sol:hover { color: #fff; border-color: var(--primary); }
     </style>
 </head>
@@ -66,32 +71,56 @@
         <p>Cho chuỗi thời gian gồm 5 quan sát: $y = [10, 14, 12, 18, 16]$ với $t = 1, 2, 3, 4, 5$.</p>
         
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Tính giá trị trung bình mẫu $\bar{y}$:</p>
-            $$\bar{y} = \frac{10 + 14 + 12 + 18 + 16}{5} = \text{ [ } <input class="blank-input" data-ans="14" data-tol="0.01" placeholder="giá trị..."> \text{ ] }$$
+            <div class="step-desc">Bước 1: Tính giá trị trung bình mẫu $\bar{y}$</div>
+            <div class="math-block">
+                $$\bar{y} = \frac{10 + 14 + 12 + 18 + 16}{5} = \frac{70}{5}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Kết quả $\bar{y} = $</span>
+                <input type="text" class="blank-input" data-ans="14" data-tol="0.01" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tính mẫu số phương sai $\sum_{t=1}^{5} (y_t - \bar{y})^2$:</p>
-            <p>$(10-14)^2 + (14-14)^2 + (12-14)^2 + (18-14)^2 + (16-14)^2 = 16 + 0 + 4 + 16 + 4 =$ [ <input class="blank-input" data-ans="40" data-tol="0.01" placeholder="mẫu số..."> ]</p>
+            <div class="step-desc">Bước 2: Tính mẫu số phương sai $\sum_{t=1}^{5} (y_t - \bar{y})^2$</div>
+            <div class="math-block">
+                $$\sum_{t=1}^5 (y_t - \bar{y})^2 = (10-14)^2 + (14-14)^2 + (12-14)^2 + (18-14)^2 + (16-14)^2$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Tổng bình phương độ lệch =</span>
+                <input type="text" class="blank-input" data-ans="40" data-tol="0.01" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 3:</strong> Tính tử số hiệp phương sai với độ trễ $k=1$ (tổng $\sum_{t=2}^{5} (y_t - \bar{y})(y_{t-1} - \bar{y})$):</p>
-            <p>$(14-14)(10-14) + (12-14)(14-14) + (18-14)(12-14) + (16-14)(18-14) = 0 + 0 + (-8) + 8 =$ [ <input class="blank-input" data-ans="0" data-tol="0.01" placeholder="tử số..."> ]</p>
+            <div class="step-desc">Bước 3: Tính tử số hiệp phương sai với độ trễ $k=1$</div>
+            <div class="math-block">
+                $$\sum_{t=2}^5 (y_t - \bar{y})(y_{t-1} - \bar{y}) = (14-14)(10-14) + (12-14)(14-14) + (18-14)(12-14) + (16-14)(18-14)$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Tổng tích độ lệch trễ 1 =</span>
+                <input type="text" class="blank-input" data-ans="0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 4:</strong> Tính hệ số tự tương quan $r_1 = \frac{\text{Tử số}}{\text{Mẫu số}}$:</p>
-            <p>$r_1 =$ [ <input class="blank-input" data-ans="0" data-tol="0.01" placeholder="r1..."> ] *(kết quả làm tròn 2 chữ số thập phân)*</p>
+            <div class="step-desc">Bước 4: Tính hệ số tự tương quan $r_1$</div>
+            <div class="math-block">
+                $$r_1 = \frac{\sum_{t=2}^5 (y_t - \bar{y})(y_{t-1} - \bar{y})}{\sum_{t=1}^5 (y_t - \bar{y})^2}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Hệ số $r_1 = $</span>
+                <input type="text" class="blank-input" data-ans="0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
         </div>
 
-        <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải & giải thích chi tiết</button>
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải chi tiết Bài 1</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $\bar{y} = \frac{70}{5} = 14.0$.</p>
             <p>2. Mẫu số $\sum (y_t - \bar{y})^2 = (-4)^2 + 0^2 + (-2)^2 + 4^2 + 2^2 = 16 + 0 + 4 + 16 + 4 = 40$.</p>
-            <p>3. Tử số với $k=1$: $(14-14)(10-14) + (12-14)(14-14) + (18-14)(12-14) + (16-14)(18-14) = 0 + 0 + (4 \times -2) + (2 \times 4) = -8 + 8 = 0$.</p>
-            <p>4. $r_1 = \frac{0}{40} = 0.00$. Chuỗi không có tương quan tuyến tính bậc 1.</p>
+            <p>3. Tử số với $k=1$: $(14-14)(10-14) + (12-14)(14-14) + (18-14)(12-14) + (16-14)(18-14) = 0 + 0 + (-8) + 8 = 0$.</p>
+            <p>4. $r_1 = \frac{0}{40} = 0.00$.</p>
         </div>
     </div>
 
@@ -101,33 +130,64 @@
         <p>Cho dữ liệu bán hàng theo quý: $y_1 = 40$ (Q1), $y_2 = 56$ (Q2), $y_3 = 68$ (Q3), $y_4 = 92$ (Q4), $y_5 = 50$ (Q1 năm sau).</p>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Tính Trung bình trượt trung tâm $\text{CMA}_3$ (quý 3):</p>
-            $$\text{CMA}_3 = \frac{0.5 \times 40 + 56 + 68 + 92 + 0.5 \times 50}{4} = \text{ [ } <input class="blank-input" data-ans="65.25" data-tol="0.05" placeholder="CMA3..."> \text{ ] }$$
+            <div class="step-desc">Bước 1: Tính Trung bình trượt trung tâm $\text{CMA}_3$ tại Quý 3</div>
+            <div class="math-block">
+                $$\text{CMA}_3 = \frac{0.5 \times y_1 + y_2 + y_3 + y_4 + 0.5 \times y_5}{4} = \frac{0.5(40) + 56 + 68 + 92 + 0.5(50)}{4}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Giá trị $\text{CMA}_3 = $</span>
+                <input type="text" class="blank-input" data-ans="65.25" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tính tỷ số mùa vụ thô tại Quý 3: $z_3 = \frac{y_3}{\text{CMA}_3}$:</p>
-            $$z_3 = \frac{68}{\text{CMA}_3} = \text{ [ } <input class="blank-input" data-ans="1.042" data-tol="0.01" placeholder="z3..."> \text{ ] } \text{ (lấy 3 số thập phân)}$$
+            <div class="step-desc">Bước 2: Tính tỷ số mùa vụ thô $z_3 = \frac{y_3}{\text{CMA}_3}$ tại Quý 3</div>
+            <div class="math-block">
+                $$z_3 = \frac{68}{\text{CMA}_3}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Tỷ số $z_3 = $</span>
+                <input type="text" class="blank-input" data-ans="1.042" data-tol="0.02" placeholder="Ví dụ: 1.042">
+                <span class="unit-label">(làm tròn 3 chữ số thập phân)</span>
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 3:</strong> Giả sử chỉ số mùa vụ chuẩn hóa của Quý 3 là $S_3 = 1.0392$. Tính giá trị doanh số đã <em>khử mùa vụ</em> $d_3 = \frac{y_3}{S_3}$:</p>
-            $$d_3 = \frac{68}{1.0392} = \text{ [ } <input class="blank-input" data-ans="65.435" data-tol="0.1" placeholder="d3..."> \text{ ] } \text{ (triệu VNĐ)}$$
+            <div class="step-desc">Bước 3: Tính doanh số đã khử mùa vụ $d_3 = \frac{y_3}{S_3}$ (biết $S_3 = 1.0392$)</div>
+            <div class="math-block">
+                $$d_3 = \frac{68}{1.0392}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Giá trị $d_3 = $</span>
+                <input type="text" class="blank-input" data-ans="65.435" data-tol="0.1" placeholder="Nhập số...">
+                <span class="unit-label">triệu VNĐ</span>
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 4:</strong> Cho đường xu hướng $\hat{T}_t = 36.5 + 8.5 \times t$. Với Quý 1 năm 3 ($t=9$), chỉ số mùa vụ Quý 1 là $S_1 = 0.6950$.</p>
-            <p>Giá trị xu hướng tại $t=9$: $\hat{T}_9 = 36.5 + 8.5 \times 9 =$ [ <input class="blank-input" data-ans="113" data-tol="0.1" placeholder="T9..."> ]</p>
-            <p>Dự báo doanh số điều chỉnh mùa vụ $\hat{y}_9 = \hat{T}_9 \times S_1 =$ [ <input class="blank-input" data-ans="78.535" data-tol="0.1" placeholder="y9_hat..."> ]</p>
+            <div class="step-desc">Bước 4: Dự báo doanh số Quý 1 năm 3 ($t=9$) với $\hat{T}_t = 36.5 + 8.5t$ và $S_1 = 0.6950$</div>
+            <div class="math-block">
+                $$\hat{T}_9 = 36.5 + 8.5 \times 9, \qquad \hat{y}_9 = \hat{T}_9 \times S_1$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Đường xu hướng $\hat{T}_9 = $</span>
+                <input type="text" class="blank-input" data-ans="113.0" data-tol="0.1" placeholder="Nhập T9...">
+                <span class="unit-label">triệu VNĐ</span>
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Dự báo mùa vụ $\hat{y}_9 = $</span>
+                <input type="text" class="blank-input" data-ans="78.535" data-tol="0.1" placeholder="Nhập y9...">
+                <span class="unit-label">triệu VNĐ</span>
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem lời giải chi tiết Bài 2</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $\text{CMA}_3 = \frac{20 + 56 + 68 + 92 + 25}{4} = \frac{261}{4} = 65.25$.</p>
             <p>2. $z_3 = 68 / 65.25 \approx 1.0421$.</p>
             <p>3. $d_3 = 68 / 1.0392 \approx 65.435$ triệu VNĐ.</p>
-            <p>4. $\hat{T}_9 = 36.5 + 8.5 \times 9 = 113.0$.</p>
+            <p>4. $\hat{T}_9 = 36.5 + 8.5 \times 9 = 113.0$ triệu VNĐ.</p>
             <p>5. $\hat{y}_9 = 113.0 \times 0.6950 = 78.535$ triệu VNĐ.</p>
         </div>
     </div>
@@ -142,16 +202,16 @@
                     <th>Thời điểm ($t$)</th>
                     <th>Thực tế ($y_t$)</th>
                     <th>Dự báo ($\hat{y}_t$)</th>
-                    <th>Sai số tuyệt đối $|e_t|$</th>
-                    <th>Sai số bình phương $e_t^2$</th>
-                    <th>Phần trăm sai số $|e_t / y_t|$</th>
+                    <th>Sai số $|e_t|$</th>
+                    <th>Bình phương $e_t^2$</th>
+                    <th>Tỷ lệ $|e_t / y_t|$</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>50</td><td>48</td><td>2</td><td>4</td><td>0.040 (4.0%)</td></tr>
-                <tr><td>2</td><td>60</td><td>64</td><td>4</td><td>16</td><td>0.0667 (6.67%)</td></tr>
-                <tr><td>3</td><td>75</td><td>70</td><td>5</td><td>25</td><td>0.0667 (6.67%)</td></tr>
-                <tr><td>4</td><td>90</td><td>95</td><td>5</td><td>25</td><td>0.0556 (5.56%)</td></tr>
+                <tr><td>1</td><td>50</td><td>48</td><td>2</td><td>4</td><td>0.0400</td></tr>
+                <tr><td>2</td><td>60</td><td>64</td><td>4</td><td>16</td><td>0.0667</td></tr>
+                <tr><td>3</td><td>75</td><td>70</td><td>5</td><td>25</td><td>0.0667</td></tr>
+                <tr><td>4</td><td>90</td><td>95</td><td>5</td><td>25</td><td>0.0556</td></tr>
                 <tr>
                     <td><strong>Tổng $\sum$</strong></td>
                     <td>—</td><td>—</td>
@@ -163,25 +223,57 @@
         </table>
 
         <div class="calc-step">
-            <p><strong>1. Sai số tuyệt đối trung bình (MAE):</strong> $\frac{\sum |e_t|}{4} =$ [ <input class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="MAE..."> ]</p>
+            <div class="step-desc">1. Sai số tuyệt đối trung bình (MAE)</div>
+            <div class="math-block">
+                $$\text{MAE} = \frac{1}{4}\sum_{t=1}^4 |e_t| = \frac{16}{4}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Kết quả MAE =</span>
+                <input type="text" class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
+
         <div class="calc-step">
-            <p><strong>2. Sai số bình phương trung bình (MSE):</strong> $\frac{\sum e_t^2}{4} =$ [ <input class="blank-input" data-ans="17.5" data-tol="0.05" placeholder="MSE..."> ]</p>
+            <div class="step-desc">2. Sai số bình phương trung bình (MSE)</div>
+            <div class="math-block">
+                $$\text{MSE} = \frac{1}{4}\sum_{t=1}^4 e_t^2 = \frac{70}{4}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Kết quả MSE =</span>
+                <input type="text" class="blank-input" data-ans="17.5" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
+
         <div class="calc-step">
-            <p><strong>3. Căn sai số bình phương trung bình (RMSE):</strong> $\sqrt{\text{MSE}} =$ [ <input class="blank-input" data-ans="4.183" data-tol="0.05" placeholder="RMSE..."> ]</p>
+            <div class="step-desc">3. Căn bậc hai sai số bình phương trung bình (RMSE)</div>
+            <div class="math-block">
+                $$\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{17.5}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Kết quả RMSE =</span>
+                <input type="text" class="blank-input" data-ans="4.183" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
+
         <div class="calc-step">
-            <p><strong>4. Phần trăm sai số tuyệt đối trung bình (MAPE - %):</strong> $\frac{100\%}{4} \times 0.2290 =$ [ <input class="blank-input" data-ans="5.725" data-tol="0.05" placeholder="MAPE %..."> ] %</p>
+            <div class="step-desc">4. Phần trăm sai số tuyệt đối trung bình (MAPE)</div>
+            <div class="math-block">
+                $$\text{MAPE} = \frac{100\%}{4}\sum_{t=1}^4 \left|\frac{e_t}{y_t}\right| = \frac{0.2290}{4} \times 100\%$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Kết quả MAPE =</span>
+                <input type="text" class="blank-input" data-ans="5.725" data-tol="0.05" placeholder="Nhập số...">
+                <span class="unit-label">%</span>
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem lời giải chi tiết Bài 3</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $\text{MAE} = 16 / 4 = 4.0$.</p>
             <p>2. $\text{MSE} = 70 / 4 = 17.5$.</p>
             <p>3. $\text{RMSE} = \sqrt{17.5} \approx 4.183$.</p>
-            <p>4. $\text{MAPE} = \frac{0.04 + 0.0667 + 0.0667 + 0.0556}{4} \times 100\% = \frac{0.2290}{4} \times 100\% = 5.725\%$.</p>
+            <p>4. $\text{MAPE} = \frac{0.2290}{4} \times 100\% = 5.725\%$.</p>
         </div>
     </div>
 </div>
@@ -192,11 +284,21 @@
         let correctCount = 0;
 
         inputs.forEach(input => {
-            const expected = parseFloat(input.getAttribute('data-ans'));
+            const expectedStr = input.getAttribute('data-ans').trim();
             const tolerance = parseFloat(input.getAttribute('data-tol')) || 0.01;
-            const userVal = parseFloat(input.value.trim());
+            const userRaw = input.value.trim().replace(',', '.');
 
-            if (!isNaN(userVal) && Math.abs(userVal - expected) <= tolerance) {
+            const expectedNum = parseFloat(expectedStr);
+            const userNum = parseFloat(userRaw);
+
+            let isCorrect = false;
+            if (!isNaN(userNum) && !isNaN(expectedNum)) {
+                isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
+            } else if (userRaw.toLowerCase() === expectedStr.toLowerCase()) {
+                isCorrect = true;
+            }
+
+            if (isCorrect) {
                 input.classList.remove('incorrect');
                 input.classList.add('correct');
                 correctCount++;

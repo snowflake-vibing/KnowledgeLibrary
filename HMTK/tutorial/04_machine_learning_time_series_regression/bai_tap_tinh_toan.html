@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
     <style>
         :root {
             --bg-main: #0f172a;
@@ -29,18 +29,23 @@
         h1 { font-size: 1.85rem; margin-bottom: 6px; }
         .subtitle { color: var(--text-muted); font-size: 0.95rem; }
         .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; }
-        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
-        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .score-box { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 24px; }
-        .card h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 12px 0; }
-        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-align: center; width: 110px; transition: all 0.2s; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
+        .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
+        .math-block { margin: 10px 0; padding: 8px 0; overflow-x: auto; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-label { font-size: 0.92rem; color: var(--text-muted); }
+        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 150px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
         .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
-        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; }
-        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 8px; }
+        .unit-label { font-size: 0.88rem; color: var(--text-muted); }
+        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; line-height: 1.7; }
+        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; }
         .btn-toggle-sol:hover { color: #fff; border-color: var(--primary); }
     </style>
 </head>
@@ -63,22 +68,46 @@
         <p>Cho chuỗi dữ liệu gốc: $y = [10, 15, 12, 18, 20, 25]$ với $t = 1, 2, 3, 4, 5, 6$.</p>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Xác định các đặc trưng trễ tại thời điểm $t=4$ ($y_4 = 18$):</p>
-            <p>Đặc trưng $L_1 = y_3 =$ [ <input class="blank-input" data-ans="12" data-tol="0.01" placeholder="L1..."> ]</p>
-            <p>Đặc trưng $L_2 = y_2 =$ [ <input class="blank-input" data-ans="15" data-tol="0.01" placeholder="L2..."> ]</p>
-            <p>Đặc trưng $L_3 = y_1 =$ [ <input class="blank-input" data-ans="10" data-tol="0.01" placeholder="L3..."> ]</p>
-            <p>Trung bình trượt 3 bước $\text{RM}_3 = \frac{L_1 + L_2 + L_3}{3} =$ [ <input class="blank-input" data-ans="12.333" data-tol="0.05" placeholder="RM3..."> ]</p>
+            <div class="step-desc">Bước 1: Xác định các đặc trưng trễ tại thời điểm $t=4$ ($y_4 = 18$)</div>
+            <div class="math-block">
+                $$L_1 = y_3, \qquad L_2 = y_2, \qquad L_3 = y_1, \qquad \text{RM}_3 = \frac{L_1 + L_2 + L_3}{3}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Đặc trưng $L_1 = $</span>
+                <input type="text" class="blank-input" data-ans="12" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Đặc trưng $L_2 = $</span>
+                <input type="text" class="blank-input" data-ans="15" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Đặc trưng $L_3 = $</span>
+                <input type="text" class="blank-input" data-ans="10" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Trung bình trượt $\text{RM}_3 = $</span>
+                <input type="text" class="blank-input" data-ans="12.333" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Xác định các đặc trưng trễ tại thời điểm $t=5$ ($y_5 = 20$):</p>
-            <p>Đặc trưng $L_1 = y_4 =$ [ <input class="blank-input" data-ans="18" data-tol="0.01" placeholder="L1..."> ]</p>
-            <p>Trung bình trượt 2 bước $\text{RM}_2 = \frac{y_4 + y_3}{2} =$ [ <input class="blank-input" data-ans="15.0" data-tol="0.05" placeholder="RM2..."> ]</p>
+            <div class="step-desc">Bước 2: Xác định các đặc trưng tại thời điểm $t=5$ ($y_5 = 20$)</div>
+            <div class="math-block">
+                $$L_1 = y_4, \qquad \text{RM}_2 = \frac{y_4 + y_3}{2}$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Đặc trưng $L_1 = $</span>
+                <input type="text" class="blank-input" data-ans="18" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Trung bình trượt $\text{RM}_2 = $</span>
+                <input type="text" class="blank-input" data-ans="15.0" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải chi tiết Bài 1</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. Tại $t=4$: $L_1 = y_3 = 12$, $L_2 = y_2 = 15$, $L_3 = y_1 = 10$. $\text{RM}_3 = (12+15+10)/3 = 37/3 \approx 12.333$.</p>
             <p>2. Tại $t=5$: $L_1 = y_4 = 18$. $\text{RM}_2 = (18+12)/2 = 15.0$.</p>
         </div>
@@ -87,25 +116,38 @@
     <!-- BÀI 2: MÃ HÓA CYCLICAL LƯỢNG GIÁC -->
     <div class="card">
         <h2>Bài 2: Tính toán Mã Hóa Chu Kỳ Lượng Giác (Cyclical Encoding)</h2>
-        <p>Chu kỳ giờ trong ngày: $T = 24$ giờ, công thức: $\text{hour}_{\sin} = \sin\left(\frac{2\pi \times \text{hour}}{24}\right)$, $\text{hour}_{\cos} = \cos\left(\frac{2\pi \times \text{hour}}{24}\right)$.</p>
-
-        <div class="calc-step">
-            <p><strong>Thời điểm 06:00 sáng ($\text{hour} = 6$):</strong></p>
-            <p>Góc pha: $\frac{2\pi \times 6}{24} = \frac{\pi}{2}$ rad ($90^\circ$)</p>
-            <p>$\text{hour}_{\sin} = \sin(90^\circ) =$ [ <input class="blank-input" data-ans="1.0" data-tol="0.01" placeholder="sin..."> ]</p>
-            <p>$\text{hour}_{\cos} = \cos(90^\circ) =$ [ <input class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="cos..."> ]</p>
+        <p>Chu kỳ giờ trong ngày: $T = 24$ giờ, công thức:</p>
+        <div class="math-block">
+            $$\text{hour}_{\sin} = \sin\left(\frac{2\pi \times \text{hour}}{24}\right), \qquad \text{hour}_{\cos} = \cos\left(\frac{2\pi \times \text{hour}}{24}\right)$$
         </div>
 
         <div class="calc-step">
-            <p><strong>Thời điểm 18:00 chiều ($\text{hour} = 18$):</strong></p>
-            <p>Góc pha: $\frac{2\pi \times 18}{24} = \frac{3\pi}{2}$ rad ($270^\circ$)</p>
-            <p>$\text{hour}_{\sin} = \sin(270^\circ) =$ [ <input class="blank-input" data-ans="-1.0" data-tol="0.01" placeholder="sin..."> ]</p>
-            <p>$\text{hour}_{\cos} = \cos(270^\circ) =$ [ <input class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="cos..."> ]</p>
+            <div class="step-desc">Thời điểm 06:00 sáng ($\text{hour} = 6$, góc $\frac{2\pi \times 6}{24} = \frac{\pi}{2} = 90^\circ$)</div>
+            <div class="input-row">
+                <span class="input-label">Giá trị $\text{hour}_{\sin} = \sin(90^\circ) = $</span>
+                <input type="text" class="blank-input" data-ans="1.0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Giá trị $\text{hour}_{\cos} = \cos(90^\circ) = $</span>
+                <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+        </div>
+
+        <div class="calc-step">
+            <div class="step-desc">Thời điểm 18:00 chiều ($\text{hour} = 18$, góc $\frac{2\pi \times 18}{24} = \frac{3\pi}{2} = 270^\circ$)</div>
+            <div class="input-row">
+                <span class="input-label">Giá trị $\text{hour}_{\sin} = \sin(270^\circ) = $</span>
+                <input type="text" class="blank-input" data-ans="-1.0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Giá trị $\text{hour}_{\cos} = \cos(270^\circ) = $</span>
+                <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập số...">
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem lời giải chi tiết Bài 2</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. Tại 06:00: $\sin(\pi/2) = 1.0$, $\cos(\pi/2) = 0.0$.</p>
             <p>2. Tại 18:00: $\sin(3\pi/2) = -1.0$, $\cos(3\pi/2) = 0.0$.</p>
         </div>
@@ -118,20 +160,32 @@
         <p>Tại thời điểm $t=10$, dữ liệu thực tế có: $y_9 = 40.0, y_{10} = 45.0$.</p>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Tính dự báo cho thời điểm $t=11$ ($L_1 = y_{10} = 45.0, L_2 = y_9 = 40.0$):</p>
-            $$\hat{y}_{11} = 5.0 + 0.7(45.0) + 0.2(40.0) = 5.0 + 31.5 + 8.0 = \text{ [ } <input class="blank-input" data-ans="44.5" data-tol="0.05" placeholder="y_hat_11..."> \text{ ] }$$
+            <div class="step-desc">Bước 1: Tính dự báo cho thời điểm $t=11$ ($L_1 = y_{10} = 45.0, L_2 = y_9 = 40.0$)</div>
+            <div class="math-block">
+                $$\hat{y}_{11} = 5.0 + 0.7(45.0) + 0.2(40.0) = 5.0 + 31.5 + 8.0$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo $\hat{y}_{11} = $</span>
+                <input type="text" class="blank-input" data-ans="44.5" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tính dự báo đệ quy cho thời điểm $t=12$ ($L_1 = \hat{y}_{11} = 44.5, L_2 = y_{10} = 45.0$):</p>
-            $$\hat{y}_{12} = 5.0 + 0.7(44.5) + 0.2(45.0) = 5.0 + 31.15 + 9.0 = \text{ [ } <input class="blank-input" data-ans="45.15" data-tol="0.05" placeholder="y_hat_12..."> \text{ ] }$$
+            <div class="step-desc">Bước 2: Tính dự báo đệ quy cho thời điểm $t=12$ ($L_1 = \hat{y}_{11} = 44.5, L_2 = y_{10} = 45.0$)</div>
+            <div class="math-block">
+                $$\hat{y}_{12} = 5.0 + 0.7(44.5) + 0.2(45.0) = 5.0 + 31.15 + 9.0$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo $\hat{y}_{12} = $</span>
+                <input type="text" class="blank-input" data-ans="45.15" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem lời giải chi tiết Bài 3</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
-            <p>1. $\hat{y}_{11} = 5 + 0.7(45) + 0.2(40) = 5 + 31.5 + 8.0 = 44.5$.</p>
-            <p>2. $\hat{y}_{12} = 5 + 0.7(44.5) + 0.2(45) = 5 + 31.15 + 9.0 = 45.15$.</p>
+            <p><strong>Lời giải chi tiết:</strong></p>
+            <p>1. $\hat{y}_{11} = 5.0 + 0.7(45.0) + 0.2(40.0) = 5.0 + 31.5 + 8.0 = 44.5$.</p>
+            <p>2. $\hat{y}_{12} = 5.0 + 0.7(44.5) + 0.2(45.0) = 5.0 + 31.15 + 9.0 = 45.15$.</p>
         </div>
     </div>
 </div>
@@ -142,11 +196,21 @@
         let correctCount = 0;
 
         inputs.forEach(input => {
-            const expected = parseFloat(input.getAttribute('data-ans'));
+            const expectedStr = input.getAttribute('data-ans').trim();
             const tolerance = parseFloat(input.getAttribute('data-tol')) || 0.01;
-            const userVal = parseFloat(input.value.trim());
+            const userRaw = input.value.trim().replace(',', '.');
 
-            if (!isNaN(userVal) && Math.abs(userVal - expected) <= tolerance) {
+            const expectedNum = parseFloat(expectedStr);
+            const userNum = parseFloat(userRaw);
+
+            let isCorrect = false;
+            if (!isNaN(userNum) && !isNaN(expectedNum)) {
+                isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
+            } else if (userRaw.toLowerCase() === expectedStr.toLowerCase()) {
+                isCorrect = true;
+            }
+
+            if (isCorrect) {
                 input.classList.remove('incorrect');
                 input.classList.add('correct');
                 correctCount++;

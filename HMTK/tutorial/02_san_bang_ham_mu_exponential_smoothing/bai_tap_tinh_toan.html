@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
     <style>
         :root {
             --bg-main: #0f172a;
@@ -29,18 +29,23 @@
         h1 { font-size: 1.85rem; margin-bottom: 6px; }
         .subtitle { color: var(--text-muted); font-size: 0.95rem; }
         .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; }
-        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
-        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .score-box { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 24px; }
-        .card h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 14px 18px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 12px 0; }
-        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-align: center; width: 110px; transition: all 0.2s; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
+        .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
+        .math-block { margin: 10px 0; padding: 8px 0; overflow-x: auto; }
+        .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+        .input-label { font-size: 0.92rem; color: var(--text-muted); }
+        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 150px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
         .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
-        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; }
-        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 8px; }
+        .unit-label { font-size: 0.88rem; color: var(--text-muted); }
+        .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; line-height: 1.7; }
+        .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; }
         .btn-toggle-sol:hover { color: #fff; border-color: var(--primary); }
     </style>
 </head>
@@ -63,31 +68,58 @@
         <p>Cho chuỗi quan sát: $y_1 = 20, y_2 = 24, y_3 = 22, y_4 = 28$. Thiết lập hệ số san bằng $\alpha = 0.4$, giá trị khởi tạo ban đầu $\hat{y}_{1|0} = 20.0$.</p>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Sau khi quan sát $y_1 = 20$, tính dự báo cho $t=2$:</p>
-            $$\hat{y}_{2|1} = 0.4 \times 20 + 0.6 \times 20.0 = \text{ [ } <input class="blank-input" data-ans="20.0" data-tol="0.05" placeholder="y_hat_2..."> \text{ ] }$$
+            <div class="step-desc">Bước 1: Sau khi quan sát $y_1 = 20$, tính dự báo $\hat{y}_{2|1}$</div>
+            <div class="math-block">
+                $$\hat{y}_{2|1} = \alpha y_1 + (1 - \alpha)\hat{y}_{1|0} = 0.4(20) + 0.6(20.0)$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo $\hat{y}_{2|1} = $</span>
+                <input type="text" class="blank-input" data-ans="20.0" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tại $t=2$, quan sát thực tế $y_2 = 24$. Tính sai số $e_2$ và dự báo cho $t=3$:</p>
-            <p>Sai số $e_2 = y_2 - \hat{y}_{2|1} = 24 - 20 =$ [ <input class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="e2..."> ]</p>
-            <p>Dự báo $\hat{y}_{3|2} = 0.4 \times 24 + 0.6 \times 20.0 =$ [ <input class="blank-input" data-ans="21.6" data-tol="0.05" placeholder="y_hat_3..."> ]</p>
+            <div class="step-desc">Bước 2: Tại $t=2$, quan sát $y_2 = 24$. Tính sai số $e_2$ và dự báo $\hat{y}_{3|2}$</div>
+            <div class="math-block">
+                $$e_2 = y_2 - \hat{y}_{2|1}, \qquad \hat{y}_{3|2} = \hat{y}_{2|1} + \alpha e_2 = 0.4(24) + 0.6(20.0)$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Sai số $e_2 = $</span>
+                <input type="text" class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="Nhập e2...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Dự báo $\hat{y}_{3|2} = $</span>
+                <input type="text" class="blank-input" data-ans="21.6" data-tol="0.05" placeholder="Nhập y3...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 3:</strong> Tại $t=3$, quan sát $y_3 = 22$. Tính dự báo $\hat{y}_{4|3}$:</p>
-            $$\hat{y}_{4|3} = 0.4 \times 22 + 0.6 \times 21.6 = 8.8 + 12.96 = \text{ [ } <input class="blank-input" data-ans="21.76" data-tol="0.05" placeholder="y_hat_4..."> \text{ ] }$$
+            <div class="step-desc">Bước 3: Tại $t=3$, quan sát $y_3 = 22$. Tính dự báo $\hat{y}_{4|3}$</div>
+            <div class="math-block">
+                $$\hat{y}_{4|3} = 0.4(22) + 0.6(21.6) = 8.8 + 12.96$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo $\hat{y}_{4|3} = $</span>
+                <input type="text" class="blank-input" data-ans="21.76" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 4:</strong> Tại $t=4$, quan sát $y_4 = 28$. Tính dự báo cho tương lai $\hat{y}_{5|4}$:</p>
-            $$\hat{y}_{5|4} = 0.4 \times 28 + 0.6 \times 21.76 = 11.2 + 13.056 = \text{ [ } <input class="blank-input" data-ans="24.256" data-tol="0.05" placeholder="y_hat_5..."> \text{ ] }$$
+            <div class="step-desc">Bước 4: Tại $t=4$, quan sát $y_4 = 28$. Tính dự báo tương lai $\hat{y}_{5|4}$</div>
+            <div class="math-block">
+                $$\hat{y}_{5|4} = 0.4(28) + 0.6(21.76) = 11.2 + 13.056$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo $\hat{y}_{5|4} = $</span>
+                <input type="text" class="blank-input" data-ans="24.256" data-tol="0.05" placeholder="Nhập số...">
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải chi tiết Bài 1</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $\hat{y}_{2|1} = 0.4(20) + 0.6(20) = 20.0$.</p>
-            <p>2. $e_2 = 24 - 20 = 4.0 \implies \hat{y}_{3|2} = 20.0 + 0.4 \times 4.0 = 21.6$.</p>
+            <p>2. $e_2 = 24 - 20 = 4.0 \implies \hat{y}_{3|2} = 20.0 + 0.4(4.0) = 21.6$.</p>
             <p>3. $\hat{y}_{4|3} = 0.4(22) + 0.6(21.6) = 8.8 + 12.96 = 21.76$.</p>
             <p>4. $\hat{y}_{5|4} = 0.4(28) + 0.6(21.76) = 11.2 + 13.056 = 24.256$.</p>
         </div>
@@ -99,27 +131,58 @@
         <p>Khởi tạo tại $t=0$: $l_0 = 80$, $b_0 = 5$. Thiết lập hệ số $\alpha = 0.2, \beta = 0.1$.</p>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Tại $t=1$, quan sát thực tế $y_1 = 90$:</p>
-            <p>Cập nhật Level: $l_1 = 0.2 \times 90 + 0.8 \times (80 + 5) = 18 + 68 =$ [ <input class="blank-input" data-ans="86.0" data-tol="0.05" placeholder="l1..."> ]</p>
-            <p>Cập nhật Trend: $b_1 = 0.1 \times (86 - 80) + 0.9 \times 5 = 0.6 + 4.5 =$ [ <input class="blank-input" data-ans="5.1" data-tol="0.05" placeholder="b1..."> ]</p>
-            <p>Dự báo $\hat{y}_{2|1} = l_1 + b_1 =$ [ <input class="blank-input" data-ans="91.1" data-tol="0.05" placeholder="y_hat_2|1..."> ]</p>
+            <div class="step-desc">Bước 1: Tại $t=1$, quan sát thực tế $y_1 = 90$</div>
+            <div class="math-block">
+                $$l_1 = 0.2(90) + 0.8(80 + 5) = 18 + 68, \qquad b_1 = 0.1(l_1 - 80) + 0.9(5)$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Mức Level $l_1 = $</span>
+                <input type="text" class="blank-input" data-ans="86.0" data-tol="0.05" placeholder="Nhập l1...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Độ dốc Trend $b_1 = $</span>
+                <input type="text" class="blank-input" data-ans="5.1" data-tol="0.05" placeholder="Nhập b1...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Dự báo $\hat{y}_{2|1} = l_1 + b_1 = $</span>
+                <input type="text" class="blank-input" data-ans="91.1" data-tol="0.05" placeholder="Nhập y2...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tại $t=2$, quan sát thực tế $y_2 = 94$:</p>
-            <p>Cập nhật Level: $l_2 = 0.2 \times 94 + 0.8 \times (86.0 + 5.1) = 18.8 + 0.8 \times 91.1 = 18.8 + 72.88 =$ [ <input class="blank-input" data-ans="91.68" data-tol="0.05" placeholder="l2..."> ]</p>
-            <p>Cập nhật Trend: $b_2 = 0.1 \times (91.68 - 86.0) + 0.9 \times 5.1 = 0.568 + 4.59 =$ [ <input class="blank-input" data-ans="5.158" data-tol="0.05" placeholder="b2..."> ]</p>
+            <div class="step-desc">Bước 2: Tại $t=2$, quan sát thực tế $y_2 = 94$</div>
+            <div class="math-block">
+                $$l_2 = 0.2(94) + 0.8(86.0 + 5.1) = 18.8 + 0.8(91.1)$$
+                $$b_2 = 0.1(l_2 - 86.0) + 0.9(5.1)$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Mức Level $l_2 = $</span>
+                <input type="text" class="blank-input" data-ans="91.68" data-tol="0.05" placeholder="Nhập l2...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Độ dốc Trend $b_2 = $</span>
+                <input type="text" class="blank-input" data-ans="5.158" data-tol="0.05" placeholder="Nhập b2...">
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 3:</strong> Dự báo tương lai từ mốc $t=2$:</p>
-            <p>Dự báo thời điểm $t=3$ ($h=1$): $\hat{y}_{3|2} = l_2 + 1 \times b_2 = 91.68 + 5.158 =$ [ <input class="blank-input" data-ans="96.838" data-tol="0.05" placeholder="y_hat_3|2..."> ]</p>
-            <p>Dự báo thời điểm $t=4$ ($h=2$): $\hat{y}_{4|2} = l_2 + 2 \times b_2 = 91.68 + 2 \times 5.158 =$ [ <input class="blank-input" data-ans="101.996" data-tol="0.05" placeholder="y_hat_4|2..."> ]</p>
+            <div class="step-desc">Bước 3: Dự báo tương lai từ mốc $t=2$</div>
+            <div class="math-block">
+                $$\hat{y}_{3|2} = l_2 + 1 \cdot b_2, \qquad \hat{y}_{4|2} = l_2 + 2 \cdot b_2$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo thời điểm $t=3$ ($h=1$):</span>
+                <input type="text" class="blank-input" data-ans="96.838" data-tol="0.05" placeholder="Nhập y3...">
+            </div>
+            <div class="input-row" style="margin-top: 8px;">
+                <span class="input-label">Dự báo thời điểm $t=4$ ($h=2$):</span>
+                <input type="text" class="blank-input" data-ans="101.996" data-tol="0.05" placeholder="Nhập y4...">
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem lời giải chi tiết Bài 2</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $l_1 = 0.2(90) + 0.8(85) = 18 + 68 = 86.0$. $b_1 = 0.1(86-80) + 0.9(5) = 0.6 + 4.5 = 5.1$. $\hat{y}_{2|1} = 86 + 5.1 = 91.1$.</p>
             <p>2. $l_2 = 0.2(94) + 0.8(91.1) = 18.8 + 72.88 = 91.68$. $b_2 = 0.1(91.68 - 86) + 0.9(5.1) = 0.568 + 4.59 = 5.158$.</p>
             <p>3. $\hat{y}_{3|2} = 91.68 + 5.158 = 96.838$. $\hat{y}_{4|2} = 91.68 + 2(5.158) = 101.996$.</p>
@@ -133,22 +196,36 @@
         <ul>
             <li>Mức hiện tại $l_{12} = 200.0$ triệu VNĐ</li>
             <li>Độ dốc xu hướng $b_{12} = 8.0$ triệu VNĐ/quý</li>
-            <li>Chỉ số mùa vụ 4 quý: $s_9 = 0.80$ (Q1), $s_{10} = 1.10$ (Q2), $s_{11} = 0.90$ (Q3), $s_{12} = 1.20$ (Q4)</li>
+            <li>Chỉ số mùa vụ: $s_9 = 0.80$ (Q1), $s_{10} = 1.10$ (Q2), $s_{11} = 0.90$ (Q3), $s_{12} = 1.20$ (Q4)</li>
         </ul>
 
         <div class="calc-step">
-            <p><strong>Bước 1:</strong> Tính dự báo Quý 1 năm kế tiếp ($t=13, h=1$, chỉ số mùa vụ $s_9 = 0.80$):</p>
-            $$\hat{y}_{13|12} = (l_{12} + 1 \times b_{12}) \times s_9 = (200 + 8) \times 0.80 = \text{ [ } <input class="blank-input" data-ans="166.4" data-tol="0.1" placeholder="y_hat_13..."> \text{ ] } \text{ (triệu)}$$
+            <div class="step-desc">Bước 1: Tính dự báo Quý 1 năm sau ($t=13, h=1$, chỉ số mùa vụ $s_9 = 0.80$)</div>
+            <div class="math-block">
+                $$\hat{y}_{13|12} = (l_{12} + 1 \cdot b_{12}) \times s_9 = (200 + 8) \times 0.80$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo Quý 1 $\hat{y}_{13} = $</span>
+                <input type="text" class="blank-input" data-ans="166.4" data-tol="0.1" placeholder="Nhập số...">
+                <span class="unit-label">triệu VNĐ</span>
+            </div>
         </div>
 
         <div class="calc-step">
-            <p><strong>Bước 2:</strong> Tính dự báo Quý 2 năm kế tiếp ($t=14, h=2$, chỉ số mùa vụ $s_{10} = 1.10$):</p>
-            $$\hat{y}_{14|12} = (l_{12} + 2 \times b_{12}) \times s_{10} = (200 + 16) \times 1.10 = \text{ [ } <input class="blank-input" data-ans="237.6" data-tol="0.1" placeholder="y_hat_14..."> \text{ ] } \text{ (triệu)}$$
+            <div class="step-desc">Bước 2: Tính dự báo Quý 2 năm sau ($t=14, h=2$, chỉ số mùa vụ $s_{10} = 1.10$)</div>
+            <div class="math-block">
+                $$\hat{y}_{14|12} = (l_{12} + 2 \cdot b_{12}) \times s_{10} = (200 + 16) \times 1.10$$
+            </div>
+            <div class="input-row">
+                <span class="input-label">Dự báo Quý 2 $\hat{y}_{14} = $</span>
+                <input type="text" class="blank-input" data-ans="237.6" data-tol="0.1" placeholder="Nhập số...">
+                <span class="unit-label">triệu VNĐ</span>
+            </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem lời giải chi tiết Bài 3</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Lời giải:</strong></p>
+            <p><strong>Lời giải chi tiết:</strong></p>
             <p>1. $\hat{y}_{13} = (200 + 8) \times 0.80 = 208 \times 0.80 = 166.4$ triệu VNĐ.</p>
             <p>2. $\hat{y}_{14} = (200 + 16) \times 1.10 = 216 \times 1.10 = 237.6$ triệu VNĐ.</p>
         </div>
@@ -161,11 +238,21 @@
         let correctCount = 0;
 
         inputs.forEach(input => {
-            const expected = parseFloat(input.getAttribute('data-ans'));
+            const expectedStr = input.getAttribute('data-ans').trim();
             const tolerance = parseFloat(input.getAttribute('data-tol')) || 0.01;
-            const userVal = parseFloat(input.value.trim());
+            const userRaw = input.value.trim().replace(',', '.');
 
-            if (!isNaN(userVal) && Math.abs(userVal - expected) <= tolerance) {
+            const expectedNum = parseFloat(expectedStr);
+            const userNum = parseFloat(userRaw);
+
+            let isCorrect = false;
+            if (!isNaN(userNum) && !isNaN(expectedNum)) {
+                isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
+            } else if (userRaw.toLowerCase() === expectedStr.toLowerCase()) {
+                isCorrect = true;
+            }
+
+            if (isCorrect) {
                 input.classList.remove('incorrect');
                 input.classList.add('correct');
                 correctCount++;
