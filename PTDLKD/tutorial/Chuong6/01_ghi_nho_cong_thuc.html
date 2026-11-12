@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01. Điền khuyết Ghi nhớ Công thức – Chương 6 (P2)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="top-nav-inner">
+        <a href="index.html" class="nav-brand">
+            <span>PTDLKD – IS403</span>
+            <span class="pill">Chương 6 (P2)</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Tổng quan</a>
+            <a href="01_ghi_nho_cong_thuc.html" class="nav-link active">1. Công thức (25–63)</a>
+            <a href="02_bai_toan_rnn_bptt.html" class="nav-link">2. RNN &amp; BPTT (VD3)</a>
+            <a href="03_bai_toan_lstm_gru_btlt9.html" class="nav-link">3. LSTM, GRU &amp; BTLT9</a>
+            <a href="04_bai_toan_isolation_forest.html" class="nav-link">4. Isolation Forest</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="page-header">
+        <div>
+            <span class="badge-header">Chế độ: 100% Điền khuyết (Fill-in-the-Blank)</span>
+            <h1>Ghi nhớ Toàn bộ Công thức Chương 6 (P2)</h1>
+            <p class="header-desc">
+                Hoàn thành tất cả các ô trống trong công thức từ (25) đến (63) theo tài liệu bài giảng của ThS. Dương Phi Long.
+                Bạn có thể nhập trực tiếp ký hiệu hoặc tên chữ cái (ví dụ: <code>sigma</code> hoặc <code>σ</code>, <code>eta</code> hoặc <code>η</code>, <code>gamma</code> hoặc <code>γ</code>, <code>theta</code> hoặc <code>θ</code>).
+            </p>
+        </div>
+        <div class="score-pill">
+            <div class="score-label">Số ô đúng</div>
+            <div class="score-value" id="pageScoreValue">0 / 0</div>
+        </div>
+    </header>
+
+    <!-- Quick Symbol Bar -->
+    <div class="symbol-bar">
+        <div class="symbol-group">
+            <span class="symbol-label">Chèn ký hiệu nhanh:</span>
+            <button type="button" class="sym-btn" onclick="insertSymbol('σ')">σ</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('η')">η</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('γ')">γ</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('θ')">θ</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('∇')">∇</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('∂')">∂</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('tanh')">tanh</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('max')">max</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('log')">log</button>
+            <button type="button" class="sym-btn" onclick="insertSymbol('ln')">ln</button>
+        </div>
+        <div class="symbol-group">
+            <button type="button" class="btn btn-primary" onclick="checkAllOnPage()">Kiểm tra tất cả</button>
+            <button type="button" class="btn btn-red" onclick="resetAllOnPage()">Làm lại tất cả</button>
+        </div>
+    </div>
+
+    <!-- SECTION A: NEURON & ACTIVATION -->
+    <section class="card" data-section="sec-ann-act">
+        <div class="card-header">
+            <div class="card-title">Phần A. Cấu trúc Neuron &amp; Hàm kích hoạt (Activation Functions)</div>
+            <span class="tag">Slide 55–56 • CT (25)–(29)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Tổng hợp đầu vào tuyến tính (Net Input)</span>
+                <span class="formula-num">(25)</span>
+            </div>
+            <div class="equation-line">
+                <span>$\text{Net}(w, x) = \sum_{i=1}^{n}$</span>
+                <input type="text" class="blank-input w-xs" data-ans="w_i|wi" data-display="w_i" placeholder="trọng số">
+                <span>$\cdot$</span>
+                <input type="text" class="blank-input w-xs" data-ans="x_i|xi" data-display="x_i" placeholder="đầu vào">
+                <span>$+$</span>
+                <input type="text" class="blank-input w-xs" data-ans="b" placeholder="bias">
+                <span>$= w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b$</span>
+            </div>
+            <div class="formula-note">Gợi ý ký hiệu chỉ số dưới: nhập <code>w_i</code> và <code>x_i</code>.</div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hàm Sigmoid (đầu ra thuộc khoảng $(0, 1)$)</span>
+                <span class="formula-num">(26)</span>
+            </div>
+            <div class="equation-line">
+                <span>$\sigma(z) = \dfrac{1}{1 + e^{\text{?}}} \implies$ Mẫu số là: $1 +$</span>
+                <input type="text" class="blank-input w-sm" data-ans="e^-z|exp(-z)|e^{-z}" data-display="e^-z" placeholder="lũy thừa">
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hàm Tanh – Hyperbolic Tangent (đầu ra thuộc khoảng $(-1, 1)$)</span>
+                <span class="formula-num">(27)</span>
+            </div>
+            <div class="equation-line">
+                <span>$\text{Tanh}(z) =$</span>
+                <span>$($</span>
+                <input type="text" class="blank-input w-md" data-ans="e^z-e^-z|e^{z}-e^{-z}" data-display="e^z - e^-z" placeholder="tử số">
+                <span>$) \,/\, ($</span>
+                <input type="text" class="blank-input w-md" data-ans="e^z+e^-z|e^{z}+e^{-z}" data-display="e^z + e^-z" placeholder="mẫu số">
+                <span>$)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hàm ReLU (Rectified Linear Unit)</span>
+                <span class="formula-num">(28)</span>
+            </div>
+            <div class="equation-line">
+                <span>$f(z) =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="max" placeholder="hàm">
+                <span>$($</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0" placeholder="số">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-xs" data-ans="z" placeholder="biến">
+                <span>$)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hàm Binary hard-limiter (hàm bước ngưỡng $\theta$)</span>
+                <span class="formula-num">(29)</span>
+            </div>
+            <div class="equation-line">
+                <span>$f(z) =$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0" placeholder="0/1">
+                <span>nếu $z <$</span>
+                <input type="text" class="blank-input w-xs" data-ans="θ|theta" data-display="θ" placeholder="ngưỡng">
+                <span>; và $f(z) =$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1" placeholder="0/1">
+                <span>nếu $z \ge \theta$</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-ann-act')">Kiểm tra Phần A</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-ann-act')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-ann-act')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-ann-act')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 Sigmoid dùng $1 + e^{-z}$; Tanh lấy hiệu trên tổng $(e^z - e^{-z}) / (e^z + e^{-z})$; ReLU giữ nguyên giá trị dương và triệt tiêu giá trị âm về $0$; Hard-limiter trả về $0$ dưới ngưỡng $\theta$ và $1$ từ ngưỡng $\theta$ trở lên.
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION B: LOSS FUNCTIONS & GRADIENT DESCENT -->
+    <section class="card" data-section="sec-loss-gd">
+        <div class="card-header">
+            <div class="card-title">Phần B. Hàm Mất Mát (Loss Functions) &amp; Gradient Descent</div>
+            <span class="tag">Slide 65–69 • CT (31)–(48)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hồi quy: Mean Squared Error (MSE) &amp; Mean Absolute Error (MAE)</span>
+                <span class="formula-num">(31)–(36)</span>
+            </div>
+            <div class="equation-line">
+                <span>$MSE_x = (y_x - \hat{y}_x)^{\text{?}} \implies$ số mũ:</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2" placeholder="mũ">
+                <span>;&nbsp;&nbsp; $MSLE_x = [\log(1+y_x) -$</span>
+                <input type="text" class="blank-input w-md" data-ans="log(1+y_hat)|log(1+ŷ_x)|log(1+\hat{y}_x)|log(1+y_x_hat)" data-display="log(1+ŷ_x)" placeholder="biểu thức">
+                <span>$]^2$</span>
+            </div>
+            <div class="equation-line">
+                <span>$MAE_x = \big|$</span>
+                <input type="text" class="blank-input w-sm" data-ans="y_x-y_hat|y_x-ŷ_x|y-y_hat" data-display="y_x - ŷ_x" placeholder="hiệu">
+                <span>$\big|$;&nbsp;&nbsp; $\mathcal{L}_{MSE} = \dfrac{1}{|D|} \sum_{x \in D}$</span>
+                <input type="text" class="blank-input w-sm" data-ans="MSE_x|MSE" data-display="MSE_x" placeholder="hàm lỗi">
+            </div>
+            <div class="formula-note">Gợi ý: Có thể gõ <code>y_hat</code> hoặc <code>ŷ_x</code> đại diện cho $\hat{y}_x$.</div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Phân lớp nhị phân: Binary Cross-Entropy (BCE) &amp; Hinge Loss</span>
+                <span class="formula-num">(37)–(42)</span>
+            </div>
+            <div class="equation-line">
+                <span>$BCE_x = -\big( y_x \log(\hat{y}_x) + ($</span>
+                <input type="text" class="blank-input w-sm" data-ans="1-y_x|1-y" data-display="1 - y_x" placeholder="1 - ?">
+                <span>$)\log($</span>
+                <input type="text" class="blank-input w-sm" data-ans="1-y_hat|1-ŷ_x" data-display="1 - ŷ_x" placeholder="1 - ?">
+                <span>$) \big)$</span>
+            </div>
+            <div class="equation-line">
+                <span>$Hinge_x = \max\big(0, \;$</span>
+                <input type="text" class="blank-input w-md" data-ans="1-y_x*y_hat|1-y_x*ŷ_x|1-y_x·ŷ_x|1-y*y_hat" data-display="1 - y_x * ŷ_x" placeholder="1 - ?">
+                <span>$\big)$ với $y_x \in \{$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="-1" placeholder="nhãn 1">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1" placeholder="nhãn 2">
+                <span>$\}$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Phân lớp đa lớp: Categorical Cross-Entropy &amp; Sparse Cross-Entropy</span>
+                <span class="formula-num">(43)–(46)</span>
+            </div>
+            <div class="equation-line">
+                <span>Điều kiện phân bố xác suất đa lớp: $\sum_{j=1}^{C} \hat{y}_{xj} =$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1" placeholder="tổng">
+            </div>
+            <div class="equation-line">
+                <span>Sparse Cross-Entropy: $SCE_x =$</span>
+                <input type="text" class="blank-input w-sm" data-ans="-log|-ln" data-display="-log" placeholder="dấu + hàm">
+                <span>$(\hat{y}_{y_x})$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Quy tắc cập nhật trọng số bằng Gradient Descent</span>
+                <span class="formula-num">(47)–(48)</span>
+            </div>
+            <div class="equation-line">
+                <span>$\Delta w =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="-η|-eta" data-display="-η" placeholder="dấu + lr">
+                <span>$\cdot \nabla\mathcal{L}(w)$;&nbsp;&nbsp;&nbsp; $\Delta w_i = -\eta \cdot \dfrac{\partial \mathcal{L}}{\partial \text{?}} \implies$ mẫu số đạo hàm:</span>
+                <input type="text" class="blank-input w-xs" data-ans="w_i|wi" data-display="w_i" placeholder="biến">
+            </div>
+            <div class="formula-note">Trong đó $\eta$ (<code>eta</code>) là tốc độ học (learning rate).</div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-loss-gd')">Kiểm tra Phần B</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-loss-gd')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-loss-gd')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-loss-gd')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 BCE dùng cho nhãn $0/1$; Hinge Loss dùng nhãn $-1$ và $1$; tổng xác suất các lớp ở tầng Softmax luôn bằng $1$; Gradient Descent cập nhật ngược chiều đạo hàm nên mang dấu âm ($-\eta \nabla\mathcal{L}$).
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION C: RNN -->
+    <section class="card" data-section="sec-rnn">
+        <div class="card-header">
+            <div class="card-title">Phần C. Mạng Neural Hồi Tiếp (RNN)</div>
+            <span class="tag">Slide 81 • CT (49)–(50)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Cập nhật Trạng thái ẩn (Hidden State) tại bước $t$</span>
+                <span class="formula-num">(49)</span>
+            </div>
+            <div class="equation-line">
+                <span>$h^{&lt;t&gt;} = g_1\big($</span>
+                <input type="text" class="blank-input w-xs" data-ans="W_hx|Whx" data-display="W_hx" placeholder="W">
+                <span>$\cdot x^{&lt;t&gt;} +$</span>
+                <input type="text" class="blank-input w-xs" data-ans="W_hh|Whh" data-display="W_hh" placeholder="W">
+                <span>$\cdot$</span>
+                <input type="text" class="blank-input w-sm" data-ans="h^{<t-1>}|h<t-1>|h_(t-1)|h_t-1" data-display="h<t-1>" placeholder="trạng thái cũ">
+                <span>$+$</span>
+                <input type="text" class="blank-input w-xs" data-ans="b_h|bh" data-display="b_h" placeholder="bias">
+                <span>$\big)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Tính Đầu ra (Output) tại bước $t$</span>
+                <span class="formula-num">(50)</span>
+            </div>
+            <div class="equation-line">
+                <span>$y^{&lt;t&gt;} = g_2\big($</span>
+                <input type="text" class="blank-input w-xs" data-ans="W_yh|Wyh" data-display="W_yh" placeholder="W">
+                <span>$\cdot$</span>
+                <input type="text" class="blank-input w-xs" data-ans="h^{<t>}|h<t>|h_t" data-display="h<t>" placeholder="hidden">
+                <span>$+$</span>
+                <input type="text" class="blank-input w-xs" data-ans="b_y|by" data-display="b_y" placeholder="bias">
+                <span>$\big)$</span>
+            </div>
+            <div class="formula-note">Lưu ý: có thể nhập dạng đơn giản như <code>h&lt;t-1&gt;</code>, <code>h&lt;t&gt;</code>, <code>W_hx</code>, <code>b_h</code>.</div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-rnn')">Kiểm tra Phần C</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-rnn')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-rnn')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-rnn')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 Quy tắc đặt chỉ số trọng số $W_{\text{đích},\text{nguồn}}$: từ $x \to h$ là $W_{hx}$, từ $h \to h$ là $W_{hh}$, từ $h \to y$ là $W_{yh}$.
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION D: LSTM -->
+    <section class="card" data-section="sec-lstm">
+        <div class="card-header">
+            <div class="card-title">Phần D. Long Short-Term Memory (LSTM)</div>
+            <span class="tag green">Slide 100–103 • CT (51)–(56)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Forget Gate ($f_t$) – Quyết định giữ hay quên trí nhớ dài hạn $C_{t-1}$</span>
+                <span class="formula-num">(51)</span>
+            </div>
+            <div class="equation-line">
+                <span>$f_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="σ|sigma|sigmoid" data-display="σ" placeholder="hàm">
+                <span>$\big( W_f \cdot [$</span>
+                <input type="text" class="blank-input w-xs" data-ans="h_{t-1}|h_t-1|h(t-1)" data-display="h_t-1" placeholder="hidden cũ">
+                <span>$, \; x_t] + b_f \big)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Input Gate ($i_t$) &amp; Giá trị ứng viên ($\tilde{C}_t$)</span>
+                <span class="formula-num">(52)–(53)</span>
+            </div>
+            <div class="equation-line">
+                <span>$i_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="σ|sigma|sigmoid" data-display="σ" placeholder="hàm (0..1)">
+                <span>$\big( W_i \cdot [h_{t-1}, x_t] + b_i \big)$</span>
+            </div>
+            <div class="equation-line">
+                <span>$\tilde{C}_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="tanh" placeholder="hàm (-1..1)">
+                <span>$\big( W_C \cdot [h_{t-1}, x_t] +$</span>
+                <input type="text" class="blank-input w-xs" data-ans="b_C|bC" data-display="b_C" placeholder="bias">
+                <span>$\big)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Cập nhật Trạng thái Ô nhớ (Cell State $C_t$)</span>
+                <span class="formula-num">(54)</span>
+            </div>
+            <div class="equation-line">
+                <span>$C_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="f_t|ft" data-display="f_t" placeholder="cổng quên">
+                <span>$*$</span>
+                <input type="text" class="blank-input w-xs" data-ans="C_{t-1}|C_t-1|Ct-1" data-display="C_t-1" placeholder="nhớ cũ">
+                <span>$+$</span>
+                <input type="text" class="blank-input w-xs" data-ans="i_t|it" data-display="i_t" placeholder="cổng vào">
+                <span>$* \; \tilde{C}_t$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Output Gate ($o_t$) &amp; Trạng thái ẩn mới ($h_t$)</span>
+                <span class="formula-num">(55)–(56)</span>
+            </div>
+            <div class="equation-line">
+                <span>$o_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="σ|sigma|sigmoid" data-display="σ" placeholder="hàm">
+                <span>$\big( W_o \cdot [h_{t-1}, x_t] + b_o \big)$</span>
+            </div>
+            <div class="equation-line">
+                <span>$h_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="o_t|ot" data-display="o_t" placeholder="cổng ra">
+                <span>$*$</span>
+                <input type="text" class="blank-input w-xs" data-ans="tanh" placeholder="hàm">
+                <span>$(C_t)$</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-lstm')">Kiểm tra Phần D</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-lstm')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-lstm')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-lstm')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 Mẹo nhớ LSTM: Các cổng điều khiển ($f_t, i_t, o_t$) đóng mở trong $[0, 1]$ nên luôn dùng hàm $\sigma$ (Sigmoid). Giá trị nội dung ứng viên $\tilde{C}_t$ và bước nén $C_t$ trước khi xuất ra $h_t$ dùng hàm $\tanh$ (trong $[-1, 1]$).
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION E: GRU -->
+    <section class="card" data-section="sec-gru">
+        <div class="card-header">
+            <div class="card-title">Phần E. Gated Recurrent Unit (GRU)</div>
+            <span class="tag green">Slide 105 • CT (57)–(60)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Reset Gate ($r_t$) &amp; Update Gate ($z_t$)</span>
+                <span class="formula-num">(57)–(58)</span>
+            </div>
+            <div class="equation-line">
+                <span>$r_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="σ|sigma|sigmoid" data-display="σ" placeholder="hàm">
+                <span>$\big( W_r \cdot [h_{t-1}, x_t] \big)$;&nbsp;&nbsp;&nbsp; $z_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="σ|sigma|sigmoid" data-display="σ" placeholder="hàm">
+                <span>$\big( W_z \cdot [h_{t-1}, x_t] \big)$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Hidden State ứng viên ($\tilde{h}_t$) &amp; Hidden State đầu ra ($h_t$)</span>
+                <span class="formula-num">(59)–(60)</span>
+            </div>
+            <div class="equation-line">
+                <span>$\tilde{h}_t =$</span>
+                <input type="text" class="blank-input w-xs" data-ans="tanh" placeholder="hàm">
+                <span>$\big( W_h \cdot [$</span>
+                <input type="text" class="blank-input w-sm" data-ans="r_t*h_{t-1}|r_t*h_t-1|rt*ht-1" data-display="r_t * h_t-1" placeholder="reset * h">
+                <span>$, \; x_t] \big)$</span>
+            </div>
+            <div class="equation-line">
+                <span>$h_t = ($</span>
+                <input type="text" class="blank-input w-sm" data-ans="1-z_t|1-zt" data-display="1 - z_t" placeholder="phần giữ cũ">
+                <span>$) * h_{t-1} +$</span>
+                <input type="text" class="blank-input w-xs" data-ans="z_t|zt" data-display="z_t" placeholder="update">
+                <span>$* \; \tilde{h}_t$</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-gru')">Kiểm tra Phần E</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-gru')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-gru')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-gru')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 Trong GRU (Slide 105): $r_t$ nhân trực tiếp với $h_{t-1}$ để lọc thông tin quá khứ trước khi tạo $\tilde{h}_t$. Cuối cùng $h_t$ là nội suy tuyến tính giữa $h_{t-1}$ (trọng số $1 - z_t$) và $\tilde{h}_t$ (trọng số $z_t$).
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION F: ISOLATION FOREST -->
+    <section class="card" data-section="sec-iforest">
+        <div class="card-header">
+            <div class="card-title">Phần F. Phát hiện Bất thường – Isolation Forest</div>
+            <span class="tag amber">Slide 121–122 • CT (61)–(63)</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Điểm bất thường (Anomaly Score)</span>
+                <span class="formula-num">(61)</span>
+            </div>
+            <div class="equation-line">
+                <span>$score(x) =$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2" placeholder="cơ số">
+                <span>$^{-E(h(x)) / \text{?}} \implies$ Mẫu số trên số mũ:</span>
+                <input type="text" class="blank-input w-xs" data-ans="c(n)" placeholder="chuẩn hóa">
+                <span>;&nbsp;&nbsp; $score(x) \in [$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0" placeholder="min">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1" placeholder="max">
+                <span>$]$</span>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Kỳ vọng chiều dài đường đi tìm kiếm không thành công trong BST</span>
+                <span class="formula-num">(62)</span>
+            </div>
+            <div class="equation-line">
+                <span>$c(n) =$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2" placeholder="hệ số">
+                <span>$\cdot H(n - 1) - \dfrac{2(n - 1)}{\text{?}} \implies$ Mẫu số phân thức:</span>
+                <input type="text" class="blank-input w-xs" data-ans="n" placeholder="biến">
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="formula-meta">
+                <span class="formula-name">Số điều hòa (Harmonic Number) &amp; Ngưỡng phân loại</span>
+                <span class="formula-num">(63)</span>
+            </div>
+            <div class="equation-line">
+                <span>$H(n) \approx$</span>
+                <input type="text" class="blank-input w-sm" data-ans="ln(n)|log_e(n)" data-display="ln(n)" placeholder="logarit">
+                <span>$+$</span>
+                <input type="text" class="blank-input w-xs" data-ans="γ|gamma" data-display="γ" placeholder="hằng số">
+                <span>(với $\gamma \approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.5772" placeholder="số thập phân">
+                <span>); Ngưỡng phân biệt thông thường: $\sim$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="0.5" placeholder="ngưỡng">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-iforest')">Kiểm tra Phần F</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-iforest')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-iforest')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-iforest')">Làm lại</button>
+        </div>
+        <div class="hint-box">
+            💡 Cơ số lũy thừa của $score(x)$ là $2$; $c(n) = 2H(n-1) - \frac{2(n-1)}{n}$; Hằng số Euler-Mascheroni $\gamma \approx 0.5772$; Ngưỡng mặc định của Isolation Forest là $0.5$ (gần $1$ là bất thường, $\le 0.5$ là bình thường).
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+</div>
+
+<script>const PAGE_KEY = 'formulas';</script>
+<script src="common.js"></script>
+</body>
+</html>

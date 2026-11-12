@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. Bài toán Phát hiện Bất thường &amp; Isolation Forest – Chương 6 (P2)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="top-nav-inner">
+        <a href="index.html" class="nav-brand">
+            <span>PTDLKD – IS403</span>
+            <span class="pill">Chương 6 (P2)</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Tổng quan</a>
+            <a href="01_ghi_nho_cong_thuc.html" class="nav-link">1. Công thức (25–63)</a>
+            <a href="02_bai_toan_rnn_bptt.html" class="nav-link">2. RNN &amp; BPTT (VD3)</a>
+            <a href="03_bai_toan_lstm_gru_btlt9.html" class="nav-link">3. LSTM, GRU &amp; BTLT9</a>
+            <a href="04_bai_toan_isolation_forest.html" class="nav-link active">4. Isolation Forest</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="page-header">
+        <div>
+            <span class="badge-header">Slide 117–122 • 100% Điền khuyết</span>
+            <h1>Phát hiện Bất thường &amp; Isolation Forest</h1>
+            <p class="header-desc">
+                Ôn luyện quy trình xây dựng cây phân tách iTree, đếm chiều dài đường đi (Path Length) trực quan trên cây,
+                tính hệ số chuẩn hóa $c(n)$ và điểm bất thường $score(x)$.
+            </p>
+        </div>
+        <div class="score-pill">
+            <div class="score-label">Số ô đúng</div>
+            <div class="score-value" id="pageScoreValue">0 / 0</div>
+        </div>
+    </header>
+
+    <!-- Isolation Forest Calculator Helper -->
+    <div class="calc-widget">
+        <span style="font-weight:700; color:var(--accent-indigo);">🧮 Máy tính nhanh $H(n-1),\; c(n),\; 2^{-E/c}$:</span>
+        <label>$n$: <input type="number" id="ifN" value="256" min="2" oninput="calcIfHelper()"></label>
+        <label>$E(h(x))$: <input type="number" id="ifE" value="2.5" step="0.1" oninput="calcIfHelper()"></label>
+        <span>$H(n-1) \approx$ <span id="ifHOut" class="calc-result">6.1185</span></span>
+        <span>$c(n) \approx$ <span id="ifCOut" class="calc-result">10.2447</span></span>
+        <span>$score(x) \approx$ <span id="ifSOut" class="calc-result">0.8444</span></span>
+    </div>
+
+    <!-- SECTION 1: CONCEPT & STEPS -->
+    <section class="card" data-section="sec-if-concept">
+        <div class="card-header">
+            <div class="card-title">Phần 1. Nguyên lý &amp; Quy trình xây dựng Isolation Tree (iTree)</div>
+            <span class="tag">Slide 117–122</span>
+        </div>
+
+        <div class="formula-item">
+            <div class="equation-line">
+                <span>1. Isolation Forest dựa trên 2 đặc điểm của điểm bất thường: chúng</span>
+                <input type="text" class="blank-input w-sm" data-type="text" data-ans="hiem" data-display="hiếm" placeholder="tính chất 1">
+                <span>(ít xuất hiện) và</span>
+                <input type="text" class="blank-input w-sm" data-type="text" data-ans="khac biet" data-display="khác biệt" placeholder="tính chất 2">
+                <span>so với phần lớn dữ liệu còn lại.</span>
+            </div>
+            <div class="equation-line">
+                <span>2. Ba bước xây dựng cây iTree gồm: (a) Lấy mẫu ngẫu nhiên (<code>Random Subsampling</code>), (b)</span>
+                <input type="text" class="blank-input w-md" data-type="text" data-ans="chia ngau nhien|random splitting" data-display="Chia ngẫu nhiên" placeholder="bước 2">
+                <span>, và (c) Phân tách</span>
+                <input type="text" class="blank-input w-sm" data-type="text" data-ans="de quy|recursive partitioning" data-display="đệ quy" placeholder="bước 3">
+                <span>.</span>
+            </div>
+            <div class="equation-line">
+                <span>3. Điểm bất thường có chiều dài đường đi (Path Length)</span>
+                <input type="text" class="blank-input w-sm" data-type="text" data-ans="ngan|ngan hon" data-display="ngắn" placeholder="ngắn/dài">
+                <span>do bị cô lập nhanh; ngược lại điểm bình thường có chiều dài đường đi</span>
+                <input type="text" class="blank-input w-sm" data-type="text" data-ans="dai|dai hon" data-display="dài" placeholder="ngắn/dài">
+                <span>.</span>
+            </div>
+            <div class="equation-line">
+                <span>4. Khi $score(x) \to$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1">
+                <span>: rất bất thường; khi $score(x) \to$</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">
+                <span>: bình thường; ngưỡng mặc định để phân biệt là khoảng:</span>
+                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="0.5">
+                <span>.</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-if-concept')">Kiểm tra Phần 1</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-if-concept')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-if-concept')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-if-concept')">Làm lại</button>
+        </div>
+        <div class="hint-box">💡 Nhớ Slide 117–122: Bất thường là "hiếm và khác biệt" $\implies$ Path Length ngắn $\implies$ $2^{-E/c} \to 2^0 = 1$.</div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION 2: CALCULATION WITH n = 256 -->
+    <section class="card" data-section="sec-if-n256">
+        <div class="card-header">
+            <div class="card-title">Phần 2. Bài toán Tính Điểm Bất thường chuẩn hóa ($n = 256$)</div>
+            <span class="tag amber">Áp dụng CT (61)–(63)</span>
+        </div>
+        <p style="margin-bottom:12px; color:var(--text-muted);">
+            Một mô hình Isolation Forest huấn luyện trên tập con gồm $n = 256$ điểm dữ liệu (lấy $\gamma = 0.5772$, làm tròn kết quả 4 chữ số thập phân).
+        </p>
+
+        <div class="formula-item">
+            <div class="equation-line">
+                <span><strong>Bước 1:</strong> Tính số điều hòa $H(255) \approx \ln(255) + 0.5772 =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="6.1185">
+            </div>
+            <div class="equation-line">
+                <span><strong>Bước 2:</strong> Tính giá trị chuẩn hóa $c(256) = 2 H(255) - \dfrac{2(255)}{256} =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.02" data-ans="10.2447">
+            </div>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Điểm dữ liệu</th>
+                    <th>Chiều dài đường đi TB $E(h(x))$</th>
+                    <th>$score(x) = 2^{-E(h(x))/c(256)}$</th>
+                    <th>Kết luận (gõ: <code>Bất thường</code> hoặc <code>Bình thường</code>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Điểm $P_1$</strong></td>
+                    <td>2.5</td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="0.8444"></td>
+                    <td><input type="text" class="blank-input w-md" data-type="text" data-ans="bat thuong|anomaly" data-display="Bất thường" placeholder="Bất thường / Bình thường"></td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm $P_2$</strong></td>
+                    <td>4.0</td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="0.7629"></td>
+                    <td><input type="text" class="blank-input w-md" data-type="text" data-ans="bat thuong|anomaly" data-display="Bất thường" placeholder="Bất thường / Bình thường"></td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm $P_3$</strong></td>
+                    <td>16.8</td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="0.3209"></td>
+                    <td><input type="text" class="blank-input w-md" data-type="text" data-ans="binh thuong|normal" data-display="Bình thường" placeholder="Bất thường / Bình thường"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-if-n256')">Kiểm tra Phần 2</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-if-n256')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-if-n256')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-if-n256')">Làm lại</button>
+        </div>
+        <div class="hint-box">💡 Với $score(x) > 0.5$ (đặc biệt $\gg 0.5$) thì kết luận là <strong>Bất thường</strong>; ngược lại $score(x) < 0.5$ là <strong>Bình thường</strong>.</div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION 3: READ ITREE DIAGRAM & COMPUTE -->
+    <section class="card" data-section="sec-if-tree">
+        <div class="card-header">
+            <div class="card-title">Phần 3. Đọc Cây iTree Trực quan &amp; Tính Path Length ($n = 6$)</div>
+            <span class="tag green">Đếm số cạnh từ gốc đến lá</span>
+        </div>
+        <p style="margin-bottom:14px; color:var(--text-muted);">
+            Cho một rừng gồm 2 cây phân tách (<strong>iTree 1</strong> và <strong>iTree 2</strong>) xây dựng từ $n = 6$ điểm $\{A, B, C, D, E, F\}$.
+            Hãy đếm số cạnh (Path Length $h(x)$) từ nút gốc xuống từng lá ở hai cây và tính $score(x)$:
+        </p>
+
+        <div class="grid-2" style="margin-bottom:18px;">
+            <!-- SVG iTree 1 -->
+            <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+                <div style="font-weight:700; color:var(--accent-blue); margin-bottom:8px;">Cây iTree 1 ($n = 6$)</div>
+                <svg viewBox="0 0 360 280" width="100%" style="max-width:360px;">
+                    <!-- Edges -->
+                    <line x1="180" y1="28" x2="90" y2="75" stroke="#64748b" stroke-width="2"/>
+                    <line x1="180" y1="28" x2="240" y2="75" stroke="#64748b" stroke-width="2"/>
+                    <line x1="240" y1="75" x2="170" y2="125" stroke="#64748b" stroke-width="2"/>
+                    <line x1="240" y1="75" x2="290" y2="125" stroke="#64748b" stroke-width="2"/>
+                    <line x1="290" y1="125" x2="220" y2="175" stroke="#64748b" stroke-width="2"/>
+                    <line x1="290" y1="125" x2="325" y2="175" stroke="#64748b" stroke-width="2"/>
+                    <line x1="325" y1="175" x2="265" y2="220" stroke="#64748b" stroke-width="2"/>
+                    <line x1="325" y1="175" x2="340" y2="220" stroke="#64748b" stroke-width="2"/>
+                    <line x1="340" y1="220" x2="295" y2="260" stroke="#64748b" stroke-width="2"/>
+                    <line x1="340" y1="220" x2="345" y2="260" stroke="#64748b" stroke-width="2"/>
+                    <!-- Internal nodes -->
+                    <circle cx="180" cy="28" r="13" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="180" y="32" fill="#e2e8f0" font-size="10" text-anchor="middle">S1</text>
+                    <circle cx="240" cy="75" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="240" y="79" fill="#e2e8f0" font-size="10" text-anchor="middle">S2</text>
+                    <circle cx="290" cy="125" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="290" y="129" fill="#e2e8f0" font-size="10" text-anchor="middle">S3</text>
+                    <circle cx="325" cy="175" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="325" y="179" fill="#e2e8f0" font-size="10" text-anchor="middle">S4</text>
+                    <circle cx="340" cy="220" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="340" y="224" fill="#e2e8f0" font-size="10" text-anchor="middle">S5</text>
+                    <!-- Leaves -->
+                    <rect x="74" y="61" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="90" y="79" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">A</text>
+                    <rect x="154" y="112" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="170" y="130" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">B</text>
+                    <rect x="204" y="162" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="220" y="180" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">C</text>
+                    <rect x="249" y="207" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="265" y="225" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">D</text>
+                    <rect x="279" y="246" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="295" y="264" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">E</text>
+                    <rect x="329" y="246" width="30" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="344" y="264" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">F</text>
+                </svg>
+            </div>
+
+            <!-- SVG iTree 2 -->
+            <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+                <div style="font-weight:700; color:var(--accent-blue); margin-bottom:8px;">Cây iTree 2 ($n = 6$)</div>
+                <svg viewBox="0 0 360 280" width="100%" style="max-width:360px;">
+                    <line x1="180" y1="28" x2="90" y2="75" stroke="#64748b" stroke-width="2"/>
+                    <line x1="180" y1="28" x2="240" y2="75" stroke="#64748b" stroke-width="2"/>
+                    <line x1="240" y1="75" x2="170" y2="125" stroke="#64748b" stroke-width="2"/>
+                    <line x1="240" y1="75" x2="290" y2="125" stroke="#64748b" stroke-width="2"/>
+                    <line x1="290" y1="125" x2="220" y2="175" stroke="#64748b" stroke-width="2"/>
+                    <line x1="290" y1="125" x2="325" y2="175" stroke="#64748b" stroke-width="2"/>
+                    <line x1="325" y1="175" x2="265" y2="220" stroke="#64748b" stroke-width="2"/>
+                    <line x1="325" y1="175" x2="340" y2="220" stroke="#64748b" stroke-width="2"/>
+                    <line x1="340" y1="220" x2="295" y2="260" stroke="#64748b" stroke-width="2"/>
+                    <line x1="340" y1="220" x2="345" y2="260" stroke="#64748b" stroke-width="2"/>
+                    <!-- Internal nodes -->
+                    <circle cx="180" cy="28" r="13" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+                    <text x="180" y="32" fill="#e2e8f0" font-size="10" text-anchor="middle">S1</text>
+                    <circle cx="240" cy="75" r="12" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+                    <text x="240" y="79" fill="#e2e8f0" font-size="10" text-anchor="middle">S2</text>
+                    <circle cx="290" cy="125" r="12" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+                    <text x="290" y="129" fill="#e2e8f0" font-size="10" text-anchor="middle">S3</text>
+                    <circle cx="325" cy="175" r="12" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+                    <text x="325" y="179" fill="#e2e8f0" font-size="10" text-anchor="middle">S4</text>
+                    <circle cx="340" cy="220" r="12" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+                    <text x="340" y="224" fill="#e2e8f0" font-size="10" text-anchor="middle">S5</text>
+                    <!-- Leaves -->
+                    <rect x="74" y="61" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="90" y="79" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">A</text>
+                    <rect x="154" y="112" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="170" y="130" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">F</text>
+                    <rect x="204" y="162" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="220" y="180" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">B</text>
+                    <rect x="249" y="207" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="265" y="225" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">C</text>
+                    <rect x="279" y="246" width="32" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="295" y="264" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">D</text>
+                    <rect x="329" y="246" width="30" height="26" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+                    <text x="344" y="264" fill="#6ee7b7" font-size="13" font-weight="bold" text-anchor="middle">E</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="formula-item">
+            <div class="equation-line">
+                <span>Hệ số chuẩn hóa cho $n = 6$: $H(5) \approx \ln(5) + 0.5772 =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="2.1866">
+                <span>$\implies c(6) = 2H(5) - \dfrac{10}{6} =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.02" data-ans="2.7066">
+            </div>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Điểm</th>
+                    <th>$h_1(x)$ (Tree 1)</th>
+                    <th>$h_2(x)$ (Tree 2)</th>
+                    <th>$E(h(x))$</th>
+                    <th>$score(x) = 2^{-E/c(6)}$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>A</strong></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="1"></td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="0.7741"></td>
+                </tr>
+                <tr>
+                    <td><strong>B</strong></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="3"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="2.5"></td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="0.5272"></td>
+                </tr>
+                <tr>
+                    <td><strong>E</strong></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="5"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="5"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="5"></td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="0.2779"></td>
+                </tr>
+                <tr>
+                    <td><strong>F</strong></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="5"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2"></td>
+                    <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.01" data-ans="3.5"></td>
+                    <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="0.4081"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="formula-item">
+            <div class="equation-line">
+                <span><strong>Kết luận:</strong> Điểm có khả năng bất thường cao nhất (bị cô lập nhanh nhất) là điểm:</span>
+                <input type="text" class="blank-input w-xs" data-type="text" data-ans="a" data-display="A" placeholder="A/B/E/F">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-if-tree')">Kiểm tra Phần 3</button>
+            <button type="button" class="btn btn-amber" onclick="toggleHint('sec-if-tree')">Gợi ý</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-if-tree')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-if-tree')">Làm lại</button>
+        </div>
+        <div class="hint-box">💡 Path Length $h(x)$ là số cạnh đi từ nút gốc $S1$ xuống tới nút lá chứa điểm đó. Điểm $A$ ở ngay nhánh trái của $S1$ nên có $h(A) = 1$ ở cả hai cây!</div>
+        <div class="feedback-box"></div>
+    </section>
+
+    <!-- SECTION 4: DYNAMIC RANDOM PRACTICE -->
+    <section class="card" data-section="sec-if-rand">
+        <div class="card-header">
+            <div class="card-title">Phần 4. Tự luyện sinh bài toán Isolation Forest ngẫu nhiên</div>
+            <button type="button" class="btn btn-primary" onclick="generateIfProblem()">🎲 Sinh đề mới</button>
+        </div>
+        <div id="ifRandBody"></div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="checkSection('sec-if-rand')">Kiểm tra đề tự luyện</button>
+            <button type="button" class="btn btn-green" onclick="revealSection('sec-if-rand')">Hiện đáp án</button>
+            <button type="button" class="btn btn-red" onclick="resetSection('sec-if-rand')">Làm lại</button>
+        </div>
+        <div class="feedback-box"></div>
+    </section>
+</div>
+
+<script>
+const PAGE_KEY = 'isolation_forest';
+
+function calcIfHelper() {
+    const n = parseFloat(document.getElementById('ifN').value);
+    const e = parseFloat(document.getElementById('ifE').value);
+    if (Number.isNaN(n) || n < 2 || Number.isNaN(e)) return;
+    const h = Math.log(n - 1) + 0.5772;
+    const c = 2 * h - (2 * (n - 1)) / n;
+    const s = Math.pow(2, -e / c);
+    document.getElementById('ifHOut').textContent = h.toFixed(4);
+    document.getElementById('ifCOut').textContent = c.toFixed(4);
+    document.getElementById('ifSOut').textContent = s.toFixed(4);
+}
+
+function generateIfProblem() {
+    const nOptions = [64, 100, 128, 200, 256, 512];
+    const n = nOptions[Math.floor(Math.random() * nOptions.length)];
+    const h = Math.log(n - 1) + 0.5772;
+    const c = 2 * h - (2 * (n - 1)) / n;
+    const eLow = Math.round((1.5 + Math.random() * 1.5) * 10) / 10;
+    const eHigh = Math.round((c * 1.4 + Math.random() * 2.0) * 10) / 10;
+    const sLow = Math.pow(2, -eLow / c);
+    const sHigh = Math.pow(2, -eHigh / c);
+
+    document.getElementById('ifRandBody').innerHTML = `
+        <div class="formula-item">
+            <p style="margin-bottom:10px;">
+                Cho tập lấy mẫu kích thước $n = ${n}$ điểm. Thực hiện tính toán (làm tròn 4 chữ số thập phân):
+            </p>
+            <div class="equation-line">
+                <span>1. $H(${n-1}) \\approx \\ln(${n-1}) + 0.5772 =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${h.toFixed(4)}">
+                <span>;&nbsp;&nbsp; $c(${n}) =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.02" data-ans="${c.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>2. Điểm $X_1$ có $E(h(X_1)) = ${eLow} \\implies score(X_1) =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${sLow.toFixed(4)}">
+                <span>$\\implies$ Kết luận:</span>
+                <input type="text" class="blank-input w-md" data-type="text" data-ans="bat thuong|anomaly" data-display="Bất thường" placeholder="Bất thường / Bình thường">
+            </div>
+            <div class="equation-line">
+                <span>3. Điểm $X_2$ có $E(h(X_2)) = ${eHigh} \\implies score(X_2) =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${sHigh.toFixed(4)}">
+                <span>$\\implies$ Kết luận:</span>
+                <input type="text" class="blank-input w-md" data-type="text" data-ans="binh thuong|normal" data-display="Bình thường" placeholder="Bất thường / Bình thường">
+            </div>
+        </div>
+    `;
+
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.getElementById('ifRandBody'), {
+            delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]
+        });
+    }
+    const fb = document.querySelector('[data-section="sec-if-rand"] .feedback-box');
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    updatePageProgress(false);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    calcIfHelper();
+    generateIfProblem();
+});
+</script>
+<script src="common.js"></script>
+</body>
+</html>

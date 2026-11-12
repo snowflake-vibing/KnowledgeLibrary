@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PTDLKD Chương 6 (P2) — Luyện tập Điền khuyết</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <div class="nav-brand">
+        <span>PTDLKD • Chương 6 (P2)</span>
+        <span class="pill">100% Điền khuyết</span>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link active" href="index.html">Tổng quan</a>
+        <a class="nav-link" href="01_ghi_nho_cong_thuc.html">1. Công thức (25)–(63)</a>
+        <a class="nav-link" href="02_bai_toan_rnn_bptt.html">2. RNN &amp; BPTT (VD3)</a>
+        <a class="nav-link" href="03_bai_toan_lstm_gru_btlt9.html">3. LSTM, GRU &amp; BTLT9</a>
+        <a class="nav-link" href="04_bai_toan_isolation_forest.html">4. Isolation Forest</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <span class="badge-header">IS403 — Phân tích Dữ liệu Kinh doanh (ThS. Dương Phi Long)</span>
+        <h1>Ôn tập &amp; Giải toán Chương 6 (Phần 2)</h1>
+        <p class="header-desc">
+          Hệ thống bài tập tương tác bám sát toàn bộ slide Phần 2: Mạng Nơ-ron (ANN), Hàm kích hoạt, Hàm mất mát,
+          Gradient Descent, RNN &amp; BPTT (VD3), LSTM, GRU, BTLT9 và Isolation Forest.
+          <strong>Chỉ sử dụng dạng điền khuyết</strong> — gõ trực tiếp công thức, ký hiệu hoặc kết quả tính toán.
+        </p>
+      </div>
+      <div class="score-pill">
+        <div class="score-label">Tổng tiến độ 4 học phần</div>
+        <div class="score-value" id="overallScore">0 / 0</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">Lộ trình 4 học phần luyện tập</h2>
+        <div class="btn-group">
+          <button type="button" class="btn btn-red" id="clearProgressBtn">Xóa tiến độ đã lưu</button>
+        </div>
+      </div>
+
+      <div class="grid-2" id="moduleGrid">
+        <a class="module-card" href="01_ghi_nho_cong_thuc.html" data-module-key="formulas">
+          <div class="card-header">
+            <span class="tag">Học phần 1</span>
+            <span class="tag amber" data-status-text>Chưa làm</span>
+          </div>
+          <h3>Ghi nhớ Công thức (25)–(63)</h3>
+          <p>
+            Điền khuyết các thành phần cốt lõi trong toàn bộ công thức ANN, Sigmoid/Tanh/ReLU/Softmax,
+            MSE/Cross-Entropy, Gradient Descent, RNN, LSTM, GRU và Isolation Forest. Có thanh chèn ký hiệu nhanh.
+          </p>
+          <div class="progress-track">
+            <div class="progress-fill" data-progress-bar style="width: 0%;"></div>
+          </div>
+          <div class="btn-group">
+            <span class="btn btn-primary">Mở học phần 1 →</span>
+            <span class="tag green" data-score-text>0 / 0 ô đúng</span>
+          </div>
+        </a>
+
+        <a class="module-card" href="02_bai_toan_rnn_bptt.html" data-module-key="rnn_bptt">
+          <div class="card-header">
+            <span class="tag">Học phần 2</span>
+            <span class="tag amber" data-status-text>Chưa làm</span>
+          </div>
+          <h3>Bài toán RNN &amp; Truncated BPTT (VD3)</h3>
+          <p>
+            Thực hành tạo Sliding Window trên chuỗi 6 ngày, tính tay Forward Pass qua các bước thời gian,
+            lan truyền ngược Truncated BPTT ($L = 3$), cập nhật trọng số và sinh bài toán ngẫu nhiên.
+          </p>
+          <div class="progress-track">
+            <div class="progress-fill" data-progress-bar style="width: 0%;"></div>
+          </div>
+          <div class="btn-group">
+            <span class="btn btn-primary">Mở học phần 2 →</span>
+            <span class="tag green" data-score-text>0 / 0 ô đúng</span>
+          </div>
+        </a>
+
+        <a class="module-card" href="03_bai_toan_lstm_gru_btlt9.html" data-module-key="lstm_gru_btlt9">
+          <div class="card-header">
+            <span class="tag">Học phần 3</span>
+            <span class="tag amber" data-status-text>Chưa làm</span>
+          </div>
+          <h3>LSTM, GRU &amp; Bài tập BTLT9</h3>
+          <p>
+            Hoàn thiện thiết kế kiến trúc BTLT9 (Câu 1), bảng cửa sổ trượt 10 ngày Giá &amp; Khuyến mãi (Câu 2),
+            tính toán cổng $f_t, i_t, \tilde{c}_t, c_t, o_t, h_t$ của LSTM và $z_t, r_t, \tilde{h}_t, h_t$ của GRU.
+          </p>
+          <div class="progress-track">
+            <div class="progress-fill" data-progress-bar style="width: 0%;"></div>
+          </div>
+          <div class="btn-group">
+            <span class="btn btn-primary">Mở học phần 3 →</span>
+            <span class="tag green" data-score-text>0 / 0 ô đúng</span>
+          </div>
+        </a>
+
+        <a class="module-card" href="04_bai_toan_isolation_forest.html" data-module-key="isolation_forest">
+          <div class="card-header">
+            <span class="tag">Học phần 4</span>
+            <span class="tag amber" data-status-text>Chưa làm</span>
+          </div>
+          <h3>Bài toán Isolation Forest</h3>
+          <p>
+            Điền công thức $H(i)$, $c(n)$, $s(x, n)$, giải bài toán mẫu $n = 256$, đếm chiều dài đường đi
+            $h(x)$ trực tiếp trên 2 cây iTree trực quan ($n = 6$) và luyện tập với bộ sinh ngẫu nhiên.
+          </p>
+          <div class="progress-track">
+            <div class="progress-fill" data-progress-bar style="width: 0%;"></div>
+          </div>
+          <div class="btn-group">
+            <span class="btn btn-primary">Mở học phần 4 →</span>
+            <span class="tag green" data-score-text>0 / 0 ô đúng</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" data-section="warmup">
+      <div class="card-header">
+        <h2 class="card-title">Khởi động nhanh (Điền khuyết tổng hợp 4 chủ đề)</h2>
+        <span class="tag">5 ô trống kiểm tra nhanh</span>
+      </div>
+
+      <p style="margin-bottom: 0.75rem;">
+        Thử điền nhanh 5 ý cốt lõi của Chương 6 (P2) trước khi vào từng học phần chi tiết:
+      </p>
+
+      <div style="display: grid; gap: 0.75rem; margin-bottom: 1rem;">
+        <div>
+          1. Hàm kích hoạt ẩn phổ biến giúp giảm vấn đề triệt tiêu đạo hàm ở phần dương:
+          $\text{ReLU}(z) = \max(0,$
+          <input type="text" class="blank-input sm" data-ans="z" placeholder="?">
+          $)$.
+        </div>
+        <div>
+          2. Với chuỗi độ dài $T = 6$ và kích thước cửa sổ $w = 3$ (dự báo 1 bước tiếp theo), số mẫu huấn luyện Sliding Window thu được là
+          <input type="text" class="blank-input sm" data-ans="3" data-type="number" data-tol="0" placeholder="?">
+          mẫu.
+        </div>
+        <div>
+          3. Trong LSTM, thành phần giúp truyền thông tin dài hạn với phép cộng tuyến tính ít bị suy giảm gradient là trạng thái ô nhớ ký hiệu
+          <input type="text" class="blank-input sm" data-ans="c_t|c^(t)|c<t>|ct" placeholder="?">
+          .
+        </div>
+        <div>
+          4. Trong GRU, cổng kết hợp cả vai trò cổng quên và cổng vào của LSTM là cổng cập nhật (update gate) ký hiệu
+          <input type="text" class="blank-input sm" data-ans="z_t|z^(t)|z<t>|zt" placeholder="?">
+          .
+        </div>
+        <div>
+          5. Trong Isolation Forest, khi $E(h(x)) \ll c(n)$ thì điểm bất thường $s(x, n)$ tiến gần tới
+          <input type="text" class="blank-input sm" data-ans="1" data-type="number" data-tol="0.01" placeholder="?">
+          (dữ liệu bất thường).
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" onclick="checkSection('warmup')">Kiểm tra</button>
+        <button type="button" class="btn" onclick="toggleHint('warmup')">Gợi ý</button>
+        <button type="button" class="btn" onclick="revealSection('warmup')">Hiện đáp án</button>
+        <button type="button" class="btn" onclick="resetSection('warmup')">Làm lại</button>
+      </div>
+      <div class="hint-box">
+        Gợi ý: (1) đầu vào tuyến tính $z$; (2) số mẫu $= T - w = 6 - 3$; (3) Cell state tại bước $t$ ký hiệu $c_t$; (4) Update gate ký hiệu $z_t$; (5) điểm bất thường $s(x,n) \to 1$.
+      </div>
+      <div class="feedback-box"></div>
+    </section>
+  </main>
+
+  <script src="common.js"></script>
+  <script>
+    const STORAGE_KEY = 'ptdlkd_chuong6_progress';
+
+    function renderDashboardProgress() {
+      let data = {};
+      try {
+        data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch (e) {
+        data = {};
+      }
+
+      let totalCorrect = 0;
+      let totalItems = 0;
+
+      document.querySelectorAll('[data-module-key]').forEach((card) => {
+        const key = card.getAttribute('data-module-key');
+        const entry = data[key];
+        const bar = card.querySelector('[data-progress-bar]');
+        const scoreText = card.querySelector('[data-score-text]');
+        const statusText = card.querySelector('[data-status-text]');
+
+        if (entry && typeof entry.total === 'number' && entry.total > 0) {
+          const correct = Math.max(0, Math.min(entry.correct || 0, entry.total));
+          const pct = Math.round((correct / entry.total) * 100);
+          totalCorrect += correct;
+          totalItems += entry.total;
+
+          if (bar) bar.style.width = pct + '%';
+          if (scoreText) scoreText.textContent = `${correct} / ${entry.total} ô đúng (${pct}%)`;
+          if (statusText) {
+            if (pct === 100) {
+              statusText.textContent = 'Hoàn thành';
+              statusText.className = 'tag green';
+            } else if (correct > 0) {
+              statusText.textContent = 'Đang luyện';
+              statusText.className = 'tag amber';
+            } else {
+              statusText.textContent = 'Đã mở';
+              statusText.className = 'tag';
+            }
+          }
+        } else {
+          if (bar) bar.style.width = '0%';
+          if (scoreText) scoreText.textContent = 'Chưa có dữ liệu';
+          if (statusText) {
+            statusText.textContent = 'Chưa làm';
+            statusText.className = 'tag amber';
+          }
+        }
+      });
+
+      const overallEl = document.getElementById('overallScore');
+      if (overallEl) {
+        overallEl.textContent = totalItems > 0 ? `${totalCorrect} / ${totalItems}` : '0 / 0';
+      }
+    }
+
+    document.getElementById('clearProgressBtn').addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      renderDashboardProgress();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDashboardProgress();
+    });
+  </script>
+</body>
+</html>

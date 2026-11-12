@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03. Bài toán LSTM, GRU &amp; BTLT9 – Chương 6 (P2)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="top-nav-inner">
+        <a href="index.html" class="nav-brand">
+            <span>PTDLKD – IS403</span>
+            <span class="pill">Chương 6 (P2)</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Tổng quan</a>
+            <a href="01_ghi_nho_cong_thuc.html" class="nav-link">1. Công thức (25–63)</a>
+            <a href="02_bai_toan_rnn_bptt.html" class="nav-link">2. RNN &amp; BPTT (VD3)</a>
+            <a href="03_bai_toan_lstm_gru_btlt9.html" class="nav-link active">3. LSTM, GRU &amp; BTLT9</a>
+            <a href="04_bai_toan_isolation_forest.html" class="nav-link">4. Isolation Forest</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="page-header">
+        <div>
+            <span class="badge-header">Slide 100–110 • 100% Điền khuyết</span>
+            <h1>Bài toán LSTM, GRU &amp; BTLT9</h1>
+            <p class="header-desc">
+                Hoàn thành bài tập trên lớp BTLT9 (thiết kế mạng dự báo đa bước, tạo dữ liệu Sliding Window) và luyện tập tính tay từng cổng trong LSTM và GRU.
+            </p>
+        </div>
+        <div class="score-pill">
+            <div class="score-label">Số ô đúng</div>
+            <div class="score-value" id="pageScoreValue">0 / 0</div>
+        </div>
+    </header>
+
+    <!-- Sigmoid & Tanh Calculator -->
+    <div class="calc-widget">
+        <span style="font-weight:700; color:var(--accent-indigo);">🧮 Máy tính nhanh $\sigma(z)$ &amp; $\tanh(z)$:</span>
+        <label>Nhập $z$: <input type="number" id="gateIn" step="0.01" value="0.5" oninput="calcGateHelper()"></label>
+        <span>$\sigma(z) = \frac{1}{1+e^{-z}} =$ <span id="sigOut" class="calc-result">0.6225</span></span>
+        <span>$\tanh(z) =$ <span id="tanhGateOut" class="calc-result">0.4621</span></span>
+    </div>
+
+    <div class="sub-tabs">
+        <button type="button" class="sub-tab-btn active" data-target="tab-btlt9-1">BTLT9 – Câu 1: Thiết kế Mạng</button>
+        <button type="button" class="sub-tab-btn" data-target="tab-btlt9-2">BTLT9 – Câu 2: Sliding Window</button>
+        <button type="button" class="sub-tab-btn" data-target="tab-lstm-gru-calc">Tính tay Cell LSTM &amp; GRU</button>
+    </div>
+
+    <!-- TAB 1: BTLT9 CAU 1 -->
+    <div id="tab-btlt9-1" class="sub-panel active">
+        <div class="card" data-section="sec-btlt9-q1">
+            <div class="card-header">
+                <div class="card-title">BTLT9 – Câu 1: Thiết kế Mạng Neural Dự báo Giá Sản phẩm (Slide 109)</div>
+                <span class="tag amber">1 điểm • Điền khuyết</span>
+            </div>
+
+            <div class="formula-item" style="border-color:rgba(56,189,248,0.35);">
+                <p>
+                    <strong>Đề bài:</strong> Một công ty thương mại điện tử thu thập dữ liệu lịch sử về giá của một sản phẩm theo ngày trong 03 năm (hơn 1000 ngày), gồm các thuộc tính:
+                    <code>Date</code>, <code>Price</code>, <code>Promotion</code> ($0$ hoặc $1$).
+                    Hãy thiết kế một mạng neural phù hợp để <strong>dự báo giá sản phẩm trong 7 ngày tiếp theo</strong> dựa trên dữ liệu <code>(Price, Promotion)</code> của <strong>30 ngày trước đó</strong>.
+                </p>
+            </div>
+
+            <div class="formula-item">
+                <div class="equation-line">
+                    <span>1. <strong>Loại mạng phù hợp nhất</strong> (nhớ phụ thuộc dài hạn theo chuỗi thời gian, tránh vanishing gradient):</span>
+                    <input type="text" class="blank-input w-sm" data-type="text" data-ans="lstm|gru|rnn" data-display="LSTM" placeholder="LSTM / GRU">
+                </div>
+                <div class="equation-line">
+                    <span>2. <strong>Kích thước Đầu vào (Input shape)</strong> $(timesteps, features) = ($</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="30" placeholder="ngày">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2" placeholder="đặc trưng">
+                    <span>$)$ (gồm <code>Price</code> và <code>Promotion</code>).</span>
+                </div>
+                <div class="equation-line">
+                    <span>3. <strong>Số lượng đặc trưng đầu vào tại mỗi time step</strong> là:</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="2" placeholder="số biến">
+                    <span>;&nbsp;&nbsp; Tổng số phần tử trong 1 mẫu Input là $30 \times 2 =$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="60" placeholder="tích">
+                </div>
+                <div class="equation-line">
+                    <span>4. <strong>Tầng đầu ra (Output layer)</strong> dùng tầng kết nối đầy đủ tên là:</span>
+                    <input type="text" class="blank-input w-sm" data-type="text" data-ans="dense|fully connected|fc|linear" data-display="Dense" placeholder="tên tầng">
+                    <span>với số neuron đầu ra là:</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="7" placeholder="số ngày">
+                </div>
+                <div class="equation-line">
+                    <span>5. <strong>Hàm kích hoạt ở tầng Output</strong> (vì đây là bài toán hồi quy dự báo giá liên tục):</span>
+                    <input type="text" class="blank-input w-sm" data-type="text" data-ans="linear|khong su dung|none|identity" data-display="Linear" placeholder="activation">
+                </div>
+                <div class="equation-line">
+                    <span>6. <strong>Hàm mất mát (Loss function)</strong> phù hợp để huấn luyện bài toán dự báo giá:</span>
+                    <input type="text" class="blank-input w-sm" data-type="text" data-ans="mse|mae|rmse|mean squared error|mean absolute error" data-display="MSE" placeholder="MSE / MAE">
+                </div>
+                <div class="equation-line">
+                    <span>7. <strong>Kích thước Đầu ra (Output)</strong> là vector dự báo <code>Price</code> của</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="7" placeholder="số ngày">
+                    <span>ngày tiếp theo.</span>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-btlt9-q1')">Kiểm tra Câu 1</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-btlt9-q1')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-btlt9-q1')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-btlt9-q1')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Với chuỗi 30 bước thời gian và 2 biến đầu vào (`Price`, `Promotion`), mạng **LSTM** (hoặc **GRU**) nhận input shape `(30, 2)`, tầng cuối là **Dense(7)** với hàm kích hoạt **Linear** (hoặc không dùng activation) và tối ưu bằng hàm loss **MSE** (hoặc **MAE**).</div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: BTLT9 CAU 2 -->
+    <div id="tab-btlt9-2" class="sub-panel">
+        <div class="card" data-section="sec-btlt9-q2">
+            <div class="card-header">
+                <div class="card-title">BTLT9 – Câu 2: Tạo Tập Huấn luyện Sliding Window (Slide 110)</div>
+                <span class="tag amber">Điền khuyết bảng dữ liệu</span>
+            </div>
+
+            <p style="margin-bottom:10px; color:var(--text-muted);">
+                Dữ liệu ghi nhận <code>Price</code> và <code>Promotion</code> trong <strong>10 ngày liên tiếp</strong> như sau:
+            </p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ngày ($t$)</th>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                        <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Price</strong></td>
+                        <td>100</td><td>102</td><td>104</td><td>104</td><td>101</td>
+                        <td>103</td><td>105</td><td>102</td><td>103</td><td>101</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Promotion</strong></td>
+                        <td>0</td><td>0</td><td>1</td><td>1</td><td>0</td>
+                        <td>1</td><td>1</td><td>0</td><td>1</td><td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula-item">
+                <div class="equation-line">
+                    <span>Yêu cầu: Dùng <code>Price</code> và <code>Promotion</code> của <strong>5 ngày liên tiếp</strong> để dự báo <code>Price</code> của <strong>2 ngày tiếp theo</strong>.</span>
+                </div>
+                <div class="equation-line">
+                    <span>Tổng số cặp <code>(Input, Output)</code> tạo được từ 10 ngày là: $10 - 5 - 2 + 1 =$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="4" placeholder="số cặp">
+                    <span>cặp mẫu.</span>
+                </div>
+            </div>
+
+            <p style="margin:12px 0 8px; font-weight:600; color:var(--accent-blue);">
+                Điền đầy đủ các cặp (Price, Promotion) cho Input và Price cho Output:
+            </p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Cặp mẫu</th>
+                        <th>Input: 5 ngày liên tiếp <code>[(Price, Promo), ...]</code></th>
+                        <th>Output: <code>Price</code> 2 ngày kế tiếp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mẫu 1</strong><br><small>(Ngày 1–5 $\to$ 6–7)</small></td>
+                        <td>
+                            [(100,0), (102,0), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="104">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1">), (104,1), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="101">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">)]
+                        </td>
+                        <td>
+                            [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="103">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="105">]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mẫu 2</strong><br><small>(Ngày 2–6 $\to$ 7–8)</small></td>
+                        <td>
+                            [(<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="102">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">), (104,1), (104,1), (101,0), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="103">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1">)]
+                        </td>
+                        <td>
+                            [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="105">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="102">]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mẫu 3</strong><br><small>(Ngày 3–7 $\to$ 8–9)</small></td>
+                        <td>
+                            [(104,1), (104,1), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="101">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">), (103,1), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="105">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="1">)]
+                        </td>
+                        <td>
+                            [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="102">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="103">]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mẫu 4</strong><br><small>(Ngày 4–8 $\to$ 9–10)</small></td>
+                        <td>
+                            [(104,1), (101,0), (103,1), (105,1), (<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="102">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">)]
+                        </td>
+                        <td>
+                            [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="103">, <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="101">]
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-btlt9-q2')">Kiểm tra Câu 2</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-btlt9-q2')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-btlt9-q2')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-btlt9-q2')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Công thức tổng số cửa sổ trượt: $N_{\text{cặp}} = L - W_{\text{in}} - W_{\text{out}} + 1 = 10 - 5 - 2 + 1 = 4$. Lưu ý Output chỉ lấy giá trị <code>Price</code> của 2 ngày tiếp theo, không kèm Promotion.</div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+
+    <!-- TAB 3: LSTM & GRU NUMERICAL CALCULATION -->
+    <div id="tab-lstm-gru-calc" class="sub-panel">
+        <!-- LSTM Calculation -->
+        <div class="card" data-section="sec-lstm-calc">
+            <div class="card-header">
+                <div class="card-title">3.1. Bài toán tính tay 1 bước Forward của LSTM Cell</div>
+                <button type="button" class="btn btn-primary" onclick="generateLstmProblem()">🎲 Sinh bộ số LSTM mới</button>
+            </div>
+            <div id="lstmPrompt" style="margin-bottom:14px; padding:12px 14px; background:var(--bg-input); border-radius:var(--radius-sm); border:1px solid var(--border-color);"></div>
+            <div id="lstmBody"></div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-lstm-calc')">Kiểm tra LSTM</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-lstm-calc')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-lstm-calc')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-lstm-calc')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Nhớ: $W_k \cdot [h_{t-1}, x_t] + b_k = w_{k,h} \cdot h_{t-1} + w_{k,x} \cdot x_t + b_k$. Tính theo đúng thứ tự: $f_t \to i_t \to \tilde{C}_t \to C_t \to o_t \to h_t$.</div>
+            <div class="feedback-box"></div>
+        </div>
+
+        <!-- GRU Calculation -->
+        <div class="card" data-section="sec-gru-calc">
+            <div class="card-header">
+                <div class="card-title">3.2. Bài toán tính tay 1 bước Forward của GRU Cell</div>
+                <button type="button" class="btn btn-primary" onclick="generateGruProblem()">🎲 Sinh bộ số GRU mới</button>
+            </div>
+            <div id="gruPrompt" style="margin-bottom:14px; padding:12px 14px; background:var(--bg-input); border-radius:var(--radius-sm); border:1px solid var(--border-color);"></div>
+            <div id="gruBody"></div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-gru-calc')">Kiểm tra GRU</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-gru-calc')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-gru-calc')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-gru-calc')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Trong GRU: $r_t$ lọc $h_{t-1}$ trước khi đưa vào tính $\tilde{h}_t = \tanh(w_{h,h}(r_t \cdot h_{t-1}) + w_{h,x} x_t)$. Cuối cùng $h_t = (1-z_t)h_{t-1} + z_t\tilde{h}_t$.</div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const PAGE_KEY = 'lstm_gru_btlt9';
+const sigmoid = z => 1 / (1 + Math.exp(-z));
+
+function calcGateHelper() {
+    const z = parseFloat(document.getElementById('gateIn').value);
+    if (Number.isNaN(z)) return;
+    document.getElementById('sigOut').textContent = sigmoid(z).toFixed(4);
+    document.getElementById('tanhGateOut').textContent = Math.tanh(z).toFixed(4);
+}
+
+function generateLstmProblem(isInit = false) {
+    const rnd = (min, max) => Math.round((min + Math.random() * (max - min)) * 10) / 10;
+    const hPrev = isInit ? 0.5 : rnd(-0.5, 0.8);
+    const cPrev = isInit ? 1.2 : rnd(0.4, 1.5);
+    const xt    = isInit ? 1.0 : rnd(0.5, 1.8);
+
+    const wf_h = isInit ? 0.6 : rnd(0.2, 0.9), wf_x = isInit ? 0.5 : rnd(0.2, 0.8), bf = isInit ? 0.1 : rnd(-0.2, 0.3);
+    const wi_h = isInit ? 0.4 : rnd(0.2, 0.8), wi_x = isInit ? 0.7 : rnd(0.2, 0.9), bi = isInit ? 0.0 : rnd(-0.2, 0.3);
+    const wc_h = isInit ? 0.3 : rnd(0.2, 0.7), wc_x = isInit ? 0.8 : rnd(0.2, 0.9), bc = isInit ? 0.1 : rnd(-0.2, 0.3);
+    const wo_h = isInit ? 0.5 : rnd(0.2, 0.8), wo_x = isInit ? 0.6 : rnd(0.2, 0.9), bo = isInit ? 0.0 : rnd(-0.2, 0.3);
+
+    const ft = sigmoid(wf_h * hPrev + wf_x * xt + bf);
+    const it = sigmoid(wi_h * hPrev + wi_x * xt + bi);
+    const cTilde = Math.tanh(wc_h * hPrev + wc_x * xt + bc);
+    const ct = ft * cPrev + it * cTilde;
+    const ot = sigmoid(wo_h * hPrev + wo_x * xt + bo);
+    const ht = ot * Math.tanh(ct);
+
+    document.getElementById('lstmPrompt').innerHTML = `
+        <strong>Dữ liệu LSTM (1 unit):</strong> $h_{t-1} = ${hPrev}$, $C_{t-1} = ${cPrev}$, $x_t = ${xt}$.<br>
+        Trọng số $[w_h, w_x], b$: Forget $([${wf_h}, ${wf_x}], ${bf})$, Input $([${wi_h}, ${wi_x}], ${bi})$, Candidate $([${wc_h}, ${wc_x}], ${bc})$, Output $([${wo_h}, ${wo_x}], ${bo})$.
+    `;
+
+    document.getElementById('lstmBody').innerHTML = `
+        <div class="formula-item">
+            <div class="equation-line">
+                <span>1. Forget Gate: $f_t = \\sigma(${wf_h}\\cdot ${hPrev} + ${wf_x}\\cdot ${xt} + ${bf}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${ft.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>2. Input Gate: $i_t = \\sigma(${wi_h}\\cdot ${hPrev} + ${wi_x}\\cdot ${xt} + ${bi}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${it.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>3. Candidate Cell State: $\\tilde{C}_t = \\tanh(${wc_h}\\cdot ${hPrev} + ${wc_x}\\cdot ${xt} + ${bc}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${cTilde.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>4. Cell State mới: $C_t = f_t \\cdot C_{t-1} + i_t \\cdot \\tilde{C}_t \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${ct.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>5. Output Gate: $o_t = \\sigma(${wo_h}\\cdot ${hPrev} + ${wo_x}\\cdot ${xt} + ${bo}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${ot.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>6. Hidden State mới: $h_t = o_t \\cdot \\tanh(C_t) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${ht.toFixed(4)}">
+            </div>
+        </div>
+    `;
+
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.getElementById('lstmBody').parentElement, {
+            delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]
+        });
+    }
+    const fb = document.querySelector('[data-section="sec-lstm-calc"] .feedback-box');
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    updatePageProgress(false);
+}
+
+function generateGruProblem(isInit = false) {
+    const rnd = (min, max) => Math.round((min + Math.random() * (max - min)) * 10) / 10;
+    const hPrev = isInit ? 0.6 : rnd(-0.4, 0.8);
+    const xt    = isInit ? 1.2 : rnd(0.4, 1.8);
+
+    const wr_h = isInit ? 0.5 : rnd(0.2, 0.9), wr_x = isInit ? 0.4 : rnd(0.2, 0.9);
+    const wz_h = isInit ? 0.3 : rnd(0.2, 0.8), wz_x = isInit ? 0.8 : rnd(0.2, 0.9);
+    const wh_h = isInit ? 0.6 : rnd(0.2, 0.8), wh_x = isInit ? 0.7 : rnd(0.2, 0.9);
+
+    const rt = sigmoid(wr_h * hPrev + wr_x * xt);
+    const zt = sigmoid(wz_h * hPrev + wz_x * xt);
+    const hTilde = Math.tanh(wh_h * (rt * hPrev) + wh_x * xt);
+    const ht = (1 - zt) * hPrev + zt * hTilde;
+
+    document.getElementById('gruPrompt').innerHTML = `
+        <strong>Dữ liệu GRU (1 unit):</strong> $h_{t-1} = ${hPrev}$, $x_t = ${xt}$.<br>
+        Trọng số $[w_h, w_x]$: Reset gate $W_r = [${wr_h}, ${wr_x}]$, Update gate $W_z = [${wz_h}, ${wz_x}]$, Candidate $W_h = [${wh_h}, ${wh_x}]$.
+    `;
+
+    document.getElementById('gruBody').innerHTML = `
+        <div class="formula-item">
+            <div class="equation-line">
+                <span>1. Reset Gate: $r_t = \\sigma(${wr_h}\\cdot ${hPrev} + ${wr_x}\\cdot ${xt}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${rt.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>2. Update Gate: $z_t = \\sigma(${wz_h}\\cdot ${hPrev} + ${wz_x}\\cdot ${xt}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${zt.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>3. Hidden State ứng viên: $\\tilde{h}_t = \\tanh(${wh_h}\\cdot (r_t \\cdot ${hPrev}) + ${wh_x}\\cdot ${xt}) \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${hTilde.toFixed(4)}">
+            </div>
+            <div class="equation-line">
+                <span>4. Hidden State đầu ra: $h_t = (1 - z_t) \\cdot ${hPrev} + z_t \\cdot \\tilde{h}_t \\approx$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.015" data-ans="${ht.toFixed(4)}">
+            </div>
+        </div>
+    `;
+
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.getElementById('gruBody').parentElement, {
+            delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]
+        });
+    }
+    const fb = document.querySelector('[data-section="sec-gru-calc"] .feedback-box');
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    updatePageProgress(false);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    calcGateHelper();
+    generateLstmProblem(true);
+    generateGruProblem(true);
+});
+</script>
+<script src="common.js"></script>
+</body>
+</html>

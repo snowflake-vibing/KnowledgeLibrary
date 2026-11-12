@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02. Bài toán tính tay RNN &amp; Truncated BPTT (VD3)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="top-nav-inner">
+        <a href="index.html" class="nav-brand">
+            <span>PTDLKD – IS403</span>
+            <span class="pill">Chương 6 (P2)</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Tổng quan</a>
+            <a href="01_ghi_nho_cong_thuc.html" class="nav-link">1. Công thức (25–63)</a>
+            <a href="02_bai_toan_rnn_bptt.html" class="nav-link active">2. RNN &amp; BPTT (VD3)</a>
+            <a href="03_bai_toan_lstm_gru_btlt9.html" class="nav-link">3. LSTM, GRU &amp; BTLT9</a>
+            <a href="04_bai_toan_isolation_forest.html" class="nav-link">4. Isolation Forest</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="page-header">
+        <div>
+            <span class="badge-header">Slide 82–96 • 100% Điền khuyết Tính tay</span>
+            <h1>Bài toán RNN Forward &amp; Truncated BPTT</h1>
+            <p class="header-desc">
+                Thực hành từng bước tạo cửa sổ trượt (Sliding Window), tính trạng thái ẩn $h^{&lt;t&gt;}$, đầu ra $y^{&lt;t&gt;}$,
+                lan truyền ngược theo thời gian (Truncated BPTT) và cập nhật trọng số. Làm tròn tới 3–4 chữ số thập phân.
+            </p>
+        </div>
+        <div class="score-pill">
+            <div class="score-label">Số ô đúng</div>
+            <div class="score-value" id="pageScoreValue">0 / 0</div>
+        </div>
+    </header>
+
+    <!-- Tanh Quick Calculator -->
+    <div class="calc-widget">
+        <span style="font-weight:700; color:var(--accent-indigo);">🧮 Máy tính nhanh cho $\tanh(x)$ &amp; đạo hàm $1 - \tanh^2(x)$:</span>
+        <label>Nhập $x$: <input type="number" id="tanhIn" step="0.001" value="0.5" oninput="calcTanhHelper()"></label>
+        <span>$\tanh(x) =$ <span id="tanhOut" class="calc-result">0.4621</span></span>
+        <span>$1 - \tanh^2(x) =$ <span id="tanhDerivOut" class="calc-result">0.7864</span></span>
+    </div>
+
+    <div class="sub-tabs">
+        <button type="button" class="sub-tab-btn active" data-target="tab-vd3-forward">Phần 1: VD3 – Tạo Window &amp; Forward Pass</button>
+        <button type="button" class="sub-tab-btn" data-target="tab-vd3-bptt">Phần 2: VD3 – Truncated BPTT (Window 1)</button>
+        <button type="button" class="sub-tab-btn" data-target="tab-rnn-random">Phần 3: Tự luyện sinh đề ngẫu nhiên</button>
+    </div>
+
+    <!-- TAB 1: VD3 FORWARD -->
+    <div id="tab-vd3-forward" class="sub-panel active">
+        <div class="card" data-section="sec-vd3-win">
+            <div class="card-header">
+                <div class="card-title">1.1. Thiết lập Dữ liệu &amp; Sliding Windows (Slide 82–83)</div>
+                <span class="tag">Chuỗi: [1, 1.5, 2, 1.4, 1.7, 1.8]</span>
+            </div>
+            <p style="margin-bottom:12px; color:var(--text-muted);">
+                Sử dụng mạng RNN gồm <strong>3 units</strong> và <strong>timesteps = 3</strong>, kích thước đầu ra = 1 để dự báo giá trị kế tiếp.
+                Điền các cặp <strong>(Input, Target)</strong> tạo được từ chuỗi trên:
+            </p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Window</th>
+                        <th>$x^{&lt;1&gt;}$</th>
+                        <th>$x^{&lt;2&gt;}$</th>
+                        <th>$x^{&lt;3&gt;}$</th>
+                        <th>Target Output ($y_{target}$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Window 1</strong></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.5"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="2"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.4"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Window 2</strong></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.5"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="2"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.4"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.7"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Window 3</strong></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="2"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.4"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.7"></td>
+                        <td><input type="text" class="blank-input w-xs" data-type="number" data-tol="0.001" data-ans="1.8"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-vd3-win')">Kiểm tra Windows</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-vd3-win')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-vd3-win')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-vd3-win')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Với chuỗi độ dài 6 và cửa sổ đầu vào dài 3 dự báo 1 bước tiếp theo, ta trượt từng bước để lấy 3 phần tử liên tiếp làm Input và phần tử thứ 4 ngay sau đó làm Target.</div>
+            <div class="feedback-box"></div>
+        </div>
+
+        <div class="card" data-section="sec-vd3-fwd">
+            <div class="card-header">
+                <div class="card-title">1.2. Tính Forward Pass ($t = 1, 2, 3$ và tổng hợp $t = 4, 5, 6$)</div>
+                <span class="tag">Slide 83–87</span>
+            </div>
+            <p style="margin-bottom:14px; color:var(--text-muted);">
+                Khởi tạo: $W_{hx} = [0.5,\; 0.4,\; 0.3]^T$, $W_{hh} = \text{diag}(0.1,\; 0.2,\; 0.3)$, $W_{yh} = [1,\; 1,\; 1]$, $b_h = [0,0,0]^T$, $b_y = 0$, $h^{&lt;0&gt;} = [0,0,0]^T$.<br>
+                Công thức: $a^{&lt;t&gt;} = W_{hx}x^{&lt;t&gt;} + W_{hh}h^{&lt;t-1&gt;} + b_h$, $\quad h^{&lt;t&gt;} = \tanh(a^{&lt;t&gt;})$, $\quad y^{&lt;t&gt;} = W_{yh}h^{&lt;t&gt;} + b_y$.
+            </p>
+
+            <!-- t = 1 -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Thời điểm $t = 1$ với $x^{&lt;1&gt;} = 1.0$</span>
+                    <span class="formula-num">Slide 84</span>
+                </div>
+                <div class="equation-line">
+                    <span>$a^{&lt;1&gt;} = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.5" placeholder="u1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.4" placeholder="u2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.3" placeholder="u3">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$h^{&lt;1&gt;} = \tanh(a^{&lt;1&gt;}) \approx [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.462" placeholder="h1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.380" placeholder="h2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.291" placeholder="h3">
+                    <span>$]$;&nbsp;&nbsp; $y^{&lt;1&gt;} =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="1.133" placeholder="y<1>">
+                </div>
+            </div>
+
+            <!-- t = 2 -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Thời điểm $t = 2$ với $x^{&lt;2&gt;} = 1.5$</span>
+                    <span class="formula-num">Slide 85</span>
+                </div>
+                <div class="equation-line">
+                    <span>$a^{&lt;2&gt;} = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.796" placeholder="u1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.676" placeholder="u2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.537" placeholder="u3">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$h^{&lt;2&gt;} = \tanh(a^{&lt;2&gt;}) \approx [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.661|0.662" data-display="0.661" placeholder="h1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.588|0.589" data-display="0.588" placeholder="h2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.491" placeholder="h3">
+                    <span>$]$;&nbsp;&nbsp; $y^{&lt;2&gt;} =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="1.740|1.742" data-display="1.740" placeholder="y<2>">
+                </div>
+            </div>
+
+            <!-- t = 3 -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Thời điểm $t = 3$ với $x^{&lt;3&gt;} = 2.0$</span>
+                    <span class="formula-num">Slide 86</span>
+                </div>
+                <div class="equation-line">
+                    <span>$a^{&lt;3&gt;} = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="1.066" placeholder="u1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.918" placeholder="u2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.747" placeholder="u3">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$h^{&lt;3&gt;} = \tanh(a^{&lt;3&gt;}) \approx [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.788" placeholder="h1">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.724|0.725" data-display="0.724" placeholder="h2">
+                    <span>$,$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.633|0.634" data-display="0.633" placeholder="h3">
+                    <span>$]$;&nbsp;&nbsp; $y^{&lt;3&gt;} =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="2.145|2.146" data-display="2.145" placeholder="y<3>">
+                </div>
+            </div>
+
+            <!-- t = 4, 5, 6 summary table -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Tính tiếp cho thời điểm $t = 4, 5, 6$</span>
+                    <span class="formula-num">Slide 87</span>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>$t$</th>
+                            <th>$x^{&lt;t&gt;}$</th>
+                            <th>$h^{&lt;t&gt;} = [h_1,\; h_2,\; h_3]$</th>
+                            <th>$y^{&lt;t&gt;}$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>1.4</td>
+                            <td>
+                                [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.652">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.608">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.545|0.544" data-display="0.545">]
+                            </td>
+                            <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="1.805|1.804" data-display="1.805"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>1.7</td>
+                            <td>
+                                [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.723|0.724" data-display="0.723">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.664|0.665" data-display="0.664">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.588|0.587" data-display="0.588">]
+                            </td>
+                            <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="1.975|1.976" data-display="1.975"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>1.8</td>
+                            <td>
+                                [<input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.751|0.750" data-display="0.751">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.692|0.693" data-display="0.692">,
+                                <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.614|0.615" data-display="0.614">]
+                            </td>
+                            <td><input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="2.057"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-vd3-fwd')">Kiểm tra Forward Pass</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-vd3-fwd')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-vd3-fwd')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-vd3-fwd')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Vì $W_{hh}$ là ma trận đường chéo $[0.1, 0.2, 0.3]$, bạn chỉ cần nhân từng phần tử: $a_j^{&lt;t&gt;} = W_{hx,j} \cdot x^{&lt;t&gt;} + W_{hh,j} \cdot h_j^{&lt;t-1&gt;}$. Và $y^{&lt;t&gt;} = h_1^{&lt;t&gt;} + h_2^{&lt;t&gt;} + h_3^{&lt;t&gt;}$ vì $W_{yh}=[1,1,1], b_y=0$.</div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: VD3 TRUNCATED BPTT -->
+    <div id="tab-vd3-bptt" class="sub-panel">
+        <div class="card" data-section="sec-vd3-loss-out">
+            <div class="card-header">
+                <div class="card-title">2.1. Tính Loss &amp; Đạo hàm tại Output ở $t = 3$ (Window 1)</div>
+                <span class="tag">Slide 88–90</span>
+            </div>
+            <p style="margin-bottom:12px; color:var(--text-muted);">
+                Xét <strong>Window 1</strong>: Input $= (1,\; 1.5,\; 2)$, Target $y_{target}^{&lt;3&gt;} = 1.4$, giá trị dự đoán $y^{&lt;3&gt;} = 2.145$, $h^{&lt;3&gt;} = [0.788,\; 0.724,\; 0.633]$.
+            </p>
+
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Hàm mất mát $\mathcal{L} = \frac{1}{2}(y^{&lt;3&gt;} - y_{target}^{&lt;3&gt;})^2$</span>
+                    <span class="formula-num">Slide 88</span>
+                </div>
+                <div class="equation-line">
+                    <span>$\mathcal{L} = \dfrac{1}{2}(2.145 - 1.4)^2 \approx$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.278|0.2775" data-display="0.278" placeholder="Loss">
+                </div>
+            </div>
+
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Gradient tại tầng Output ($t = 3$)</span>
+                    <span class="formula-num">Slide 90</span>
+                </div>
+                <div class="equation-line">
+                    <span>$\delta_y = \dfrac{\partial \mathcal{L}}{\partial y^{&lt;3&gt;}} = y^{&lt;3&gt;} - y_{target}^{&lt;3&gt;} =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.745" placeholder="delta_y">
+                    <span>;&nbsp;&nbsp; $db_y = \delta_y =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.745" placeholder="db_y">
+                </div>
+                <div class="equation-line">
+                    <span>$dW_{yh} = \delta_y \cdot h^{&lt;3&gt;} \approx [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.588|0.587" data-display="0.588">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.541|0.539" data-display="0.541">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.472" data-display="0.472">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$dh^{&lt;3&gt;} = \delta_y \cdot W_{yh} = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.745">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.745">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.745">
+                    <span>$]$</span>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-vd3-loss-out')">Kiểm tra Output Gradients</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-vd3-loss-out')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-vd3-loss-out')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-vd3-loss-out')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 $\delta_y = 2.145 - 1.4 = 0.745$. Vì $W_{yh} = [1, 1, 1]$, vector $dh^{&lt;3&gt;} = 0.745 \cdot [1, 1, 1]$.</div>
+            <div class="feedback-box"></div>
+        </div>
+
+        <div class="card" data-section="sec-vd3-backprop">
+            <div class="card-header">
+                <div class="card-title">2.2. Lan truyền ngược qua thời gian ($t = 3 \to 2 \to 1$) &amp; Tổng hợp Gradient</div>
+                <span class="tag">Slide 91–95</span>
+            </div>
+            <p style="margin-bottom:12px; color:var(--text-muted);">
+                Tại mỗi bước $t$: $da^{&lt;t&gt;} = dh^{&lt;t&gt;} \odot (1 - \tanh^2(a^{&lt;t&gt;})) = dh^{&lt;t&gt;} \odot (1 - (h^{&lt;t&gt;})^2)$.<br>
+                Đóng góp: $dW_{hx} \mathrel{+}= da^{&lt;t&gt;} \cdot x^{&lt;t&gt;}$, $\; dW_{hh} \mathrel{+}= da^{&lt;t&gt;} \odot h^{&lt;t-1&gt;}$, $\; db_h \mathrel{+}= da^{&lt;t&gt;}$. Truyền lùi: $dh^{&lt;t-1&gt;} = W_{hh} \odot da^{&lt;t&gt;}$.
+            </p>
+
+            <!-- t = 3 back -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Bước ngược $t = 3$ ($a^{&lt;3&gt;} = [1.066, 0.918, 0.747]$, $x^{&lt;3&gt;} = 2$, $h^{&lt;2&gt;} = [0.661, 0.588, 0.491]$)</span>
+                    <span class="formula-num">Slide 92</span>
+                </div>
+                <div class="equation-line">
+                    <span>$da^{&lt;3&gt;} = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.282">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.353">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.446">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$dW_{hx}+ = da^{&lt;3&gt;}\cdot 2 = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.564">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.706">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.892">
+                    <span>$]$;&nbsp;&nbsp; $dW_{hh}+ = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.187">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.208">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0.005" data-ans="0.219">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>Truyền về $t=2$: $dh^{&lt;2&gt;} = W_{hh} \odot da^{&lt;3&gt;} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0282">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0706">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.1338">
+                    <span>$]$</span>
+                </div>
+            </div>
+
+            <!-- t = 2 back -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Bước ngược $t = 2$ ($a^{&lt;2&gt;} = [0.796, 0.676, 0.537]$, $x^{&lt;2&gt;} = 1.5$, $h^{&lt;1&gt;} = [0.462, 0.380, 0.291]$)</span>
+                    <span class="formula-num">Slide 93</span>
+                </div>
+                <div class="equation-line">
+                    <span>$da^{&lt;2&gt;} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0159">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0461">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.1017">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$dW_{hx}+ = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0239">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0692">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.1526">
+                    <span>$]$;&nbsp;&nbsp; $dW_{hh}+ = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0073">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0175">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.0294">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>Truyền về $t=1$: $dh^{&lt;1&gt;} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.00159">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.00922">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.03051">
+                    <span>$]$</span>
+                </div>
+            </div>
+
+            <!-- t = 1 back -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Bước ngược $t = 1$ ($a^{&lt;1&gt;} = [0.5, 0.4, 0.3]$, $x^{&lt;1&gt;} = 1$, $h^{&lt;0&gt;} = [0, 0, 0]$)</span>
+                    <span class="formula-num">Slide 94</span>
+                </div>
+                <div class="equation-line">
+                    <span>$da^{&lt;1&gt;} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.00125">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.00792">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="0.02793">
+                    <span>$]$;&nbsp;&nbsp; $dW_{hh}+ = [$</span>
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">,
+                    <input type="text" class="blank-input w-xs" data-type="number" data-tol="0" data-ans="0">
+                    <span>$]$</span>
+                </div>
+            </div>
+
+            <!-- Sum Gradients -->
+            <div class="formula-item">
+                <div class="formula-meta">
+                    <span class="formula-name">Tổng hợp Gradient cộng dồn qua 3 thời điểm ($t=3,2,1$)</span>
+                    <span class="formula-num">Slide 95</span>
+                </div>
+                <div class="equation-line">
+                    <span>$dW_{hx} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.58915">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.78312">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="1.07253">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$dW_{hh} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.1943">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.2255">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.2484">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$db_h = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.29915">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.40702">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.005" data-ans="0.57563">
+                    <span>$]$</span>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-vd3-backprop')">Kiểm tra BPTT</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-vd3-backprop')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-vd3-backprop')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-vd3-backprop')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Dùng máy tính $\tanh$ ở phía trên để lấy $1 - \tanh^2(a)$ nhanh chóng! Ở $t=1$, vì $h^{&lt;0&gt;} = [0, 0, 0]$ nên đóng góp vào $dW_{hh}$ bằng $[0, 0, 0]$.</div>
+            <div class="feedback-box"></div>
+        </div>
+
+        <div class="card" data-section="sec-vd3-update">
+            <div class="card-header">
+                <div class="card-title">2.3. Cập nhật Trọng số và Bias ($\eta = 0.1$)</div>
+                <span class="tag green">Slide 96</span>
+            </div>
+            <p style="margin-bottom:12px; color:var(--text-muted);">
+                Áp dụng công thức $\theta_{new} = \theta_{old} - \eta \cdot d\theta$ với learning rate $\eta = 0.1$:
+            </p>
+
+            <div class="formula-item">
+                <div class="equation-line">
+                    <span>$W_{hx}^{new} = [0.5, 0.4, 0.3] - 0.1 \cdot dW_{hx} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.441085">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.321688">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.192747">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$W_{hh}^{new} = [0.1, 0.2, 0.3] - 0.1 \cdot dW_{hh} = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.08057">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.17745">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="0.27516">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$b_h^{new} = [0, 0, 0] - 0.1 \cdot db_h = [$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="-0.029915">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="-0.040702">,
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.002" data-ans="-0.057563">
+                    <span>$]$</span>
+                </div>
+                <div class="equation-line">
+                    <span>$b_y^{new} = 0 - 0.1 \cdot 0.745 =$</span>
+                    <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.001" data-ans="-0.0745">
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-vd3-update')">Kiểm tra Cập nhật</button>
+                <button type="button" class="btn btn-amber" onclick="toggleHint('sec-vd3-update')">Gợi ý</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-vd3-update')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-vd3-update')">Làm lại</button>
+            </div>
+            <div class="hint-box">💡 Chỉ cần lấy giá trị ban đầu trừ đi $0.1 \times \text{gradient}$. Ví dụ: $0.5 - 0.1 \times 0.58915 = 0.441085$.</div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+
+    <!-- TAB 3: RANDOM PRACTICE -->
+    <div id="tab-rnn-random" class="sub-panel">
+        <div class="card" data-section="sec-rnn-rand">
+            <div class="card-header">
+                <div class="card-title">3. Tự luyện RNN Forward &amp; BPTT (Đề sinh tự động – 2 Units, 2 Timesteps)</div>
+                <button type="button" class="btn btn-primary" onclick="generateRnnProblem()">🎲 Sinh đề số mới</button>
+            </div>
+
+            <div id="randRnnPrompt" style="margin-bottom:14px; padding:12px 14px; background:var(--bg-input); border-radius:var(--radius-sm); border:1px solid var(--border-color);"></div>
+            <div id="randRnnBody"></div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="checkSection('sec-rnn-rand')">Kiểm tra bài tự luyện</button>
+                <button type="button" class="btn btn-green" onclick="revealSection('sec-rnn-rand')">Hiện đáp án</button>
+                <button type="button" class="btn btn-red" onclick="resetSection('sec-rnn-rand')">Làm lại</button>
+            </div>
+            <div class="feedback-box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const PAGE_KEY = 'rnn_bptt';
+
+function calcTanhHelper() {
+    const val = parseFloat(document.getElementById('tanhIn').value);
+    if (Number.isNaN(val)) return;
+    const t = Math.tanh(val);
+    const d = 1 - t * t;
+    document.getElementById('tanhOut').textContent = t.toFixed(4);
+    document.getElementById('tanhDerivOut').textContent = d.toFixed(4);
+}
+
+function generateRnnProblem() {
+    const rnd = (min, max) => Math.round((min + Math.random() * (max - min)) * 10) / 10;
+    const x1 = rnd(0.5, 2.0), x2 = rnd(0.5, 2.0), target = rnd(0.8, 2.2);
+    const whx1 = rnd(0.2, 0.7), whx2 = rnd(0.2, 0.7);
+    const whh1 = rnd(0.1, 0.4), whh2 = rnd(0.1, 0.4);
+    const wyh1 = 1, wyh2 = 1;
+    const eta = 0.1;
+
+    // Forward t=1
+    const a1_1 = whx1 * x1;
+    const a1_2 = whx2 * x1;
+    const h1_1 = Math.tanh(a1_1);
+    const h1_2 = Math.tanh(a1_2);
+
+    // Forward t=2
+    const a2_1 = whx1 * x2 + whh1 * h1_1;
+    const a2_2 = whx2 * x2 + whh2 * h1_2;
+    const h2_1 = Math.tanh(a2_1);
+    const h2_2 = Math.tanh(a2_2);
+    const y2 = wyh1 * h2_1 + wyh2 * h2_2;
+
+    // Loss & BPTT
+    const loss = 0.5 * Math.pow(y2 - target, 2);
+    const dy = y2 - target;
+    const dh2_1 = dy * wyh1;
+    const dh2_2 = dy * wyh2;
+    const da2_1 = dh2_1 * (1 - h2_1 * h2_1);
+    const da2_2 = dh2_2 * (1 - h2_2 * h2_2);
+
+    const dh1_1 = whh1 * da2_1;
+    const dh1_2 = whh2 * da2_2;
+    const da1_1 = dh1_1 * (1 - h1_1 * h1_1);
+    const da1_2 = dh1_2 * (1 - h1_2 * h1_2);
+
+    const dWhx1 = da2_1 * x2 + da1_1 * x1;
+    const dWhx2 = da2_2 * x2 + da1_2 * x1;
+    const wNew1 = whx1 - eta * dWhx1;
+    const wNew2 = whx2 - eta * dWhx2;
+
+    document.getElementById('randRnnPrompt').innerHTML = `
+        <strong>Đề bài ngẫu nhiên:</strong> Mạng RNN 2 units, 2 timesteps. Input $x^{&lt;1&gt;} = ${x1}$, $x^{&lt;2&gt;} = ${x2}$, Target $y_{target} = ${target}$.<br>
+        Khởi tạo: $W_{hx} = [${whx1},\\; ${whx2}]$, $W_{hh} = \\text{diag}(${whh1},\\; ${whh2})$, $W_{yh} = [1,\\; 1]$, $b_h = [0,0]$, $b_y = 0$, $h^{&lt;0&gt;} = [0,0]$, $\\eta = 0.1$.
+    `;
+
+    document.getElementById('randRnnBody').innerHTML = `
+        <div class="formula-item">
+            <div class="formula-meta"><span class="formula-name">Bước 1: Forward Pass ($t=1$ và $t=2$)</span></div>
+            <div class="equation-line">
+                <span>$a^{&lt;1&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${a1_1.toFixed(3)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${a1_2.toFixed(3)}">
+                <span>$]$;&nbsp;&nbsp; $h^{&lt;1&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${h1_1.toFixed(3)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${h1_2.toFixed(3)}">
+                <span>$]$</span>
+            </div>
+            <div class="equation-line">
+                <span>$a^{&lt;2&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${a2_1.toFixed(3)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${a2_2.toFixed(3)}">
+                <span>$]$;&nbsp;&nbsp; $h^{&lt;2&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${h2_1.toFixed(3)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${h2_2.toFixed(3)}">
+                <span>$]$</span>
+            </div>
+            <div class="equation-line">
+                <span>$y^{&lt;2&gt;} =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${y2.toFixed(3)}">
+                <span>;&nbsp;&nbsp; Loss $\\mathcal{L} = \\frac{1}{2}(y^{&lt;2&gt;} - y_{target})^2 =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${loss.toFixed(3)}">
+            </div>
+        </div>
+        <div class="formula-item">
+            <div class="formula-meta"><span class="formula-name">Bước 2: Backpropagation &amp; Cập nhật $W_{hx}$</span></div>
+            <div class="equation-line">
+                <span>$\\delta_y = y^{&lt;2&gt;} - y_{target} =$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${dy.toFixed(3)}">
+                <span>;&nbsp;&nbsp; $da^{&lt;2&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${da2_1.toFixed(4)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${da2_2.toFixed(4)}">
+                <span>$]$</span>
+            </div>
+            <div class="equation-line">
+                <span>$da^{&lt;1&gt;} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${da1_1.toFixed(4)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${da1_2.toFixed(4)}">
+                <span>$]$;&nbsp;&nbsp; $W_{hx}^{new} = [$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${wNew1.toFixed(4)}">
+                <span>$,$</span>
+                <input type="text" class="blank-input w-sm" data-type="number" data-tol="0.01" data-ans="${wNew2.toFixed(4)}">
+                <span>$]$</span>
+            </div>
+        </div>
+    `;
+
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.getElementById('tab-rnn-random'), {
+            delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]
+        });
+    }
+    const fb = document.querySelector('[data-section="sec-rnn-rand"] .feedback-box');
+    if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+    updatePageProgress(false);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    calcTanhHelper();
+    generateRnnProblem();
+});
+</script>
+<script src="common.js"></script>
+</body>
+</html>
