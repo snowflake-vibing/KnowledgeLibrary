@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 05 - Bài Tập Điền Khuyết Học Sâu LSTM Chuỗi Thời Gian</title>
+    <title>Chuyên Đề 05 - Kiến Trúc Tế Bào LSTM, Nhớ Công Thức & Tính Toán Forward Pass</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -20,30 +20,46 @@
             --success: #34d399;
             --error: #f87171;
             --accent: #818cf8;
+            --warning: #fbbf24;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background: var(--bg-main); color: var(--text); padding: 24px 16px; line-height: 1.6; }
-        .container { max-width: 950px; margin: 0 auto; }
+        .container { max-width: 980px; margin: 0 auto; }
         header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
         .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; border: 1px solid rgba(56, 189, 248, 0.3); }
         h1 { font-size: 1.85rem; margin-bottom: 6px; }
         .subtitle { color: var(--text-muted); font-size: 0.95rem; }
-        .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .stats-bar { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 24px; position: sticky; top: 12px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .score-box { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
-        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-action { background: var(--primary); color: #0f172a; border: none; padding: 9px 22px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
         .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 24px; }
-        .card h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        
+        .arch-diagram { background: #0b1120; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .arch-title { font-weight: 700; color: var(--accent); margin-bottom: 12px; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .arch-flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+        .arch-node { background: var(--bg-card); border: 1.5px solid var(--border); padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; color: #e2e8f0; }
+        .arch-node.highlight { border-color: var(--primary); color: var(--primary); background: rgba(56, 189, 248, 0.1); }
+        .arch-node.state { border-color: var(--warning); color: var(--warning); background: rgba(251, 191, 36, 0.1); }
+        .arch-node.output { border-color: var(--success); color: var(--success); background: rgba(52, 211, 153, 0.1); }
+        .arch-arrow { color: var(--text-muted); font-size: 1.1rem; font-weight: 700; }
+        .arch-desc { font-size: 0.88rem; color: var(--text-muted); margin-top: 10px; text-align: left; background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: 6px; }
+
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
+        .card h2 { font-size: 1.35rem; margin-bottom: 14px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .tag-recall { background: rgba(129, 140, 248, 0.2); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.4); }
+        .tag-calc { background: rgba(251, 191, 36, 0.2); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.4); }
+
         .calc-step { background: rgba(15, 23, 42, 0.6); padding: 16px 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 14px 0; }
         .step-desc { font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .math-block { margin: 10px 0; padding: 8px 0; overflow-x: auto; }
         .input-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
-        .input-label { font-size: 0.92rem; color: var(--text-muted); }
-        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 150px; transition: all 0.2s; }
+        .input-label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+        .blank-input { background: #0f172a; border: 1.5px solid var(--border); color: #fff; padding: 7px 12px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; width: 160px; transition: all 0.2s; }
         .blank-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .blank-input.correct { border-color: var(--success); background: rgba(52, 211, 153, 0.15); color: var(--success); }
         .blank-input.incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.15); color: var(--error); }
-        .unit-label { font-size: 0.88rem; color: var(--text-muted); }
+        .hint-text { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+
         .solution-box { display: none; margin-top: 14px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--primary); padding: 14px; border-radius: 8px; font-size: 0.92rem; line-height: 1.7; }
         .btn-toggle-sol { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; }
         .btn-toggle-sol:hover { color: #fff; border-color: var(--primary); }
@@ -53,164 +69,238 @@
 <div class="container">
     <header>
         <span class="badge">HMTK • Chuyên đề 05</span>
-        <h1>Bài Tập Tính Toán Điền Khuyết: Lan Truyền Xuôi Trong Mạng LSTM</h1>
-        <p class="subtitle">Thực hành tính toán trực tiếp: Cổng quên (Forget Gate), Cổng vào (Input Gate), Cập nhật Ô nhớ (Cell State) và Cổng ra (Output Gate).</p>
+        <h1>Kiến Trúc Tế Bào LSTM, Nhớ Công Thức & Tính Toán Forward Pass</h1>
+        <p class="subtitle">Hiểu bản chất vi kiến trúc ô nhớ (Cell State Highway), chủ động nhớ công thức 3 cổng và tự tay tính toán toàn bộ luồng Forward Pass.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Điểm số: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">11</span> ô điền</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">16</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
-    <!-- BÀI 1: TÍNH CỔNG QUÊN VÀ CỔNG VÀO -->
+    <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS -->
+    <div class="arch-diagram">
+        <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: TẾ BÀO BỘ NHỚ LSTM (HOCHREITER & SCHMIDHUBER)</div>
+        <div class="arch-flow">
+            <div class="arch-node">Đầu vào $[x_t, h_{t-1}]$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node highlight">Cổng quên $f_t = \sigma(\cdot)$</div>
+            <div class="arch-arrow">➔ nhân $\odot$ với $C_{t-1}$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node state">Đường cao tốc Ô nhớ $C_t = f_t C_{t-1} + i_t \tilde{C}_t$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node highlight">Cổng ra $o_t = \sigma(\cdot)$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node output">Trạng thái ẩn $h_t = o_t \odot \tanh(C_t)$</div>
+        </div>
+        <div class="arch-desc">
+            <strong>Bản chất luồng truyền dữ liệu (LSTM Forward Pass):</strong><br>
+            1. **Cổng quên ($f_t$):** Dùng hàm $\sigma \in (0, 1)$ quyết định tỷ lệ ô nhớ cũ $C_{t-1}$ được giữ lại.<br>
+            2. **Cổng vào ($i_t$) & Trạng thái ứng viên ($\tilde{C}_t$):** $i_t$ mở van cho thông tin mới $\tilde{C}_t$ (đã chuẩn hóa qua hàm $\tanh \in (-1, 1)$) cộng dồn vào ô nhớ.<br>
+            3. **Cập nhật ô nhớ ($C_t$):** Phép cộng tuyến tính giúp đạo hàm truyền ngược không bị suy hao (chống Vanishing Gradient).<br>
+            4. **Cổng ra ($o_t$):** Quyết định bao nhiêu phần trăm ô nhớ được hiển thị ra trạng thái ẩn bên ngoài $h_t$.
+        </div>
+    </div>
+
+    <!-- BÀI 1: CỔNG QUÊN VÀ CỔNG VÀO -->
     <div class="card">
-        <h2>Bài 1: Tính toán Cổng Quên ($f_t$) và Cổng Vào ($i_t$)</h2>
-        <p>Cho tế bào LSTM đơn biến: $x_t = 2.0$, $h_{t-1} = 1.0$. Hàm Sigmoid: $\sigma(z) = \frac{1}{1 + e^{-z}}$ (lưu ý: $\sigma(0.0) = 0.500$).</p>
+        <h2>Bài 1: Cổng Quên ($f_t$) và Cổng Vào ($i_t$)</h2>
+        
+        <span class="section-tag tag-recall">Phần A: Điền khuyết nhớ công thức hàm kích hoạt</span>
+        
+        <div class="calc-step">
+            <div class="step-desc">1. Cổng quên dùng hàm kích hoạt nào để tạo giá trị mở van trong khoảng $(0, 1)$?</div>
+            <div class="input-row">
+                <span class="input-label">Hàm kích hoạt của cổng:</span>
+                <input type="text" class="blank-input" data-ans="sigmoid" data-alt="sigma, σ" placeholder="Ví dụ: sigmoid">
+                <span class="hint-text">(Gõ: sigmoid hoặc sigma)</span>
+            </div>
+        </div>
 
         <div class="calc-step">
-            <div class="step-desc">Cổng quên (Forget Gate): $W_f = 0.5, U_f = 0.2, b_f = -1.2$</div>
-            <div class="math-block">
-                $$z_f = W_f x_t + U_f h_{t-1} + b_f = 0.5(2.0) + 0.2(1.0) - 1.2, \qquad f_t = \sigma(z_f)$$
-            </div>
+            <div class="step-desc">2. Trạng thái ứng viên mới $\tilde{C}_t$ dùng hàm kích hoạt nào để chuẩn hóa về khoảng $(-1, 1)$?</div>
             <div class="input-row">
-                <span class="input-label">Tuyến tính $z_f = $</span>
+                <span class="input-label">Hàm kích hoạt ứng viên:</span>
+                <input type="text" class="blank-input" data-ans="tanh" data-alt="tan h" placeholder="Ví dụ: tanh">
+                <span class="hint-text">(Gõ: tanh)</span>
+            </div>
+        </div>
+
+        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
+        <p>Cho $x_t = 2.0, h_{t-1} = 1.0$. Hàm Sigmoid: $\sigma(z) = \frac{1}{1 + e^{-z}}$ (chú ý $\sigma(0) = 0.5$).</p>
+
+        <div class="calc-step">
+            <div class="step-desc">1. Cổng quên: $W_f = 0.5, U_f = 0.2, b_f = -1.2$. Tính giá trị tuyến tính $z_f$ và độ mở $f_t$</div>
+            <div class="input-row">
+                <span class="input-label">Tuyến tính $z_f = 0.5(2.0) + 0.2(1.0) - 1.2 = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zf...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng quên $f_t = $</span>
+                <span class="input-label">Độ mở cổng quên $f_t = \sigma(z_f) = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập ft...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">Cổng vào (Input Gate): $W_i = 0.6, U_i = -0.2, b_i = -1.0$</div>
-            <div class="math-block">
-                $$z_i = W_i x_t + U_i h_{t-1} + b_i = 0.6(2.0) - 0.2(1.0) - 1.0, \qquad i_t = \sigma(z_i)$$
-            </div>
+            <div class="step-desc">2. Cổng vào: $W_i = 0.6, U_i = -0.2, b_i = -1.0$. Tính tuyến tính $z_i$ và độ mở $i_t$</div>
             <div class="input-row">
-                <span class="input-label">Tuyến tính $z_i = $</span>
+                <span class="input-label">Tuyến tính $z_i = 0.6(2.0) - 0.2(1.0) - 1.0 = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zi...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng vào $i_t = $</span>
+                <span class="input-label">Độ mở cổng vào $i_t = \sigma(z_i) = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập it...">
             </div>
         </div>
 
-        <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem lời giải chi tiết Bài 1</button>
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
-            <p><strong>Lời giải chi tiết:</strong></p>
-            <p>1. $z_f = 0.5(2.0) + 0.2(1.0) - 1.2 = 1.0 + 0.2 - 1.2 = 0.0 \implies f_t = \sigma(0.0) = 0.500$.</p>
-            <p>2. $z_i = 0.6(2.0) - 0.2(1.0) - 1.0 = 1.2 - 0.2 - 1.0 = 0.0 \implies i_t = \sigma(0.0) = 0.500$.</p>
+            <p><strong>Bản chất:</strong> Hàm Sigmoid $\sigma \in (0, 1)$ đóng vai trò là chiếc van điều tiết tỷ lệ phần trăm (0% là đóng hoàn toàn, 100% là cho qua hết). Tại đây $z_f = 0 \implies f_t = 0.5$ nghĩa là cho phép 50% nội dung ô nhớ cũ đi tiếp.</p>
         </div>
     </div>
 
     <!-- BÀI 2: CẬP NHẬT TRẠNG THÁI Ô NHỚ -->
     <div class="card">
-        <h2>Bài 2: Tính toán Cập Nhật Trạng Thái Ô Nhớ ($C_t$)</h2>
-        <p>Từ kết quả trước: $f_t = 0.500, i_t = 0.500$. Cho ô nhớ cũ $C_{t-1} = 4.0$ và trạng thái ứng viên $\tilde{C}_t = 0.800$.</p>
+        <h2>Bài 2: Cập Nhật Trạng Thái Ô Nhớ ($C_t$)</h2>
+        
+        <span class="section-tag tag-recall">Phần A: Nhớ công thức cập nhật ô nhớ</span>
+        
+        <div class="calc-step">
+            <div class="step-desc">1. Trong công thức: $C_t = [ \dots ] \odot C_{t-1} + i_t \odot \tilde{C}_t$, cổng nào nhân với ô nhớ cũ?</div>
+            <div class="input-row">
+                <span class="input-label">Ký hiệu cổng điều khiển quá khứ:</span>
+                <input type="text" class="blank-input" data-ans="f_t" data-alt="ft, f" placeholder="Ví dụ: f_t">
+                <span class="hint-text">(Gõ: f_t hoặc ft)</span>
+            </div>
+        </div>
 
         <div class="calc-step">
-            <div class="step-desc">Bước 1: Tính lượng thông tin giữ lại từ ô nhớ cũ ($f_t \times C_{t-1}$)</div>
-            <div class="math-block">
-                $$\text{Lượng giữ lại} = 0.500 \times 4.0$$
-            </div>
+            <div class="step-desc">2. Cổng nào điều khiển lượng nạp thông tin mới $\tilde{C}_t$?</div>
             <div class="input-row">
-                <span class="input-label">Thông tin giữ lại =</span>
+                <span class="input-label">Ký hiệu cổng đầu vào:</span>
+                <input type="text" class="blank-input" data-ans="i_t" data-alt="it, i" placeholder="Ví dụ: i_t">
+                <span class="hint-text">(Gõ: i_t hoặc it)</span>
+            </div>
+        </div>
+
+        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
+        <p>Biết $f_t = 0.500, i_t = 0.500$. Ô nhớ cũ $C_{t-1} = 4.0$, ứng viên mới $\tilde{C}_t = 0.800$.</p>
+
+        <div class="calc-step">
+            <div class="step-desc">1. Tính lượng thông tin được giữ lại từ ô nhớ cũ ($f_t \times C_{t-1}$)</div>
+            <div class="input-row">
+                <span class="input-label">Thông tin giữ lại = </span>
                 <input type="text" class="blank-input" data-ans="2.0" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">Bước 2: Tính lượng thông tin mới được nạp vào ($i_t \times \tilde{C}_t$)</div>
-            <div class="math-block">
-                $$\text{Lượng nạp mới} = 0.500 \times 0.800$$
-            </div>
+            <div class="step-desc">2. Tính lượng thông tin mới được nạp vào ($i_t \times \tilde{C}_t$)</div>
             <div class="input-row">
-                <span class="input-label">Thông tin nạp mới =</span>
+                <span class="input-label">Thông tin nạp mới = </span>
                 <input type="text" class="blank-input" data-ans="0.4" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">Bước 3: Tính trạng thái ô nhớ mới ($C_t$)</div>
-            <div class="math-block">
-                $$C_t = f_t \times C_{t-1} + i_t \times \tilde{C}_t = 2.0 + 0.4$$
-            </div>
+            <div class="step-desc">3. Tính trạng thái ô nhớ mới $C_t$</div>
             <div class="input-row">
                 <span class="input-label">Trạng thái ô nhớ $C_t = $</span>
                 <input type="text" class="blank-input" data-ans="2.4" data-tol="0.01" placeholder="Nhập Ct...">
             </div>
         </div>
 
-        <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem lời giải chi tiết Bài 2</button>
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
-            <p><strong>Lời giải chi tiết:</strong></p>
-            <p>1. Thông tin giữ lại = $0.500 \times 4.0 = 2.0$.</p>
-            <p>2. Thông tin nạp mới = $0.500 \times 0.800 = 0.4$.</p>
-            <p>3. $C_t = 2.0 + 0.4 = 2.400$.</p>
+            <p><strong>Bản chất:</strong> Ô nhớ cũ có giá trị 4.0, sau khi qua cổng quên chỉ giữ lại $0.5 \times 4.0 = 2.0$. Thông tin mới $\tilde{C}_t = 0.8$ qua cổng vào $0.5$ nạp thêm $0.4$. Tổng trạng thái mới $C_t = 2.0 + 0.4 = 2.4$. Nhờ phép cộng thay vì phép nhân ma trận liên tiếp, gradient có thể chạy thẳng dọc trục thời gian mà không bị triệt tiêu.</p>
         </div>
     </div>
 
     <!-- BÀI 3: CỔNG RA VÀ TRẠNG THÁI ẨN -->
     <div class="card">
-        <h2>Bài 3: Tính toán Cổng Ra ($o_t$) và Trạng Thái Ẩn Đầu Ra ($h_t$)</h2>
-        <p>Với $x_t = 2.0, h_{t-1} = 1.0, C_t = 2.4$. Thông số cổng ra: $W_o = 0.3, U_o = 0.4, b_o = -1.0$.</p>
+        <h2>Bài 3: Cổng Ra ($o_t$) và Trạng Thái Ẩn Đầu Ra ($h_t$)</h2>
+        
+        <span class="section-tag tag-recall">Phần A: Nhớ công thức trạng thái ẩn</span>
+        
+        <div class="calc-step">
+            <div class="step-desc">1. Trước khi nhân với cổng ra $o_t$, trạng thái ô nhớ $C_t$ được đưa qua hàm kích hoạt nào? $h_t = o_t \odot [ \dots ](C_t)$</div>
+            <div class="input-row">
+                <span class="input-label">Hàm kích hoạt:</span>
+                <input type="text" class="blank-input" data-ans="tanh" data-alt="tan h" placeholder="Ví dụ: tanh">
+                <span class="hint-text">(Gõ: tanh)</span>
+            </div>
+        </div>
+
+        <span class="section-tag tag-calc" style="margin-top: 14px;">Phần B: Tự tay tính toán số liệu</span>
+        <p>Với $x_t = 2.0, h_{t-1} = 1.0, C_t = 2.4$. Trọng số cổng ra: $W_o = 0.3, U_o = 0.4, b_o = -1.0$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">Bước 1: Tính toán Cổng ra ($o_t$)</div>
-            <div class="math-block">
-                $$z_o = W_o x_t + U_o h_{t-1} + b_o = 0.3(2.0) + 0.4(1.0) - 1.0, \qquad o_t = \sigma(z_o)$$
-            </div>
+            <div class="step-desc">1. Tính giá trị tuyến tính $z_o = 0.3(2.0) + 0.4(1.0) - 1.0$ và độ mở cổng ra $o_t$</div>
             <div class="input-row">
                 <span class="input-label">Tuyến tính $z_o = $</span>
                 <input type="text" class="blank-input" data-ans="0.0" data-tol="0.01" placeholder="Nhập zo...">
             </div>
             <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Độ mở cổng ra $o_t = $</span>
+                <span class="input-label">Độ mở cổng ra $o_t = \sigma(z_o) = $</span>
                 <input type="text" class="blank-input" data-ans="0.5" data-tol="0.01" placeholder="Nhập ot...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">Bước 2: Tính trạng thái ẩn đầu ra ($h_t$) với $\tanh(C_t) = \tanh(2.4) \approx 0.9837$</div>
-            <div class="math-block">
-                $$h_t = o_t \times \tanh(C_t) = 0.500 \times 0.9837$$
-            </div>
+            <div class="step-desc">2. Cho $\tanh(C_t) = \tanh(2.4) = 0.9837$. Tính trạng thái ẩn đầu ra $h_t$</div>
             <div class="input-row">
-                <span class="input-label">Trạng thái ẩn $h_t = $</span>
+                <span class="input-label">Trạng thái ẩn $h_t = o_t \times \tanh(C_t) = $</span>
                 <input type="text" class="blank-input" data-ans="0.492" data-tol="0.01" placeholder="Ví dụ: 0.492">
-                <span class="unit-label">(làm tròn 3 chữ số thập phân)</span>
+                <span class="hint-text">(làm tròn 3 chữ số thập phân)</span>
             </div>
         </div>
 
-        <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem lời giải chi tiết Bài 3</button>
+        <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
-            <p><strong>Lời giải chi tiết:</strong></p>
-            <p>1. $z_o = 0.3(2.0) + 0.4(1.0) - 1.0 = 0.6 + 0.4 - 1.0 = 0.0 \implies o_t = \sigma(0.0) = 0.500$.</p>
-            <p>2. $h_t = 0.500 \times 0.9837 = 0.49185 \approx 0.492$.</p>
+            <p><strong>Bản chất:</strong> Ô nhớ $C_t$ đóng vai trò bộ nhớ dài hạn nội bộ, không xuất thẳng ra ngoài. Nó được ép về khoảng $(-1, 1)$ qua $\tanh(2.4) = 0.9837$ rồi nhân với cổng ra $o_t = 0.5$ để xuất ra $h_t = 0.492$. Vector $h_t$ này vừa là ngữ cảnh chuyển tiếp cho bước $t+1$, vừa được đưa vào tầng Dense để sinh ra giá trị dự báo cuối cùng.</p>
         </div>
     </div>
 </div>
 
 <script>
+    function normalizeInput(val) {
+        return val.trim().toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/,/g, '.')
+            .replace(/sigma/g, 'σ')
+            .replace(/_/g, '')
+            .replace(/\{|\}/g, '');
+    }
+
     function checkAllAnswers() {
         const inputs = document.querySelectorAll('.blank-input');
         let correctCount = 0;
 
         inputs.forEach(input => {
-            const expectedStr = input.getAttribute('data-ans').trim();
-            const tolerance = parseFloat(input.getAttribute('data-tol')) || 0.01;
-            const userRaw = input.value.trim().replace(',', '.');
+            const expectedRaw = input.getAttribute('data-ans').trim();
+            const altRaw = input.getAttribute('data-alt') || '';
+            const tolerance = parseFloat(input.getAttribute('data-tol'));
+            const userRaw = input.value.trim();
 
-            const expectedNum = parseFloat(expectedStr);
-            const userNum = parseFloat(userRaw);
+            if (!userRaw) {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+                return;
+            }
+
+            const expectedNum = parseFloat(expectedRaw.replace(',', '.'));
+            const userNum = parseFloat(userRaw.replace(',', '.'));
 
             let isCorrect = false;
-            if (!isNaN(userNum) && !isNaN(expectedNum)) {
+
+            if (!isNaN(tolerance) && !isNaN(expectedNum) && !isNaN(userNum)) {
                 isCorrect = Math.abs(userNum - expectedNum) <= tolerance;
-            } else if (userRaw.toLowerCase() === expectedStr.toLowerCase()) {
-                isCorrect = true;
+            } else {
+                const normUser = normalizeInput(userRaw);
+                const normExpected = normalizeInput(expectedRaw);
+                const allowedList = [normExpected, ...altRaw.split(',').map(s => normalizeInput(s))];
+
+                isCorrect = allowedList.some(item => normUser === item);
             }
 
             if (isCorrect) {
