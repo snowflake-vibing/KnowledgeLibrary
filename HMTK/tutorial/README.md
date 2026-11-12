@@ -5,7 +5,10 @@
 
 ## 📌 QUY CHUẨN THIẾT KẾ CÁC CHUYÊN ĐỀ
 
-Nhằm giúp học viên không chỉ nắm bắt khái niệm trừu tượng mà còn **thực sự hiểu bản chất công thức toán học và tự tay tính toán ra các con số cụ thể**, toàn bộ thư viện bài giảng được cấu trúc đồng bộ theo quy chuẩn:
+Nhằm giúp học viên không chỉ nắm bắt khái niệm trừu tượng mà còn **thực sự hiểu bản chất công thức toán học và tự tay tính toán ra các con số cụ thể**, toàn bộ thư viện bài giảng được cấu trúc đồng bộ theo quy chuẩn nghiêm ngặt.
+
+> [!TIP]
+> Xem chi tiết tài liệu quy định và bảng kiểm tra chất lượng xây dựng chuyên đề mới tại: **[`rule.md`](./rule.md)**.
 
 > [!IMPORTANT]
 > ### QUY TẮC BẮT BUỘC CHO MỖI CHUYÊN ĐỀ
