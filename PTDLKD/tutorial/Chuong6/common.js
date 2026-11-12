@@ -35,10 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initSubTabs() {
-    const btns = document.querySelectorAll('.sub-tab-btn');
+    const btns = document.querySelectorAll('.sub-tab-btn[data-target]');
     btns.forEach((btn) => {
         btn.addEventListener('click', () => {
             const target = btn.getAttribute('data-target');
+            if (!target) return;
             document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');

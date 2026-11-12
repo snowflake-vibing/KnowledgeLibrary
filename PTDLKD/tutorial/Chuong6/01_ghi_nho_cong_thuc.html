@@ -8,7 +8,737 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
             onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
-    <link rel="stylesheet" href="style.css">
+    <style>
+:root {
+    --bg-primary: #0b0f17;
+    --bg-elevated: #111827;
+    --bg-subtle: rgba(255, 255, 255, 0.03);
+    --bg-input: #0d1320;
+    --border-color: rgba(148, 163, 184, 0.16);
+    --border-strong: rgba(148, 163, 184, 0.28);
+    --text-main: #e2e8f0;
+    --text-heading: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-blue: #38bdf8;
+    --accent-indigo: #38bdf8;
+    --accent-primary: #0284c7;
+    --accent-green: #34d399;
+    --accent-red: #f87171;
+    --accent-amber: #fbbf24;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    line-height: 1.65;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.86em;
+    background: rgba(148, 163, 184, 0.14);
+    color: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+strong {
+    color: var(--text-heading);
+    font-weight: 600;
+}
+
+/* Top Navigation Bar */
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 15, 23, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 20px;
+}
+
+.top-nav-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-heading);
+    font-weight: 700;
+    font-size: 0.96rem;
+    letter-spacing: -0.01em;
+}
+
+.nav-brand .pill {
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-blue);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 11px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-heading);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active {
+    color: #fff;
+    background: var(--accent-primary);
+    font-weight: 600;
+}
+
+/* Main Container */
+.container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 28px 20px 64px;
+}
+
+/* Page Header */
+header.page-header {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.badge-header {
+    display: inline-block;
+    color: var(--accent-blue);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 6px;
+}
+
+h2 {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.header-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    max-width: 720px;
+    line-height: 1.6;
+}
+
+/* Score Pill */
+.score-pill {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    min-width: 165px;
+    text-align: right;
+}
+
+.score-pill .score-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.score-pill .score-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Compact Symbol Toolbar (non-sticky so it doesn't clutter scroll) */
+.symbol-bar {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.symbol-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.symbol-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.sym-btn {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 4px 9px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.sym-btn:hover {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: var(--accent-blue);
+    color: #fff;
+}
+
+/* Cards */
+.card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.card-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag {
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+.tag.green {
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--accent-green);
+    border-color: rgba(52, 211, 153, 0.28);
+}
+
+.tag.amber {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--accent-amber);
+    border-color: rgba(251, 191, 36, 0.25);
+}
+
+/* Formula & Problem Rows: hairline dividers instead of heavy nested boxes */
+.formula-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.formula-item:first-of-type {
+    padding-top: 4px;
+}
+
+.formula-item:last-of-type {
+    border-bottom: none;
+    padding-bottom: 4px;
+}
+
+.formula-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.formula-name {
+    font-weight: 600;
+    font-size: 0.94rem;
+    color: var(--text-heading);
+}
+
+.formula-num {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(148, 163, 184, 0.1);
+    border: 1px solid var(--border-color);
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Flow math + inline inputs cleanly without flex-wrap jitter */
+.equation-line {
+    display: block;
+    font-size: 0.98rem;
+    line-height: 2.15;
+    padding: 3px 0;
+    color: var(--text-main);
+}
+
+.formula-note {
+    margin-top: 4px;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+}
+
+/* Fill-in-the-blank Inputs */
+.blank-input {
+    display: inline-block;
+    vertical-align: middle;
+    background: var(--bg-input);
+    color: var(--text-heading);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 3px 8px;
+    height: 31px;
+    margin: 0 2px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.blank-input::placeholder {
+    color: #64748b;
+    font-weight: 400;
+    font-size: 0.78rem;
+}
+
+.blank-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
+    background: #0f172a;
+}
+
+.blank-input.correct {
+    border-color: var(--accent-green);
+    background: rgba(52, 211, 153, 0.1);
+    color: #6ee7b7;
+}
+
+.blank-input.incorrect {
+    border-color: var(--accent-red);
+    background: rgba(248, 113, 113, 0.1);
+    color: #fca5a5;
+}
+
+.w-xs { width: 64px; }
+.w-sm, .sm { width: 92px; }
+.w-md { width: 132px; }
+.w-lg { width: 185px; }
+.w-xl { width: 240px; }
+
+/* Buttons: clean primary + subtle neutral secondaries */
+.btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.btn {
+    border: 1px solid var(--border-strong);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(148, 163, 184, 0.45);
+    color: #fff;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: #0369a1;
+    border-color: #0369a1;
+}
+
+.btn-amber:hover {
+    border-color: rgba(251, 191, 36, 0.55);
+    color: var(--accent-amber);
+}
+
+.btn-green:hover {
+    border-color: rgba(52, 211, 153, 0.55);
+    color: var(--accent-green);
+}
+
+.btn-red {
+    color: var(--text-muted);
+}
+
+.btn-red:hover {
+    border-color: rgba(248, 113, 113, 0.55);
+    color: var(--accent-red);
+}
+
+/* Feedback & Hints */
+.feedback-box {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    display: none;
+}
+
+.feedback-box.show {
+    display: block;
+}
+
+.feedback-box.success {
+    background: rgba(52, 211, 153, 0.09);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    color: #a7f3d0;
+}
+
+.feedback-box.partial {
+    background: rgba(251, 191, 36, 0.09);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #fde68a;
+}
+
+.feedback-box.error {
+    background: rgba(248, 113, 113, 0.09);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    color: #fecaca;
+}
+
+.hint-box {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: rgba(56, 189, 248, 0.06);
+    border-left: 3px solid var(--accent-blue);
+    color: #bae6fd;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    display: none;
+}
+
+.hint-box.show {
+    display: block;
+}
+
+/* Clean Minimalist Tables */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+    border-bottom: 1px solid var(--border-color);
+    padding: 9px 10px;
+    text-align: center;
+}
+
+.data-table th {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-heading);
+    font-weight: 600;
+    font-size: 0.84rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.data-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Grid utilities */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+@media (max-width: 820px) {
+    .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+    }
+    .container {
+        padding: 18px 14px 48px;
+    }
+    .card {
+        padding: 16px;
+    }
+    .data-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Segmented Sub-tabs */
+.sub-tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+}
+
+.sub-tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.86rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sub-tab-btn:hover {
+    color: var(--text-heading);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.sub-tab-btn.active {
+    background: rgba(56, 189, 248, 0.14);
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.sub-panel {
+    display: none;
+}
+
+.sub-panel.active {
+    display: block;
+}
+
+/* Helper Calculator Widget */
+.calc-widget {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.calc-widget input {
+    background: var(--bg-input);
+    border: 1px solid var(--border-strong);
+    color: var(--text-heading);
+    padding: 5px 9px;
+    border-radius: var(--radius-sm);
+    width: 96px;
+    font-family: ui-monospace, monospace;
+}
+
+.calc-widget input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+.calc-result {
+    color: var(--accent-green);
+    font-weight: 600;
+    font-family: ui-monospace, monospace;
+}
+
+/* Dashboard Cards (Fix anchor styling + spacing!) */
+.module-card {
+    text-decoration: none;
+    color: inherit;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.45);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.module-card .card-header {
+    margin-bottom: 4px;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.module-card h3 {
+    color: var(--text-heading);
+    font-size: 1.04rem;
+    margin-bottom: 2px;
+}
+
+.module-card p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 4px;
+}
+
+.module-card .btn-group {
+    margin-top: 6px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-input);
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 4px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+    width: 0%;
+    transition: width 0.35s ease;
+}
+
+.warmup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.warmup-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    line-height: 2.05;
+}
+
+.warmup-item:last-child {
+    border-bottom: none;
+}
+</style>
 </head>
 <body>
 
@@ -63,6 +793,16 @@
             <button type="button" class="btn btn-primary" onclick="checkAllOnPage()">Kiểm tra tất cả</button>
             <button type="button" class="btn btn-red" onclick="resetAllOnPage()">Làm lại tất cả</button>
         </div>
+    </div>
+
+    <div class="sub-tabs" id="formulaTabs">
+        <button type="button" class="sub-tab-btn active" onclick="switchFormulaSection('sec-ann-act', this)">A. ANN &amp; Kích hoạt</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('sec-loss-gd', this)">B. Loss &amp; GD</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('sec-rnn', this)">C. RNN</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('sec-lstm', this)">D. LSTM</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('sec-gru', this)">E. GRU</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('sec-iforest', this)">F. Isolation Forest</button>
+        <button type="button" class="sub-tab-btn" onclick="switchFormulaSection('all', this)">Hiện tất cả</button>
     </div>
 
     <!-- SECTION A: NEURON & ACTIVATION -->
@@ -515,7 +1255,279 @@
     </section>
 </div>
 
-<script>const PAGE_KEY = 'formulas';</script>
-<script src="common.js"></script>
+<script>
+const PAGE_KEY = 'formulas';
+function switchFormulaSection(target, btn) {
+    document.querySelectorAll('#formulaTabs .sub-tab-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.querySelectorAll('section.card[data-section]').forEach(sec => {
+        const id = sec.getAttribute('data-section');
+        sec.style.display = (target === 'all' || id === target) ? 'block' : 'none';
+    });
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const firstBtn = document.querySelector('#formulaTabs .sub-tab-btn.active');
+    switchFormulaSection('sec-ann-act', firstBtn);
+});
+</script>
+<script>
+// Shared interactive fill-in-the-blank engine for PTDLKD Chuong 6 (P2)
+let lastFocusedInput = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Track last focused blank input for symbol insertion
+    document.addEventListener('focusin', (e) => {
+        if (e.target && e.target.classList && e.target.classList.contains('blank-input')) {
+            lastFocusedInput = e.target;
+        }
+    });
+
+    // Clear validation styling when user edits an input
+    document.addEventListener('input', (e) => {
+        if (e.target && e.target.classList && e.target.classList.contains('blank-input')) {
+            e.target.classList.remove('correct', 'incorrect');
+        }
+    });
+
+    // Pressing Enter inside a blank checks the nearest card/section
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target && e.target.classList && e.target.classList.contains('blank-input')) {
+            e.preventDefault();
+            const container = e.target.closest('[data-section]');
+            if (container) {
+                checkSection(container.getAttribute('data-section'));
+            }
+        }
+    });
+
+    // Initialize sub-tabs if present
+    initSubTabs();
+
+    // Update page score summary on load
+    updatePageProgress(false);
+});
+
+function initSubTabs() {
+    const btns = document.querySelectorAll('.sub-tab-btn[data-target]');
+    btns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-target');
+            if (!target) return;
+            document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const panel = document.getElementById(target);
+            if (panel) panel.classList.add('active');
+        });
+    });
+}
+
+function insertSymbol(sym) {
+    if (!lastFocusedInput) {
+        const first = document.querySelector('.blank-input');
+        if (first) lastFocusedInput = first;
+        else return;
+    }
+    const input = lastFocusedInput;
+    const start = input.selectionStart ?? input.value.length;
+    const end = input.selectionEnd ?? input.value.length;
+    const val = input.value;
+    input.value = val.slice(0, start) + sym + val.slice(end);
+    input.focus();
+    const pos = start + sym.length;
+    input.setSelectionRange(pos, pos);
+    input.classList.remove('correct', 'incorrect');
+}
+
+function removeAccents(str) {
+    return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'D');
+}
+
+function normalizeMathString(raw) {
+    let s = String(raw || '').trim().toLowerCase();
+    // Standardize math symbols to canonical tokens so ASCII or Unicode both pass
+    s = s
+        .replace(/×|·|\*/g, '*')
+        .replace(/−|–/g, '-')
+        .replace(/σ/g, 'sigma')
+        .replace(/η/g, 'eta')
+        .replace(/γ/g, 'gamma')
+        .replace(/θ/g, 'theta')
+        .replace(/∇/g, 'nabla')
+        .replace(/∂/g, 'd')
+        .replace(/⊙/g, 'odot')
+        .replace(/∑/g, 'sum')
+        .replace(/∈/g, 'in')
+        .replace(/∞/g, 'inf')
+        .replace(/≥/g, '>=')
+        .replace(/≤/g, '<=')
+        .replace(/≈/g, '=')
+        .replace(/\s+/g, '');
+    return s;
+}
+
+function normalizeTextString(raw) {
+    let s = removeAccents(String(raw || '').trim().toLowerCase());
+    s = s.replace(/\s+/g, ' ');
+    return s;
+}
+
+function evaluateBlank(input) {
+    const ansAttr = input.getAttribute('data-ans') || '';
+    const type = input.getAttribute('data-type') || 'math';
+    const userRaw = input.value.trim();
+    if (!userRaw) return false;
+
+    const candidates = ansAttr.split('|').map(x => x.trim()).filter(Boolean);
+
+    if (type === 'number') {
+        const cleaned = userRaw.replace(/,/g, '.').replace(/\s+/g, '');
+        const userVal = Number(cleaned);
+        if (Number.isNaN(userVal)) return false;
+        const tol = parseFloat(input.getAttribute('data-tol') || '0.01');
+        return candidates.some(c => {
+            const target = Number(c);
+            return !Number.isNaN(target) && Math.abs(userVal - target) <= tol;
+        });
+    }
+
+    if (type === 'text') {
+        const userNorm = normalizeTextString(userRaw);
+        return candidates.some(c => normalizeTextString(c) === userNorm);
+    }
+
+    // Default: 'math' normalization (spaces stripped, Unicode/ASCII aliases unified)
+    const userMath = normalizeMathString(userRaw);
+    return candidates.some(c => normalizeMathString(c) === userMath);
+}
+
+function checkSection(sectionId) {
+    const sec = document.querySelector(`[data-section="${sectionId}"]`);
+    if (!sec) return { correct: 0, total: 0 };
+
+    const inputs = sec.querySelectorAll('.blank-input');
+    let correctCount = 0;
+
+    inputs.forEach(input => {
+        const ok = evaluateBlank(input);
+        input.classList.remove('correct', 'incorrect');
+        if (ok) {
+            input.classList.add('correct');
+            correctCount++;
+        } else {
+            input.classList.add('incorrect');
+        }
+    });
+
+    const fb = sec.querySelector('.feedback-box');
+    if (fb) {
+        fb.classList.remove('success', 'partial', 'error');
+        fb.classList.add('show');
+        const total = inputs.length;
+        if (correctCount === total && total > 0) {
+            fb.classList.add('success');
+            fb.innerHTML = `✅ <strong>Xuất sắc!</strong> Bạn đã điền đúng toàn bộ <strong>${correctCount}/${total}</strong> ô trống trong phần này.`;
+        } else if (correctCount > 0) {
+            fb.classList.add('partial');
+            fb.innerHTML = `⚠️ <strong>Gần xong rồi:</strong> Đúng <strong>${correctCount}/${total}</strong> ô. Các ô viền đỏ cần kiểm tra lại!`;
+        } else {
+            fb.classList.add('error');
+            fb.innerHTML = `❌ <strong>Chưa đúng (0/${total}):</strong> Hãy bấm <em>Gợi ý</em> hoặc xem lại công thức trong bài giảng.`;
+        }
+    }
+
+    updatePageProgress(true);
+    return { correct: correctCount, total: inputs.length };
+}
+
+function checkAllOnPage() {
+    const sections = document.querySelectorAll('[data-section]');
+    sections.forEach(sec => {
+        checkSection(sec.getAttribute('data-section'));
+    });
+}
+
+function toggleHint(sectionId) {
+    const sec = document.querySelector(`[data-section="${sectionId}"]`);
+    if (!sec) return;
+    const hint = sec.querySelector('.hint-box');
+    if (hint) {
+        hint.classList.toggle('show');
+    }
+}
+
+function revealSection(sectionId) {
+    const sec = document.querySelector(`[data-section="${sectionId}"]`);
+    if (!sec) return;
+    const inputs = sec.querySelectorAll('.blank-input');
+    inputs.forEach(input => {
+        const displayAns = input.getAttribute('data-display') || (input.getAttribute('data-ans') || '').split('|')[0];
+        input.value = displayAns;
+        input.classList.remove('incorrect');
+        input.classList.add('correct');
+    });
+
+    const fb = sec.querySelector('.feedback-box');
+    if (fb) {
+        fb.classList.remove('error', 'partial');
+        fb.classList.add('show', 'success');
+        fb.innerHTML = `💡 <strong>Đã hiển thị đáp án chuẩn</strong> cho ${inputs.length} ô trống. Hãy tự làm lại sau khi ghi nhớ nhé!`;
+    }
+    updatePageProgress(true);
+}
+
+function resetSection(sectionId) {
+    const sec = document.querySelector(`[data-section="${sectionId}"]`);
+    if (!sec) return;
+    const inputs = sec.querySelectorAll('.blank-input');
+    inputs.forEach(input => {
+        input.value = '';
+        input.classList.remove('correct', 'incorrect');
+    });
+    const fb = sec.querySelector('.feedback-box');
+    if (fb) {
+        fb.className = 'feedback-box';
+        fb.innerHTML = '';
+    }
+    const hint = sec.querySelector('.hint-box');
+    if (hint) {
+        hint.classList.remove('show');
+    }
+    updatePageProgress(true);
+}
+
+function resetAllOnPage() {
+    const sections = document.querySelectorAll('[data-section]');
+    sections.forEach(sec => resetSection(sec.getAttribute('data-section')));
+}
+
+function updatePageProgress(save) {
+    const allInputs = document.querySelectorAll('.blank-input');
+    const total = allInputs.length;
+    let correct = 0;
+    allInputs.forEach(inp => {
+        if (inp.classList.contains('correct')) correct++;
+    });
+
+    const scoreEl = document.getElementById('pageScoreValue');
+    if (scoreEl) {
+        scoreEl.textContent = `${correct} / ${total}`;
+    }
+
+    if (save && typeof PAGE_KEY !== 'undefined' && PAGE_KEY) {
+        try {
+            const store = JSON.parse(localStorage.getItem('ptdlkd_chuong6_progress') || '{}');
+            store[PAGE_KEY] = { correct, total, updatedAt: Date.now() };
+            localStorage.setItem('ptdlkd_chuong6_progress', JSON.stringify(store));
+        } catch (err) {
+            // Ignore storage errors on restricted file:// environments
+        }
+    }
+}
+</script>
 </body>
 </html>
