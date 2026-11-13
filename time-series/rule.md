@@ -7,11 +7,11 @@
 
 ## 1. CẤU TRÚC THƯ MỤC BẮT BUỘC (MODULE STRUCTURE)
 
-Mỗi chuyên đề nằm trong một thư mục riêng biệt được đánh số thứ tự: `HMTK/tutorial/XX_ten_chuyen_de/` (ví dụ `01_...`, `06_...`).
+Mỗi chuyên đề nằm trong một thư mục riêng biệt được đánh số thứ tự: `time-series/XX_ten_chuyen_de/` (ví dụ `01_...`, `06_...`).
 Mỗi chuyên đề **BẮT BUỘC CHỈ GỒM ĐÚNG 2 TẬP TIN CỐT LÕI**:
 
 ```text
-HMTK/tutorial/XX_ten_chuyen_de/
+time-series/XX_ten_chuyen_de/
 ├── ly_thuyet.md            # Tài liệu lý thuyết, kiến trúc, nguồn gốc toán học & ví dụ tính tay chi tiết
 └── bai_tap_tinh_toan.html   # Web app tương tác kiểm tra kiến trúc & tự tay tính toán số liệu
 ```
@@ -59,7 +59,7 @@ Mỗi tệp `ly_thuyet.md` là cuốn giáo trình tự học toàn diện, bao 
   $$
   ```
 * **Ký tự tiền tệ:** Khi viết giá tiền hay biểu tượng dollar trong văn bản prose, bắt buộc phải escape: `\$100`.
-* **Đường dẫn tệp:** Dùng dấu gạch chéo xuôi (`/`), ví dụ: `[bai_tap.html](file:///d:/KnowledgeLibrary/HMTK/tutorial/...)`.
+* **Đường dẫn tệp:** Dùng dấu gạch chéo xuôi (`/`), ví dụ: `[bai_tap.html](file:///d:/KnowledgeLibrary/time-series/...)`.
 
 ---
 
@@ -126,4 +126,4 @@ Trước khi nghiệm thu và commit bất kỳ chuyên đề mới nào lên h�
 | 7 | **Dung sai số học** | Mọi ô nhập số đều có `data-tol` (ví dụ `0.05` hoặc `0.01`). |
 | 8 | **Định dạng Markdown** | Các khối `$$...$$` trong `ly_thuyet.md` có dòng trống bao quanh, ký hiệu `\$` được escape đúng. |
 | 9 | **Kiểm thử giao diện** | Mở tệp HTML trên trình duyệt, KaTeX render đẹp, nút xem lời giải đóng/mở mượt mà, chấm điểm chính xác. |
-| 10 | **Cập nhật Roadmap** | Đã cập nhật mục lục và liên kết chuyên đề mới vào `HMTK/tutorial/README.md`. |
+| 10 | **Cập nhật Roadmap** | Đã cập nhật mục lục và liên kết chuyên đề mới vào `time-series/README.md`. |

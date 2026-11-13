@@ -6,13 +6,9 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 
 ## 📚 Danh mục môn học
 
-### 1. [HMTK – Học Máy Thống Kê (DS102)](HMTK/tutorial/README.md)
-- **[Chương 4: Mô hình Hồi quy & Tối ưu hóa](HMTK/tutorial/Chuong4_Hoi_quy/README.md)**
-  1. [Hồi quy tuyến tính & Phương pháp bình phương bé nhất (LSM)](HMTK/tutorial/Chuong4_Hoi_quy/01_hoi_quy_tuyen_tinh_lsm.md)
-  2. [Các mô hình hồi quy tuyến tính quy tắc hóa (Ridge, Lasso, Elastic Net)](HMTK/tutorial/Chuong4_Hoi_quy/02_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net.md)
-  3. [Thuật toán Gradient giảm (Gradient Descent – BGD, SGD, Mini-Batch GD)](HMTK/tutorial/Chuong4_Hoi_quy/03_thuat_toan_gradient_descent.md)
-  4. [Hồi quy Logistic (Logistic Regression)](HMTK/tutorial/Chuong4_Hoi_quy/04_hoi_quy_logistic.md)
-  5. [Hồi quy Softmax (Softmax Regression)](HMTK/tutorial/Chuong4_Hoi_quy/05_hoi_quy_softmax.md)
+### 1. [HMTK – Học Máy Thống Kê (DS102)](HMTK/TH4/README.md)
+- **[Bài Thực Hành 4 (TH4): Huấn luyện Mô hình Học máy](HMTK/TH4/README.md)**
+  - [Báo cáo phân tích nhiệm vụ TH4](HMTK/TH4/phan_tich_nhiem_vu.md) (Dự đoán mức lương & Xác thực tranh cổ)
 
 ---
 
@@ -52,6 +48,17 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 - **[05. GENERATE & Iterative Functions (Bí quyết câu 3a UIT)](Kho_Du_Lieu_OLAP/mdx/05_generate_and_iterative_functions/ly_thuyet.md)**
 - **[06. Calculated Members & AGGREGATE (Bí quyết câu 3b UIT)](Kho_Du_Lieu_OLAP/mdx/06_calculated_members_named_sets_aggregates/ly_thuyet.md)**
 - **[07. Time Intelligence & Trend Analysis (Chuyên đề điểm 9-10)](Kho_Du_Lieu_OLAP/mdx/07_time_intelligence_and_trend_analysis/ly_thuyet.md)**
+
+---
+
+### 7. [Time-Series – Dự Báo Chuỗi Thời Gian](time-series/README.md)
+- **[Lộ trình 5 chuyên đề Dự báo Chuỗi thời gian (Từ Cổ điển đến Học sâu)](time-series/README.md)** ([Quy chuẩn chuyên đề](time-series/rule.md))
+  1. [Chuyên đề 01: Nền tảng Chuỗi thời gian & Phân rã Xu hướng - Mùa vụ](time-series/01_nen_tang_va_phan_ra_chuoi_thoi_gian/ly_thuyet.md) ([Bài tập](time-series/01_nen_tang_va_phan_ra_chuoi_thoi_gian/bai_tap_tinh_toan.html))
+  2. [Chuyên đề 02: Các Phương pháp San bằng Hàm mũ (SES, Holt, Holt-Winters)](time-series/02_san_bang_ham_mu_exponential_smoothing/ly_thuyet.md) ([Bài tập](time-series/02_san_bang_ham_mu_exponential_smoothing/bai_tap_tinh_toan.html))
+  3. [Chuyên đề 03: Mô hình Thống kê Hồi quy Cổ điển AR, MA, ARIMA & SARIMA](time-series/03_mo_hinh_arima_va_sarima/ly_thuyet.md) ([Bài tập](time-series/03_mo_hinh_arima_va_sarima/bai_tap_tinh_toan.html))
+  4. [Chuyên đề 04: Biến đổi Chuỗi thời gian thành Học máy Giám sát (Tabular ML)](time-series/04_machine_learning_time_series_regression/ly_thuyet.md) ([Bài tập](time-series/04_machine_learning_time_series_regression/bai_tap_tinh_toan.html))
+  5. [Chuyên đề 05: Học sâu cho Chuỗi thời gian (Deep Learning: RNN & LSTM Networks)](time-series/05_deep_learning_rnn_lstm_forecasting/ly_thuyet.md) ([Bài tập](time-series/05_deep_learning_rnn_lstm_forecasting/bai_tap_tinh_toan.html))
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề 02 - Kiểm Tra Kiến Trúc & Tính Toán San Bằng Hàm Mũ</title>
+    <title>Chuyên Đề 01 - Kiểm Tra Kiến Trúc & Tính Toán Thực Hành Chuỗi Thời Gian</title>
     <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -38,7 +38,7 @@
         .arch-title { font-weight: 700; color: var(--accent); margin-bottom: 12px; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .arch-flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
         .arch-node { background: var(--bg-card); border: 1.5px solid var(--border); padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; color: #e2e8f0; }
-        .arch-node.state { border-color: var(--warning); color: var(--warning); background: rgba(251, 191, 36, 0.1); }
+        .arch-node.highlight { border-color: var(--primary); color: var(--primary); background: rgba(56, 189, 248, 0.1); }
         .arch-node.output { border-color: var(--success); color: var(--success); background: rgba(52, 211, 153, 0.1); }
         .arch-arrow { color: var(--text-muted); font-size: 1.1rem; font-weight: 700; }
         .arch-desc { font-size: 0.88rem; color: var(--text-muted); margin-top: 10px; text-align: left; background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: 6px; }
@@ -64,155 +64,158 @@
 <body>
 <div class="container">
     <header>
-        <span class="badge">HMTK • Chuyên đề 02</span>
-        <h1>Kiểm Tra Kiến Trúc & Tính Toán San Bằng Hàm Mũ</h1>
-        <p class="subtitle">Tự nhớ các phương trình cập nhật trạng thái đệ quy (Level, Trend, Seasonal) và tự tay thực hiện các phép tính số học.</p>
+        <span class="badge">Time-Series • Chuyên đề 01</span>
+        <h1>Kiểm Tra Kiến Trúc & Tính Toán Thực Hành Chuỗi Thời Gian</h1>
+        <p class="subtitle">Tự nhớ công thức toán học từ lý thuyết, quan sát dữ liệu thô và tự tay thực hiện các phép tính số học cụ thể.</p>
     </header>
 
     <div class="stats-bar">
-        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">12</span> ô hoàn thành</div>
+        <div>Tiến độ: <span id="currentScore" class="score-box">0</span> / <span id="totalBlanks">9</span> ô hoàn thành</div>
         <button class="btn-action" onclick="checkAllAnswers()">Kiểm tra kết quả</button>
     </div>
 
     <!-- SƠ ĐỒ KIẾN TRÚC FORWARD PASS (KHÔNG LỘ CÔNG THỨC TOÁN) -->
     <div class="arch-diagram">
-        <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: KHÔNG GIAN TRẠNG THÁI HOLT-WINTERS</div>
+        <div class="arch-title">🏛️ SƠ ĐỒ KIẾN TRÚC & LUỒNG FORWARD PASS: PHÂN RÃ CỔ ĐIỂN (CLASSICAL DECOMPOSITION)</div>
         <div class="arch-flow">
-            <div class="arch-node">Quan sát mới $y_t$</div>
+            <div class="arch-node">Chuỗi gốc $Y_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Cập nhật Mức độ nền $l_t$</div>
+            <div class="arch-node highlight">Lọc trung bình trượt CMA</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Cập nhật Xu hướng $b_t$</div>
+            <div class="arch-node">Đường xu hướng $T_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node state">Cập nhật Mùa vụ $s_t$</div>
+            <div class="arch-node highlight">Bóc tách mùa vụ thô $z_t$</div>
             <div class="arch-arrow">➔</div>
-            <div class="arch-node output">Phóng chiếu tương lai $\hat{y}_{t+h|t}$</div>
+            <div class="arch-node">Chỉ số mùa vụ chuẩn hóa $S_t$</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node">Khử mùa vụ</div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node output">Dự báo tái cấu trúc $\hat{y}_{t+h}$</div>
         </div>
         <div class="arch-desc">
-            <strong>Bản chất luồng truyền trạng thái (Recurrent Forward Pass):</strong><br>
-            Hệ thống duy trì 3 biến bộ nhớ: <strong>Mức độ nền ($l_t$)</strong>, <strong>Độ dốc xu hướng ($b_t$)</strong> và <strong>Độ lệch mùa vụ ($s_t$)</strong>.<br>
-            Mỗi khi có quan sát mới $y_t$, hệ thống cập nhật đệ quy các trạng thái bằng phép nội suy giữa thông tin mới tức thời và dự báo từ bước trước. Khi dự báo tương lai $h$ bước, mô hình cố định trạng thái tại thời điểm $t$ và tịnh tiến theo độ dốc xu hướng.
+            <strong>Bản chất luồng truyền dữ liệu (Forward Pass Pipeline):</strong><br>
+            1. Dữ liệu gốc $Y_t$ đi qua bộ lọc <em>Trung bình trượt trung tâm (CMA)</em> để khử biến động ngắn hạn $\to$ thu được <strong>Đường xu hướng $T_t$</strong>.<br>
+            2. So sánh $Y_t$ với $T_t$ để bóc tách yếu tố mùa vụ thô $\to$ tính trung bình từng chu kỳ và chuẩn hóa tổng $\to$ thu được <strong>Chỉ số mùa vụ $S_t$</strong>.<br>
+            3. Dùng $S_t$ để khử mùa vụ khỏi chuỗi ban đầu, ngoại suy đường xu hướng tương lai và tổng hợp lại để đưa ra kết quả dự báo.
         </div>
     </div>
 
-    <!-- BÀI 1: SAN BẰNG HÀM MŨ ĐƠN (SES) -->
+    <!-- BÀI 1: TỰ TƯƠNG QUAN MẪU (ACF) -->
     <div class="card">
-        <h2>Bài 1: San Bằng Hàm Mũ Đơn (Simple Exponential Smoothing - SES)</h2>
-        <p>Cho chuỗi quan sát: $y_1 = 20, y_2 = 24, y_3 = 22, y_4 = 28$. Thiết lập hệ số san bằng $\alpha = 0.4$, khởi tạo dự báo ban đầu $\hat{y}_{1|0} = 20.0$.</p>
+        <h2>Bài 1: Hệ Số Tự Tương Quan Mẫu (Autocorrelation Function - ACF)</h2>
+        <p>Cho chuỗi 5 quan sát: $y = [10, 14, 12, 18, 16]$.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính dự báo cho thời điểm $t=2$ ($\hat{y}_{2|1}$)</div>
+            <div class="step-desc">1. Tính giá trị trung bình $\bar{y}$ của chuỗi quan sát</div>
             <div class="input-row">
-                <span class="input-label">$\hat{y}_{2|1} = $</span>
-                <input type="text" class="blank-input" data-ans="20.0" data-tol="0.05" placeholder="Nhập số...">
+                <span class="input-label">$\bar{y} = $</span>
+                <input type="text" class="blank-input" data-ans="14" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tại $t=2$, quan sát $y_2 = 24$. Tính sai số dự báo $e_2$ và dự báo cho thời điểm tiếp theo $\hat{y}_{3|2}$</div>
+            <div class="step-desc">2. Tính tổng bình phương sai lệch quanh trung bình (mẫu số của $r_1$)</div>
             <div class="input-row">
-                <span class="input-label">Sai số $e_2 = $</span>
-                <input type="text" class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="Nhập e2...">
-            </div>
-            <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Dự báo $\hat{y}_{3|2} = $</span>
-                <input type="text" class="blank-input" data-ans="21.6" data-tol="0.05" placeholder="Nhập y3...">
+                <span class="input-label">Mẫu số = </span>
+                <input type="text" class="blank-input" data-ans="40" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">3. Tại $t=3$ ($y_3 = 22$) và $t=4$ ($y_4 = 28$), tính tiếp dự báo $\hat{y}_{4|3}$ và dự báo tương lai $\hat{y}_{5|4}$</div>
+            <div class="step-desc">3. Tính hệ số tự tương quan mẫu bậc 1 ($r_1$)</div>
             <div class="input-row">
-                <span class="input-label">Dự báo $\hat{y}_{4|3} = $</span>
-                <input type="text" class="blank-input" data-ans="21.76" data-tol="0.05" placeholder="Nhập y4...">
-            </div>
-            <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Dự báo tương lai $\hat{y}_{5|4} = $</span>
-                <input type="text" class="blank-input" data-ans="24.256" data-tol="0.05" placeholder="Nhập y5...">
+                <span class="input-label">Hệ số $r_1 = $</span>
+                <input type="text" class="blank-input" data-ans="0" data-tol="0.01" placeholder="Nhập số...">
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol1')">Xem giải thích bản chất & lời giải</button>
         <div id="sol1" class="solution-box">
             <p><strong>Lời giải chi tiết:</strong></p>
-            <p>• Tại $t=1$: $\hat{y}_{2|1} = 0.4(20) + 0.6(20) = 20.0$.</p>
-            <p>• Tại $t=2$: Sai số $e_2 = y_2 - \hat{y}_{2|1} = 24 - 20 = 4.0$. Dự báo $\hat{y}_{3|2} = \hat{y}_{2|1} + \alpha e_2 = 20.0 + 0.4(4.0) = 21.6$ (hoặc $0.4 \times 24 + 0.6 \times 20 = 21.6$).</p>
-            <p>• Tại $t=3$: $\hat{y}_{4|3} = 0.4(22) + 0.6(21.6) = 8.8 + 12.96 = 21.76$.</p>
-            <p>• Tại $t=4$: $\hat{y}_{5|4} = 0.4(28) + 0.6(21.76) = 11.2 + 13.056 = 24.256$.</p>
+            <p>• Trung bình: $\bar{y} = (10 + 14 + 12 + 18 + 16)/5 = 70/5 = 14.0$.</p>
+            <p>• Độ lệch: $[-4, 0, -2, 4, 2]$. Mẫu số: $(-4)^2 + 0^2 + (-2)^2 + 4^2 + 2^2 = 16 + 0 + 4 + 16 + 4 = 40$.</p>
+            <p>• Tử số hiệp phương sai trễ bậc 1: $(-4)(0) + (0)(-2) + (-2)(4) + (4)(2) = 0 + 0 - 8 + 8 = 0$.</p>
+            <p>• Do đó: $r_1 = 0 / 40 = 0.0$.</p>
         </div>
     </div>
 
-    <!-- BÀI 2: HOLT TUYẾN TÍNH (LEVEL & TREND) -->
+    <!-- BÀI 2: PHÂN RÃ MÔ HÌNH NHÂN & CMA -->
     <div class="card">
-        <h2>Bài 2: Phương Pháp Holt Tuyến Tính (Level & Trend)</h2>
-        <p>Khởi tạo ban đầu: $l_0 = 80$, $b_0 = 5$. Siêu tham số san bằng: $\alpha = 0.2, \beta = 0.1$.</p>
+        <h2>Bài 2: Phân Rã Mùa Vụ & Trung Bình Trượt Trung Tâm (CMA)</h2>
+        <p>Dữ liệu doanh số 5 quý: $y_1 = 40$ (Q1), $y_2 = 56$ (Q2), $y_3 = 68$ (Q3), $y_4 = 92$ (Q4), $y_5 = 50$ (Q1 năm sau).</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tại $t=1$, quan sát $y_1 = 90$. Tính Level $l_1$, Trend $b_1$ và dự báo bước kế tiếp $\hat{y}_{2|1}$</div>
+            <div class="step-desc">1. Tính giá trị trung bình trượt trung tâm $\text{CMA}_3$ tại Quý 3 (chu kỳ $m=4$)</div>
             <div class="input-row">
-                <span class="input-label">Level $l_1 = $</span>
-                <input type="text" class="blank-input" data-ans="86.0" data-tol="0.05" placeholder="Nhập l1...">
-            </div>
-            <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Trend $b_1 = $</span>
-                <input type="text" class="blank-input" data-ans="5.1" data-tol="0.05" placeholder="Nhập b1...">
-            </div>
-            <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Dự báo $\hat{y}_{2|1} = $</span>
-                <input type="text" class="blank-input" data-ans="91.1" data-tol="0.05" placeholder="Nhập y2...">
+                <span class="input-label">$\text{CMA}_3 = $</span>
+                <input type="text" class="blank-input" data-ans="65.25" data-tol="0.05" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tại $t=2$, quan sát $y_2 = 94$. Tính dự báo tương lai cho thời điểm $t=3$ ($h=1$) và $t=4$ ($h=2$)</div>
+            <div class="step-desc">2. Tính tỷ số mùa vụ thô $z_3$ tại Quý 3 theo mô hình nhân</div>
             <div class="input-row">
-                <span class="input-label">Dự báo $t=3$ ($h=1$): $\hat{y}_{3|2} = $</span>
-                <input type="text" class="blank-input" data-ans="96.838" data-tol="0.05" placeholder="Nhập y3...">
+                <span class="input-label">$z_3 = $</span>
+                <input type="text" class="blank-input" data-ans="1.042" data-tol="0.02" placeholder="Ví dụ: 1.042">
+                <span class="hint-text">(làm tròn 3 chữ số thập phân)</span>
             </div>
-            <div class="input-row" style="margin-top: 8px;">
-                <span class="input-label">Dự báo $t=4$ ($h=2$): $\hat{y}_{4|2} = $</span>
-                <input type="text" class="blank-input" data-ans="101.996" data-tol="0.05" placeholder="Nhập y4...">
+        </div>
+
+        <div class="calc-step">
+            <div class="step-desc">3. Cho phương trình xu hướng $\hat{T}_t = 36.5 + 8.5t$ và chỉ số mùa vụ Quý 1 $S_1 = 0.6950$. Tính dự báo doanh số $\hat{y}_9$ cho Quý 1 năm 3 ($t=9$)</div>
+            <div class="input-row">
+                <span class="input-label">$\hat{y}_9 = $</span>
+                <input type="text" class="blank-input" data-ans="78.535" data-tol="0.1" placeholder="Nhập số...">
+                <span class="hint-text">triệu VNĐ</span>
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol2')">Xem giải thích bản chất & lời giải</button>
         <div id="sol2" class="solution-box">
             <p><strong>Lời giải chi tiết:</strong></p>
-            <p>• Tại $t=1$: $l_1 = 0.2(90) + 0.8(80+5) = 18 + 68 = 86.0$. Xu hướng: $b_1 = 0.1(86 - 80) + 0.9(5) = 0.6 + 4.5 = 5.1$. Dự báo: $\hat{y}_{2|1} = 86.0 + 5.1 = 91.1$.</p>
-            <p>• Tại $t=2$: $l_2 = 0.2(94) + 0.8(91.1) = 18.8 + 72.88 = 91.68$. Xu hướng: $b_2 = 0.1(91.68 - 86.0) + 0.9(5.1) = 0.568 + 4.59 = 5.158$.</p>
-            <p>• Phóng chiếu tương lai: $\hat{y}_{3|2} = l_2 + 1(b_2) = 91.68 + 5.158 = 96.838$. $\hat{y}_{4|2} = l_2 + 2(b_2) = 91.68 + 2(5.158) = 101.996$.</p>
+            <p>• Với chu kỳ chẵn $m=4$, trọng số hai đầu là 0.5: $\text{CMA}_3 = \frac{0.5(40) + 56 + 68 + 92 + 0.5(50)}{4} = \frac{20 + 216 + 25}{4} = \frac{261}{4} = 65.25$.</p>
+            <p>• Tỷ số mùa vụ thô: $z_3 = y_3 / \text{CMA}_3 = 68 / 65.25 \approx 1.04215 \approx 1.042$.</p>
+            <p>• Tại $t=9$: Xu hướng $\hat{T}_9 = 36.5 + 8.5(9) = 36.5 + 76.5 = 113.0$. Dự báo mô hình nhân: $\hat{y}_9 = \hat{T}_9 \times S_1 = 113.0 \times 0.6950 = 78.535$ triệu VNĐ.</p>
         </div>
     </div>
 
-    <!-- BÀI 3: HOLT-WINTERS MÔ HÌNH NHÂN -->
+    <!-- BÀI 3: THƯỚC ĐO SAI SỐ DỰ BÁO -->
     <div class="card">
-        <h2>Bài 3: Dự Báo Holt-Winters Mô Hình Nhân (Multiplicative Seasonality)</h2>
-        <p>Tại thời điểm $t=12$, ước lượng được: $l_{12} = 200.0$, $b_{12} = 8.0$. Chỉ số mùa vụ chu kỳ 4 quý gần nhất: $s_9 = 0.80$ (Q1), $s_{10} = 1.10$ (Q2), $s_{11} = 0.90$ (Q3), $s_{12} = 1.20$ (Q4).</p>
+        <h2>Bài 3: Tính Toán Các Thang Đo Sai Số (MAE, RMSE, MAPE)</h2>
+        <p>Cho dữ liệu thực tế 4 bước: $y = [50, 60, 75, 90]$ và giá trị dự báo tương ứng $\hat{y} = [48, 64, 70, 95]$.<br>
+        Tổng hợp đã tính sẵn: tổng sai số tuyệt đối là 16, tổng bình phương sai số là 70, tổng tỷ lệ sai số đối tuyệt đối là 0.2290.</p>
 
         <div class="calc-step">
-            <div class="step-desc">1. Tính dự báo Quý 1 năm sau ($t=13, h=1$)</div>
+            <div class="step-desc">1. Tính Sai số tuyệt đối trung bình (MAE)</div>
             <div class="input-row">
-                <span class="input-label">$\hat{y}_{13} = $</span>
-                <input type="text" class="blank-input" data-ans="166.4" data-tol="0.1" placeholder="Nhập số...">
-                <span class="hint-text">triệu VNĐ</span>
+                <span class="input-label">$\text{MAE} = $</span>
+                <input type="text" class="blank-input" data-ans="4.0" data-tol="0.05" placeholder="Nhập số...">
             </div>
         </div>
 
         <div class="calc-step">
-            <div class="step-desc">2. Tính dự báo Quý 2 năm sau ($t=14, h=2$)</div>
+            <div class="step-desc">2. Tính Căn bậc hai sai số bình phương trung bình (RMSE)</div>
             <div class="input-row">
-                <span class="input-label">$\hat{y}_{14} = $</span>
-                <input type="text" class="blank-input" data-ans="237.6" data-tol="0.1" placeholder="Nhập số...">
-                <span class="hint-text">triệu VNĐ</span>
+                <span class="input-label">$\text{RMSE} = $</span>
+                <input type="text" class="blank-input" data-ans="4.183" data-tol="0.05" placeholder="Nhập số...">
+            </div>
+        </div>
+
+        <div class="calc-step">
+            <div class="step-desc">3. Tính Phần trăm sai số tuyệt đối trung bình (MAPE theo %)</div>
+            <div class="input-row">
+                <span class="input-label">$\text{MAPE} = $</span>
+                <input type="text" class="blank-input" data-ans="5.725" data-tol="0.05" placeholder="Nhập số...">
+                <span class="hint-text">%</span>
             </div>
         </div>
 
         <button class="btn-toggle-sol" onclick="toggleSolution('sol3')">Xem giải thích bản chất & lời giải</button>
         <div id="sol3" class="solution-box">
             <p><strong>Lời giải chi tiết:</strong></p>
-            <p>• Với mô hình nhân, công thức phóng chiếu là $(l_t + h \cdot b_t) \times s_{t+h-m}$.</p>
-            <p>• Quý 1 năm sau ($t=13, h=1$, lấy $s_9 = 0.80$): $\hat{y}_{13} = (200.0 + 1 \times 8.0) \times 0.80 = 208.0 \times 0.80 = 166.4$ triệu VNĐ.</p>
-            <p>• Quý 2 năm sau ($t=14, h=2$, lấy $s_{10} = 1.10$): $\hat{y}_{14} = (200.0 + 2 \times 8.0) \times 1.10 = 216.0 \times 1.10 = 237.6$ triệu VNĐ.</p>
+            <p>• $\text{MAE} = \frac{1}{4} \sum |e_t| = \frac{16}{4} = 4.0$.</p>
+            <p>• $\text{MSE} = \frac{70}{4} = 17.5 \implies \text{RMSE} = \sqrt{17.5} \approx 4.1833 \approx 4.183$.</p>
+            <p>• $\text{MAPE} = \frac{100\%}{4} \sum \frac{|e_t|}{y_t} = \frac{0.2290}{4} \times 100\% = 0.05725 \times 100\% = 5.725\%$.</p>
         </div>
     </div>
 </div>

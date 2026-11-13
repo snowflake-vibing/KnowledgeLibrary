@@ -231,5 +231,5 @@ $$
 
 ## 6. BÀI TẬP VẬN DỤNG & THỰC HÀNH TƯƠNG TÁC
 
-Hãy mở tập tin bài tập tương tác điền khuyết công thức và tự tính toán con số tại:
-[bai_tap_tinh_toan.html](file:///d:/KnowledgeLibrary/HMTK/tutorial/04_machine_learning_time_series_regression/bai_tap_tinh_toan.html)
+Hãy mở tập tin bài tập tương tác kiểm tra kiến trúc và tự tính toán con số tại:
+[bai_tap_tinh_toan.html](file:///d:/KnowledgeLibrary/time-series/04_machine_learning_time_series_regression/bai_tap_tinh_toan.html)

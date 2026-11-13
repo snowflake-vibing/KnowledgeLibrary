@@ -185,3 +185,10 @@ $$
 4. **Dự báo cho Quý 1 năm 3 ($t=9$):**
    * Xu hướng: $\hat{T}_9 = 36.5 + 8.5(9) = 36.5 + 76.5 = 113.0$ triệu VNĐ.
    * Dự báo điều chỉnh mùa vụ: $\hat{y}_9 = \hat{T}_9 \times S_1 = 113.0 \times 0.6950 = 78.535$ triệu VNĐ.
+
+---
+
+## 6. BÀI TẬP VẬN DỤNG & THỰC HÀNH TƯƠNG TÁC
+
+Hãy mở tập tin bài tập tương tác kiểm tra kiến trúc và tự tính toán con số tại:
+[bai_tap_tinh_toan.html](file:///d:/KnowledgeLibrary/time-series/01_nen_tang_va_phan_ra_chuoi_thoi_gian/bai_tap_tinh_toan.html)

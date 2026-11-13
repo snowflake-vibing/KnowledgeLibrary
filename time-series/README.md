@@ -18,9 +18,9 @@ Nhằm giúp học viên không chỉ nắm bắt khái niệm trừu tượng m
 >    - Mọi công thức được định dạng chuẩn LaTeX/KaTeX (đặt trên các dòng riêng biệt theo chuẩn GitHub Markdown).
 >    - Phân tích cặn kẽ ý nghĩa từng ký hiệu, giả định mô hình và điều kiện áp dụng.
 >    - Luôn có **Ví dụ tính tay bằng số thực từng bước (Step-by-step Worked Example)** để học viên đối chiếu trước khi làm bài tập.
-> 2. **`bai_tap_tinh_toan.html` (Ứng dụng Tương tác Điền khuyết & Tự tính toán Số liệu):**
+> 2. **`bai_tap_tinh_toan.html` (Ứng dụng Tương tác Tự tính toán Số liệu):**
 >    - Giao diện Web hiện đại (Dark/Light Slate UI, hỗ trợ KaTeX render công thức sắc nét).
->    - Thiết kế dưới dạng **Bài tập điền khuyết số học (Fill-in-the-blank Numerical Exercises)** cho cả các bước tính trung gian lẫn kết quả dự báo cuối cùng.
+>    - Thiết kế dưới dạng **Bài tập tự tính toán số học (Numerical Hands-on Exercises)** từ dữ liệu thô và siêu tham số mà không in sẵn công thức.
 >    - Chấm điểm tự động, phản hồi tức thời (Input đổi màu xanh lá khi chính xác, đỏ khi sai).
 >    - Cung cấp nút *"Xem lời giải & Công thức chi tiết"* để học viên tự kiểm tra tư duy tính toán của mình.
 
@@ -49,7 +49,7 @@ flowchart LR
   - Thuật toán Trung bình trượt trung tâm (Centered Moving Average - CMA), phương pháp Tỷ số trên trung bình trượt (Ratio-to-Moving Average).
   - Các thước đo sai số dự báo cốt lõi: $\text{MAE}$, $\text{MSE}$, $\text{RMSE}$, $\text{MAPE}$, $\text{sMAPE}$.
 * **Tài liệu lý thuyết:** [`ly_thuyet.md`](./01_nen_tang_va_phan_ra_chuoi_thoi_gian/ly_thuyet.md)
-* **Bài tập điền khuyết tương tác:** [`bai_tap_tinh_toan.html`](./01_nen_tang_va_phan_ra_chuoi_thoi_gian/bai_tap_tinh_toan.html)
+* **Bài tập tính toán tương tác:** [`bai_tap_tinh_toan.html`](./01_nen_tang_va_phan_ra_chuoi_thoi_gian/bai_tap_tinh_toan.html)
 
 ---
 
@@ -60,7 +60,7 @@ flowchart LR
   - Phương pháp Holt-Winters (Triple Exponential Smoothing): Kết hợp Level, Trend và Thành phần Mùa vụ (Additive và Multiplicative).
   - Quy tắc khởi tạo giá trị ban đầu và ý nghĩa các tham số san bằng $\alpha, \beta, \gamma \in [0, 1]$.
 * **Tài liệu lý thuyết:** [`ly_thuyet.md`](./02_san_bang_ham_mu_exponential_smoothing/ly_thuyet.md)
-* **Bài tập điền khuyết tương tác:** [`bai_tap_tinh_toan.html`](./02_san_bang_ham_mu_exponential_smoothing/bai_tap_tinh_toan.html)
+* **Bài tập tính toán tương tác:** [`bai_tap_tinh_toan.html`](./02_san_bang_ham_mu_exponential_smoothing/bai_tap_tinh_toan.html)
 
 ---
 
@@ -72,7 +72,7 @@ flowchart LR
   - Mở rộng đa mùa vụ $\text{SARIMA}(p, d, q)(P, D, Q)_s$.
   - Công thức tính tay dự báo $h$ bước tới: $y_{t+h|t}$, tính phần dư $\epsilon_t$, và phương sai sai số dự báo $\sigma_h^2$.
 * **Tài liệu lý thuyết:** [`ly_thuyet.md`](./03_mo_hinh_arima_va_sarima/ly_thuyet.md)
-* **Bài tập điền khuyết tương tác:** [`bai_tap_tinh_toan.html`](./03_mo_hinh_arima_va_sarima/bai_tap_tinh_toan.html)
+* **Bài tập tính toán tương tác:** [`bai_tap_tinh_toan.html`](./03_mo_hinh_arima_va_sarima/bai_tap_tinh_toan.html)
 
 ---
 
@@ -84,7 +84,7 @@ flowchart LR
   - Chiến lược chia tập dữ liệu chống rò rỉ (Expanding Window & Rolling Window Cross-Validation).
   - Ứng dụng mô hình Hồi quy tuyến tính, Random Forest, LightGBM và XGBoost trên dữ liệu bảng trích xuất.
 * **Tài liệu lý thuyết:** [`ly_thuyet.md`](./04_machine_learning_time_series_regression/ly_thuyet.md)
-* **Bài tập điền khuyết tương tác:** [`bai_tap_tinh_toan.html`](./04_machine_learning_time_series_regression/bai_tap_tinh_toan.html)
+* **Bài tập tính toán tương tác:** [`bai_tap_tinh_toan.html`](./04_machine_learning_time_series_regression/bai_tap_tinh_toan.html)
 
 ---
 
@@ -100,7 +100,7 @@ flowchart LR
     * Trạng thái ẩn (Hidden State Output): $h_t = o_t \odot \tanh(C_t)$
   - Quy trình tính tay từng vector trọng số và phép nhân Hadamard $\odot$ qua các bước thời gian.
 * **Tài liệu lý thuyết:** [`ly_thuyet.md`](./05_deep_learning_rnn_lstm_forecasting/ly_thuyet.md)
-* **Bài tập điền khuyết tương tác:** [`bai_tap_tinh_toan.html`](./05_deep_learning_rnn_lstm_forecasting/bai_tap_tinh_toan.html)
+* **Bài tập tính toán tương tác:** [`bai_tap_tinh_toan.html`](./05_deep_learning_rnn_lstm_forecasting/bai_tap_tinh_toan.html)
 
 ---
 
