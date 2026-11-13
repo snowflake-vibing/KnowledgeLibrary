@@ -6,7 +6,11 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
 
 ## 📚 Danh mục môn học
 
-### 1. [HMTK – Học Máy Thống Kê (DS102)](HMTK/TH4/README.md)
+### 1. [HMTK – Học Máy Thống Kê (DS102)](HMTK/tutorial/README.md)
+- **[Chuyên Đề Tự Học: Hồi Quy Tuyến Tính & Quy Tắc Hóa (Chương 4 UIT)](HMTK/tutorial/README.md)** ([Quy chuẩn chuyên đề](HMTK/tutorial/rule.md))
+  1. [Chuyên đề 01: Hồi quy tuyến tính & Phương pháp LSM](HMTK/tutorial/01_hoi_quy_tuyen_tinh_va_phuong_phap_lsm/ly_thuyet.md) ([Bài tập](HMTK/tutorial/01_hoi_quy_tuyen_tinh_va_phuong_phap_lsm/bai_tap_tinh_toan.html))
+  2. [Chuyên đề 02: Đánh giá & Kiểm định mô hình (ANOVA & R²)](HMTK/tutorial/02_danh_gia_kiem_dinh_mo_hinh_anova_va_r2/ly_thuyet.md) ([Bài tập](HMTK/tutorial/02_danh_gia_kiem_dinh_mo_hinh_anova_va_r2/bai_tap_tinh_toan.html))
+  3. [Chuyên đề 03: Hồi quy quy tắc hóa: Ridge, Lasso & Elastic Net](HMTK/tutorial/03_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net/ly_thuyet.md) ([Bài tập](HMTK/tutorial/03_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net/bai_tap_tinh_toan.html))
 - **[Bài Thực Hành 4 (TH4): Huấn luyện Mô hình Học máy](HMTK/TH4/README.md)**
   - [Báo cáo phân tích nhiệm vụ TH4](HMTK/TH4/phan_tich_nhiem_vu.md) (Dự đoán mức lương & Xác thực tranh cổ)
 
