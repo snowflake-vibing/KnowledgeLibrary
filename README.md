@@ -11,6 +11,10 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
   1. [Chuyên đề 01: Hồi quy tuyến tính & Phương pháp LSM](HMTK/tutorial/01_hoi_quy_tuyen_tinh_va_phuong_phap_lsm/ly_thuyet.md) ([Bài tập](HMTK/tutorial/01_hoi_quy_tuyen_tinh_va_phuong_phap_lsm/bai_tap_tinh_toan.html))
   2. [Chuyên đề 02: Đánh giá & Kiểm định mô hình (ANOVA & R²)](HMTK/tutorial/02_danh_gia_kiem_dinh_mo_hinh_anova_va_r2/ly_thuyet.md) ([Bài tập](HMTK/tutorial/02_danh_gia_kiem_dinh_mo_hinh_anova_va_r2/bai_tap_tinh_toan.html))
   3. [Chuyên đề 03: Hồi quy quy tắc hóa: Ridge, Lasso & Elastic Net](HMTK/tutorial/03_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net/ly_thuyet.md) ([Bài tập](HMTK/tutorial/03_hoi_quy_quy_tac_hoa_ridge_lasso_elastic_net/bai_tap_tinh_toan.html))
+- **[Đồ Án 3 (Project 3): Huấn luyện Mô hình Học máy Thực chiến](HMTK/project-3/README.md)**
+  - [Hướng dẫn Tác vụ 1: Dự đoán Mức lương (Salary Prediction - BGOAI)](HMTK/project-3/01_salary_prediction_guide.md)
+  - [Hướng dẫn Tác vụ 2: Xác thực Tranh cổ (Antique Paintings - IOAI)](HMTK/project-3/02_antique_paintings_guide.md)
+  - [Checklist & Mẫu lời giải thích Markdown tự nhiên (Non-AI)](HMTK/project-3/03_checklist_va_mau_markdown.md)
 - **[Bài Thực Hành 4 (TH4): Huấn luyện Mô hình Học máy](HMTK/TH4/README.md)**
   - [Báo cáo phân tích nhiệm vụ TH4](HMTK/TH4/phan_tich_nhiem_vu.md) (Dự đoán mức lương & Xác thực tranh cổ)
 
