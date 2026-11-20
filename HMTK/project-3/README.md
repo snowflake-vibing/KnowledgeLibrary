@@ -68,6 +68,8 @@ MSSV.zip
 | **`02_antique_paintings_guide.md`** | Bản chất bài toán hiếm nhãn IOAI, lý giải thất bại của Supervised Baseline, thuật toán Spectral Clustering & Label Spreading, huấn luyện RBF SVM cảm nạp. | [Xem hướng dẫn Task 2](file:///d:/KnowledgeLibrary/HMTK/project-3/02_antique_paintings_guide.md) |
 | **`03_checklist_va_mau_markdown.md`** | Checklist kiểm tra chất lượng trước khi nén zip + Kho đoạn văn Markdown mẫu chuẩn học thuật tự nhiên (không AI) sẵn sàng chèn vào Notebook. | [Xem Checklist & Mẫu Markdown](file:///d:/KnowledgeLibrary/HMTK/project-3/03_checklist_va_mau_markdown.md) |
 | **`04_huong_dan_setup_kaggle.md`** | Hướng dẫn chi tiết cách cấu hình môi trường Kaggle Notebooks (GPU/Internet), tải gọn dữ liệu GitHub bằng `sparse-checkout` và xuất file `.ipynb` chuẩn nộp bài. | [Xem hướng dẫn Kaggle](file:///d:/KnowledgeLibrary/HMTK/project-3/04_huong_dan_setup_kaggle.md) |
+| **`ket_qua_salary_prediction.md`** | Giải thích chi tiết cách làm, quy trình 5-Fold CV & OOF Blending và báo cáo kết quả thực tế của `salary_prediction.ipynb` (Test MAE = `7.256`). | [Xem kết quả Task 1](file:///d:/KnowledgeLibrary/HMTK/project-3/ket_qua_salary_prediction.md) |
+| **`ket_qua_antique_paintings.md`** | Giải thích phát hiện EDA phương sai, quy trình Spectral Clustering + Anchor Labeling + RBF-SVM và báo cáo kết quả của `antique_paintings_classification.ipynb` (Test Acc = `98.60%`). | [Xem kết quả Task 2](file:///d:/KnowledgeLibrary/HMTK/project-3/ket_qua_antique_paintings.md) |
 
 ---
 
