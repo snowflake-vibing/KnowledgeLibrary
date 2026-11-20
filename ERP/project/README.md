@@ -6,9 +6,10 @@
 
 ## Danh Mục Tài Liệu Kế Hoạch & Thiết Kế Trong `ERP/project`
 
-1. **[ke_hoach_M4_chuong2_va_UAT.md](file:///d:/KnowledgeLibrary/ERP/project/ke_hoach_M4_chuong2_va_UAT.md)** — **Kế hoạch thực hiện Task Chương 2, Luồng S4 & Kịch bản UAT Final cho Thành viên M4 (Bán hàng B2B & B2C)**.
-2. **[rule-BPMN.md](file:///d:/KnowledgeLibrary/ERP/project/rule-BPMN.md)** — Bộ quy chuẩn thiết kế sơ đồ BPMN 2.0 trên Draw.io XML (Chuẩn Thinhnotes & Stencil `mxgraph.bpmn`).
-3. **[sprint-1/README.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/README.md)** — Kế hoạch Sprint 1, đặc tả yêu cầu ([requirements.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/requirements.md)), mã XML Draw.io ([bpmn_crm.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/bpmn_crm.md)) và sơ đồ Mermaid ([bpmn_crm_mermaid.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/bpmn_crm_mermaid.md)) cho phân hệ CRM.  
+1. **[ke_hoach_M4_chuong1.md](file:///d:/KnowledgeLibrary/ERP/project/ke_hoach_M4_chuong1.md)** — **Kế hoạch thực hiện Task Chương 1 cho Thành viên M4 (Giải pháp thay thế tính năng Enterprise bằng Module tự viết & Ký Hợp đồng B2B trên Portal `nr_contract_sign`)**.
+2. **[ke_hoach_M4_chuong2_va_UAT.md](file:///d:/KnowledgeLibrary/ERP/project/ke_hoach_M4_chuong2_va_UAT.md)** — **Kế hoạch thực hiện Task Chương 2, Luồng S4 & Kịch bản UAT Final cho Thành viên M4 (Bán hàng B2B & B2C)**.
+3. **[rule-BPMN.md](file:///d:/KnowledgeLibrary/ERP/project/rule-BPMN.md)** — Bộ quy chuẩn thiết kế sơ đồ BPMN 2.0 trên Draw.io XML (Chuẩn Thinhnotes & Stencil `mxgraph.bpmn`).
+4. **[sprint-1/README.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/README.md)** — Kế hoạch Sprint 1, đặc tả yêu cầu ([requirements.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/requirements.md)), mã XML Draw.io ([bpmn_crm.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/bpmn_crm.md)) và sơ đồ Mermaid ([bpmn_crm_mermaid.md](file:///d:/KnowledgeLibrary/ERP/project/sprint-1/bpmn_crm_mermaid.md)) cho phân hệ CRM.  
 
 ---
 
