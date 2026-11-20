@@ -15,6 +15,7 @@ Kho lưu trữ tài liệu học tập, bài giảng chuyên đề và thực h�
   - [Hướng dẫn Tác vụ 1: Dự đoán Mức lương (Salary Prediction - BGOAI)](HMTK/project-3/01_salary_prediction_guide.md)
   - [Hướng dẫn Tác vụ 2: Xác thực Tranh cổ (Antique Paintings - IOAI)](HMTK/project-3/02_antique_paintings_guide.md)
   - [Checklist & Mẫu lời giải thích Markdown tự nhiên (Non-AI)](HMTK/project-3/03_checklist_va_mau_markdown.md)
+  - [Hướng dẫn setup & chạy bài trên Kaggle Notebooks](HMTK/project-3/04_huong_dan_setup_kaggle.md)
 - **[Bài Thực Hành 4 (TH4): Huấn luyện Mô hình Học máy](HMTK/TH4/README.md)**
   - [Báo cáo phân tích nhiệm vụ TH4](HMTK/TH4/phan_tich_nhiem_vu.md) (Dự đoán mức lương & Xác thực tranh cổ)
 

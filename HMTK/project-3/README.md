@@ -67,6 +67,7 @@ MSSV.zip
 | **`01_salary_prediction_guide.md`** | Phân tích tập dữ liệu lương Glassdoor, kỹ nghệ trích xuất đặc trưng chức danh & kỹ năng, chiến lược 5-Fold CV và huấn luyện mô hình CatBoost/XGBoost. | [Xem hướng dẫn Task 1](file:///d:/KnowledgeLibrary/HMTK/project-3/01_salary_prediction_guide.md) |
 | **`02_antique_paintings_guide.md`** | Bản chất bài toán hiếm nhãn IOAI, lý giải thất bại của Supervised Baseline, thuật toán Spectral Clustering & Label Spreading, huấn luyện RBF SVM cảm nạp. | [Xem hướng dẫn Task 2](file:///d:/KnowledgeLibrary/HMTK/project-3/02_antique_paintings_guide.md) |
 | **`03_checklist_va_mau_markdown.md`** | Checklist kiểm tra chất lượng trước khi nén zip + Kho đoạn văn Markdown mẫu chuẩn học thuật tự nhiên (không AI) sẵn sàng chèn vào Notebook. | [Xem Checklist & Mẫu Markdown](file:///d:/KnowledgeLibrary/HMTK/project-3/03_checklist_va_mau_markdown.md) |
+| **`04_huong_dan_setup_kaggle.md`** | Hướng dẫn chi tiết cách cấu hình môi trường Kaggle Notebooks (GPU/Internet), tải gọn dữ liệu GitHub bằng `sparse-checkout` và xuất file `.ipynb` chuẩn nộp bài. | [Xem hướng dẫn Kaggle](file:///d:/KnowledgeLibrary/HMTK/project-3/04_huong_dan_setup_kaggle.md) |
 
 ---
 
